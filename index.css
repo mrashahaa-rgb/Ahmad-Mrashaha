@@ -842,6 +842,9 @@ html[dir="rtl"] .sources-list {
     font-weight: 500;
     color: var(--primary-hover-color);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .praktikum-company-info .website-link:hover {
     text-decoration: underline;
