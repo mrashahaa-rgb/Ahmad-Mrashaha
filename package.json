@@ -1,21 +1,13 @@
 {
-  "name": "copy-of-توجيه-مهني-مع-ahmad-mrashaha",
+  "name": "career-advisor",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "marked": "^15.0.8",
-    "@google/genai": "latest"
+    "build": "vite build"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
   }
 }

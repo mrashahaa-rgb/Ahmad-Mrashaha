@@ -2,7 +2,8 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import { GoogleGenAI } from "@google/genai";
+// FIX: Import `Type` enum for defining the response schema.
+import { GoogleGenAI, Type } from "@google/genai";
 import { marked } from 'marked';
 import { quizQuestions, translations, professions } from './data.js';
 
@@ -801,29 +802,30 @@ const renderPraktikumSearch = () => {
 const getAIResults = async () => {
   setState({ currentView: 'loading' });
 
+  // FIX: Use the `Type` enum for the response schema definition as per Gemini API guidelines.
   const schema = {
-    type: 'OBJECT',
+    type: Type.OBJECT,
     properties: {
-      userName: { type: 'STRING' },
+      userName: { type: Type.STRING },
       personalitySummary: {
-        type: 'STRING',
+        type: Type.STRING,
         description: t('schemaPersonality'),
       },
       jobSuggestions: {
-        type: 'ARRAY',
+        type: Type.ARRAY,
         description: t('schemaJobSuggestions'),
         items: {
-          type: 'OBJECT',
+          type: Type.OBJECT,
           properties: {
-            title: { type: 'STRING', description: t('schemaTitle') },
-            description: { type: 'STRING', description: t('schemaDescription') },
-            details: { type: 'STRING', description: t('schemaDetails') },
+            title: { type: Type.STRING, description: t('schemaTitle') },
+            description: { type: Type.STRING, description: t('schemaDescription') },
+            details: { type: Type.STRING, description: t('schemaDetails') },
           },
           required: ["title", "description", "details"],
         },
       },
       careerAdvice: {
-        type: 'STRING',
+        type: Type.STRING,
         description: t('schemaCareerAdvice'),
       },
     },
