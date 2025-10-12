@@ -1,3 +1,5 @@
+
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -98,7 +100,8 @@ const renderLanguageSwitcher = () => {
 
     langSwitcherContainer.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const lang = (e.currentTarget as HTMLElement).dataset.lang;
+            // FIX: Cast currentTarget to HTMLButtonElement to access dataset.
+            const lang = (e.currentTarget as HTMLButtonElement).dataset.lang;
             if (lang) {
                 localStorage.setItem('preferredLanguage', lang); // Save language preference
                 setState({ currentLanguage: lang });
@@ -203,7 +206,9 @@ const renderAdminLogin = () => {
 
     document.getElementById('login-form').addEventListener('submit', (e) => {
         e.preventDefault();
+        // FIX: Cast element to HTMLInputElement to access value property.
         const user = (document.getElementById('username') as HTMLInputElement).value;
+        // FIX: Cast element to HTMLInputElement to access value property.
         const pass = (document.getElementById('password') as HTMLInputElement).value;
         if (user === 'admin' && pass === '12345') {
             setState({ isAdminAuthenticated: true, currentView: 'savedResultsList', loginError: null });
@@ -289,6 +294,7 @@ const renderQuiz = () => {
     let newUserAge = state.userAge;
     
     if (question.type === 'text' || question.type === 'number') {
+        // FIX: Cast element to HTMLInputElement or HTMLTextAreaElement to access value property.
         const value = (document.getElementById('quiz-input') as HTMLInputElement | HTMLTextAreaElement).value;
         if (!value && question.id !== 'name' && question.id !== 'age') return; // Allow empty name/age for now
         newAnswers[state.currentQuestionIndex] = value;
@@ -297,6 +303,7 @@ const renderQuiz = () => {
     } else {
         const selectedButton = document.querySelector('.option-btn.selected');
         if (!selectedButton) return;
+        // FIX: Cast element to HTMLElement to access dataset property.
         newAnswers[state.currentQuestionIndex] = (selectedButton as HTMLElement).dataset.option;
     }
     
@@ -306,16 +313,20 @@ const renderQuiz = () => {
   if (question.type !== 'text' && question.type !== 'number') {
     document.querySelectorAll('.option-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        // FIX: Cast currentTarget to HTMLElement to access classList.
         const clickedButton = e.currentTarget as HTMLElement;
         // Visual selection without re-render
         document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+        // FIX: Use the casted variable.
         clickedButton.classList.add('selected');
         
         // Add animation class for feedback
+        // FIX: Use the casted variable.
         clickedButton.classList.add('clicked');
         
         // Remove animation class after it finishes to allow re-triggering
         clickedButton.addEventListener('animationend', () => {
+          // FIX: Use the casted variable.
           clickedButton.classList.remove('clicked');
         }, { once: true });
       });
@@ -442,6 +453,7 @@ const renderResults = async (results, isNew) => {
   
   if (isNew && !isAlreadySaved) {
       document.getElementById('save-btn').addEventListener('click', (e) => {
+          // FIX: Cast e.target to HTMLButtonElement to access its properties.
           const button = e.target as HTMLButtonElement;
           const newSavedResults = [...state.savedResults, results];
           localStorage.setItem('careerResults', JSON.stringify(newSavedResults));
@@ -497,7 +509,8 @@ const renderSavedResultsList = () => {
 
     document.querySelectorAll('.view-details-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const index = parseInt((e.currentTarget as HTMLElement).dataset.index);
+            // FIX: Cast currentTarget to HTMLElement to access dataset property.
+            const index = parseInt((e.currentTarget as HTMLElement).dataset.index, 10);
             setState({ currentView: 'results', activeReport: state.savedResults[index], isNewReport: false });
         });
     });
@@ -505,7 +518,8 @@ const renderSavedResultsList = () => {
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             if (window.confirm(t('confirmDeleteReport'))) {
-                const index = parseInt((e.currentTarget as HTMLElement).dataset.index);
+                // FIX: Cast currentTarget to HTMLElement to access dataset property.
+                const index = parseInt((e.currentTarget as HTMLElement).dataset.index, 10);
                 const newResults = state.savedResults.filter((_, i) => i !== index);
                 localStorage.setItem('careerResults', JSON.stringify(newResults));
                 setState({ savedResults: newResults });
@@ -566,11 +580,13 @@ const renderProfessionsList = () => {
     `;
 
     document.getElementById('search-professions').addEventListener('input', (e) => {
+        // FIX: Cast e.target to HTMLInputElement to access value property.
         setState({ professionsSearchTerm: (e.target as HTMLInputElement).value, professionsCurrentPage: 1 });
     });
     
     document.querySelectorAll('.filter-buttons button').forEach(btn => {
         btn.addEventListener('click', (e) => {
+            // FIX: Cast currentTarget to HTMLElement to access dataset property.
             setState({ professionsFilter: (e.currentTarget as HTMLElement).dataset.filter, professionsCurrentPage: 1 });
         });
     });
@@ -628,7 +644,9 @@ const renderJobSearch = async () => {
 
     document.getElementById('job-search-form').addEventListener('submit', (e) => {
         e.preventDefault();
+        // FIX: Cast element to HTMLInputElement to access value property.
         const jobTitle = (document.getElementById('job-title-input') as HTMLInputElement).value;
+        // FIX: Cast element to HTMLInputElement to access value property.
         const location = (document.getElementById('location-input') as HTMLInputElement).value;
         getLiveJobs(jobTitle, location);
     });
@@ -724,8 +742,11 @@ const renderPraktikumSearch = () => {
     
     document.getElementById('praktikum-search-form').addEventListener('submit', (e) => {
         e.preventDefault();
+        // FIX: Cast element to HTMLInputElement to access value property.
         const field = (document.getElementById('field-input') as HTMLInputElement).value;
+        // FIX: Cast element to HTMLInputElement to access value property.
         const location = (document.getElementById('location-input') as HTMLInputElement).value;
+        // FIX: Cast element to HTMLSelectElement to access value property.
         const type = (document.getElementById('internship-type-select') as HTMLSelectElement).value;
         // Save the type to state before searching
         state.praktikumSearchState.internshipType = type;
@@ -734,6 +755,7 @@ const renderPraktikumSearch = () => {
     
     document.querySelectorAll('.select-company-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
+            // FIX: Cast currentTarget to HTMLElement to access dataset property.
             const index = parseInt((e.currentTarget as HTMLElement).dataset.index, 10);
             setState({ 
                 praktikumSearchState: {
@@ -748,15 +770,19 @@ const renderPraktikumSearch = () => {
     if (selectedCompany && !generatedEmail) {
          document.getElementById('email-gen-form').addEventListener('submit', (e) => {
             e.preventDefault();
+            // FIX: Cast element to HTMLInputElement to access value property.
             const userName = (document.getElementById('user-name-email') as HTMLInputElement).value;
+            // FIX: Cast element to HTMLInputElement to access value property.
             generateInquiryEmail(userName, selectedCompany.name, (document.getElementById('field-input') as HTMLInputElement).value, state.praktikumSearchState.internshipType);
         });
     }
 
     if (generatedEmail) {
         document.getElementById('copy-email-btn').addEventListener('click', (e) => {
+            // FIX: Cast element to HTMLTextAreaElement to access value property.
             const emailText = (document.getElementById('email-output') as HTMLTextAreaElement).value;
             navigator.clipboard.writeText(emailText).then(() => {
+                // FIX: Cast e.target to HTMLButtonElement to access its properties.
                 const btn = e.target as HTMLButtonElement;
                 const originalText = t('copyEmail');
                 
@@ -984,7 +1010,7 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
     }
 };
 
-const renderApp = (oldView?: string) => {
+const renderApp = (oldView) => {
   // Update static text elements
   headerTitle.textContent = t('headerTitle');
   footerText.textContent = t('footerText');
