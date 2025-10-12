@@ -879,6 +879,23 @@ html[dir="rtl"] .sources-list {
     margin-top: 1rem;
 }
 
+/* Style for the 'Copied' button feedback */
+.btn.copied-success {
+    background-image: none;
+    background-color: #2ecc71; /* Success green */
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    cursor: default;
+    transform: none !important; /* Override hover transform */
+}
+
+/* Ensure no visual change on hover for the success state */
+.btn.copied-success:hover {
+    background-color: #2ecc71;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+
 /* Saved Reports & Admin Login Styles */
 .admin-login-container {
     max-width: 450px;

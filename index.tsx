@@ -758,8 +758,20 @@ const renderPraktikumSearch = () => {
             const emailText = (document.getElementById('email-output') as HTMLTextAreaElement).value;
             navigator.clipboard.writeText(emailText).then(() => {
                 const btn = e.target as HTMLButtonElement;
-                btn.textContent = t('copied');
-                setTimeout(() => { btn.textContent = t('copyEmail'); }, 2000);
+                const originalText = t('copyEmail');
+                
+                btn.classList.add('copied-success');
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                    ${t('copied')}
+                `;
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied-success');
+                    btn.disabled = false;
+                }, 2000);
             });
         });
     }
