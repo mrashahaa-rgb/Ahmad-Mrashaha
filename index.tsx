@@ -44,7 +44,7 @@ let state = {
     selectedCompany: null,
     generatedEmail: null,
     error: null,
-    internshipType: 'orientation', // Default value
+    internshipType: '', // Default value changed to empty for placeholder
   },
   isAdminAuthenticated: false,
   loginError: null,
@@ -54,11 +54,10 @@ let state = {
 
 const PROFESSIONS_PAGE_SIZE = 20;
 
-const setState = (newState) => {
+const setState = (newState, skipRender = false) => {
   const oldView = state.currentView;
 
   // Simple history tracking for the back button
-  // We add to history if the view changes and we are not explicitly navigating back.
   if (newState.currentView && newState.currentView !== oldView && !newState.isNavigatingBack) {
       state.viewHistory.push(newState.currentView);
   }
@@ -68,7 +67,10 @@ const setState = (newState) => {
   delete finalNewState.isNavigatingBack;
 
   state = { ...state, ...finalNewState };
-  renderApp(oldView);
+  
+  if (!skipRender) {
+    renderApp(oldView);
+  }
 };
 
 
@@ -525,7 +527,13 @@ const renderSavedResultsList = () => {
     attachTopNavListeners();
 };
 
-const renderProfessionsList = () => {
+// --- START: Refactored Professions List for Smoother UX ---
+const updateProfessionsContent = () => {
+    const professionsGrid = document.getElementById('professions-grid');
+    const paginationControls = document.getElementById('pagination-controls');
+
+    if (!professionsGrid || !paginationControls) return;
+
     const allProfessions = professions.filter(p => {
         const term = state.professionsSearchTerm.toLowerCase();
         const title = p.title[state.currentLanguage]?.toLowerCase() || '';
@@ -534,11 +542,50 @@ const renderProfessionsList = () => {
         return matchesTerm && matchesFilter;
     });
 
-    const totalPages = Math.ceil(allProfessions.length / PROFESSIONS_PAGE_SIZE);
+    let totalPages = Math.ceil(allProfessions.length / PROFESSIONS_PAGE_SIZE);
+    if (totalPages === 0) totalPages = 1;
+
+    if (state.professionsCurrentPage > totalPages) {
+        state.professionsCurrentPage = totalPages;
+    }
+
     const startIndex = (state.professionsCurrentPage - 1) * PROFESSIONS_PAGE_SIZE;
     const endIndex = startIndex + PROFESSIONS_PAGE_SIZE;
     const paginatedProfessions = allProfessions.slice(startIndex, endIndex);
 
+    professionsGrid.innerHTML = paginatedProfessions.length > 0 ? paginatedProfessions.map(p => `
+        <div class="profession-card">
+            <h3>${p.title[state.currentLanguage]}</h3>
+            <div class="profession-card-details">
+                <p><strong>${t('duration')}:</strong> ${p.duration[state.currentLanguage]}</p>
+                <p><strong>${t('salary')}:</strong> ${p.salary[state.currentLanguage]}</p>
+                <p><strong>${t('requirements')}:</strong> ${p.requirements[state.currentLanguage]}</p>
+                <p><strong>${t('duties')}:</strong> ${p.duties[state.currentLanguage]}</p>
+            </div>
+        </div>
+    `).join('') : `<p>${t('noJobsFound')}</p>`;
+
+    paginationControls.innerHTML = `
+        <button id="prev-page" class="btn secondary" ${state.professionsCurrentPage <= 1 ? 'disabled' : ''}>${t('back')}</button>
+        <span class="page-info">${t('page')} ${state.professionsCurrentPage} / ${totalPages}</span>
+        <button id="next-page" class="btn secondary" ${state.professionsCurrentPage >= totalPages ? 'disabled' : ''}>${t('next')}</button>
+    `;
+
+    if (state.professionsCurrentPage > 1) {
+        document.getElementById('prev-page').addEventListener('click', () => {
+            setState({ professionsCurrentPage: state.professionsCurrentPage - 1 }, true);
+            updateProfessionsContent();
+        });
+    }
+    if (state.professionsCurrentPage < totalPages) {
+        document.getElementById('next-page').addEventListener('click', () => {
+            setState({ professionsCurrentPage: state.professionsCurrentPage + 1 }, true);
+            updateProfessionsContent();
+        });
+    }
+};
+
+const renderProfessionsList = () => {
     root.innerHTML = `
         <div class="container professions-container">
             ${renderTopNav()}
@@ -553,48 +600,32 @@ const renderProfessionsList = () => {
                     <button class="btn secondary ${state.professionsFilter === 'job' ? 'active' : ''}" data-filter="job">${t('job')}</button>
                 </div>
             </div>
-            <div id="professions-grid">
-                ${paginatedProfessions.map(p => `
-                    <div class="profession-card">
-                        <h3>${p.title[state.currentLanguage]}</h3>
-                        <div class="profession-card-details">
-                            <p><strong>${t('duration')}:</strong> ${p.duration[state.currentLanguage]}</p>
-                            <p><strong>${t('salary')}:</strong> ${p.salary[state.currentLanguage]}</p>
-                            <p><strong>${t('requirements')}:</strong> ${p.requirements[state.currentLanguage]}</p>
-                            <p><strong>${t('duties')}:</strong> ${p.duties[state.currentLanguage]}</p>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-             <div class="pagination-controls">
-                <button id="prev-page" class="btn secondary" ${state.professionsCurrentPage === 1 ? 'disabled' : ''}>${t('back')}</button>
-                <span class="page-info">${t('page')} ${state.professionsCurrentPage} / ${totalPages}</span>
-                <button id="next-page" class="btn secondary" ${state.professionsCurrentPage === totalPages ? 'disabled' : ''}>${t('next')}</button>
-            </div>
+            <div id="professions-grid"></div>
+            <div id="pagination-controls" class="pagination-controls"></div>
         </div>
     `;
+    
+    updateProfessionsContent();
 
     document.getElementById('search-professions').addEventListener('input', (e) => {
-        // FIX: Cast target to HTMLInputElement to access value
-        setState({ professionsSearchTerm: (e.target as HTMLInputElement).value, professionsCurrentPage: 1 });
+        setState({ professionsSearchTerm: (e.target as HTMLInputElement).value, professionsCurrentPage: 1 }, true);
+        updateProfessionsContent();
     });
     
     document.querySelectorAll('.filter-buttons button').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // FIX: Cast currentTarget to HTMLButtonElement to access dataset
-            setState({ professionsFilter: (e.currentTarget as HTMLButtonElement).dataset.filter, professionsCurrentPage: 1 });
+            const button = e.currentTarget as HTMLButtonElement;
+            document.querySelectorAll('.filter-buttons button').forEach(b => b.classList.remove('active'));
+            button.classList.add('active');
+            
+            setState({ professionsFilter: button.dataset.filter, professionsCurrentPage: 1 }, true);
+            updateProfessionsContent();
         });
     });
 
-    if (state.professionsCurrentPage > 1) {
-        document.getElementById('prev-page').addEventListener('click', () => setState({ professionsCurrentPage: state.professionsCurrentPage - 1 }));
-    }
-    if (state.professionsCurrentPage < totalPages) {
-        document.getElementById('next-page').addEventListener('click', () => setState({ professionsCurrentPage: state.professionsCurrentPage + 1 }));
-    }
-
     attachTopNavListeners();
-}
+};
+// --- END: Refactored Professions List ---
 
 const renderJobSearch = async () => {
     let resultsContent = '';
@@ -715,11 +746,15 @@ const renderPraktikumSearch = () => {
                 <div class="praktikum-search-inputs">
                     <input type="text" id="field-input" placeholder="${t('fieldPlaceholder')}" required>
                     <input type="text" id="location-input" placeholder="${t('locationPlaceholder')}" required>
-                    <select id="internship-type-select">
-                        <option value="orientation" ${internshipType === 'orientation' ? 'selected' : ''}>${t('internshipTypeOrientation')}</option>
-                        <option value="school" ${internshipType === 'school' ? 'selected' : ''}>${t('internshipTypeSchool')}</option>
-                        <option value="ausbildung" ${internshipType === 'ausbildung' ? 'selected' : ''}>${t('internshipTypeAusbildung')}</option>
-                    </select>
+                    <div class="form-input-group">
+                        <label for="internship-type-select">${t('internshipTypeLabel')}</label>
+                        <select id="internship-type-select" required>
+                            <option value="" disabled ${!internshipType ? 'selected' : ''}>${t('internshipTypePlaceholder')}</option>
+                            <option value="orientation" ${internshipType === 'orientation' ? 'selected' : ''}>${t('internshipTypeOrientation')}</option>
+                            <option value="school" ${internshipType === 'school' ? 'selected' : ''}>${t('internshipTypeSchool')}</option>
+                            <option value="ausbildung" ${internshipType === 'ausbildung' ? 'selected' : ''}>${t('internshipTypeAusbildung')}</option>
+                        </select>
+                    </div>
                 </div>
                 <button type="submit" class="btn" ${isLoadingCompany ? 'disabled' : ''}>
                      ${isLoadingCompany ? t('loading') : t('praktikumSearchBtn')}
@@ -852,9 +887,8 @@ const getAIResults = async () => {
       },
     });
 
-    // FIX: A common issue across Gemini SDK versions is whether .text is a property or a method.
-    // Using .text() is safer for compatibility.
-    const resultJson = JSON.parse(response.text());
+    // FIX: Per Gemini API guidelines, `response.text` is a property, not a method.
+    const resultJson = JSON.parse(response.text.trim());
     resultJson.savedDate = new Date().toISOString(); // Add timestamp for unique ID
     setState({ currentView: 'results', activeReport: resultJson, isNewReport: true });
 
@@ -923,9 +957,8 @@ const getPraktikumOpportunity = async (field, location) => {
             },
         });
         
-        // FIX: A common issue across Gemini SDK versions is whether .text is a property or a method.
-        // Using .text() is safer for compatibility.
-        let jsonString = response.text().trim();
+        // FIX: Per Gemini API guidelines, `response.text` is a property, not a method.
+        let jsonString = response.text.trim();
         const jsonMatch = jsonString.match(/```json\s*([\s\S]*?)\s*```/);
         if (jsonMatch && jsonMatch[1]) {
             jsonString = jsonMatch[1];
@@ -936,9 +969,8 @@ const getPraktikumOpportunity = async (field, location) => {
            try {
               companyList = JSON.parse(jsonString);
            } catch (parseError) {
-               // FIX: A common issue across Gemini SDK versions is whether .text is a property or a method.
-               // Using .text() is safer for compatibility.
-               console.error("Failed to parse AI response as JSON:", parseError, "Raw text:", response.text());
+               // FIX: Per Gemini API guidelines, `response.text` is a property, not a method.
+               console.error("Failed to parse AI response as JSON:", parseError, "Raw text:", response.text);
                throw new Error("AI returned an invalid data format.");
            }
         }
@@ -992,10 +1024,8 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
             praktikumSearchState: {
                 ...state.praktikumSearchState,
                 isLoadingEmail: false,
-                // FIX: The error on line 1069 indicates a problem within this function's try block.
-                // A common issue across Gemini SDK versions is whether .text is a property or a method.
-                // Using .text() is safer for compatibility and likely resolves the underlying error.
-                generatedEmail: response.text(),
+                // FIX: Per Gemini API guidelines, `response.text` is a property, not a method.
+                generatedEmail: response.text,
             }
         });
 
@@ -1011,7 +1041,8 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
     }
 };
 
-const renderApp = (oldView) => {
+// FIX: Add a default value to `oldView` to allow calling `renderApp` without arguments on initial load.
+const renderApp = (oldView = undefined) => {
   // Update static text elements
   headerTitle.textContent = t('headerTitle');
   footerText.textContent = t('footerText');

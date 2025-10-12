@@ -752,6 +752,7 @@ html[dir="rtl"] .profession-card-details strong {
 @media (min-width: 600px) {
     .job-search-inputs, .praktikum-search-inputs {
         flex-direction: row;
+        align-items: flex-end; /* Align to bottom for visual consistency */
     }
 }
 .job-search-inputs input, .praktikum-search-inputs input, .praktikum-search-inputs select {
@@ -763,6 +764,25 @@ html[dir="rtl"] .profession-card-details strong {
     font-family: var(--font-family);
     background-color: white;
 }
+
+/* Style for select placeholder */
+.praktikum-search-inputs select:required:invalid {
+    color: #7f8c8d;
+}
+
+.form-input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input-group label {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
 .job-search-results, .praktikum-results-list {
     margin-top: 2rem;
 }
