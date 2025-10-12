@@ -852,7 +852,9 @@ const getAIResults = async () => {
       },
     });
 
-    const resultJson = JSON.parse(response.text);
+    // FIX: A common issue across Gemini SDK versions is whether .text is a property or a method.
+    // Using .text() is safer for compatibility.
+    const resultJson = JSON.parse(response.text());
     resultJson.savedDate = new Date().toISOString(); // Add timestamp for unique ID
     setState({ currentView: 'results', activeReport: resultJson, isNewReport: true });
 
@@ -921,7 +923,9 @@ const getPraktikumOpportunity = async (field, location) => {
             },
         });
         
-        let jsonString = response.text.trim();
+        // FIX: A common issue across Gemini SDK versions is whether .text is a property or a method.
+        // Using .text() is safer for compatibility.
+        let jsonString = response.text().trim();
         const jsonMatch = jsonString.match(/```json\s*([\s\S]*?)\s*```/);
         if (jsonMatch && jsonMatch[1]) {
             jsonString = jsonMatch[1];
@@ -932,7 +936,9 @@ const getPraktikumOpportunity = async (field, location) => {
            try {
               companyList = JSON.parse(jsonString);
            } catch (parseError) {
-               console.error("Failed to parse AI response as JSON:", parseError, "Raw text:", response.text);
+               // FIX: A common issue across Gemini SDK versions is whether .text is a property or a method.
+               // Using .text() is safer for compatibility.
+               console.error("Failed to parse AI response as JSON:", parseError, "Raw text:", response.text());
                throw new Error("AI returned an invalid data format.");
            }
         }
@@ -986,7 +992,10 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
             praktikumSearchState: {
                 ...state.praktikumSearchState,
                 isLoadingEmail: false,
-                generatedEmail: response.text,
+                // FIX: The error on line 1069 indicates a problem within this function's try block.
+                // A common issue across Gemini SDK versions is whether .text is a property or a method.
+                // Using .text() is safer for compatibility and likely resolves the underlying error.
+                generatedEmail: response.text(),
             }
         });
 
