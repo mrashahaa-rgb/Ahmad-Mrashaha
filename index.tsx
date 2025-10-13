@@ -1011,7 +1011,7 @@ const renderPraktikumSearch = (state) => {
 
 const getAIResults = async () => {
   if (!ai) {
-    const errorMessage = t('errorText') + ' (API Key not configured)';
+    const errorMessage = t('errorText') + t('apiKeyNotConfiguredError');
     root.innerHTML = `<div class="container" style="text-align: center;"><p class="error-message">${errorMessage}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
     document.getElementById('restart-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
     return;
@@ -1063,14 +1063,18 @@ const getAIResults = async () => {
 
   } catch(error) {
     console.error("Error fetching AI results:", error);
-    root.innerHTML = `<div class="container" style="text-align: center;"><p class="error-message">${t('errorText')}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
+    let errorMessage = t('errorText');
+    if (error instanceof Error && error.message.toLowerCase().includes('api key not valid')) {
+        errorMessage += t('invalidApiKeyError');
+    }
+    root.innerHTML = `<div class="container" style="text-align: center;"><p class="error-message">${errorMessage}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
     document.getElementById('restart-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
   }
 };
 
 const getLiveJobs = async (jobTitle, location) => {
     if (!ai) {
-        store.dispatch({ type: 'JOB_SEARCH_ERROR', payload: `${t('errorText')} (API Key not configured)` });
+        store.dispatch({ type: 'JOB_SEARCH_ERROR', payload: `${t('errorText')}${t('apiKeyNotConfiguredError')}` });
         return;
     }
     store.dispatch({ type: 'JOB_SEARCH_START' });
@@ -1089,13 +1093,17 @@ const getLiveJobs = async (jobTitle, location) => {
 
     } catch(error) {
         console.error("Error fetching live jobs:", error);
-        store.dispatch({ type: 'JOB_SEARCH_ERROR', payload: t('errorText') });
+        let errorMessage = t('errorText');
+        if (error instanceof Error && error.message.toLowerCase().includes('api key not valid')) {
+            errorMessage += t('invalidApiKeyError');
+        }
+        store.dispatch({ type: 'JOB_SEARCH_ERROR', payload: errorMessage });
     }
 }
 
 const getPraktikumOpportunity = async (field, location, internshipType) => {
     if (!ai) {
-        store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_ERROR', payload: `${t('errorText')} (API Key not configured)` });
+        store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_ERROR', payload: `${t('errorText')}${t('apiKeyNotConfiguredError')}` });
         return;
     }
     store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_START', payload: internshipType });
@@ -1133,13 +1141,17 @@ const getPraktikumOpportunity = async (field, location, internshipType) => {
 
     } catch(error) {
         console.error("Error fetching Praktikum opportunity:", error);
-        store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_ERROR', payload: t('praktikumSearchError') });
+        let errorMessage = t('praktikumSearchError');
+        if (error instanceof Error && error.message.toLowerCase().includes('api key not valid')) {
+            errorMessage += t('invalidApiKeyError');
+        }
+        store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_ERROR', payload: errorMessage });
     }
 }
 
 const generateInquiryEmail = async (userName, companyName, field, internshipType) => {
     if (!ai) {
-        store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_ERROR', payload: `${t('errorText')} (API Key not configured)` });
+        store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_ERROR', payload: `${t('errorText')}${t('apiKeyNotConfiguredError')}` });
         return;
     }
     store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_START' });
@@ -1161,7 +1173,11 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
         store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_SUCCESS', payload: response.text });
     } catch (error) {
          console.error("Error generating inquiry email:", error);
-         store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_ERROR', payload: t('errorText') });
+         let errorMessage = t('errorText');
+         if (error instanceof Error && error.message.toLowerCase().includes('api key not valid')) {
+            errorMessage += t('invalidApiKeyError');
+         }
+         store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_ERROR', payload: errorMessage });
     }
 };
 
