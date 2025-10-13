@@ -1042,7 +1042,7 @@ html[dir="rtl"] .sources-list {
 
 /* Saved Reports & Admin Login Styles */
 .admin-login-container {
-    max-width: 450px;
+    max-width: 550px; /* Increased width */
     margin: 0 auto;
     text-align: center;
 }
@@ -1071,6 +1071,48 @@ html[dir="rtl"] .sources-list {
     margin-top: 1rem;
     font-weight: 500;
 }
+
+/* API Key Status Checker in Admin Login */
+.api-status-checker {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+.api-status-checker h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.api-status-checker p {
+    margin-bottom: 1.5rem;
+    color: #555;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#api-status-result {
+    margin-top: 1rem;
+    min-height: 2rem;
+}
+.api-status-message {
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    animation: fadeIn 0.3s;
+}
+.api-status-message.ok {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.api-status-message.invalid,
+.api-status-message.not_set {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
 
 .saved-reports-header {
     display: flex;

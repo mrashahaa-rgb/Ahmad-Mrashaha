@@ -61,6 +61,11 @@ const initialState = {
   loginError: null,
   activeReport: null,
   isNewReport: false,
+  apiKeyCheck: {
+    isLoading: false,
+    status: 'unchecked', // 'unchecked', 'checking', 'ok', 'invalid', 'not_set'
+    message: '',
+  },
 };
 
 // 2. Create the Reducer Function
@@ -196,6 +201,10 @@ const appReducer = (state, action) => {
             ...state,
             praktikumSearchState: { ...state.praktikumSearchState, internshipType: action.payload }
         };
+    case 'API_KEY_CHECK_START':
+        return { ...state, apiKeyCheck: { isLoading: true, status: 'checking', message: '' } };
+    case 'API_KEY_CHECK_RESULT':
+        return { ...state, apiKeyCheck: { isLoading: false, status: action.payload.status, message: action.payload.message } };
     case 'SET_VIEW_LOADING':
         return { ...state, currentView: 'loading', viewHistory: [...state.viewHistory, 'loading'] };
     default:
@@ -369,6 +378,13 @@ const attachTopNavListeners = () => {
 };
 
 const renderAdminLogin = (state) => {
+    const { isLoading, status, message } = state.apiKeyCheck;
+
+    let statusHtml = '';
+    if (status !== 'unchecked') {
+        statusHtml = `<p class="api-status-message ${status}">${message}</p>`;
+    }
+
     root.innerHTML = `
         <div class="container admin-login-container">
             ${renderTopNav(state)}
@@ -379,6 +395,17 @@ const renderAdminLogin = (state) => {
                 <button type="submit" class="btn">${t('login')}</button>
             </form>
             ${state.loginError ? `<p class="error-message">${state.loginError}</p>` : ''}
+            
+            <div class="api-status-checker">
+                <h2>${t('apiKeyStatus')}</h2>
+                <p>${t('apiKeyStatusDesc')}</p>
+                <button id="check-api-key-btn" class="btn secondary" ${isLoading ? 'disabled' : ''}>
+                    ${isLoading ? t('checkingApiKey') : t('checkApiKey')}
+                </button>
+                <div id="api-status-result">
+                    ${statusHtml}
+                </div>
+            </div>
         </div>
     `;
 
@@ -392,6 +419,8 @@ const renderAdminLogin = (state) => {
             store.dispatch({ type: 'LOGIN_FAIL', payload: t('invalidCredentials') });
         }
     });
+
+    document.getElementById('check-api-key-btn').addEventListener('click', performApiKeyCheck);
     attachTopNavListeners();
 }
 
@@ -1044,6 +1073,37 @@ const handleApiError = (error, dispatchActionCreator, defaultErrorKey = 'errorTe
         document.getElementById('restart-btn')?.addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
     }
 }
+
+const performApiKeyCheck = async () => {
+    store.dispatch({ type: 'API_KEY_CHECK_START' });
+
+    if (!API_KEY || !ai) {
+        store.dispatch({ type: 'API_KEY_CHECK_RESULT', payload: { status: 'not_set', message: t('apiKeyStatusNotSet') } });
+        return;
+    }
+
+    try {
+        await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: 'test' });
+        store.dispatch({ type: 'API_KEY_CHECK_RESULT', payload: { status: 'ok', message: t('apiKeyStatusOK') } });
+    } catch (error) {
+        console.error("API Key Check Failed:", error);
+        let errorMessageKey = 'invalidApiKeyError';
+        if (error instanceof Error) {
+            const apiKeyErrorMessages = [
+                'api key not valid',
+                'permission denied',
+                'api_key',
+                'bad request',
+                '[400]',
+            ];
+            const lowerCaseErrorMessage = error.message.toLowerCase();
+            if (apiKeyErrorMessages.some(msg => lowerCaseErrorMessage.includes(msg))) {
+                errorMessageKey = 'apiKeyStatusInvalid';
+            }
+        }
+        store.dispatch({ type: 'API_KEY_CHECK_RESULT', payload: { status: 'invalid', message: t(errorMessageKey) } });
+    }
+};
 
 const getAIResults = async () => {
   if (!ai) {
