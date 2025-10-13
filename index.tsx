@@ -15,7 +15,16 @@ const footerText = document.getElementById('footer-text');
 const langSwitcherContainer = document.getElementById('lang-switcher');
 const headerActionsContainer = document.getElementById('header-actions');
 
-const ai = new GoogleGenAI({ apiKey: API_KEY });
+let ai;
+if (API_KEY) {
+  try {
+    ai = new GoogleGenAI({ apiKey: API_KEY });
+  } catch (e) {
+    console.error("Failed to initialize GoogleGenAI. AI features will be disabled.", e);
+  }
+} else {
+    console.error("API_KEY environment variable not set. AI features will be disabled.");
+}
 
 // --- START: CENTRALIZED STATE MANAGEMENT (REFACTOR) ---
 
@@ -813,7 +822,7 @@ const renderJobSearch = (state) => {
     if (isLoading) {
         resultsContent = `<div class="inline-loader-container"><div class="loader"></div><p>${t('jobSearchLoading')}</p></div>`;
     } else if (error) {
-        resultsContent = `<p class="error-text">${error}</p>`;
+        resultsContent = `<p class="error-message">${error}</p>`;
     } else if (results) {
         resultsContent = `
             <div class="job-search-results">
@@ -1001,6 +1010,13 @@ const renderPraktikumSearch = (state) => {
 // --- LOGIC ---
 
 const getAIResults = async () => {
+  if (!ai) {
+    const errorMessage = t('errorText') + ' (API Key not configured)';
+    root.innerHTML = `<div class="container" style="text-align: center;"><p class="error-message">${errorMessage}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
+    document.getElementById('restart-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
+    return;
+  }
+
   store.dispatch({ type: 'SET_VIEW_LOADING' });
   const state = store.getState();
 
@@ -1047,12 +1063,16 @@ const getAIResults = async () => {
 
   } catch(error) {
     console.error("Error fetching AI results:", error);
-    root.innerHTML = `<div class="container" style="text-align: center;"><p>${t('errorText')}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
+    root.innerHTML = `<div class="container" style="text-align: center;"><p class="error-message">${t('errorText')}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
     document.getElementById('restart-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
   }
 };
 
 const getLiveJobs = async (jobTitle, location) => {
+    if (!ai) {
+        store.dispatch({ type: 'JOB_SEARCH_ERROR', payload: `${t('errorText')} (API Key not configured)` });
+        return;
+    }
     store.dispatch({ type: 'JOB_SEARCH_START' });
 
     const prompt = t('jobSearchPrompt').replace('{jobTitle}', jobTitle).replace('{location}', location);
@@ -1074,6 +1094,10 @@ const getLiveJobs = async (jobTitle, location) => {
 }
 
 const getPraktikumOpportunity = async (field, location, internshipType) => {
+    if (!ai) {
+        store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_ERROR', payload: `${t('errorText')} (API Key not configured)` });
+        return;
+    }
     store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_START', payload: internshipType });
 
     const prompt = t('praktikumSearchPrompt').replace('{field}', field).replace('{location}', location);
@@ -1114,6 +1138,10 @@ const getPraktikumOpportunity = async (field, location, internshipType) => {
 }
 
 const generateInquiryEmail = async (userName, companyName, field, internshipType) => {
+    if (!ai) {
+        store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_ERROR', payload: `${t('errorText')} (API Key not configured)` });
+        return;
+    }
     store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_START' });
     
     const typeKey = `internshipType${internshipType.charAt(0).toUpperCase() + internshipType.slice(1)}`;
