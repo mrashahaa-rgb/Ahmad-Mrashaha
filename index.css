@@ -1,3 +1,18 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+*/
+/* Universal box-sizing for predictable layouts */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 :root {
   --primary-color: #c0392b; /* A strong red */
   --primary-hover-color: #e74c3c; /* A brighter red for hover */
@@ -140,7 +155,7 @@ main {
 
 #root {
   width: 100%;
-  max-width: 900px;
+  max-width: 1400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -188,6 +203,44 @@ main {
     height: auto;
     border-radius: 3px;
     flex-shrink: 0;
+}
+
+.welcome-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+.main-welcome-card {
+  flex: 2;
+}
+
+.side-project-box {
+  flex: 1;
+  background-color: var(--card-bg-color);
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 2px dashed var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #adb5bd;
+}
+
+.side-project-box h3 {
+  color: #adb5bd;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.side-project-box p {
+  color: #ced4da;
+  font-size: 1rem;
+  margin-bottom: 0;
 }
 
 .welcome-container {
@@ -289,7 +342,7 @@ p {
 /* New Welcome Actions Grid */
 .welcome-actions {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-top: 2.5rem;
     width: 100%;
@@ -343,11 +396,20 @@ p {
     color: rgba(255, 255, 255, 0.9);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 600px) {
     .welcome-actions {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .action-card.span-2 {
+        grid-column: span 2;
     }
 }
+@media (min-width: 900px) {
+    .welcome-actions {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 
 /* Top Navigation */
 .top-nav-container {
@@ -737,6 +799,65 @@ html[dir="rtl"] .profession-card-details strong {
     margin-top: 2rem;
 }
 
+/* Career Videos Styles */
+.video-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+@media (min-width: 900px) {
+    .video-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.video-card {
+    background-color: var(--card-bg-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.video-card h3 {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.video-embed-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 16 / 9; /* Modern way to maintain aspect ratio */
+    margin-bottom: 1rem;
+}
+
+.video-embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.video-card-duties {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+
 /* Job Search & Praktikum Styles */
 .job-search-form, .praktikum-search-form {
     display: flex;
@@ -1016,6 +1137,53 @@ html[dir="rtl"] .sources-list {
     background-color: #c0392b;
 }
 
+/* Locked Card and Maintenance Page Styles */
+.action-card.locked {
+    background: #f8f9fa; /* Light gray background */
+    border-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.action-card.locked:hover {
+    transform: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.action-card.locked h3,
+.action-card.locked p {
+    color: #adb5bd; /* Muted text color */
+}
+
+.action-card.locked h3 .lock-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    color: #adb5bd;
+}
+html[dir="rtl"] .action-card.locked h3 .lock-icon {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+.maintenance-container {
+    text-align: center;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+.maintenance-icon {
+    color: #ced4da; /* A light gray for the big icon */
+    margin-bottom: 1.5rem;
+}
+.maintenance-container h1 {
+    color: var(--text-color);
+}
+.maintenance-container p {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #555;
+}
+
 
 @media print {
     body {
@@ -1056,6 +1224,19 @@ html[dir="rtl"] .sources-list {
 /*          Responsive Design          */
 /* =================================== */
 
+@media (max-width: 1200px) {
+  .side-project-box {
+    display: none;
+  }
+  .welcome-wrapper {
+    justify-content: center;
+  }
+  #root {
+    max-width: 900px;
+  }
+}
+
+
 @media (max-width: 768px) {
     body {
         font-size: 15px;
@@ -1064,6 +1245,7 @@ html[dir="rtl"] .sources-list {
 
     .lang-btn {
         padding: 0.6rem 1rem; /* Increase tap area for better mobile UX */
+        justify-content: center; /* Center content for grid layout */
     }
 
     .header-container {
@@ -1075,6 +1257,15 @@ html[dir="rtl"] .sources-list {
     .header-right {
         width: 100%;
         justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap; /* Allow items to wrap on small screens */
+        gap: 1rem; /* Space between items when they wrap */
+    }
+
+    #lang-switcher {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
     }
 
     main {
@@ -1082,15 +1273,22 @@ html[dir="rtl"] .sources-list {
     }
 
     .container {
-        padding: 1.5rem;
+        padding: 1.5rem 1rem;
     }
 
     h1 {
         font-size: 2.2rem;
+        margin-bottom: 0.75rem;
     }
     
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
     .question-text {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
     }
 
     .quiz-nav {
@@ -1148,6 +1346,7 @@ html[dir="rtl"] .sources-list {
         width: 100%;
         display: flex;
         justify-content: flex-end;
+        padding: 0;
     }
 }
 
@@ -1160,6 +1359,10 @@ html[dir="rtl"] .sources-list {
        font-size: 1.8rem;
     }
 
+    p {
+        font-size: 0.95rem;
+    }
+
     header h1 {
         font-size: 1.5rem;
     }
@@ -1169,11 +1372,15 @@ html[dir="rtl"] .sources-list {
     }
     
     .action-card {
-        padding: 1.5rem 1rem;
+        padding: 1.25rem 1rem;
     }
     
     .action-card h3 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+    }
+    
+    .action-card p {
+        font-size: 0.9rem;
     }
 
     .professions-controls .filter-buttons {

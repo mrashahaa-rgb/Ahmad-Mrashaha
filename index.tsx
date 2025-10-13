@@ -17,13 +17,15 @@ const headerActionsContainer = document.getElementById('header-actions');
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
-// Application State
-const savedLang = localStorage.getItem('preferredLanguage') || 'ar';
+// --- START: CENTRALIZED STATE MANAGEMENT (REFACTOR) ---
 
-let state = {
-  currentView: 'welcome', // welcome, quiz, loading, results, professionsList, jobSearch, praktikumSearch, adminLogin, savedResultsList
+const PROFESSIONS_PAGE_SIZE = 20;
+
+// 1. Define the Initial State
+const initialState = {
+  currentView: 'welcome',
   viewHistory: ['welcome'],
-  currentLanguage: savedLang,
+  currentLanguage: localStorage.getItem('preferredLanguage') || 'ar',
   currentQuestionIndex: 0,
   userName: '',
   userAge: '',
@@ -44,7 +46,7 @@ let state = {
     selectedCompany: null,
     generatedEmail: null,
     error: null,
-    internshipType: '', // Default value changed to empty for placeholder
+    internshipType: '',
   },
   isAdminAuthenticated: false,
   loginError: null,
@@ -52,37 +54,185 @@ let state = {
   isNewReport: false,
 };
 
-const PROFESSIONS_PAGE_SIZE = 20;
-
-const setState = (newState, skipRender = false) => {
-  const oldView = state.currentView;
-
-  // Simple history tracking for the back button
-  if (newState.currentView && newState.currentView !== oldView && !newState.isNavigatingBack) {
-      state.viewHistory.push(newState.currentView);
-  }
-
-  // Make a copy of newState and remove the temporary flag so it's not saved in state
-  const finalNewState = { ...newState };
-  delete finalNewState.isNavigatingBack;
-
-  state = { ...state, ...finalNewState };
-  
-  if (!skipRender) {
-    renderApp(oldView);
+// 2. Create the Reducer Function
+// This function is the only place where state can be modified.
+const appReducer = (state, action) => {
+  switch (action.type) {
+    case 'NAVIGATE_TO':
+      return {
+        ...state,
+        currentView: action.payload,
+        viewHistory: [...state.viewHistory, action.payload],
+      };
+    case 'NAVIGATE_BACK': {
+      if (state.viewHistory.length <= 1) {
+        return { ...state, currentView: 'welcome', viewHistory: ['welcome'] };
+      }
+      const newHistory = [...state.viewHistory];
+      newHistory.pop();
+      return {
+        ...state,
+        currentView: newHistory[newHistory.length - 1],
+        viewHistory: newHistory,
+      };
+    }
+    case 'NAVIGATE_HOME':
+      return {
+        ...state,
+        currentView: 'welcome',
+        viewHistory: ['welcome'],
+      };
+    case 'SET_LANGUAGE':
+      return { ...state, currentLanguage: action.payload };
+    case 'START_QUIZ':
+      return {
+        ...state,
+        currentView: 'quiz',
+        viewHistory: [...state.viewHistory, 'quiz'],
+        currentQuestionIndex: 0,
+        userAnswers: new Array(quizQuestions[state.currentLanguage].length).fill(null),
+      };
+    case 'SET_QUESTION_INDEX':
+      return { ...state, currentQuestionIndex: action.payload };
+    case 'SET_USER_ANSWERS':
+      return {
+          ...state,
+          userAnswers: action.payload.answers,
+          userName: action.payload.name,
+          userAge: action.payload.age,
+      };
+    case 'LOGIN_SUCCESS':
+      return {
+        ...state,
+        isAdminAuthenticated: true,
+        loginError: null,
+        currentView: 'savedResultsList',
+        viewHistory: [...state.viewHistory, 'savedResultsList'],
+      };
+    case 'LOGIN_FAIL':
+      return { ...state, loginError: action.payload };
+    case 'LOGOUT':
+      return {
+        ...state,
+        isAdminAuthenticated: false,
+        loginError: null,
+        currentView: 'welcome',
+        viewHistory: ['welcome'],
+      };
+    case 'LOAD_SAVED_RESULTS':
+      return { ...state, savedResults: action.payload };
+    case 'SET_SAVED_RESULTS':
+        // This action is used for adding/deleting without a full re-render
+        return { ...state, savedResults: action.payload };
+    case 'SET_ACTIVE_REPORT':
+        return {
+            ...state,
+            activeReport: action.payload.report,
+            isNewReport: action.payload.isNew,
+            currentView: 'results',
+            viewHistory: [...state.viewHistory, 'results'],
+        };
+    case 'SET_PROFESSIONS_STATE':
+        return {
+            ...state,
+            professionsSearchTerm: action.payload.searchTerm,
+            professionsFilter: action.payload.filter,
+            professionsCurrentPage: action.payload.page,
+        };
+    // Job Search Actions
+    case 'JOB_SEARCH_START':
+      return { ...state, jobSearchState: { isLoading: true, results: null, error: null } };
+    case 'JOB_SEARCH_SUCCESS':
+      return { ...state, jobSearchState: { isLoading: false, results: action.payload, error: null } };
+    case 'JOB_SEARCH_ERROR':
+      return { ...state, jobSearchState: { isLoading: false, results: null, error: action.payload } };
+    // Praktikum Search Actions
+    case 'PRAKTIKUM_COMPANY_SEARCH_START':
+        return {
+            ...state,
+            praktikumSearchState: { ...initialState.praktikumSearchState, internshipType: action.payload, isLoadingCompany: true }
+        };
+    case 'PRAKTIKUM_COMPANY_SEARCH_SUCCESS':
+        return {
+            ...state,
+            praktikumSearchState: { ...state.praktikumSearchState, isLoadingCompany: false, companyList: action.payload, error: null }
+        };
+    case 'PRAKTIKUM_COMPANY_SEARCH_ERROR':
+        return {
+            ...state,
+            praktikumSearchState: { ...state.praktikumSearchState, isLoadingCompany: false, error: action.payload }
+        };
+    case 'PRAKTIKUM_SELECT_COMPANY':
+        return {
+            ...state,
+            praktikumSearchState: { ...state.praktikumSearchState, selectedCompany: action.payload, generatedEmail: null }
+        };
+    case 'PRAKTIKUM_EMAIL_GEN_START':
+        return {
+            ...state,
+            praktikumSearchState: { ...state.praktikumSearchState, isLoadingEmail: true, generatedEmail: null }
+        };
+    case 'PRAKTIKUM_EMAIL_GEN_SUCCESS':
+        return {
+            ...state,
+            praktikumSearchState: { ...state.praktikumSearchState, isLoadingEmail: false, generatedEmail: action.payload }
+        };
+    case 'PRAKTIKUM_EMAIL_GEN_ERROR':
+        return {
+            ...state,
+            praktikumSearchState: { ...state.praktikumSearchState, isLoadingEmail: false, error: action.payload }
+        };
+    case 'SET_INTERNSHIP_TYPE':
+        return {
+            ...state,
+            praktikumSearchState: { ...state.praktikumSearchState, internshipType: action.payload }
+        };
+    case 'SET_VIEW_LOADING':
+        return { ...state, currentView: 'loading', viewHistory: [...state.viewHistory, 'loading'] };
+    default:
+      return state;
   }
 };
 
+// 3. Create a Simple Store
+const createStore = (reducer, initialState) => {
+  let state = initialState;
+  const listeners = [];
+
+  const getState = () => state;
+
+  const dispatch = (action) => {
+    state = reducer(state, action);
+    listeners.forEach(listener => listener(state));
+  };
+
+  const subscribe = (listener) => {
+    listeners.push(listener);
+    return () => { // Returns an unsubscribe function
+      const index = listeners.indexOf(listener);
+      if (index > -1) {
+        listeners.splice(index, 1);
+      }
+    };
+  };
+
+  return { getState, dispatch, subscribe };
+};
+
+// 4. Instantiate the Store
+const store = createStore(appReducer, initialState);
+
+// --- END: CENTRALIZED STATE MANAGEMENT (REFACTOR) ---
 
 const t = (key) => {
-  return translations[state.currentLanguage][key] || key;
+  return translations[store.getState().currentLanguage][key] || key;
 };
 
 const loadSavedResults = () => {
     try {
         const saved = localStorage.getItem('careerResults');
         if (saved) {
-            setState({ savedResults: JSON.parse(saved) });
+            store.dispatch({ type: 'LOAD_SAVED_RESULTS', payload: JSON.parse(saved) });
         }
     } catch (e) {
         console.error("Could not load saved results.", e);
@@ -90,9 +240,9 @@ const loadSavedResults = () => {
     }
 }
 
-// --- RENDER FUNCTIONS ---
+// --- RENDER FUNCTIONS (Now receive state as a parameter) ---
 
-const renderLanguageSwitcher = () => {
+const renderLanguageSwitcher = (state) => {
     langSwitcherContainer.innerHTML = Object.keys(translations).map(lang =>
         `<button class="lang-btn ${state.currentLanguage === lang ? 'active' : ''}" data-lang="${lang}">
             ${translations[lang].langName}
@@ -101,11 +251,10 @@ const renderLanguageSwitcher = () => {
 
     langSwitcherContainer.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // FIX: Cast currentTarget to HTMLButtonElement to access dataset
             const lang = (e.currentTarget as HTMLButtonElement).dataset.lang;
             if (lang) {
-                localStorage.setItem('preferredLanguage', lang); // Save language preference
-                setState({ currentLanguage: lang });
+                localStorage.setItem('preferredLanguage', lang);
+                store.dispatch({ type: 'SET_LANGUAGE', payload: lang });
                 document.documentElement.lang = lang;
                 document.documentElement.dir = translations[lang].dir;
             }
@@ -113,60 +262,90 @@ const renderLanguageSwitcher = () => {
     });
 };
 
-const renderHeaderActions = () => {
+const renderHeaderActions = (state) => {
     if (state.isAdminAuthenticated) {
         headerActionsContainer.innerHTML = `
             <button id="view-reports-btn" class="btn secondary">${t('viewReports')}</button>
             <button id="logout-btn" class="btn">${t('logout')}</button>
         `;
-        document.getElementById('view-reports-btn').addEventListener('click', () => setState({ currentView: 'savedResultsList' }));
-        document.getElementById('logout-btn').addEventListener('click', () => setState({ currentView: 'welcome', isAdminAuthenticated: false, loginError: null, viewHistory: ['welcome'] }));
+        document.getElementById('view-reports-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'savedResultsList' }));
+        document.getElementById('logout-btn').addEventListener('click', () => store.dispatch({ type: 'LOGOUT' }));
     } else {
         headerActionsContainer.innerHTML = `<button id="admin-login-btn" class="btn">${t('responsibleLogin')}</button>`;
-        document.getElementById('admin-login-btn').addEventListener('click', () => setState({ currentView: 'adminLogin' }));
+        document.getElementById('admin-login-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'adminLogin' }));
     }
 };
 
-const renderWelcome = () => {
-  root.innerHTML = `
-    <div class="container welcome-container">
-        <h1>${t('welcomeTitle')}</h1>
-        <p>${t('welcomeDesc')}</p>
-        <div class="welcome-actions">
-            <div id="start-quiz-card" class="action-card primary">
-                <h3>${t('startQuiz')}</h3>
-                <p>${t('startQuizDesc')}</p>
-            </div>
-            <div id="browse-professions-card" class="action-card">
-                <h3>${t('browseProfessions')}</h3>
-                <p>${t('browseProfessionsDesc')}</p>
-            </div>
-            <div id="job-search-card" class="action-card">
-                <h3>${t('searchAvailableJobs')}</h3>
-                <p>${t('searchAvailableJobsDesc')}</p>
-            </div>
-            <div id="praktikum-search-card" class="action-card">
-                <h3>${t('searchForPraktikum')}</h3>
-                <p>${t('searchForPraktikumDesc')}</p>
-            </div>
+const renderWelcome = (state) => {
+  const mainContentHTML = `
+    <h1>${t('welcomeTitle')}</h1>
+    <p>${t('welcomeDesc')}</p>
+    <div class="welcome-actions">
+        <div id="start-quiz-card" class="action-card primary span-2">
+            <h3>${t('startQuiz')}</h3>
+            <p>${t('startQuizDesc')}</p>
+        </div>
+        <div id="browse-professions-card" class="action-card">
+            <h3>${t('browseProfessions')}</h3>
+            <p>${t('browseProfessionsDesc')}</p>
+        </div>
+        <div id="job-search-card" class="action-card">
+            <h3>${t('searchAvailableJobs')}</h3>
+            <p>${t('searchAvailableJobsDesc')}</p>
+        </div>
+        <div id="praktikum-search-card" class="action-card">
+            <h3>${t('searchForPraktikum')}</h3>
+            <p>${t('searchForPraktikumDesc')}</p>
+        </div>
+        <div id="career-videos-card" class="action-card ${!state.isAdminAuthenticated ? 'locked' : ''}">
+            <h3>
+                ${!state.isAdminAuthenticated ? `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lock-icon"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                ` : ''}
+                ${t('careerPathVideos')}
+            </h3>
+            <p>${!state.isAdminAuthenticated ? t('underMaintenanceShort') : t('careerPathVideosDesc')}</p>
         </div>
     </div>
   `;
-  document.getElementById('start-quiz-card').addEventListener('click', () => setState({ currentView: 'quiz', currentQuestionIndex: 0, userAnswers: new Array(quizQuestions[state.currentLanguage].length).fill(null) }));
-  document.getElementById('browse-professions-card').addEventListener('click', () => setState({ currentView: 'professionsList' }));
-  document.getElementById('job-search-card').addEventListener('click', () => setState({ currentView: 'jobSearch' }));
-  document.getElementById('praktikum-search-card').addEventListener('click', () => setState({ currentView: 'praktikumSearch' }));
+
+  if (state.isAdminAuthenticated) {
+    root.innerHTML = `
+      <div class="welcome-wrapper">
+          <div class="side-project-box">
+              <h3>${t('futureProjectTitle')}</h3>
+              <p>${t('futureProjectDesc')}</p>
+          </div>
+          <div class="container welcome-container main-welcome-card">
+              ${mainContentHTML}
+          </div>
+          <div class="side-project-box">
+              <h3>${t('futureProjectTitle')}</h3>
+              <p>${t('futureProjectDesc')}</p>
+          </div>
+      </div>
+    `;
+  } else {
+    root.innerHTML = `
+      <div class="container welcome-container main-welcome-card">
+        ${mainContentHTML}
+      </div>
+    `;
+  }
+
+  document.getElementById('start-quiz-card').addEventListener('click', () => store.dispatch({ type: 'START_QUIZ' }));
+  document.getElementById('browse-professions-card').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'professionsList' }));
+  document.getElementById('career-videos-card').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'careerVideos' }));
+  document.getElementById('job-search-card').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'jobSearch' }));
+  document.getElementById('praktikum-search-card').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'praktikumSearch' }));
 };
 
-const renderTopNav = () => {
+const renderTopNav = (state) => {
     const isRTL = translations[state.currentLanguage].dir === 'rtl';
 
     const backButton = `<button id="top-back-btn" class="btn secondary small-btn">${t('back')}</button>`;
     const homeButton = `<button id="top-home-btn" class="btn secondary small-btn">${t('home')}</button>`;
 
-    // For LTR, the order is Back then Home, which space-between places correctly.
-    // For RTL, the flexbox starts on the right. To have the Home button on the right
-    // and the Back button on the left, the Home button must come first in the DOM.
     return `
         <div class="top-nav-container">
             ${isRTL ? homeButton : backButton}
@@ -176,25 +355,14 @@ const renderTopNav = () => {
 };
 
 const attachTopNavListeners = () => {
-    document.getElementById('top-home-btn')?.addEventListener('click', () => {
-        setState({ currentView: 'welcome', viewHistory: ['welcome'] });
-    });
-    document.getElementById('top-back-btn')?.addEventListener('click', () => {
-        if (state.viewHistory.length > 1) {
-            state.viewHistory.pop(); // Remove current view from history
-            const previousView = state.viewHistory[state.viewHistory.length - 1];
-            setState({ currentView: previousView, isNavigatingBack: true });
-        } else {
-            // If history is exhausted, just go to welcome
-            setState({ currentView: 'welcome', viewHistory: ['welcome'] });
-        }
-    });
+    document.getElementById('top-home-btn')?.addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
+    document.getElementById('top-back-btn')?.addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_BACK' }));
 };
 
-const renderAdminLogin = () => {
+const renderAdminLogin = (state) => {
     root.innerHTML = `
         <div class="container admin-login-container">
-            ${renderTopNav()}
+            ${renderTopNav(state)}
             <h1>${t('adminLogin')}</h1>
             <form id="login-form" class="login-form">
                 <input type="text" id="username" placeholder="${t('username')}" required>
@@ -207,19 +375,18 @@ const renderAdminLogin = () => {
 
     document.getElementById('login-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        // FIX: Cast elements to HTMLInputElement to access value property
         const user = (document.getElementById('username') as HTMLInputElement).value;
         const pass = (document.getElementById('password') as HTMLInputElement).value;
         if (user === 'admin' && pass === '12345') {
-            setState({ isAdminAuthenticated: true, currentView: 'savedResultsList', loginError: null });
+            store.dispatch({ type: 'LOGIN_SUCCESS' });
         } else {
-            setState({ loginError: t('invalidCredentials') });
+            store.dispatch({ type: 'LOGIN_FAIL', payload: t('invalidCredentials') });
         }
     });
     attachTopNavListeners();
 }
 
-const renderQuiz = () => {
+const renderQuiz = (state) => {
   const questions = quizQuestions[state.currentLanguage];
   if (!questions) {
       console.error("Quiz questions not loaded for language:", state.currentLanguage);
@@ -271,7 +438,7 @@ const renderQuiz = () => {
 
   root.innerHTML = `
     <div class="container quiz-container">
-      ${renderTopNav()}
+      ${renderTopNav(state)}
       <div class="progress-bar">
         <div class="progress-bar-inner" style="width: ${progress}%"></div>
       </div>
@@ -287,75 +454,57 @@ const renderQuiz = () => {
     </div>
   `;
 
-  // --- Event Listeners for Smoother UX ---
   const handleAnswer = () => {
-    const newAnswers = [...state.userAnswers];
-    let newUserName = state.userName;
-    let newUserAge = state.userAge;
+    const { userAnswers, userName, userAge } = state;
+    const newAnswers = [...userAnswers];
+    let newUserName = userName;
+    let newUserAge = userAge;
     
     if (question.type === 'text' || question.type === 'number') {
-        // FIX: Cast element to HTMLInputElement/HTMLTextAreaElement to access value
         const value = (document.getElementById('quiz-input') as HTMLInputElement).value;
-        if (!value && question.id !== 'name' && question.id !== 'age') return; // Allow empty name/age for now
+        if (!value && question.id !== 'name' && question.id !== 'age') return; // Allow empty
         newAnswers[state.currentQuestionIndex] = value;
         if(question.id === 'name') newUserName = value;
         if(question.id === 'age') newUserAge = value;
     } else {
         const selectedButton = document.querySelector('.option-btn.selected');
         if (!selectedButton) return;
-        // FIX: Cast element to HTMLElement to access dataset
         newAnswers[state.currentQuestionIndex] = (selectedButton as HTMLElement).dataset.option;
     }
     
-    return { newAnswers, newUserName, newUserAge };
+    return { answers: newAnswers, name: newUserName, age: newUserAge };
   }
 
   if (question.type !== 'text' && question.type !== 'number') {
     document.querySelectorAll('.option-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        // FIX: Cast currentTarget to HTMLButtonElement to access classList
         const clickedButton = e.currentTarget as HTMLButtonElement;
-        // Visual selection without re-render
         document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
         clickedButton.classList.add('selected');
-        
-        // Add animation class for feedback
         clickedButton.classList.add('clicked');
-        
-        // Remove animation class after it finishes to allow re-triggering
-        clickedButton.addEventListener('animationend', () => {
-          clickedButton.classList.remove('clicked');
-        }, { once: true });
+        clickedButton.addEventListener('animationend', () => clickedButton.classList.remove('clicked'), { once: true });
       });
     });
   }
 
   if (state.currentQuestionIndex > 0) {
     document.getElementById('back-btn').addEventListener('click', () => {
-      setState({ currentQuestionIndex: state.currentQuestionIndex - 1 });
+      store.dispatch({ type: 'SET_QUESTION_INDEX', payload: state.currentQuestionIndex - 1 });
     });
   }
 
   const nextAction = () => {
       const result = handleAnswer();
       if(result) {
-          setState({ 
-              userAnswers: result.newAnswers,
-              userName: result.newUserName,
-              userAge: result.newUserAge,
-              currentQuestionIndex: state.currentQuestionIndex + 1 
-          });
+          store.dispatch({ type: 'SET_USER_ANSWERS', payload: result });
+          store.dispatch({ type: 'SET_QUESTION_INDEX', payload: state.currentQuestionIndex + 1 });
       }
   };
   
   const finishAction = () => {
       const result = handleAnswer();
       if(result) {
-          setState({ 
-              userAnswers: result.newAnswers,
-              userName: result.newUserName,
-              userAge: result.newUserAge,
-          });
+          store.dispatch({ type: 'SET_USER_ANSWERS', payload: result });
           getAIResults();
       }
   }
@@ -378,21 +527,21 @@ const renderLoading = (title = t('loadingTitle'), desc = t('loadingDesc')) => {
   `;
 };
 
-const renderResults = async (results, isNew) => {
+const renderResults = async (state) => {
+  const { activeReport: results, isNewReport: isNew, savedResults } = state;
+
   if (!results) {
-    renderWelcome(); // Fallback if no report data
+    store.dispatch({ type: 'NAVIGATE_HOME' });
     return;
   }
   
   const personalitySummaryHtml = await marked.parse(results.personalitySummary);
   const careerAdviceHtml = await marked.parse(results.careerAdvice);
-
-  // Check if this specific report is already saved
-  const isAlreadySaved = state.savedResults.some(r => r.savedDate === results.savedDate);
+  const isAlreadySaved = savedResults.some(r => r.savedDate === results.savedDate);
 
   root.innerHTML = `
     <div class="container results-container">
-      ${renderTopNav()}
+      ${renderTopNav(state)}
       <h1>${t('resultsTitleFor').replace('{name}', results.userName || t('you'))}</h1>
       
       <nav class="results-nav">
@@ -434,7 +583,6 @@ const renderResults = async (results, isNew) => {
   document.getElementById('print-btn').addEventListener('click', () => window.print());
   
   document.getElementById('email-btn').addEventListener('click', () => {
-      // Force German for the email template
       const de = translations['de'];
       const subject = de.emailSubject.replace('{name}', results.userName || de.you);
       let body = `${de.resultsTitleFor.replace('{name}', results.userName || de.you)}\n\n`;
@@ -450,38 +598,27 @@ const renderResults = async (results, isNew) => {
   
   if (isNew && !isAlreadySaved) {
       document.getElementById('save-btn').addEventListener('click', (e) => {
-          // FIX: Cast target to HTMLButtonElement to access its properties
           const button = e.target as HTMLButtonElement;
-          const newSavedResults = [...state.savedResults, results];
+          const newSavedResults = [...savedResults, results];
           localStorage.setItem('careerResults', JSON.stringify(newSavedResults));
-          
-          // FIX: Directly update state array and button to avoid re-render bug
-          state.savedResults = newSavedResults;
+          store.dispatch({ type: 'SET_SAVED_RESULTS', payload: newSavedResults });
           button.textContent = t('reportSaved');
           button.disabled = true;
       });
   }
 
-  // Add smooth scrolling for nav links
   document.querySelectorAll('.results-nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
           e.preventDefault();
-          const targetId = this.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-              targetElement.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-              });
-          }
+          document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
   });
 };
 
-const renderSavedResultsList = () => {
+const renderSavedResultsList = (state) => {
     root.innerHTML = `
         <div class="container saved-reports-container">
-            ${renderTopNav()}
+            ${renderTopNav(state)}
             <div class="saved-reports-header">
                 <h1>${t('savedReportsTitle')}</h1>
             </div>
@@ -506,20 +643,18 @@ const renderSavedResultsList = () => {
 
     document.querySelectorAll('.view-details-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // FIX: Cast currentTarget to HTMLButtonElement to access dataset
             const index = parseInt((e.currentTarget as HTMLButtonElement).dataset.index, 10);
-            setState({ currentView: 'results', activeReport: state.savedResults[index], isNewReport: false });
+            store.dispatch({ type: 'SET_ACTIVE_REPORT', payload: { report: state.savedResults[index], isNew: false } });
         });
     });
 
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             if (window.confirm(t('confirmDeleteReport'))) {
-                // FIX: Cast currentTarget to HTMLButtonElement to access dataset
                 const index = parseInt((e.currentTarget as HTMLButtonElement).dataset.index, 10);
                 const newResults = state.savedResults.filter((_, i) => i !== index);
                 localStorage.setItem('careerResults', JSON.stringify(newResults));
-                setState({ savedResults: newResults });
+                store.dispatch({ type: 'SET_SAVED_RESULTS', payload: newResults });
             }
         });
     });
@@ -527,68 +662,67 @@ const renderSavedResultsList = () => {
     attachTopNavListeners();
 };
 
-// --- START: Refactored Professions List for Smoother UX ---
-const updateProfessionsContent = () => {
+const updateProfessionsContent = (state) => {
+    const { professionsSearchTerm, professionsFilter, currentLanguage } = state;
+    let { professionsCurrentPage } = state;
+    
     const professionsGrid = document.getElementById('professions-grid');
     const paginationControls = document.getElementById('pagination-controls');
-
     if (!professionsGrid || !paginationControls) return;
 
     const allProfessions = professions.filter(p => {
-        const term = state.professionsSearchTerm.toLowerCase();
-        const title = p.title[state.currentLanguage]?.toLowerCase() || '';
+        const term = professionsSearchTerm.toLowerCase();
+        const title = p.title[currentLanguage]?.toLowerCase() || '';
         const matchesTerm = title.includes(term);
-        const matchesFilter = state.professionsFilter === 'all' || p.type === state.professionsFilter;
+        const matchesFilter = professionsFilter === 'all' || p.type === professionsFilter;
         return matchesTerm && matchesFilter;
     });
 
     let totalPages = Math.ceil(allProfessions.length / PROFESSIONS_PAGE_SIZE);
     if (totalPages === 0) totalPages = 1;
-
-    if (state.professionsCurrentPage > totalPages) {
-        state.professionsCurrentPage = totalPages;
-    }
-
-    const startIndex = (state.professionsCurrentPage - 1) * PROFESSIONS_PAGE_SIZE;
-    const endIndex = startIndex + PROFESSIONS_PAGE_SIZE;
-    const paginatedProfessions = allProfessions.slice(startIndex, endIndex);
+    if (professionsCurrentPage > totalPages) professionsCurrentPage = totalPages;
+    
+    const startIndex = (professionsCurrentPage - 1) * PROFESSIONS_PAGE_SIZE;
+    const paginatedProfessions = allProfessions.slice(startIndex, startIndex + PROFESSIONS_PAGE_SIZE);
 
     professionsGrid.innerHTML = paginatedProfessions.length > 0 ? paginatedProfessions.map(p => `
         <div class="profession-card">
-            <h3>${p.title[state.currentLanguage]}</h3>
+            <h3>${p.title[currentLanguage]}</h3>
             <div class="profession-card-details">
-                <p><strong>${t('duration')}:</strong> ${p.duration[state.currentLanguage]}</p>
-                <p><strong>${t('salary')}:</strong> ${p.salary[state.currentLanguage]}</p>
-                <p><strong>${t('requirements')}:</strong> ${p.requirements[state.currentLanguage]}</p>
-                <p><strong>${t('duties')}:</strong> ${p.duties[state.currentLanguage]}</p>
+                <p><strong>${t('duration')}:</strong> ${p.duration[currentLanguage]}</p>
+                <p><strong>${t('salary')}:</strong> ${p.salary[currentLanguage]}</p>
+                <p><strong>${t('requirements')}:</strong> ${p.requirements[currentLanguage]}</p>
+                <p><strong>${t('duties')}:</strong> ${p.duties[currentLanguage]}</p>
             </div>
         </div>
     `).join('') : `<p>${t('noJobsFound')}</p>`;
 
     paginationControls.innerHTML = `
-        <button id="prev-page" class="btn secondary" ${state.professionsCurrentPage <= 1 ? 'disabled' : ''}>${t('back')}</button>
-        <span class="page-info">${t('page')} ${state.professionsCurrentPage} / ${totalPages}</span>
-        <button id="next-page" class="btn secondary" ${state.professionsCurrentPage >= totalPages ? 'disabled' : ''}>${t('next')}</button>
+        <button id="prev-page" class="btn secondary" ${professionsCurrentPage <= 1 ? 'disabled' : ''}>${t('back')}</button>
+        <span class="page-info">${t('page')} ${professionsCurrentPage} / ${totalPages}</span>
+        <button id="next-page" class="btn secondary" ${professionsCurrentPage >= totalPages ? 'disabled' : ''}>${t('next')}</button>
     `;
-
-    if (state.professionsCurrentPage > 1) {
-        document.getElementById('prev-page').addEventListener('click', () => {
-            setState({ professionsCurrentPage: state.professionsCurrentPage - 1 }, true);
-            updateProfessionsContent();
-        });
+    
+    const updatePage = (newPage) => {
+         store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: {
+            searchTerm: professionsSearchTerm,
+            filter: professionsFilter,
+            page: newPage
+        }});
     }
-    if (state.professionsCurrentPage < totalPages) {
-        document.getElementById('next-page').addEventListener('click', () => {
-            setState({ professionsCurrentPage: state.professionsCurrentPage + 1 }, true);
-            updateProfessionsContent();
-        });
+
+    if (professionsCurrentPage > 1) {
+        document.getElementById('prev-page').addEventListener('click', () => updatePage(professionsCurrentPage - 1));
+    }
+    if (professionsCurrentPage < totalPages) {
+        document.getElementById('next-page').addEventListener('click', () => updatePage(professionsCurrentPage + 1));
     }
 };
 
-const renderProfessionsList = () => {
+const renderProfessionsList = (state) => {
     root.innerHTML = `
         <div class="container professions-container">
-            ${renderTopNav()}
+            ${renderTopNav(state)}
             <h1>${t('browseProfessions')}</h1>
             <p>${t('professionsDesc')}</p>
             <div class="professions-controls">
@@ -605,29 +739,74 @@ const renderProfessionsList = () => {
         </div>
     `;
     
-    updateProfessionsContent();
+    updateProfessionsContent(state);
+
+    const updateSearch = (newFilter = state.professionsFilter, newSearchTerm = state.professionsSearchTerm) => {
+        store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: {
+            searchTerm: newSearchTerm,
+            filter: newFilter,
+            page: 1
+        }});
+    }
 
     document.getElementById('search-professions').addEventListener('input', (e) => {
-        setState({ professionsSearchTerm: (e.target as HTMLInputElement).value, professionsCurrentPage: 1 }, true);
-        updateProfessionsContent();
+        updateSearch(state.professionsFilter, (e.target as HTMLInputElement).value);
     });
     
     document.querySelectorAll('.filter-buttons button').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const button = e.currentTarget as HTMLButtonElement;
-            document.querySelectorAll('.filter-buttons button').forEach(b => b.classList.remove('active'));
-            button.classList.add('active');
-            
-            setState({ professionsFilter: button.dataset.filter, professionsCurrentPage: 1 }, true);
-            updateProfessionsContent();
+            updateSearch(button.dataset.filter, state.professionsSearchTerm);
         });
     });
 
     attachTopNavListeners();
 };
-// --- END: Refactored Professions List ---
 
-const renderJobSearch = async () => {
+const renderCareerVideos = (state) => {
+    if (!state.isAdminAuthenticated) {
+        root.innerHTML = `
+            <div class="container maintenance-container">
+                ${renderTopNav(state)}
+                <div class="maintenance-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <h1>${t('underMaintenanceTitle')}</h1>
+                <p>${t('underMaintenanceDesc')}</p>
+            </div>
+        `;
+        attachTopNavListeners();
+        return;
+    }
+
+    root.innerHTML = `
+        <div class="container career-videos-container">
+            ${renderTopNav(state)}
+            <h1>${t('careerPathVideosTitle')}</h1>
+            <p>${t('careerPathVideosDescPage')}</p>
+            <div class="video-grid">
+                ${professions.map(p => `
+                    <div class="video-card">
+                        <h3>${p.title[state.currentLanguage]}</h3>
+                        <div class="video-embed-container">
+                            <iframe 
+                                src="${p.videoUrl}" 
+                                title="${p.title[state.currentLanguage]}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <p class="video-card-duties">${p.duties[state.currentLanguage]}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    attachTopNavListeners();
+};
+
+const renderJobSearch = (state) => {
     let resultsContent = '';
     const { isLoading, results, error } = state.jobSearchState;
 
@@ -652,7 +831,7 @@ const renderJobSearch = async () => {
 
     root.innerHTML = `
         <div class="container job-search-container">
-            ${renderTopNav()}
+            ${renderTopNav(state)}
             <h1>${t('searchAvailableJobs')}</h1>
             <p>${t('jobSearchDesc')}</p>
             <form id="job-search-form" class="job-search-form">
@@ -670,7 +849,6 @@ const renderJobSearch = async () => {
 
     document.getElementById('job-search-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        // FIX: Cast elements to HTMLInputElement to access value property
         const jobTitle = (document.getElementById('job-title-input') as HTMLInputElement).value;
         const location = (document.getElementById('location-input') as HTMLInputElement).value;
         getLiveJobs(jobTitle, location);
@@ -678,7 +856,7 @@ const renderJobSearch = async () => {
     attachTopNavListeners();
 };
 
-const renderPraktikumSearch = () => {
+const renderPraktikumSearch = (state) => {
     const { isLoadingCompany, isLoadingEmail, companyList, selectedCompany, generatedEmail, error, internshipType } = state.praktikumSearchState;
 
     let companyContent = '';
@@ -739,7 +917,7 @@ const renderPraktikumSearch = () => {
 
     root.innerHTML = `
         <div class="container praktikum-search-container">
-            ${renderTopNav()}
+            ${renderTopNav(state)}
             <h1>${t('searchForPraktikum')}</h1>
             <p>${t('praktikumDesc')}</p>
             <form id="praktikum-search-form" class="praktikum-search-form">
@@ -769,56 +947,44 @@ const renderPraktikumSearch = () => {
         </div>
     `;
     
+    document.getElementById('internship-type-select').addEventListener('change', (e) => {
+        const type = (e.target as HTMLSelectElement).value;
+        store.dispatch({ type: 'SET_INTERNSHIP_TYPE', payload: type });
+    });
+
     document.getElementById('praktikum-search-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        // FIX: Cast elements to access value property
         const field = (document.getElementById('field-input') as HTMLInputElement).value;
         const location = (document.getElementById('location-input') as HTMLInputElement).value;
         const type = (document.getElementById('internship-type-select') as HTMLSelectElement).value;
-        // Save the type to state before searching
-        state.praktikumSearchState.internshipType = type;
-        getPraktikumOpportunity(field, location);
+        getPraktikumOpportunity(field, location, type);
     });
     
     document.querySelectorAll('.select-company-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // FIX: Cast currentTarget to HTMLButtonElement to access dataset
             const index = parseInt((e.currentTarget as HTMLButtonElement).dataset.index, 10);
-            setState({ 
-                praktikumSearchState: {
-                    ...state.praktikumSearchState,
-                    selectedCompany: state.praktikumSearchState.companyList[index],
-                    generatedEmail: null, // Reset email when new company is selected
-                }
-            });
+            store.dispatch({ type: 'PRAKTIKUM_SELECT_COMPANY', payload: companyList[index] });
         });
     });
 
     if (selectedCompany && !generatedEmail) {
          document.getElementById('email-gen-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            // FIX: Cast elements to HTMLInputElement to access value property
             const userName = (document.getElementById('user-name-email') as HTMLInputElement).value;
-            generateInquiryEmail(userName, selectedCompany.name, (document.getElementById('field-input') as HTMLInputElement).value, state.praktikumSearchState.internshipType);
+            generateInquiryEmail(userName, selectedCompany.name, (document.getElementById('field-input') as HTMLInputElement).value, internshipType);
         });
     }
 
     if (generatedEmail) {
         document.getElementById('copy-email-btn').addEventListener('click', (e) => {
-            // FIX: Cast element to HTMLTextAreaElement to access value
             const emailText = (document.getElementById('email-output') as HTMLTextAreaElement).value;
             navigator.clipboard.writeText(emailText).then(() => {
-                // FIX: Cast target to HTMLButtonElement to access its properties
                 const btn = e.target as HTMLButtonElement;
                 const originalText = t('copyEmail');
                 
                 btn.classList.add('copied-success');
-                btn.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
-                    ${t('copied')}
-                `;
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg> ${t('copied')}`;
                 btn.disabled = true;
-
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.classList.remove('copied-success');
@@ -835,17 +1001,14 @@ const renderPraktikumSearch = () => {
 // --- LOGIC ---
 
 const getAIResults = async () => {
-  setState({ currentView: 'loading' });
+  store.dispatch({ type: 'SET_VIEW_LOADING' });
+  const state = store.getState();
 
-  // FIX: Use the `Type` enum for the response schema definition as per Gemini API guidelines.
   const schema = {
     type: Type.OBJECT,
     properties: {
       userName: { type: Type.STRING },
-      personalitySummary: {
-        type: Type.STRING,
-        description: t('schemaPersonality'),
-      },
+      personalitySummary: { type: Type.STRING, description: t('schemaPersonality') },
       jobSuggestions: {
         type: Type.ARRAY,
         description: t('schemaJobSuggestions'),
@@ -859,21 +1022,12 @@ const getAIResults = async () => {
           required: ["title", "description", "details"],
         },
       },
-      careerAdvice: {
-        type: Type.STRING,
-        description: t('schemaCareerAdvice'),
-      },
+      careerAdvice: { type: Type.STRING, description: t('schemaCareerAdvice') },
     },
     required: ["userName", "personalitySummary", "jobSuggestions", "careerAdvice"],
   };
   
-  const userPrompt = `
-    ${t('promptIntro')}
-    ${quizQuestions[state.currentLanguage].map((q, i) => `${q.question}: ${state.userAnswers[i]}`).join('\n')}
-    
-    ${t('promptInstruction')}
-  `;
-  
+  const userPrompt = `${t('promptIntro')}\n${quizQuestions[state.currentLanguage].map((q, i) => `${q.question}: ${state.userAnswers[i]}`).join('\n')}\n\n${t('promptInstruction')}`;
   const systemInstruction = t('systemInstruction').replace('{name}', state.userName).replace('{age}', state.userAge);
 
   try {
@@ -887,64 +1041,40 @@ const getAIResults = async () => {
       },
     });
 
-    // FIX: Per Gemini API guidelines, `response.text` is a property, not a method.
     const resultJson = JSON.parse(response.text.trim());
-    resultJson.savedDate = new Date().toISOString(); // Add timestamp for unique ID
-    setState({ currentView: 'results', activeReport: resultJson, isNewReport: true });
+    resultJson.savedDate = new Date().toISOString();
+    store.dispatch({ type: 'SET_ACTIVE_REPORT', payload: { report: resultJson, isNew: true } });
 
   } catch(error) {
     console.error("Error fetching AI results:", error);
     root.innerHTML = `<div class="container" style="text-align: center;"><p>${t('errorText')}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
-    document.getElementById('restart-btn').addEventListener('click', () => {
-       setState({ currentView: 'welcome' });
-    });
+    document.getElementById('restart-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
   }
 };
 
 const getLiveJobs = async (jobTitle, location) => {
-    setState({ 
-        jobSearchState: { isLoading: true, results: null, error: null }
-    });
+    store.dispatch({ type: 'JOB_SEARCH_START' });
 
-    const prompt = t('jobSearchPrompt')
-        .replace('{jobTitle}', jobTitle)
-        .replace('{location}', location);
+    const prompt = t('jobSearchPrompt').replace('{jobTitle}', jobTitle).replace('{location}', location);
 
     try {
         const response = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: prompt,
-            config: {
-                tools: [{googleSearch: {}}],
-            },
+            config: { tools: [{googleSearch: {}}] },
         });
         
         const sources = response.candidates?.[0]?.groundingMetadata?.groundingChunks ?? [];
-
-        setState({
-            jobSearchState: {
-                isLoading: false,
-                results: { sources },
-                error: null
-            }
-        });
+        store.dispatch({ type: 'JOB_SEARCH_SUCCESS', payload: { sources } });
 
     } catch(error) {
         console.error("Error fetching live jobs:", error);
-        setState({
-            jobSearchState: {
-                isLoading: false,
-                results: null,
-                error: t('errorText')
-            }
-        });
+        store.dispatch({ type: 'JOB_SEARCH_ERROR', payload: t('errorText') });
     }
 }
 
-const getPraktikumOpportunity = async (field, location) => {
-    setState({
-        praktikumSearchState: { ...state.praktikumSearchState, isLoadingCompany: true, error: null, companyList: [], selectedCompany: null, generatedEmail: null }
-    });
+const getPraktikumOpportunity = async (field, location, internshipType) => {
+    store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_START', payload: internshipType });
 
     const prompt = t('praktikumSearchPrompt').replace('{field}', field).replace('{location}', location);
     
@@ -952,12 +1082,9 @@ const getPraktikumOpportunity = async (field, location) => {
         const response = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: prompt,
-            config: {
-                tools: [{googleSearch: {}}],
-            },
+            config: { tools: [{googleSearch: {}}] },
         });
         
-        // FIX: Per Gemini API guidelines, `response.text` is a property, not a method.
         let jsonString = response.text.trim();
         const jsonMatch = jsonString.match(/```json\s*([\s\S]*?)\s*```/);
         if (jsonMatch && jsonMatch[1]) {
@@ -969,7 +1096,6 @@ const getPraktikumOpportunity = async (field, location) => {
            try {
               companyList = JSON.parse(jsonString);
            } catch (parseError) {
-               // FIX: Per Gemini API guidelines, `response.text` is a property, not a method.
                console.error("Failed to parse AI response as JSON:", parseError, "Raw text:", response.text);
                throw new Error("AI returned an invalid data format.");
            }
@@ -979,35 +1105,20 @@ const getPraktikumOpportunity = async (field, location) => {
              throw new Error("No companies found or invalid format.");
         }
         
-        setState({
-            praktikumSearchState: {
-                ...state.praktikumSearchState,
-                isLoadingCompany: false,
-                companyList: companyList,
-            }
-        });
+        store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_SUCCESS', payload: companyList });
 
     } catch(error) {
         console.error("Error fetching Praktikum opportunity:", error);
-        setState({
-            praktikumSearchState: {
-                ...state.praktikumSearchState,
-                isLoadingCompany: false,
-                error: t('praktikumSearchError'),
-            }
-        });
+        store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_ERROR', payload: t('praktikumSearchError') });
     }
 }
 
 const generateInquiryEmail = async (userName, companyName, field, internshipType) => {
-     setState({
-        praktikumSearchState: { ...state.praktikumSearchState, isLoadingEmail: true, generatedEmail: null }
-    });
+    store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_START' });
     
     const typeKey = `internshipType${internshipType.charAt(0).toUpperCase() + internshipType.slice(1)}`;
     const translatedType = translations['de'][typeKey] || internshipType;
     
-    // Force German prompt for email generation
     const prompt = translations['de']['praktikumEmailPrompt']
         .replace('{userName}', userName)
         .replace('{companyName}', companyName)
@@ -1019,91 +1130,80 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
             model: "gemini-2.5-flash",
             contents: prompt,
         });
-
-        setState({
-            praktikumSearchState: {
-                ...state.praktikumSearchState,
-                isLoadingEmail: false,
-                // FIX: Per Gemini API guidelines, `response.text` is a property, not a method.
-                generatedEmail: response.text,
-            }
-        });
-
+        store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_SUCCESS', payload: response.text });
     } catch (error) {
          console.error("Error generating inquiry email:", error);
-         setState({
-            praktikumSearchState: {
-                ...state.praktikumSearchState,
-                isLoadingEmail: false,
-                error: t('errorText'),
-            }
-        });
+         store.dispatch({ type: 'PRAKTIKUM_EMAIL_GEN_ERROR', payload: t('errorText') });
     }
 };
 
-// FIX: Add a default value to `oldView` to allow calling `renderApp` without arguments on initial load.
-const renderApp = (oldView = undefined) => {
-  // Update static text elements
+let previousView = undefined;
+
+const renderApp = (state) => {
   headerTitle.textContent = t('headerTitle');
   footerText.textContent = t('footerText');
   
-  // Render dynamic header elements
-  renderLanguageSwitcher();
-  renderHeaderActions();
+  renderLanguageSwitcher(state);
+  renderHeaderActions(state);
 
-  // Render current view
   switch (state.currentView) {
     case 'quiz':
-      renderQuiz();
+      renderQuiz(state);
       break;
     case 'loading':
       renderLoading();
       break;
     case 'results':
-      renderResults(state.activeReport, state.isNewReport);
+      renderResults(state);
       break;
     case 'professionsList':
-      renderProfessionsList();
+      renderProfessionsList(state);
+      break;
+    case 'careerVideos':
+      renderCareerVideos(state);
       break;
     case 'jobSearch':
-      renderJobSearch();
+      renderJobSearch(state);
       break;
     case 'praktikumSearch':
-        renderPraktikumSearch();
-        break;
+      renderPraktikumSearch(state);
+      break;
     case 'adminLogin':
-        renderAdminLogin();
-        break;
+      renderAdminLogin(state);
+      break;
     case 'savedResultsList':
-        if (state.isAdminAuthenticated) {
-            renderSavedResultsList();
-        } else {
-            renderAdminLogin();
-        }
-        break;
+      if (state.isAdminAuthenticated) {
+        renderSavedResultsList(state);
+      } else {
+        renderAdminLogin(state);
+      }
+      break;
     case 'welcome':
     default:
-      renderWelcome();
+      renderWelcome(state);
       break;
   }
 
-  // Only scroll to top if the main view has actually changed.
-  if (oldView !== undefined && state.currentView !== oldView) {
+  if (previousView !== undefined && state.currentView !== previousView) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  previousView = state.currentView;
 };
 
 // --- Initial App Load ---
 loadSavedResults();
-document.documentElement.lang = state.currentLanguage;
-document.documentElement.dir = translations[state.currentLanguage].dir;
+const initialStateFromStore = store.getState();
+document.documentElement.lang = initialStateFromStore.currentLanguage;
+document.documentElement.dir = translations[initialStateFromStore.currentLanguage].dir;
 
-// Add global navigation listener to the header title
 headerTitle.addEventListener('click', () => {
-    // Don't do anything if we are already on the welcome page
-    if (state.currentView !== 'welcome') {
-        setState({ currentView: 'welcome', viewHistory: ['welcome'] });
+    if (store.getState().currentView !== 'welcome') {
+        store.dispatch({ type: 'NAVIGATE_HOME' });
     }
 });
 
-renderApp();
+// Subscribe the render function to the store
+store.subscribe(renderApp);
+
+// Initial render
+renderApp(store.getState());
