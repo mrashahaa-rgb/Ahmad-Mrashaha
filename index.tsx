@@ -5,7 +5,7 @@
 // FIX: Import `Type` enum for defining the response schema.
 import { GoogleGenAI, Type } from "@google/genai";
 import { marked } from 'marked';
-import { quizQuestions, translations, professions } from './data.js';
+import { quizQuestions, translations, professions } from './data';
 
 const API_KEY = process.env.API_KEY;
 
