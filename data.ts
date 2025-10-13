@@ -1,5 +1,5 @@
 // Define high-quality, consistent SVG flags for all languages.
-const syrianOppositionFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwN2EzZCIvPjxyZWN0IHk9IjIwMCIgd2lkdGg9IjkwMCIgaGVpZh0PSIyMDAiIGZpbGw9IiNmZmYiLz48cmVjdCB5PSI0MDAiIHdpZHRoPSI5MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMDAwIi8+PGcgZmlsbD0iI2NlMTEyNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwIDMwMCkgc2NhbGUoMjIpIj48ZyBpZD0icyI+PHBhdGggZD0iTTAtMi4zNzc1bDEuNTQ1IDQuNzU1LTQuMDcyLTIuOTM5aDUuMDU0TC0xLjU0NSAyLjM4eiIvPjwvZz48dXNlIGhyZWY9IiNzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTIpIi8+PHVzZSBocmVmPSIjcyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCkiLz48dXNlIGhyZWY9IiNzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMikiLz48L2c+PC9zdmc+" alt="Syrian Flag">`;
+const syrianOppositionFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwN2EzZCIvPjxyZWN0IHk9IjIwMCIgd2lkdGg9IjkwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNmZmYiLz48cmVjdCB5PSI0MDAiIHdpZHRoPSI5MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMDAwIi8+PGcgZmlsbD0iI2NlMTEyNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwIDMwMCkgc2NhbGUoMjIpIj48ZyBpZD0icyI+PHBhdGggZD0iTTAtMi4zNzc1bDEuNTQ1IDQuNzU1LTQuMDcyLTIuOTM5aDUuMDU0TC0xLjU0NSAyLjM4eiIvPjwvZz48dXNlIGhyZWY9IiNzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTIpIi8+PHVzZSBocmVmPSIjcyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCkiLz48dXNlIGhyZWY9IiNzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMikiLz48L2c+PC9zdmc+" alt="Syrian Flag">`;
 const germanFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1IDMiPjxyZWN0IHdpZHRoPSI1IiBoZWlnaHQ9IjEiIHk9IjAiIGZpbGw9IiMwMDAiLz48cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSIxIiB5PSIxIiBmaWxsPSIjRDAwIi8+PHJlY3QgeT0iMiIgd2lkdGg9IjUiIGhlaWdodD0iMSIgZmlsbD0iI0ZGQ0UwMCIvPjwvc3ZnPg==" alt="German Flag">`;
 const turkishFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2UzMGExNyIvPjxjaXJjbGUgY3g9IjI3NSIgY3k9IjMwMCIgcj0iMTUwIiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iMzEyLjUiIGN5PSIzMDAiIHI9IjEyMCIgZmlsbD0iI2UzMGExNyIvPjxwYXRoIGQ9Ik00MjUgMzAwbDExOS41LTM2LjctNzMuOSA5Ni4xVjI0MC42bC03My45IDk2LjF6IiBmaWxsPSIjZmZmIi8+PC9zdmc+" alt="Turkish Flag">`;
 const ukrainianFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNDAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwNUJCQiIvPjxyZWN0IHk9IjIwMCIgd2lkdGg9IjYwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNGRkQ1MDAiLz48L3N2Zz4=" alt="Ukrainian Flag">`;
@@ -47,8 +47,6 @@ export const translations = {
     duties: "الواجبات",
     home: "الرئيسية",
     errorText: "عذراً، حدث خطأ أثناء إنشاء نتائجك. يرجى المحاولة مرة أخرى لاحقاً.",
-    apiKeyNotConfiguredError: " (مفتاح API غير مُهيأ. يرجى التأكد من إضافته في إعدادات النشر على Netlify.)",
-    invalidApiKeyError: " (يبدو أن مفتاح API غير صالح.)",
     answerHere: "اكتب إجابتك هنا...",
     page: "صفحة",
     printReport: "طباعة التقرير",
@@ -121,6 +119,8 @@ export const translations = {
     companyWebsite: "الموقع الإلكتروني",
     futureProjectTitle: "مشروع مستقبلي",
     futureProjectDesc: "هذه المساحة محجوزة لميزات جديدة ومثيرة.",
+    apiKeyNotConfiguredError: "خطأ في الإعداد: لم يتم العثور على مفتاح API. يرجى التأكد من إضافة متغير بيئة `API_KEY` في إعدادات النشر الخاصة بك.",
+    invalidApiKeyError: "عذراً، حدث خطأ. يبدو أن مفتاح API الذي تم إعداده غير صالح أو منتهي الصلاحية. يرجى مراجعة متغيرات البيئة في إعدادات النشر الخاصة بك.",
   },
   de: {
     langName: `${germanFlagImg} Deutsch`,
@@ -164,8 +164,6 @@ export const translations = {
     duties: "Aufgaben",
     home: "Startseite",
     errorText: "Entschuldigung, beim Erstellen Ihrer Ergebnisse ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
-    apiKeyNotConfiguredError: " (API-Schlüssel nicht konfiguriert. Bitte stellen Sie sicher, dass er in den Bereitstellungseinstellungen von Netlify hinzugefügt wird.)",
-    invalidApiKeyError: " (Der API-Schlüssel scheint ungültig zu sein.)",
     answerHere: "Geben Sie Ihre Antwort hier ein...",
     page: "Seite",
     printReport: "Bericht drucken",
@@ -238,6 +236,8 @@ export const translations = {
     companyWebsite: "Webseite",
     futureProjectTitle: "Zukünftiges Projekt",
     futureProjectDesc: "Dieser Bereich ist für neue und aufregende Funktionen reserviert.",
+    apiKeyNotConfiguredError: "Konfigurationsfehler: API-Schlüssel nicht gefunden. Bitte stellen Sie sicher, dass Sie eine `API_KEY`-Umgebungsvariable in Ihren Bereitstellungseinstellungen hinzugefügt haben.",
+    invalidApiKeyError: "Entschuldigung, ein Fehler ist aufgetreten. Es scheint, dass der konfigurierte API-Schlüssel ungültig oder abgelaufen ist. Bitte überprüfen Sie Ihre Umgebungsvariablen in den Bereitstellungseinstellungen.",
   },
   tr: {
     langName: `${turkishFlagImg} Türkçe`,
@@ -281,8 +281,6 @@ export const translations = {
     duties: "Görevler",
     home: "Ana Sayfa",
     errorText: "Üzgünüz, sonuçlarınız oluşturulurken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
-    apiKeyNotConfiguredError: " (API Anahtarı yapılandırılmamış. Lütfen Netlify dağıtım ayarlarında eklendiğinden emin olun.)",
-    invalidApiKeyError: " (API Anahtarı geçersiz görünüyor.)",
     answerHere: "Cevabınızı buraya yazın...",
     page: "Sayfa",
     printReport: "Raporu Yazdır",
@@ -355,6 +353,8 @@ export const translations = {
     companyWebsite: "İnternet sitesi",
     futureProjectTitle: "Gelecek Proje",
     futureProjectDesc: "Bu alan yeni ve heyecan verici özellikler için ayrılmıştır.",
+    apiKeyNotConfiguredError: "Yapılandırma Hatası: API anahtarı bulunamadı. Lütfen dağıtım ayarlarınıza bir `API_KEY` ortam değişkeni eklediğinizden emin olun.",
+    invalidApiKeyError: "Üzgünüz, bir hata oluştu. Yapılandırılan API anahtarı geçersiz veya süresi dolmuş gibi görünüyor. Lütfen dağıtım ayarlarınızdaki ortam değişkenlerinizi kontrol edin.",
   },
   uk: {
     langName: `${ukrainianFlagImg} Українська`,
@@ -398,8 +398,6 @@ export const translations = {
     duties: "Обов'язки",
     home: "Головна",
     errorText: "На жаль, сталася помилка під час створення ваших результатів. Будь ласка, спробуйте пізніше.",
-    apiKeyNotConfiguredError: " (Ключ API не налаштовано. Будь ласка, переконайтеся, що він доданий у налаштуваннях розгортання Netlify.)",
-    invalidApiKeyError: " (Схоже, ключ API недійсний.)",
     answerHere: "Введіть свою відповідь тут...",
     page: "Сторінка",
     printReport: "Роздрукувати звіт",
@@ -472,6 +470,8 @@ export const translations = {
     companyWebsite: "Веб-сайт",
     futureProjectTitle: "Майбутній проект",
     futureProjectDesc: "Це місце зарезервовано для нових захоплюючих функцій.",
+    apiKeyNotConfiguredError: "Помилка конфігурації: ключ API не знайдено. Будь ласка, переконайтеся, що ви додали змінну середовища `API_KEY` у налаштуваннях розгортання.",
+    invalidApiKeyError: "Вибачте, сталася помилка. Схоже, налаштований ключ API недійсний або термін його дії закінчився. Будь ласка, перевірте змінні середовища у налаштуваннях розгортання.",
   }
 };
 
