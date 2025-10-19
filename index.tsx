@@ -34,7 +34,7 @@ const PROFESSIONS_PAGE_SIZE = 20;
 const initialState = {
   currentView: 'welcome',
   viewHistory: ['welcome'],
-  currentLanguage: localStorage.getItem('preferredLanguage') || 'ar',
+  currentLanguage: localStorage.getItem('preferredLanguage') || 'de',
   currentQuestionIndex: 0,
   userName: '',
   userAge: '',
@@ -56,6 +56,8 @@ const initialState = {
     generatedEmail: null,
     error: null,
     internshipType: '',
+    field: '',
+    location: '',
   },
   isAdminAuthenticated: false,
   loginError: null,
@@ -98,6 +100,12 @@ const appReducer = (state, action) => {
       };
     case 'SET_LANGUAGE':
       return { ...state, currentLanguage: action.payload };
+    case 'NAVIGATE_TO_QUIZ_INTRO':
+        return {
+            ...state,
+            currentView: 'quizIntro',
+            viewHistory: [...state.viewHistory, 'quizIntro'],
+        };
     case 'START_QUIZ':
       return {
         ...state,
@@ -164,7 +172,13 @@ const appReducer = (state, action) => {
     case 'PRAKTIKUM_COMPANY_SEARCH_START':
         return {
             ...state,
-            praktikumSearchState: { ...initialState.praktikumSearchState, internshipType: action.payload, isLoadingCompany: true }
+            praktikumSearchState: { 
+                ...initialState.praktikumSearchState, 
+                isLoadingCompany: true,
+                field: action.payload.field,
+                location: action.payload.location,
+                internshipType: action.payload.internshipType,
+            }
         };
     case 'PRAKTIKUM_COMPANY_SEARCH_SUCCESS':
         return {
@@ -181,6 +195,11 @@ const appReducer = (state, action) => {
             ...state,
             praktikumSearchState: { ...state.praktikumSearchState, selectedCompany: action.payload, generatedEmail: null }
         };
+    case 'PRAKTIKUM_DESELECT_COMPANY':
+        return {
+            ...state,
+            praktikumSearchState: { ...state.praktikumSearchState, selectedCompany: null, generatedEmail: null, isLoadingEmail: false, error: null }
+        };
     case 'PRAKTIKUM_EMAIL_GEN_START':
         return {
             ...state,
@@ -196,10 +215,13 @@ const appReducer = (state, action) => {
             ...state,
             praktikumSearchState: { ...state.praktikumSearchState, isLoadingEmail: false, error: action.payload }
         };
-    case 'SET_INTERNSHIP_TYPE':
+    case 'UPDATE_PRAKTIKUM_FORM':
         return {
             ...state,
-            praktikumSearchState: { ...state.praktikumSearchState, internshipType: action.payload }
+            praktikumSearchState: {
+                ...state.praktikumSearchState,
+                ...action.payload
+            }
         };
     case 'API_KEY_CHECK_START':
         return { ...state, apiKeyCheck: { isLoading: true, status: 'checking', message: '' } };
@@ -258,26 +280,81 @@ const loadSavedResults = () => {
     }
 }
 
+
+// --- START: REVIEW SYSTEM HELPERS ---
+
+const getCompanyId = (company) => {
+    // Create a reasonably unique ID from company name and address
+    return `${company.name}-${company.address || ''}`.replace(/[\s\W]+/g, '-').toLowerCase();
+};
+
+const getReviews = (companyId) => {
+    try {
+        const allReviews = JSON.parse(localStorage.getItem('companyReviews') || '{}');
+        return allReviews[companyId] || [];
+    } catch (e) {
+        console.error("Failed to load reviews:", e);
+        return [];
+    }
+};
+
+const saveReview = (companyId, review) => {
+    try {
+        const allReviews = JSON.parse(localStorage.getItem('companyReviews') || '{}');
+        if (!allReviews[companyId]) {
+            allReviews[companyId] = [];
+        }
+        allReviews[companyId].unshift(review); // Add new review to the top
+        localStorage.setItem('companyReviews', JSON.stringify(allReviews));
+        return true;
+    } catch (e) {
+        console.error("Failed to save review:", e);
+        return false;
+    }
+};
+
+const renderStars = (rating) => {
+    const roundedRating = Math.round(rating);
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+        starsHtml += `<span class="star ${i <= roundedRating ? 'filled' : ''}">${i <= roundedRating ? '★' : '☆'}</span>`;
+    }
+    return starsHtml;
+};
+
+// --- END: REVIEW SYSTEM HELPERS ---
+
+
 // --- RENDER FUNCTIONS (Now receive state as a parameter) ---
 
 const renderLanguageSwitcher = (state) => {
-    langSwitcherContainer.innerHTML = Object.keys(translations).map(lang =>
-        `<button class="lang-btn ${state.currentLanguage === lang ? 'active' : ''}" data-lang="${lang}">
-            ${translations[lang].langName}
-        </button>`
-    ).join('');
+    const currentLangName = translations[state.currentLanguage].langName;
+    const otherLangs = Object.keys(translations).filter(lang => lang !== state.currentLanguage);
+    
+    const chevronIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><path d="m6 9 6 6 6-6"/></svg>`;
 
-    langSwitcherContainer.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const lang = (e.currentTarget as HTMLButtonElement).dataset.lang;
-            if (lang) {
-                localStorage.setItem('preferredLanguage', lang);
-                store.dispatch({ type: 'SET_LANGUAGE', payload: lang });
-                document.documentElement.lang = lang;
-                document.documentElement.dir = translations[lang].dir;
-            }
-        });
-    });
+    langSwitcherContainer.innerHTML = `
+        <div class="lang-switcher-dropdown">
+            <button class="lang-btn-current">
+                ${currentLangName}
+                ${chevronIcon}
+            </button>
+            <div class="lang-dropdown-content">
+                <ul>
+                    ${otherLangs.map(lang => `
+                        <li>
+                            <button class="lang-option-btn" data-lang="${lang}">
+                                ${translations[lang].langName}
+                            </button>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+        </div>
+    `;
+
+    // NOTE: Event listeners are now handled centrally in initEventListeners for performance.
+    // This function now only handles rendering the initial HTML.
 };
 
 const renderHeaderActions = (state) => {
@@ -286,20 +363,24 @@ const renderHeaderActions = (state) => {
             <button id="view-reports-btn" class="btn secondary">${t('viewReports')}</button>
             <button id="logout-btn" class="btn">${t('logout')}</button>
         `;
-        document.getElementById('view-reports-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'savedResultsList' }));
-        document.getElementById('logout-btn').addEventListener('click', () => store.dispatch({ type: 'LOGOUT' }));
     } else {
-        headerActionsContainer.innerHTML = `<button id="admin-login-btn" class="btn">${t('responsibleLogin')}</button>`;
-        document.getElementById('admin-login-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'adminLogin' }));
+        headerActionsContainer.innerHTML = `<button id="admin-login-btn" class="btn">${t('adminLogin')}</button>`;
     }
 };
 
 const renderWelcome = (state) => {
+  const adminCards = state.isAdminAuthenticated ? `
+    <div id="career-videos-card" class="action-card">
+        <h3>${t('careerPathVideos')}</h3>
+        <p>${t('careerPathVideosDesc')}</p>
+    </div>
+  ` : '';
+
   const mainContentHTML = `
     <h1>${t('welcomeTitle')}</h1>
     <p>${t('welcomeDesc')}</p>
     <div class="welcome-actions">
-        <div id="start-quiz-card" class="action-card primary span-2">
+        <div id="start-quiz-card" class="action-card primary">
             <h3>${t('startQuiz')}</h3>
             <p>${t('startQuizDesc')}</p>
         </div>
@@ -315,47 +396,31 @@ const renderWelcome = (state) => {
             <h3>${t('searchForPraktikum')}</h3>
             <p>${t('searchForPraktikumDesc')}</p>
         </div>
-        <div id="career-videos-card" class="action-card ${!state.isAdminAuthenticated ? 'locked' : ''}">
-            <h3>
-                ${!state.isAdminAuthenticated ? `
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lock-icon"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                ` : ''}
-                ${t('careerPathVideos')}
-            </h3>
-            <p>${!state.isAdminAuthenticated ? t('underMaintenanceShort') : t('careerPathVideosDesc')}</p>
-        </div>
+        ${adminCards}
     </div>
   `;
 
-  if (state.isAdminAuthenticated) {
-    root.innerHTML = `
-      <div class="welcome-wrapper">
-          <div class="side-project-box">
-              <h3>${t('futureProjectTitle')}</h3>
-              <p>${t('futureProjectDesc')}</p>
-          </div>
-          <div class="container welcome-container main-welcome-card">
-              ${mainContentHTML}
-          </div>
-          <div class="side-project-box">
-              <h3>${t('futureProjectTitle')}</h3>
-              <p>${t('futureProjectDesc')}</p>
-          </div>
-      </div>
-    `;
-  } else {
-    root.innerHTML = `
-      <div class="container welcome-container main-welcome-card">
-        ${mainContentHTML}
-      </div>
-    `;
-  }
+  const adminExtraContent = state.isAdminAuthenticated ? `
+    <div class="admin-extra-section">
+        <div class="admin-extra-content">
+            <h3>${t('futureProjectTitle')}</h3>
+            <p>${t('futureProjectDesc')}</p>
+        </div>
+        <div class="admin-extra-content">
+            <h3>${t('futureProjectTitle')}</h3>
+            <p>${t('futureProjectDesc')}</p>
+        </div>
+    </div>
+  ` : '';
 
-  document.getElementById('start-quiz-card').addEventListener('click', () => store.dispatch({ type: 'START_QUIZ' }));
-  document.getElementById('browse-professions-card').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'professionsList' }));
-  document.getElementById('career-videos-card').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'careerVideos' }));
-  document.getElementById('job-search-card').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'jobSearch' }));
-  document.getElementById('praktikum-search-card').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_TO', payload: 'praktikumSearch' }));
+  root.innerHTML = `
+    <div class="page-container">
+        <div class="container welcome-container">
+          ${mainContentHTML}
+          ${adminExtraContent}
+        </div>
+    </div>
+  `;
 };
 
 const renderTopNav = (state) => {
@@ -372,57 +437,35 @@ const renderTopNav = (state) => {
     `;
 };
 
-const attachTopNavListeners = () => {
-    document.getElementById('top-home-btn')?.addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
-    document.getElementById('top-back-btn')?.addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_BACK' }));
-};
-
 const renderAdminLogin = (state) => {
-    const { isLoading, status, message } = state.apiKeyCheck;
-
-    let statusHtml = '';
-    if (status !== 'unchecked') {
-        statusHtml = `<p class="api-status-message ${status}">${message}</p>`;
-    }
-
     root.innerHTML = `
-        <div class="container admin-login-container">
-            ${renderTopNav(state)}
-            <h1>${t('adminLogin')}</h1>
-            <form id="login-form" class="login-form">
-                <input type="text" id="username" placeholder="${t('username')}" required>
-                <input type="password" id="password" placeholder="${t('password')}" required>
-                <button type="submit" class="btn">${t('login')}</button>
-            </form>
-            ${state.loginError ? `<p class="error-message">${state.loginError}</p>` : ''}
-            
-            <div class="api-status-checker">
-                <h2>${t('apiKeyStatus')}</h2>
-                <p>${t('apiKeyStatusDesc')}</p>
-                <button id="check-api-key-btn" class="btn secondary" ${isLoading ? 'disabled' : ''}>
-                    ${isLoading ? t('checkingApiKey') : t('checkApiKey')}
-                </button>
-                <div id="api-status-result">
-                    ${statusHtml}
-                </div>
+        <div class="page-container">
+            <div class="container admin-login-container">
+                ${renderTopNav(state)}
+                <h1>${t('adminLogin')}</h1>
+                <form id="login-form" class="login-form">
+                    <input type="text" id="username" placeholder="${t('username')}" required>
+                    <input type="password" id="password" placeholder="${t('password')}" required>
+                    <button type="submit" class="btn">${t('login')}</button>
+                </form>
+                ${state.loginError ? `<p class="error-message">${state.loginError}</p>` : ''}
             </div>
         </div>
     `;
-
-    document.getElementById('login-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const user = (document.getElementById('username') as HTMLInputElement).value;
-        const pass = (document.getElementById('password') as HTMLInputElement).value;
-        if (user === 'admin' && pass === '12345') {
-            store.dispatch({ type: 'LOGIN_SUCCESS' });
-        } else {
-            store.dispatch({ type: 'LOGIN_FAIL', payload: t('invalidCredentials') });
-        }
-    });
-
-    document.getElementById('check-api-key-btn').addEventListener('click', performApiKeyCheck);
-    attachTopNavListeners();
 }
+
+const renderQuizIntro = (state) => {
+    root.innerHTML = `
+        <div class="page-container">
+            <div class="container quiz-intro-container">
+                ${renderTopNav(state)}
+                <h1>${t('quizIntroTitle')}</h1>
+                <p>${t('quizIntroDesc')}</p>
+                <button id="start-quiz-now-btn" class="btn">${t('quizIntroStartBtn')}</button>
+            </div>
+        </div>
+    `;
+};
 
 const renderQuiz = (state) => {
   const questions = quizQuestions[state.currentLanguage];
@@ -475,94 +518,78 @@ const renderQuiz = (state) => {
 
 
   root.innerHTML = `
-    <div class="container quiz-container">
-      ${renderTopNav(state)}
-      <div class="progress-bar">
-        <div class="progress-bar-inner" style="width: ${progress}%"></div>
-      </div>
-      <p class="question-text">${question.type !== 'text' && question.type !== 'number' ? `${state.currentQuestionIndex + 1 - 2}.` : ''} ${question.question}</p>
-      ${questionContent}
-      <div class="quiz-nav">
-        <button id="back-btn" class="btn secondary" ${state.currentQuestionIndex === 0 ? 'disabled' : ''}>${t('back')}</button>
-        ${state.currentQuestionIndex === questions.length - 1 
-          ? `<button id="finish-btn" class="btn">${t('getResults')}</button>`
-          : `<button id="next-btn" class="btn">${t('next')}</button>`
-        }
-      </div>
+    <div class="page-container">
+        <div class="container quiz-container">
+          ${renderTopNav(state)}
+          <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: ${progress}%"></div>
+          </div>
+          <p class="question-text">${question.type !== 'text' && question.type !== 'number' ? `${state.currentQuestionIndex + 1 - 2}.` : ''} ${question.question}</p>
+          ${questionContent}
+          <div class="quiz-nav">
+            <button id="back-btn" class="btn secondary" ${state.currentQuestionIndex === 0 ? 'disabled' : ''}>${t('back')}</button>
+            ${state.currentQuestionIndex === questions.length - 1 
+              ? `<button id="finish-btn" class="btn">${t('getResults')}</button>`
+              : `<button id="next-btn" class="btn">${t('next')}</button>`
+            }
+          </div>
+        </div>
     </div>
   `;
-
-  const handleAnswer = () => {
-    const { userAnswers, userName, userAge } = state;
-    const newAnswers = [...userAnswers];
-    let newUserName = userName;
-    let newUserAge = userAge;
-    
-    if (question.type === 'text' || question.type === 'number') {
-        const value = (document.getElementById('quiz-input') as HTMLInputElement).value;
-        if (!value && question.id !== 'name' && question.id !== 'age') return; // Allow empty
-        newAnswers[state.currentQuestionIndex] = value;
-        if(question.id === 'name') newUserName = value;
-        if(question.id === 'age') newUserAge = value;
-    } else {
-        const selectedButton = document.querySelector('.option-btn.selected');
-        if (!selectedButton) return;
-        newAnswers[state.currentQuestionIndex] = (selectedButton as HTMLElement).dataset.option;
-    }
-    
-    return { answers: newAnswers, name: newUserName, age: newUserAge };
-  }
-
-  if (question.type !== 'text' && question.type !== 'number') {
-    document.querySelectorAll('.option-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const clickedButton = e.currentTarget as HTMLButtonElement;
-        document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-        clickedButton.classList.add('selected');
-        clickedButton.classList.add('clicked');
-        clickedButton.addEventListener('animationend', () => clickedButton.classList.remove('clicked'), { once: true });
-      });
-    });
-  }
-
-  if (state.currentQuestionIndex > 0) {
-    document.getElementById('back-btn').addEventListener('click', () => {
-      store.dispatch({ type: 'SET_QUESTION_INDEX', payload: state.currentQuestionIndex - 1 });
-    });
-  }
-
-  const nextAction = () => {
-      const result = handleAnswer();
-      if(result) {
-          store.dispatch({ type: 'SET_USER_ANSWERS', payload: result });
-          store.dispatch({ type: 'SET_QUESTION_INDEX', payload: state.currentQuestionIndex + 1 });
-      }
-  };
-  
-  const finishAction = () => {
-      const result = handleAnswer();
-      if(result) {
-          store.dispatch({ type: 'SET_USER_ANSWERS', payload: result });
-          getAIResults();
-      }
-  }
-
-  if (state.currentQuestionIndex < questions.length - 1) {
-    document.getElementById('next-btn').addEventListener('click', nextAction);
-  } else {
-    document.getElementById('finish-btn').addEventListener('click', finishAction);
-  }
-  attachTopNavListeners();
 };
 
 const renderLoading = (title = t('loadingTitle'), desc = t('loadingDesc')) => {
   root.innerHTML = `
-    <div class="container loader-container">
-      <div class="loader"></div>
-      <h2>${title}</h2>
-      <p>${desc}</p>
+    <div class="page-container">
+        <div class="container loader-container">
+          <div class="loader"></div>
+          <h2>${title}</h2>
+          <p>${desc}</p>
+        </div>
     </div>
   `;
+};
+
+const getFeedbackStore = () => {
+    try {
+        const store = localStorage.getItem('feedbackStore');
+        return store ? JSON.parse(store) : {};
+    } catch (e) {
+        console.error("Could not load feedback store.", e);
+        return {};
+    }
+};
+
+const saveFeedback = (reportId, sectionKey, wasHelpful) => {
+    const store = getFeedbackStore();
+    if (!store[reportId]) {
+        store[reportId] = {};
+    }
+    store[reportId][sectionKey] = wasHelpful;
+    try {
+        localStorage.setItem('feedbackStore', JSON.stringify(store));
+    } catch (e) {
+        console.error("Could not save feedback.", e);
+    }
+};
+
+const renderFeedbackUI = (sectionKey, feedbackData) => {
+    const feedbackValue = feedbackData[sectionKey]; // will be true, false, or undefined
+    if (feedbackValue === undefined) {
+        return `
+            <span class="feedback-question">${t('wasThisHelpful')}</span>
+            <button class="btn feedback-btn" data-feedback="true">${t('yes')}</button>
+            <button class="btn feedback-btn" data-feedback="false">${t('no')}</button>
+        `;
+    } else {
+        return `
+            <div class="feedback-response">
+                <button class="btn feedback-btn ${feedbackValue ? 'selected' : ''}" data-feedback="true" disabled>${t('yes')}</button>
+                <button class="btn feedback-btn ${!feedbackValue ? 'selected' : ''}" data-feedback="false" disabled>${t('no')}</button>
+                <span class="feedback-thanks">${t('feedbackThanks')}</span>
+            </div>
+        `;
+    }
 };
 
 const renderResults = async (state) => {
@@ -576,128 +603,110 @@ const renderResults = async (state) => {
   const personalitySummaryHtml = await marked.parse(results.personalitySummary);
   const careerAdviceHtml = await marked.parse(results.careerAdvice);
   const isAlreadySaved = savedResults.some(r => r.savedDate === results.savedDate);
+  
+  const feedbackStore = getFeedbackStore();
+  const reportFeedback = feedbackStore[results.savedDate] || {};
 
   root.innerHTML = `
-    <div class="container results-container">
-      ${renderTopNav(state)}
-      <h1>${t('resultsTitleFor').replace('{name}', results.userName || t('you'))}</h1>
-      
-      <nav class="results-nav">
-        <a href="#personality-summary">${t('personalitySummary')}</a>
-        <a href="#recommended-paths">${t('recommendedPaths')}</a>
-        <a href="#career-advice">${t('careerAdvice')}</a>
-      </nav>
+    <div class="page-container">
+        <div class="container results-container">
+          ${renderTopNav(state)}
+          <h1>${t('resultsTitleFor').replace('{name}', results.userName || t('you'))}</h1>
+          
+          <nav class="results-nav">
+            <a href="#personality-summary">${t('personalitySummary')}</a>
+            <a href="#recommended-paths">${t('recommendedPaths')}</a>
+            <a href="#career-advice">${t('careerAdvice')}</a>
+          </nav>
 
-      <div id="personality-summary" class="result-section">
-        <h2>${t('personalitySummary')}</h2>
-        <div>${personalitySummaryHtml}</div>
-      </div>
-
-      <div id="recommended-paths" class="result-section">
-        <h2>${t('recommendedPaths')}</h2>
-        ${results.jobSuggestions.map(job => `
-          <div class="job-suggestion-card">
-            <h3>${job.title}</h3>
-            <p>${job.description}</p>
-            <p class="details">${job.details}</p>
+          <div id="personality-summary" class="result-section">
+            <h2>${t('personalitySummary')}</h2>
+            <div>${personalitySummaryHtml}</div>
+            <div class="feedback-controls" data-section-key="personality">
+              ${renderFeedbackUI('personality', reportFeedback)}
+            </div>
           </div>
-        `).join('')}
-      </div>
 
-      <div id="career-advice" class="result-section">
-        <h2>${t('careerAdvice')}</h2>
-        <div>${careerAdviceHtml}</div>
-      </div>
-      
-      <div class="results-actions">
-        <button id="print-btn" class="btn secondary">${t('printReport')}</button>
-        <button id="email-btn" class="btn secondary">${t('emailReport')}</button>
-        ${isNew ? `<button id="save-btn" class="btn secondary" ${isAlreadySaved ? 'disabled' : ''}>${isAlreadySaved ? t('reportSaved') : t('saveReport')}</button>` : ''}
-      </div>
+          <div id="recommended-paths" class="result-section">
+            <h2>${t('recommendedPaths')}</h2>
+            ${results.jobSuggestions.map(job => `
+              <div class="job-suggestion-card">
+                <h3>${job.title}</h3>
+                <p>${job.description}</p>
+                <p class="details">${job.details}</p>
+              </div>
+            `).join('')}
+             <div class="feedback-controls" data-section-key="paths">
+              ${renderFeedbackUI('paths', reportFeedback)}
+            </div>
+          </div>
+
+          <div id="career-advice" class="result-section">
+            <h2>${t('careerAdvice')}</h2>
+            <div>${careerAdviceHtml}</div>
+            <div class="feedback-controls" data-section-key="advice">
+              ${renderFeedbackUI('advice', reportFeedback)}
+            </div>
+          </div>
+          
+          <div class="results-actions">
+            <button id="print-btn" class="btn secondary">${t('printReport')}</button>
+            <button id="email-btn" class="btn secondary">${t('emailReport')}</button>
+            ${isNew ? `<button id="save-btn" class="btn secondary" ${isAlreadySaved ? 'disabled' : ''}>${isAlreadySaved ? t('reportSaved') : t('saveReport')}</button>` : ''}
+          </div>
+        </div>
     </div>
   `;
-  attachTopNavListeners();
-
-  document.getElementById('print-btn').addEventListener('click', () => window.print());
-  
-  document.getElementById('email-btn').addEventListener('click', () => {
-      const de = translations['de'];
-      const subject = de.emailSubject.replace('{name}', results.userName || de.you);
-      let body = `${de.resultsTitleFor.replace('{name}', results.userName || de.you)}\n\n`;
-      body += `--- ${de.personalitySummary} ---\n${results.personalitySummary}\n\n`;
-      body += `--- ${de.recommendedPaths} ---\n`;
-      results.jobSuggestions.forEach(job => {
-          body += `\n* ${job.title} *\n${job.description}\n${job.details}\n`;
-      });
-      body += `\n--- ${de.careerAdvice} ---\n${results.careerAdvice}`;
-      
-      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
-  
-  if (isNew && !isAlreadySaved) {
-      document.getElementById('save-btn').addEventListener('click', (e) => {
-          const button = e.target as HTMLButtonElement;
-          const newSavedResults = [...savedResults, results];
-          localStorage.setItem('careerResults', JSON.stringify(newSavedResults));
-          store.dispatch({ type: 'SET_SAVED_RESULTS', payload: newSavedResults });
-          button.textContent = t('reportSaved');
-          button.disabled = true;
-      });
-  }
-
-  document.querySelectorAll('.results-nav a').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-      });
-  });
 };
 
 const renderSavedResultsList = (state) => {
-    root.innerHTML = `
-        <div class="container saved-reports-container">
-            ${renderTopNav(state)}
-            <div class="saved-reports-header">
-                <h1>${t('savedReportsTitle')}</h1>
+    const { isLoading, status, message } = state.apiKeyCheck;
+
+    let statusHtml = '';
+    if (status !== 'unchecked') {
+        statusHtml = `<p class="api-status-message ${status}">${message}</p>`;
+    }
+
+    const apiCheckerHtml = `
+        <div class="api-status-checker">
+            <h2>${t('apiKeyStatus')}</h2>
+            <p>${t('apiKeyStatusDesc')}</p>
+            <button id="check-api-key-btn" class="btn secondary" ${isLoading ? 'disabled' : ''}>
+                ${isLoading ? t('checkingApiKey') : t('checkApiKey')}
+            </button>
+            <div id="api-status-result">
+                ${statusHtml}
             </div>
-            ${state.savedResults.length > 0 ? `
-                <ul>
-                    ${state.savedResults.map((result, index) => `
-                        <li class="report-item">
-                            <div class="report-item-info">
-                                <span class="name">${result.userName || t('anonymousReport')}</span>
-                                <span class="date">${new Date(result.savedDate).toLocaleDateString(state.currentLanguage)}</span>
-                            </div>
-                            <div class="report-item-actions">
-                                <button class="btn view-details-btn" data-index="${index}">${t('viewDetails')}</button>
-                                <button class="btn delete delete-btn" data-index="${index}">${t('delete')}</button>
-                            </div>
-                        </li>
-                    `).join('')}
-                </ul>
-            ` : `<p>${t('noSavedReports')}</p>`}
         </div>
     `;
 
-    document.querySelectorAll('.view-details-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const index = parseInt((e.currentTarget as HTMLButtonElement).dataset.index, 10);
-            store.dispatch({ type: 'SET_ACTIVE_REPORT', payload: { report: state.savedResults[index], isNew: false } });
-        });
-    });
-
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            if (window.confirm(t('confirmDeleteReport'))) {
-                const index = parseInt((e.currentTarget as HTMLButtonElement).dataset.index, 10);
-                const newResults = state.savedResults.filter((_, i) => i !== index);
-                localStorage.setItem('careerResults', JSON.stringify(newResults));
-                store.dispatch({ type: 'SET_SAVED_RESULTS', payload: newResults });
-            }
-        });
-    });
-    
-    attachTopNavListeners();
+    root.innerHTML = `
+        <div class="page-container">
+            <div class="container saved-reports-container">
+                ${renderTopNav(state)}
+                <div class="saved-reports-header">
+                    <h1>${t('savedReportsTitle')}</h1>
+                </div>
+                ${state.savedResults.length > 0 ? `
+                    <ul>
+                        ${state.savedResults.map((result, index) => `
+                            <li class="report-item">
+                                <div class="report-item-info">
+                                    <span class="name">${result.userName || t('anonymousReport')}</span>
+                                    <span class="date">${new Date(result.savedDate).toLocaleDateString(state.currentLanguage)}</span>
+                                </div>
+                                <div class="report-item-actions">
+                                    <button class="btn view-details-btn" data-index="${index}">${t('viewDetails')}</button>
+                                    <button class="btn delete delete-btn" data-index="${index}">${t('delete')}</button>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                ` : `<p>${t('noSavedReports')}</p>`}
+                ${apiCheckerHtml}
+            </div>
+        </div>
+    `;
 };
 
 const updateProfessionsContent = (state) => {
@@ -721,6 +730,7 @@ const updateProfessionsContent = (state) => {
     if (professionsCurrentPage > totalPages) professionsCurrentPage = totalPages;
     
     const startIndex = (professionsCurrentPage - 1) * PROFESSIONS_PAGE_SIZE;
+    // FIX: The slice method takes 2 arguments (start and end), not 3. The end index is calculated by adding the page size to the start index.
     const paginatedProfessions = allProfessions.slice(startIndex, startIndex + PROFESSIONS_PAGE_SIZE);
 
     professionsGrid.innerHTML = paginatedProfessions.length > 0 ? paginatedProfessions.map(p => `
@@ -731,6 +741,8 @@ const updateProfessionsContent = (state) => {
                 <p><strong>${t('salary')}:</strong> ${p.salary[currentLanguage]}</p>
                 <p><strong>${t('requirements')}:</strong> ${p.requirements[currentLanguage]}</p>
                 <p><strong>${t('duties')}:</strong> ${p.duties[currentLanguage]}</p>
+                <p><strong>${t('skillsRequired')}:</strong> ${p.skillsRequired[currentLanguage]}</p>
+                <p><strong>${t('typicalDailyTasks')}:</strong> ${p.typicalDailyTasks[currentLanguage]}</p>
             </div>
         </div>
     `).join('') : `<p>${t('noJobsFound')}</p>`;
@@ -740,109 +752,72 @@ const updateProfessionsContent = (state) => {
         <span class="page-info">${t('page')} ${professionsCurrentPage} / ${totalPages}</span>
         <button id="next-page" class="btn secondary" ${professionsCurrentPage >= totalPages ? 'disabled' : ''}>${t('next')}</button>
     `;
-    
-    const updatePage = (newPage) => {
-         store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: {
-            searchTerm: professionsSearchTerm,
-            filter: professionsFilter,
-            page: newPage
-        }});
-    }
-
-    if (professionsCurrentPage > 1) {
-        document.getElementById('prev-page').addEventListener('click', () => updatePage(professionsCurrentPage - 1));
-    }
-    if (professionsCurrentPage < totalPages) {
-        document.getElementById('next-page').addEventListener('click', () => updatePage(professionsCurrentPage + 1));
-    }
 };
 
 const renderProfessionsList = (state) => {
     root.innerHTML = `
-        <div class="container professions-container">
-            ${renderTopNav(state)}
-            <h1>${t('browseProfessions')}</h1>
-            <p>${t('professionsDesc')}</p>
-            <div class="professions-controls">
-                <input type="search" id="search-professions" placeholder="${t('searchPlaceholder')}" value="${state.professionsSearchTerm}">
-                <div class="filter-buttons">
-                    <button class="btn secondary ${state.professionsFilter === 'all' ? 'active' : ''}" data-filter="all">${t('all')}</button>
-                    <button class="btn secondary ${state.professionsFilter === 'ausbildung' ? 'active' : ''}" data-filter="ausbildung">${t('ausbildung')}</button>
-                    <button class="btn secondary ${state.professionsFilter === 'study' ? 'active' : ''}" data-filter="study">${t('study')}</button>
-                    <button class="btn secondary ${state.professionsFilter === 'job' ? 'active' : ''}" data-filter="job">${t('job')}</button>
+        <div class="page-container">
+            <div class="container professions-container">
+                ${renderTopNav(state)}
+                <h1>${t('browseProfessions')}</h1>
+                <p>${t('professionsDesc')}</p>
+                <div class="professions-controls">
+                    <input type="search" id="search-professions" placeholder="${t('searchPlaceholder')}" value="${state.professionsSearchTerm}">
+                    <div class="filter-buttons">
+                        <button class="btn secondary ${state.professionsFilter === 'all' ? 'active' : ''}" data-filter="all">${t('all')}</button>
+                        <button class="btn secondary ${state.professionsFilter === 'ausbildung' ? 'active' : ''}" data-filter="ausbildung">${t('ausbildung')}</button>
+                        <button class="btn secondary ${state.professionsFilter === 'study' ? 'active' : ''}" data-filter="study">${t('study')}</button>
+                        <button class="btn secondary ${state.professionsFilter === 'job' ? 'active' : ''}" data-filter="job">${t('job')}</button>
+                    </div>
                 </div>
+                <div id="professions-grid"></div>
+                <div id="pagination-controls" class="pagination-controls"></div>
             </div>
-            <div id="professions-grid"></div>
-            <div id="pagination-controls" class="pagination-controls"></div>
         </div>
     `;
     
     updateProfessionsContent(state);
-
-    const updateSearch = (newFilter = state.professionsFilter, newSearchTerm = state.professionsSearchTerm) => {
-        store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: {
-            searchTerm: newSearchTerm,
-            filter: newFilter,
-            page: 1
-        }});
-    }
-
-    document.getElementById('search-professions').addEventListener('input', (e) => {
-        updateSearch(state.professionsFilter, (e.target as HTMLInputElement).value);
-    });
-    
-    document.querySelectorAll('.filter-buttons button').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const button = e.currentTarget as HTMLButtonElement;
-            updateSearch(button.dataset.filter, state.professionsSearchTerm);
-        });
-    });
-
-    attachTopNavListeners();
 };
 
 const renderCareerVideos = (state) => {
     if (!state.isAdminAuthenticated) {
         root.innerHTML = `
-            <div class="container maintenance-container">
-                ${renderTopNav(state)}
-                <div class="maintenance-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <div class="page-container">
+                <div class="container maintenance-container">
+                    ${renderTopNav(state)}
+                    <div class="maintenance-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <h1>${t('underMaintenanceTitle')}</h1>
+                    <p>${t('underMaintenanceDesc')}</p>
                 </div>
-                <h1>${t('underMaintenanceTitle')}</h1>
-                <p>${t('underMaintenanceDesc')}</p>
             </div>
         `;
-        attachTopNavListeners();
         return;
     }
 
     root.innerHTML = `
-        <div class="container career-videos-container">
-            ${renderTopNav(state)}
-            <h1>${t('careerPathVideosTitle')}</h1>
-            <p>${t('careerPathVideosDescPage')}</p>
-            <div class="video-grid">
-                ${professions.map(p => `
-                    <div class="video-card">
-                        <h3>${p.title[state.currentLanguage]}</h3>
-                        <div class="video-embed-container">
-                            <iframe 
-                                src="${p.videoUrl}" 
-                                title="${p.title[state.currentLanguage]}" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                allowfullscreen>
-                            </iframe>
+        <div class="page-container">
+            <div class="container career-videos-container">
+                ${renderTopNav(state)}
+                <h1>${t('careerPathVideosTitle')}</h1>
+                <p>${t('careerPathVideosDescPage')}</p>
+                <div class="video-grid">
+                    ${professions.map(p => `
+                        <div class="video-card" data-videourl="${p.videoUrl}" data-videotitle="${p.title[state.currentLanguage]}">
+                            <h3>${p.title[state.currentLanguage]}</h3>
+                            <div class="video-embed-container">
+                                <div class="play-button"></div>
+                            </div>
+                            <p class="video-card-duties">${p.duties[state.currentLanguage]}</p>
                         </div>
-                        <p class="video-card-duties">${p.duties[state.currentLanguage]}</p>
-                    </div>
-                `).join('')}
+                    `).join('')}
+                </div>
             </div>
         </div>
     `;
-    attachTopNavListeners();
 };
+
 
 const renderJobSearch = (state) => {
     let resultsContent = '';
@@ -868,34 +843,45 @@ const renderJobSearch = (state) => {
     }
 
     root.innerHTML = `
-        <div class="container job-search-container">
-            ${renderTopNav(state)}
-            <h1>${t('searchAvailableJobs')}</h1>
-            <p>${t('jobSearchDesc')}</p>
-            <form id="job-search-form" class="job-search-form">
-                <div class="job-search-inputs">
-                    <input type="text" id="job-title-input" placeholder="${t('jobTitlePlaceholder')}" required>
-                    <input type="text" id="location-input" placeholder="${t('locationPlaceholder')}" required>
+        <div class="page-container">
+            <div class="container job-search-container">
+                ${renderTopNav(state)}
+                <h1>${t('searchAvailableJobs')}</h1>
+                <p>${t('jobSearchDesc')}</p>
+                <form id="job-search-form" class="job-search-form">
+                    <div class="job-search-inputs">
+                        <input type="text" id="job-title-input" placeholder="${t('jobTitlePlaceholder')}" required>
+                        <input type="text" id="location-input" placeholder="${t('locationPlaceholder')}" required>
+                    </div>
+                    <button type="submit" class="btn">${t('search')}</button>
+                </form>
+                <div id="job-search-results-container">
+                    ${resultsContent}
                 </div>
-                <button type="submit" class="btn">${t('search')}</button>
-            </form>
-            <div id="job-search-results-container">
-                ${resultsContent}
             </div>
         </div>
     `;
+};
 
-    document.getElementById('job-search-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const jobTitle = (document.getElementById('job-title-input') as HTMLInputElement).value;
-        const location = (document.getElementById('location-input') as HTMLInputElement).value;
-        getLiveJobs(jobTitle, location);
-    });
-    attachTopNavListeners();
+const renderPraktikumIntro = (state) => {
+    root.innerHTML = `
+        <div class="page-container">
+            <div class="container praktikum-intro-container">
+                ${renderTopNav(state)}
+                <h1>${t('praktikumIntroTitle')}</h1>
+                <p>${t('praktikumIntroDesc1')}</p>
+                <p>${t('praktikumIntroDesc2')}</p>
+                <div class="disclaimer-box">
+                    <p>${t('praktikumIntroDisclaimer')}</p>
+                </div>
+                <button id="start-praktikum-search-btn" class="btn">${t('praktikumIntroStartBtn')}</button>
+            </div>
+        </div>
+    `;
 };
 
 const renderPraktikumSearch = (state) => {
-    const { isLoadingCompany, isLoadingEmail, companyList, selectedCompany, generatedEmail, error, internshipType } = state.praktikumSearchState;
+    const { isLoadingCompany, isLoadingEmail, companyList, selectedCompany, generatedEmail, error, internshipType, field, location } = state.praktikumSearchState;
 
     let companyContent = '';
     if (isLoadingCompany) {
@@ -906,133 +892,169 @@ const renderPraktikumSearch = (state) => {
         companyContent = `
             <div class="praktikum-results-list">
                 <h3>${t('praktikumCompanyResult')}</h3>
-                ${companyList.map((company, index) => `
+                ${companyList.map((company, index) => {
+                    const companyId = getCompanyId(company);
+                    const reviews = getReviews(companyId);
+                    const reviewCount = reviews.length;
+                    const avgRating = reviewCount > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount : 0;
+                    
+                    return `
                     <div class="praktikum-company-card ${selectedCompany === company ? 'selected' : ''}">
-                        <div class="praktikum-company-info">
-                           <p><strong>${company.name}</strong></p>
-                           <p>${company.address}</p>
-                           <p>${company.contact}</p>
-                           ${company.website ? `<p><a href="${company.website.startsWith('http') ? company.website : `https://${company.website}`}" target="_blank" rel="noopener noreferrer" class="website-link">${t('companyWebsite')}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></p>` : ''}
+                        <div class="company-card-main-content">
+                            <div class="praktikum-company-info">
+                               <p class="company-name">${company.name}</p>
+                               ${company.description ? `<p class="company-description">${company.description}</p>` : ''}
+                               <div class="company-details">
+                                   ${company.address ? `<div class="detail-item"><span class="detail-label">${t('location')}:</span><span>${company.address}</span></div>` : ''}
+                                   ${company.contactPerson ? `<div class="detail-item"><span class="detail-label">${t('contactPerson')}:</span><span>${company.contactPerson}</span></div>` : ''}
+                                   ${company.applicationEmail ? `<div class="detail-item"><span class="detail-label">${t('applicationEmail')}:</span><a href="mailto:${company.applicationEmail}">${company.applicationEmail}</a></div>` : ''}
+                                   ${company.website ? `<div class="detail-item"><span class="detail-label">${t('companyWebsite')}:</span><a href="${company.website.startsWith('http') ? company.website : `https://${company.website}`}" target="_blank" rel="noopener noreferrer" class="website-link">${company.website}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>` : ''}
+                               </div>
+                            </div>
+                            <button class="btn secondary select-company-btn" data-index="${index}">${selectedCompany === company ? t('selected') : t('select')}</button>
                         </div>
-                        <button class="btn secondary select-company-btn" data-index="${index}">${selectedCompany === company ? t('selected') : t('select')}</button>
+                        <div class="company-reviews-section">
+                            <div class="reviews-summary" data-company-id="${companyId}" role="button" tabindex="0" aria-expanded="false" aria-controls="reviews-content-${companyId}">
+                                <span class="rating-display">${renderStars(avgRating)}</span>
+                                <span class="review-count">${reviewCount} ${t('reviews')}</span>
+                            </div>
+                            <div class="reviews-content" id="reviews-content-${companyId}" style="display: none;">
+                                 <div class="reviews-list">
+                                    ${reviewCount > 0 ? reviews.map(r => `
+                                        <div class="review-item">
+                                            <div class="review-header">
+                                                <strong>${r.name || t('anonymous')}</strong>
+                                                <span class="rating-display small">${renderStars(r.rating)}</span>
+                                            </div>
+                                            <p>${r.text}</p>
+                                            <small>${new Date(r.date).toLocaleDateString(store.getState().currentLanguage)}</small>
+                                        </div>
+                                    `).join('') : `<p class="no-reviews-msg">${t('noReviewsYet')}</p>`}
+                                 </div>
+                                 <div class="review-form-container">
+                                     <h4>${t('leaveReview')}</h4>
+                                     <form class="review-form" data-company-id="${companyId}">
+                                         <input type="hidden" name="rating" value="0" required>
+                                         <div class="form-group">
+                                             <label for="reviewer-name-${companyId}">${t('yourName')}</label>
+                                             <input type="text" id="reviewer-name-${companyId}" name="name" placeholder="${t('yourNamePlaceholder')}">
+                                         </div>
+                                         <div class="form-group">
+                                             <label>${t('rating')}</label>
+                                             <div class="rating-input">
+                                                 ${[1, 2, 3, 4, 5].map(i => `<span class="star" data-value="${i}" role="button" aria-label="${i} stars">☆</span>`).join('')}
+                                             </div>
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="review-text-${companyId}">${t('reviewText')}</label>
+                                             <textarea id="review-text-${companyId}" name="text" required rows="4" placeholder="${t('reviewText')}..."></textarea>
+                                         </div>
+                                         <button type="submit" class="btn small-btn">${t('submitReview')}</button>
+                                     </form>
+                                 </div>
+                            </div>
+                        </div>
                     </div>
-                `).join('')}
+                `}).join('')}
             </div>
         `;
     }
 
-    let emailGeneratorContent = '';
-    if (selectedCompany) {
-        emailGeneratorContent = `
-            <div class="email-generator">
-                <h3>${t('praktikumGenerateEmailTitle')}</h3>
-                <form id="email-gen-form" class="praktikum-search-form">
-                    <div class="praktikum-search-inputs">
-                        <input type="text" id="user-name-email" placeholder="${t('yourNamePlaceholder')}" required>
-                    </div>
-                    <button type="submit" class="btn" ${isLoadingEmail ? 'disabled' : ''}>
-                        ${isLoadingEmail ? t('loading') : t('praktikumGenerateEmailBtn')}
-                    </button>
-                </form>
-            </div>
-        `;
-    }
-    
-    let emailDisplayContent = '';
-    if(isLoadingEmail) {
-        emailDisplayContent = `<div class="inline-loader-container"><div class="loader"></div><p>${t('praktikumEmailLoading')}</p></div>`;
+    let modalContent = '';
+    if (isLoadingEmail) {
+        modalContent = `<div class="inline-loader-container"><div class="loader"></div><p>${t('praktikumEmailLoading')}</p></div>`;
     } else if (generatedEmail) {
-        emailDisplayContent = `
-             <div class="email-generator">
-                <h3>${t('praktikumYourEmail')}</h3>
-                <textarea id="email-output" readonly>${generatedEmail}</textarea>
-                <div class="email-generator-actions">
-                    <button id="copy-email-btn" class="btn secondary">${t('copyEmail')}</button>
-                </div>
+        modalContent = `
+            <h3>${t('praktikumYourEmail')}</h3>
+            <textarea id="email-output" readonly>${generatedEmail}</textarea>
+            <div class="email-generator-actions">
+                <button id="copy-email-btn" class="btn secondary">${t('copyEmail')}</button>
             </div>
         `;
-    }
-
-    root.innerHTML = `
-        <div class="container praktikum-search-container">
-            ${renderTopNav(state)}
-            <h1>${t('searchForPraktikum')}</h1>
-            <p>${t('praktikumDesc')}</p>
-            <form id="praktikum-search-form" class="praktikum-search-form">
+    } else if (selectedCompany) {
+         modalContent = `
+            <h3>${t('praktikumGenerateEmailTitle')}</h3>
+            <p>${t('company')}: <strong>${selectedCompany.name}</strong></p>
+            <form id="email-gen-form" class="praktikum-search-form">
                 <div class="praktikum-search-inputs">
-                    <input type="text" id="field-input" placeholder="${t('fieldPlaceholder')}" required>
-                    <input type="text" id="location-input" placeholder="${t('locationPlaceholder')}" required>
-                    <div class="form-input-group">
-                        <label for="internship-type-select">${t('internshipTypeLabel')}</label>
-                        <select id="internship-type-select" required>
-                            <option value="" disabled ${!internshipType ? 'selected' : ''}>${t('internshipTypePlaceholder')}</option>
-                            <option value="orientation" ${internshipType === 'orientation' ? 'selected' : ''}>${t('internshipTypeOrientation')}</option>
-                            <option value="school" ${internshipType === 'school' ? 'selected' : ''}>${t('internshipTypeSchool')}</option>
-                            <option value="ausbildung" ${internshipType === 'ausbildung' ? 'selected' : ''}>${t('internshipTypeAusbildung')}</option>
-                        </select>
-                    </div>
+                    <input type="text" id="user-name-email" placeholder="${t('yourNamePlaceholder')}" required>
                 </div>
-                <button type="submit" class="btn" ${isLoadingCompany ? 'disabled' : ''}>
-                     ${isLoadingCompany ? t('loading') : t('praktikumSearchBtn')}
+                <button type="submit" class="btn" ${isLoadingEmail ? 'disabled' : ''}>
+                    ${isLoadingEmail ? t('loading') : t('praktikumGenerateEmailBtn')}
                 </button>
             </form>
+        `;
+    }
 
-            <div id="praktikum-results-container">
-                ${companyContent}
-                ${selectedCompany && !generatedEmail ? emailGeneratorContent : ''}
-                ${emailDisplayContent}
+    const emailModal = `
+        <div id="email-modal" class="email-modal ${selectedCompany ? 'open' : ''}">
+            <div class="email-modal-content">
+                <button id="email-modal-close" class="email-modal-close" aria-label="Close">&times;</button>
+                ${modalContent}
             </div>
         </div>
     `;
-    
-    document.getElementById('internship-type-select').addEventListener('change', (e) => {
-        const type = (e.target as HTMLSelectElement).value;
-        store.dispatch({ type: 'SET_INTERNSHIP_TYPE', payload: type });
-    });
 
-    document.getElementById('praktikum-search-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const field = (document.getElementById('field-input') as HTMLInputElement).value;
-        const location = (document.getElementById('location-input') as HTMLInputElement).value;
-        const type = (document.getElementById('internship-type-select') as HTMLSelectElement).value;
-        getPraktikumOpportunity(field, location, type);
-    });
-    
-    document.querySelectorAll('.select-company-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const index = parseInt((e.currentTarget as HTMLButtonElement).dataset.index, 10);
-            store.dispatch({ type: 'PRAKTIKUM_SELECT_COMPANY', payload: companyList[index] });
-        });
-    });
+    root.innerHTML = `
+        <div class="page-container">
+            <div class="container praktikum-search-container">
+                ${renderTopNav(state)}
+                <h1>${t('searchForPraktikum')}</h1>
+                <p>${t('praktikumDesc')}</p>
+                <form id="praktikum-search-form" class="praktikum-search-form">
+                    <div class="praktikum-search-inputs">
+                        <input type="text" id="field-input" placeholder="${t('fieldPlaceholder')}" required value="${field}">
+                        <input type="text" id="location-input" placeholder="${t('locationPlaceholder')}" required value="${location}">
+                        <div class="form-input-group">
+                            <label for="internship-type-select">${t('internshipTypeLabel')}</label>
+                            <select id="internship-type-select" required>
+                                <option value="" disabled ${!internshipType ? 'selected' : ''}>${t('internshipTypePlaceholder')}</option>
+                                <option value="orientation" ${internshipType === 'orientation' ? 'selected' : ''}>${t('internshipTypeOrientation')}</option>
+                                <option value="school" ${internshipType === 'school' ? 'selected' : ''}>${t('internshipTypeSchool')}</option>
+                                <option value="ausbildung" ${internshipType === 'ausbildung' ? 'selected' : ''}>${t('internshipTypeAusbildung')}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" ${isLoadingCompany ? 'disabled' : ''}>
+                         ${isLoadingCompany ? t('loading') : t('praktikumSearchBtn')}
+                    </button>
+                </form>
 
-    if (selectedCompany && !generatedEmail) {
-         document.getElementById('email-gen-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const userName = (document.getElementById('user-name-email') as HTMLInputElement).value;
-            generateInquiryEmail(userName, selectedCompany.name, (document.getElementById('field-input') as HTMLInputElement).value, internshipType);
-        });
-    }
+                <div id="praktikum-results-container">
+                    ${companyContent}
+                </div>
+            </div>
+        </div>
+        ${emailModal}
+    `;
 
-    if (generatedEmail) {
-        document.getElementById('copy-email-btn').addEventListener('click', (e) => {
-            const emailText = (document.getElementById('email-output') as HTMLTextAreaElement).value;
-            navigator.clipboard.writeText(emailText).then(() => {
-                const btn = e.target as HTMLButtonElement;
-                const originalText = t('copyEmail');
-                
-                btn.classList.add('copied-success');
-                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg> ${t('copied')}`;
-                btn.disabled = true;
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('copied-success');
-                    btn.disabled = false;
-                }, 2000);
+    // Note: Most event listeners are now delegated.
+    // However, complex, non-bubbling, or stateful UI interactions like the star rating hover
+    // effect are kept here for simplicity and reliability.
+    document.querySelectorAll('.rating-input').forEach(container => {
+        const stars = Array.from(container.querySelectorAll('.star')) as HTMLElement[];
+        const ratingInput = (container.closest('form') as HTMLFormElement).querySelector('input[name="rating"]') as HTMLInputElement;
+
+        const updateStars = (rating) => {
+            stars.forEach((star, index) => {
+                star.textContent = index < rating ? '★' : '☆';
+                star.classList.toggle('filled', index < rating);
             });
-        });
-    }
+        };
 
-    attachTopNavListeners();
+        container.addEventListener('mouseover', (e) => {
+            const target = e.target as HTMLElement;
+            if (target.classList.contains('star')) {
+                const hoverValue = parseInt(target.dataset.value, 10);
+                updateStars(hoverValue);
+            }
+        });
+
+        container.addEventListener('mouseout', () => {
+            const selectedValue = parseInt(ratingInput.value, 10);
+            updateStars(selectedValue);
+        });
+    });
 }
 
 
@@ -1070,7 +1092,6 @@ const handleApiError = (error, dispatchActionCreator, defaultErrorKey = 'errorTe
     } else {
        // Fallback for views without dedicated error state (like the quiz results)
         root.innerHTML = `<div class="container" style="text-align: center;"><p class="error-message">${errorMessage}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
-        document.getElementById('restart-btn')?.addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
     }
 }
 
@@ -1109,7 +1130,6 @@ const getAIResults = async () => {
   if (!ai) {
     const errorMessage = t('apiKeyNotConfiguredError');
     root.innerHTML = `<div class="container" style="text-align: center;"><p class="error-message">${errorMessage}</p><button id="restart-btn" class="btn">${t('restart')}</button></div>`;
-    document.getElementById('restart-btn').addEventListener('click', () => store.dispatch({ type: 'NAVIGATE_HOME' }));
     return;
   }
 
@@ -1191,9 +1211,16 @@ const getPraktikumOpportunity = async (field, location, internshipType) => {
         store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_ERROR', payload: t('apiKeyNotConfiguredError') });
         return;
     }
-    store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_START', payload: internshipType });
+    store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_START', payload: { field, location, internshipType } });
 
-    const prompt = t('praktikumSearchPrompt').replace('{field}', field).replace('{location}', location);
+    // Translate the internship type for a more accurate AI prompt
+    const typeKey = `internshipType${internshipType.charAt(0).toUpperCase() + internshipType.slice(1)}`;
+    const translatedType = translations['de'][typeKey] || internshipType; // Use German for the search context
+
+    const prompt = t('praktikumSearchPrompt')
+        .replace('{field}', field)
+        .replace('{location}', location)
+        .replace('{internshipType}', translatedType);
     
     try {
         const response = await ai.models.generateContent({
@@ -1256,6 +1283,17 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
     }
 };
 
+const updateBodyPadding = () => {
+    const headerEl = document.querySelector('header');
+    const footerEl = document.querySelector('footer');
+    if (headerEl && footerEl) {
+        const headerHeight = headerEl.offsetHeight;
+        const footerHeight = footerEl.offsetHeight;
+        document.body.style.paddingTop = `${headerHeight}px`;
+        document.body.style.paddingBottom = `${footerHeight}px`;
+    }
+};
+
 let previousView = undefined;
 
 const renderApp = (state) => {
@@ -1266,6 +1304,9 @@ const renderApp = (state) => {
   renderHeaderActions(state);
 
   switch (state.currentView) {
+    case 'quizIntro':
+      renderQuizIntro(state);
+      break;
     case 'quiz':
       renderQuiz(state);
       break;
@@ -1283,6 +1324,9 @@ const renderApp = (state) => {
       break;
     case 'jobSearch':
       renderJobSearch(state);
+      break;
+    case 'praktikumIntro':
+      renderPraktikumIntro(state);
       break;
     case 'praktikumSearch':
       renderPraktikumSearch(state);
@@ -1307,7 +1351,384 @@ const renderApp = (state) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   previousView = state.currentView;
+
+  // Update body padding after every render to account for content changes
+  updateBodyPadding();
 };
+
+// --- START: PERFORMANCE OPTIMIZATION - CENTRALIZED EVENT LISTENERS ---
+
+function initEventListeners() {
+    // This function sets up delegated event listeners on the root element.
+    // This is much more performant than re-attaching listeners on every render.
+
+    // --- CLICK LISTENER ---
+    document.body.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const state = store.getState();
+        
+        // Language Switcher
+        const langDropdown = langSwitcherContainer.querySelector('.lang-switcher-dropdown');
+        if (target.closest('.lang-btn-current')) {
+             e.stopPropagation();
+             langDropdown?.classList.toggle('open');
+        } else {
+            langDropdown?.classList.remove('open');
+        }
+        
+        const langOptionBtn = target.closest('.lang-option-btn');
+        if (langOptionBtn) {
+            // FIX: Cast Element to HTMLElement to access the dataset property.
+            const lang = (langOptionBtn as HTMLElement).dataset.lang;
+            if (lang) {
+                localStorage.setItem('preferredLanguage', lang);
+                store.dispatch({ type: 'SET_LANGUAGE', payload: lang });
+                document.documentElement.lang = lang;
+                document.documentElement.dir = translations[lang].dir;
+            }
+            return;
+        }
+
+        // Header Actions & Navigation
+        if (target.closest('#header-title') && state.currentView !== 'welcome') { store.dispatch({ type: 'NAVIGATE_HOME' }); return; }
+        if (target.closest('#view-reports-btn')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'savedResultsList' }); return; }
+        if (target.closest('#logout-btn')) { store.dispatch({ type: 'LOGOUT' }); return; }
+        if (target.closest('#admin-login-btn')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'adminLogin' }); return; }
+        if (target.closest('#top-home-btn')) { store.dispatch({ type: 'NAVIGATE_HOME' }); return; }
+        if (target.closest('#top-back-btn')) { store.dispatch({ type: 'NAVIGATE_BACK' }); return; }
+        if (target.closest('#restart-btn')) { store.dispatch({ type: 'NAVIGATE_HOME' }); return; }
+
+
+        // Welcome Page
+        if (target.closest('#start-quiz-card')) { store.dispatch({ type: 'NAVIGATE_TO_QUIZ_INTRO' }); return; }
+        if (target.closest('#browse-professions-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'professionsList' }); return; }
+        if (target.closest('#job-search-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'jobSearch' }); return; }
+        if (target.closest('#praktikum-search-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'praktikumIntro' }); return; }
+        if (target.closest('#career-videos-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'careerVideos' }); return; }
+
+        // Quiz Intro Page
+        if (target.closest('#start-quiz-now-btn')) { store.dispatch({ type: 'START_QUIZ' }); return; }
+
+        // Quiz Page
+        const optionBtn = target.closest('.option-btn');
+        if (optionBtn) {
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            optionBtn.classList.add('selected');
+            optionBtn.classList.add('clicked');
+            optionBtn.addEventListener('animationend', () => optionBtn.classList.remove('clicked'), { once: true });
+            return;
+        }
+        
+        const handleQuizAnswer = () => {
+            const { userAnswers, userName, userAge, currentQuestionIndex } = state;
+            const questions = quizQuestions[state.currentLanguage];
+            const question = questions[currentQuestionIndex];
+            const newAnswers = [...userAnswers];
+            let newUserName = userName;
+            let newUserAge = userAge;
+            
+            if (question.type === 'text' || question.type === 'number') {
+                const value = (document.getElementById('quiz-input') as HTMLInputElement).value;
+                if (!value && question.id !== 'name' && question.id !== 'age') return;
+                newAnswers[currentQuestionIndex] = value;
+                if(question.id === 'name') newUserName = value;
+                if(question.id === 'age') newUserAge = value;
+            } else {
+                const selectedButton = document.querySelector('.option-btn.selected');
+                if (!selectedButton) return;
+                newAnswers[currentQuestionIndex] = (selectedButton as HTMLElement).dataset.option;
+            }
+            return { answers: newAnswers, name: newUserName, age: newUserAge };
+        };
+
+        if (target.closest('#back-btn')) { store.dispatch({ type: 'SET_QUESTION_INDEX', payload: state.currentQuestionIndex - 1 }); return; }
+        if (target.closest('#next-btn')) { 
+            const result = handleQuizAnswer();
+            if(result) {
+                store.dispatch({ type: 'SET_USER_ANSWERS', payload: result });
+                store.dispatch({ type: 'SET_QUESTION_INDEX', payload: state.currentQuestionIndex + 1 });
+            }
+            return;
+        }
+        if (target.closest('#finish-btn')) { 
+            const result = handleQuizAnswer();
+            if(result) {
+                store.dispatch({ type: 'SET_USER_ANSWERS', payload: result });
+                getAIResults();
+            }
+            return;
+        }
+
+        // Results Page
+        if (target.closest('#print-btn')) { window.print(); return; }
+        if (target.closest('#email-btn')) {
+            const { activeReport: results } = state;
+            if (!results) return;
+            const de = translations['de'];
+            const subject = de.emailSubject.replace('{name}', results.userName || de.you);
+            let body = `${de.resultsTitleFor.replace('{name}', results.userName || de.you)}\n\n`;
+            body += `--- ${de.personalitySummary} ---\n${results.personalitySummary}\n\n`;
+            body += `--- ${de.recommendedPaths} ---\n`;
+            results.jobSuggestions.forEach(job => { body += `\n* ${job.title} *\n${job.description}\n${job.details}\n`; });
+            body += `\n--- ${de.careerAdvice} ---\n${results.careerAdvice}`;
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            return;
+        }
+        if (target.closest('#save-btn')) {
+            const button = target.closest('#save-btn') as HTMLButtonElement;
+            const { activeReport: results, savedResults } = state;
+            const newSavedResults = [...savedResults, results];
+            localStorage.setItem('careerResults', JSON.stringify(newSavedResults));
+            store.dispatch({ type: 'SET_SAVED_RESULTS', payload: newSavedResults });
+            button.textContent = t('reportSaved');
+            button.disabled = true;
+
+            try {
+                const adminEmail = 'dr.ahmad1998@hotmail.com';
+                const subject = `Neuer Karrierebericht: ${results.userName || 'Anonym'}`;
+                let body = `Ein neuer Karrierebericht wurde gespeichert.\n\nName: ${results.userName || 'Nicht angegeben'}\nAlter: ${state.userAge || 'Nicht angegeben'}\nDatum: ${new Date(results.savedDate).toLocaleString('de-DE')}\nSprache des Berichts: ${state.currentLanguage.toUpperCase()}\n\n==============================================\nKI-GENERIERTER BERICHT\n==============================================\n\n--- ${t('personalitySummary')} ---\n${results.personalitySummary}\n\n--- ${t('recommendedPaths')} ---\n`;
+                results.jobSuggestions.forEach(job => { body += `\n* ${job.title} *\n${job.description}\n${job.details}\n`; });
+                body += `\n--- ${t('careerAdvice')} ---\n${results.careerAdvice}\n\n\n==============================================\nANTWORTEN AUF FRAGEN\n==============================================\n\n`;
+                const questions = quizQuestions[state.currentLanguage];
+                state.userAnswers.forEach((answer, index) => {
+                    if (questions && questions[index]) { body += `F: ${questions[index].question}\nA: ${answer || 'Nicht beantwortet'}\n\n`; }
+                });
+                window.location.href = `mailto:${adminEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            } catch (error) { console.error("Fehler beim Öffnen des E-Mail-Clients:", error); }
+            return;
+        }
+        const feedbackBtn = target.closest('.feedback-btn');
+        if (feedbackBtn && !feedbackBtn.hasAttribute('disabled')) {
+            const container = feedbackBtn.closest('.feedback-controls') as HTMLElement;
+            const sectionKey = container.dataset.sectionKey;
+            // FIX: Cast Element to HTMLElement to access the dataset property. The error was reported for the line above, but this is the likely source.
+            const feedback = (feedbackBtn as HTMLElement).dataset.feedback === 'true';
+            const { activeReport: results } = state;
+            if (!results || !sectionKey) return;
+            saveFeedback(results.savedDate, sectionKey, feedback);
+            const currentFeedback = getFeedbackStore()[results.savedDate] || {};
+            container.innerHTML = renderFeedbackUI(sectionKey, currentFeedback);
+            return;
+        }
+        const resultsNavLink = target.closest('.results-nav a');
+        if (resultsNavLink) {
+            e.preventDefault();
+            const href = resultsNavLink.getAttribute('href');
+            if (href) {
+                document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+            }
+            return;
+        }
+
+        // Saved Reports List
+        if (target.closest('#check-api-key-btn')) { performApiKeyCheck(); return; }
+        const viewDetailsBtn = target.closest('.view-details-btn');
+        if (viewDetailsBtn) {
+            // FIX: Cast Element to HTMLElement to access the dataset property.
+            const index = parseInt((viewDetailsBtn as HTMLElement).dataset.index, 10);
+            store.dispatch({ type: 'SET_ACTIVE_REPORT', payload: { report: state.savedResults[index], isNew: false } });
+            return;
+        }
+        const deleteBtn = target.closest('.delete-btn');
+        if (deleteBtn) {
+            if (window.confirm(t('confirmDeleteReport'))) {
+                // FIX: Cast Element to HTMLElement to access the dataset property.
+                const index = parseInt((deleteBtn as HTMLElement).dataset.index, 10);
+                const newResults = state.savedResults.filter((_, i) => i !== index);
+                localStorage.setItem('careerResults', JSON.stringify(newResults));
+                store.dispatch({ type: 'SET_SAVED_RESULTS', payload: newResults });
+            }
+            return;
+        }
+
+        // Professions List
+        const filterBtn = target.closest('.filter-buttons button');
+        if (filterBtn) {
+            // FIX: Cast Element to HTMLElement to access the dataset property.
+            store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { searchTerm: state.professionsSearchTerm, filter: (filterBtn as HTMLElement).dataset.filter, page: 1 } });
+            return;
+        }
+        if (target.closest('#prev-page')) { store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { ...state.professions, page: state.professionsCurrentPage - 1 } }); return; }
+        if (target.closest('#next-page')) { store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { ...state.professions, page: state.professionsCurrentPage + 1 } }); return; }
+
+        // Career Videos
+        const videoCard = target.closest('.video-card');
+        if (videoCard) {
+            const videoGrid = videoCard.closest('.video-grid');
+            const currentlyPlayingCard = videoGrid?.querySelector('.video-card.playing');
+            if (currentlyPlayingCard && currentlyPlayingCard !== videoCard) {
+                const embedContainer = currentlyPlayingCard.querySelector('.video-embed-container');
+                if (embedContainer) embedContainer.innerHTML = `<div class="play-button"></div>`;
+                currentlyPlayingCard.classList.remove('playing');
+            }
+            if (videoCard.classList.contains('playing')) {
+                const embedContainer = videoCard.querySelector('.video-embed-container');
+                if (embedContainer) embedContainer.innerHTML = `<div class="play-button"></div>`;
+                videoCard.classList.remove('playing');
+                return;
+            }
+            const url = (videoCard as HTMLElement).dataset.videourl;
+            const title = (videoCard as HTMLElement).dataset.videotitle;
+            const embedContainer = videoCard.querySelector('.video-embed-container');
+            if (url && title && embedContainer) {
+                const videoUrl = new URL(url);
+                videoUrl.searchParams.append('autoplay', '1'); videoUrl.searchParams.append('title', '0');
+                videoUrl.searchParams.append('byline', '0'); videoUrl.searchParams.append('portrait', '0');
+                embedContainer.innerHTML = `<iframe src="${videoUrl.toString()}" title="${title}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+                videoCard.classList.add('playing');
+            }
+            return;
+        }
+
+        // Praktikum Intro
+        if (target.closest('#start-praktikum-search-btn')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'praktikumSearch' }); return; }
+        
+        // Praktikum Search
+        const selectCompanyBtn = target.closest('.select-company-btn');
+        if (selectCompanyBtn) {
+            // FIX: Cast Element to HTMLElement to access the dataset property.
+            const index = parseInt((selectCompanyBtn as HTMLElement).dataset.index, 10);
+            store.dispatch({ type: 'PRAKTIKUM_SELECT_COMPANY', payload: state.praktikumSearchState.companyList[index] });
+            return;
+        }
+        if (target.closest('#email-modal-close') || target.closest('#email-modal') === target) {
+            store.dispatch({ type: 'PRAKTIKUM_DESELECT_COMPANY' });
+            return;
+        }
+        if (target.closest('#copy-email-btn')) {
+            const emailText = (document.getElementById('email-output') as HTMLTextAreaElement).value;
+            navigator.clipboard.writeText(emailText).then(() => {
+                const btn = target.closest('#copy-email-btn') as HTMLButtonElement;
+                const originalText = t('copyEmail');
+                btn.classList.add('copied-success');
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> ${t('copied')}`;
+                btn.disabled = true;
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied-success');
+                    btn.disabled = false;
+                }, 2000);
+            });
+            return;
+        }
+        const reviewsSummary = target.closest('.reviews-summary');
+        if (reviewsSummary) {
+            const companyId = (reviewsSummary as HTMLElement).dataset.companyId;
+            const contentEl = document.getElementById(`reviews-content-${companyId}`);
+            if (contentEl) {
+                const isVisible = contentEl.style.display !== 'none';
+                contentEl.style.display = isVisible ? 'none' : 'block';
+                reviewsSummary.setAttribute('aria-expanded', isVisible ? 'false' : 'true');
+            }
+            return;
+        }
+        const ratingStar = target.closest('.rating-input .star');
+        if (ratingStar) {
+            // FIX: Cast Element to HTMLElement to access the dataset property.
+            const clickValue = parseInt((ratingStar as HTMLElement).dataset.value, 10);
+            const form = ratingStar.closest('form');
+            const ratingInput = form?.querySelector('input[name="rating"]') as HTMLInputElement;
+            if (ratingInput) ratingInput.value = clickValue.toString();
+
+            const stars = Array.from(ratingStar.parentElement.querySelectorAll('.star')) as HTMLElement[];
+            stars.forEach((star, index) => {
+                star.textContent = index < clickValue ? '★' : '☆';
+                star.classList.toggle('filled', index < clickValue);
+            });
+            return;
+        }
+    });
+
+    // --- SUBMIT LISTENER ---
+    root.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const state = store.getState();
+
+        if (form.id === 'login-form') {
+            const user = (form.querySelector('#username') as HTMLInputElement).value;
+            const pass = (form.querySelector('#password') as HTMLInputElement).value;
+            if (user === 'admn' && pass === '12345') { store.dispatch({ type: 'LOGIN_SUCCESS' }); } 
+            else { store.dispatch({ type: 'LOGIN_FAIL', payload: t('invalidCredentials') }); }
+            return;
+        }
+        if (form.id === 'job-search-form') {
+            const jobTitle = (form.querySelector('#job-title-input') as HTMLInputElement).value;
+            const location = (form.querySelector('#location-input') as HTMLInputElement).value;
+            getLiveJobs(jobTitle, location);
+            return;
+        }
+        if (form.id === 'praktikum-search-form') {
+            const { field, location, internshipType } = store.getState().praktikumSearchState;
+            getPraktikumOpportunity(field, location, internshipType);
+            return;
+        }
+        if (form.id === 'email-gen-form') {
+            const userName = (form.querySelector('#user-name-email') as HTMLInputElement).value;
+            const { selectedCompany, field, internshipType } = state.praktikumSearchState;
+            generateInquiryEmail(userName, selectedCompany.name, field, internshipType);
+            return;
+        }
+        if (form.classList.contains('review-form')) {
+            const companyId = form.dataset.companyId;
+            const nameInput = form.querySelector('input[name="name"]') as HTMLInputElement;
+            const ratingInput = form.querySelector('input[name="rating"]') as HTMLInputElement;
+            const textInput = form.querySelector('textarea[name="text"]') as HTMLTextAreaElement;
+            if (parseInt(ratingInput.value) === 0 || !textInput.value.trim()) { alert(t('ratingAndReviewRequired')); return; }
+
+            const newReview = { name: nameInput.value.trim() || t('anonymous'), rating: parseInt(ratingInput.value, 10), text: textInput.value.trim(), date: new Date().toISOString() };
+            if (saveReview(companyId, newReview)) {
+                // Dynamic UI update
+                const reviewsList = form.closest('.reviews-content')?.querySelector('.reviews-list');
+                if (reviewsList) {
+                    reviewsList.querySelector('.no-reviews-msg')?.remove();
+                    const reviewEl = document.createElement('div');
+                    reviewEl.className = 'review-item';
+                    reviewEl.innerHTML = `<div class="review-header"><strong>${newReview.name}</strong><span class="rating-display small">${renderStars(newReview.rating)}</span></div><p>${newReview.text}</p><small>${new Date(newReview.date).toLocaleDateString(store.getState().currentLanguage)}</small>`;
+                    reviewsList.prepend(reviewEl);
+                }
+
+                const allReviews = getReviews(companyId);
+                const avgRating = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+                const summaryEl = document.querySelector(`.reviews-summary[data-company-id="${companyId}"]`);
+                if (summaryEl) {
+                    summaryEl.querySelector('.rating-display').innerHTML = renderStars(avgRating);
+                    summaryEl.querySelector('.review-count').textContent = `${allReviews.length} ${t('reviews')}`;
+                }
+                form.reset();
+                ratingInput.value = "0";
+                form.querySelectorAll('.rating-input .star').forEach(s => { (s as HTMLElement).textContent = '☆'; s.classList.remove('filled'); });
+            }
+            return;
+        }
+    });
+
+    // --- INPUT/CHANGE LISTENERS ---
+    root.addEventListener('input', (e) => {
+        const target = e.target as HTMLElement;
+        const state = store.getState();
+        if (target.id === 'search-professions') {
+            store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { searchTerm: (target as HTMLInputElement).value, filter: state.professionsFilter, page: 1 } });
+            return;
+        }
+        if (target.closest('.praktikum-search-inputs')) {
+            const field = (root.querySelector('#field-input') as HTMLInputElement).value;
+            const location = (root.querySelector('#location-input') as HTMLInputElement).value;
+            const internshipType = (root.querySelector('#internship-type-select') as HTMLSelectElement).value;
+            store.dispatch({ type: 'UPDATE_PRAKTIKUM_FORM', payload: { field, location, internshipType } });
+            return;
+        }
+    });
+     root.addEventListener('change', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.id === 'internship-type-select') {
+            const field = (root.querySelector('#field-input') as HTMLInputElement).value;
+            const location = (root.querySelector('#location-input') as HTMLInputElement).value;
+            store.dispatch({ type: 'UPDATE_PRAKTIKUM_FORM', payload: { field, location, internshipType: (target as HTMLSelectElement).value } });
+            return;
+        }
+     });
+}
 
 // --- Initial App Load ---
 loadSavedResults();
@@ -1315,14 +1736,14 @@ const initialStateFromStore = store.getState();
 document.documentElement.lang = initialStateFromStore.currentLanguage;
 document.documentElement.dir = translations[initialStateFromStore.currentLanguage].dir;
 
-headerTitle.addEventListener('click', () => {
-    if (store.getState().currentView !== 'welcome') {
-        store.dispatch({ type: 'NAVIGATE_HOME' });
-    }
-});
-
 // Subscribe the render function to the store
 store.subscribe(renderApp);
 
+// Update padding on window resize
+window.addEventListener('resize', updateBodyPadding);
+
 // Initial render
 renderApp(store.getState());
+
+// Initialize the single, performant event listener system
+initEventListeners();
