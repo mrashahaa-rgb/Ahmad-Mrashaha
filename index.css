@@ -18,7 +18,7 @@ html {
   --primary-hover-color: #e74c3c; /* A brighter red for hover */
   --primary-gradient: linear-gradient(45deg, #e74c3c, #c0392b);
   --background-color: #fdedec; /* Light red background */
-  --card-bg-color: #ffffff;
+  --card-bg-color: rgba(255, 255, 255, 0.85);
   --text-color: #2c3e50;
   --border-color: #ecf0f1;
   --font-family: 'Tajawal', sans-serif;
@@ -38,6 +38,10 @@ body {
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 body::before {
@@ -62,32 +66,30 @@ html[dir="rtl"] .results-container {
 
 html[dir="ltr"] .job-suggestion-card {
   border-left: 5px solid var(--primary-color);
-  border-right: 1px solid #eee;
 }
 
 html[dir="rtl"] .job-suggestion-card {
   border-right: 5px solid var(--primary-color);
-  border-left: 1px solid #eee;
 }
 
-
-header, footer {
-  background-color: var(--card-bg-color);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-  width: 100%;
-  z-index: 10;
-  position: fixed;
-  left: 0;
-  right: 0;
-}
 
 header {
-  top: 0;
+  background-color: var(--card-bg-color);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  width: 100%;
   border-bottom: 3px solid var(--primary-color);
+  position: relative; /* Ensure header is a stacking context */
+  z-index: 10; /* Keep it above sticky elements in the page */
 }
 
 footer {
-  bottom: 0;
+  background-color: var(--card-bg-color);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.08);
+  width: 100%;
   border-bottom: none;
   border-top: 3px solid var(--primary-color);
   text-align: center;
@@ -158,6 +160,7 @@ main {
   justify-content: center;
   align-items: flex-start;
   padding: 2rem 1rem;
+  flex-grow: 1;
 }
 
 #root {
@@ -170,11 +173,12 @@ main {
 
 .container {
   background-color: var(--card-bg-color);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   padding: 2.5rem 3rem;
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
-  border: 1px solid var(--border-color);
   max-width: 950px;
   margin: 0 auto;
 }
@@ -197,6 +201,63 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* =================================== */
+/*     Unified Form Element Styles     */
+/* =================================== */
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none; /* Removes default OS styling */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+}
+
+/* Add a dropdown arrow for select elements */
+select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m6 9 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+html[dir="rtl"] select {
+    background-position: left 1rem center;
+    padding-right: 1rem;
+    padding-left: 2.5rem;
+}
+
+textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* Adjust placeholder color */
+::placeholder {
+    color: #95a5a6;
+    opacity: 1;
 }
 
 
@@ -249,6 +310,8 @@ main {
     top: calc(100% + 8px);
     right: 0;
     background-color: var(--card-bg-color);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     min-width: 100%;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
@@ -295,7 +358,7 @@ html[dir="rtl"] .lang-option-btn {
 }
 
 .lang-option-btn:hover {
-    background-color: #f0f0f0;
+    background-color: rgba(240, 240, 240, 0.7);
 }
 
 .welcome-container {
@@ -415,8 +478,8 @@ p {
 }
 
 .action-card {
-    background-color: transparent;
-    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid transparent;
     border-radius: 12px;
     padding: 2rem 1.5rem;
     text-align: center;
@@ -474,7 +537,6 @@ p {
     width: 100%;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
 }
 
 
@@ -531,24 +593,12 @@ p {
     font-weight: 500;
 }
 .quiz-input-group input {
-    padding: 0.8rem;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
     text-align: center;
-    width: 100%;
     max-width: 300px;
 }
 
 .quiz-input-group textarea {
-    padding: 0.8rem;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    width: 100%;
-    font-family: var(--font-family);
-    resize: vertical;
-    line-height: 1.6;
+    /* No special styles needed, inherits from global textarea style */
 }
 
 html[dir="ltr"] .quiz-input-group textarea {
@@ -683,8 +733,7 @@ html[dir="rtl"] .quiz-input-group textarea {
 }
 
 .job-suggestion-card {
-  background-color: #fdfdfd;
-  border: 1px solid #eee;
+  background-color: rgba(253, 253, 253, 0.8);
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 1rem;
@@ -729,7 +778,7 @@ html[dir="rtl"] .quiz-input-group textarea {
     justify-content: center;
     gap: 1.5rem;
     padding: 1rem;
-    background-color: #f8f9faef;
+    background-color: var(--card-bg-color);
     backdrop-filter: blur(5px);
     border-radius: 8px;
     margin-bottom: 2.5rem;
@@ -737,7 +786,6 @@ html[dir="rtl"] .quiz-input-group textarea {
     top: 1rem;
     z-index: 5;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    border: 1px solid var(--border-color);
 }
 
 .results-nav a {
@@ -765,15 +813,11 @@ html[dir="rtl"] .quiz-input-group textarea {
     gap: 1rem;
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background-color: #f8f9fa;
+    background-color: rgba(248, 249, 250, 0.7);
     border-radius: 8px;
 }
 .professions-controls input {
     flex-grow: 1;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
     min-width: 200px;
 }
 .professions-controls .filter-buttons {
@@ -866,102 +910,6 @@ html[dir="rtl"] .profession-card-details strong {
     margin-top: 2rem;
 }
 
-/* Career Videos Styles */
-.video-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-@media (min-width: 900px) {
-    .video-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-.video-card {
-    background-color: var(--card-bg-color);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.video-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.video-card.playing {
-    border-color: var(--primary-color);
-    box-shadow: 0 8px 25px rgba(192, 57, 43, 0.2);
-}
-
-.video-card h3 {
-    font-size: 1.4rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.video-embed-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 8px;
-    aspect-ratio: 16 / 9;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000;
-}
-
-.video-embed-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-.play-button {
-    width: 70px;
-    height: 70px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    pointer-events: none; /* Make sure click goes to parent card */
-}
-
-.play-button::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-left: 25px solid var(--primary-color);
-    margin-left: 5px; /* to center the triangle */
-}
-
-.video-card:hover .play-button {
-    transform: scale(1.1);
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.video-card-duties {
-    font-size: 0.95rem;
-    color: #333;
-    line-height: 1.5;
-    margin-bottom: 0;
-}
-
 /* Job Search & Praktikum Styles */
 .job-search-form, .praktikum-search-form {
     display: flex;
@@ -982,12 +930,6 @@ html[dir="rtl"] .profession-card-details strong {
 }
 .job-search-inputs input, .praktikum-search-inputs input, .praktikum-search-inputs select {
     flex: 1;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    font-family: var(--font-family);
-    background-color: white;
 }
 
 /* Style for select placeholder */
@@ -1061,8 +1003,8 @@ html[dir="rtl"] .sources-list {
 
 
 .praktikum-company-card {
-    background-color: #fdfdfd;
-    border: 2px solid var(--border-color);
+    background-color: var(--card-bg-color);
+    border: 2px solid transparent;
     padding: 1rem 1.5rem;
     border-radius: 8px;
     margin-bottom: 1rem;
@@ -1249,17 +1191,6 @@ html[dir="rtl"] .sources-list {
     font-weight: 500;
     font-size: 0.9rem;
 }
-.review-form input[type="text"],
-.review-form textarea {
-    padding: 0.7rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    font-family: var(--font-family);
-}
-.review-form textarea {
-    resize: vertical;
-}
 
 .rating-input .star {
     font-size: 1.8rem;
@@ -1293,7 +1224,9 @@ html[dir="rtl"] .sources-list {
 }
 
 .email-modal-content {
-    background-color: white;
+    background-color: var(--card-bg-color);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     padding: 2.5rem;
     border-radius: 12px;
     position: relative;
@@ -1335,13 +1268,6 @@ html[dir="rtl"] .email-modal-close {
 .email-modal-content textarea {
     width: 100%;
     min-height: 250px;
-    padding: 1rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    font-family: var(--font-family);
-    line-height: 1.6;
-    resize: vertical;
 }
 
 .email-modal-content .email-generator-actions {
@@ -1387,11 +1313,7 @@ html[dir="rtl"] .email-modal-close {
 }
 
 .login-form input {
-    padding: 0.9rem;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    font-family: var(--font-family);
+    text-align: center;
 }
 
 .error-message {
@@ -1408,7 +1330,6 @@ html[dir="rtl"] .email-modal-close {
 .api-status-checker {
     margin-top: 2.5rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--border-color);
     text-align: center;
 }
 .api-status-checker h2 {
@@ -1463,8 +1384,7 @@ html[dir="rtl"] .email-modal-close {
 }
 
 .report-item {
-    background-color: #fdfdfd;
-    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color);
     border-radius: 8px;
     padding: 1rem 1.5rem;
     margin-bottom: 1rem;
@@ -1475,7 +1395,7 @@ html[dir="rtl"] .email-modal-close {
 }
 
 .report-item:hover {
-    background-color: #f8f8f8;
+    background-color: rgba(248, 248, 248, 0.9);
     transform: translateY(-2px) scale(1.01);
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
@@ -1522,7 +1442,9 @@ html[dir="rtl"] .email-modal-close {
 
 .action-card.locked:hover {
     transform: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    box-shadow: none;
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
 }
 
 .action-card.locked h3,
@@ -1564,7 +1486,6 @@ html[dir="rtl"] .action-card.locked h3 .lock-icon {
 .feedback-controls {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top: 1px dashed var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;

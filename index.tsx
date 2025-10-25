@@ -40,7 +40,6 @@ const initialState = {
   userAge: '',
   userAnswers: [],
   professionsSearchTerm: '',
-  professionsFilter: 'all', // all, ausbildung, study, job
   professionsCurrentPage: 1,
   savedResults: [],
   jobSearchState: {
@@ -158,7 +157,6 @@ const appReducer = (state, action) => {
         return {
             ...state,
             professionsSearchTerm: action.payload.searchTerm,
-            professionsFilter: action.payload.filter,
             professionsCurrentPage: action.payload.page,
         };
     // Job Search Actions
@@ -369,13 +367,6 @@ const renderHeaderActions = (state) => {
 };
 
 const renderWelcome = (state) => {
-  const adminCards = state.isAdminAuthenticated ? `
-    <div id="career-videos-card" class="action-card">
-        <h3>${t('careerPathVideos')}</h3>
-        <p>${t('careerPathVideosDesc')}</p>
-    </div>
-  ` : '';
-
   const mainContentHTML = `
     <h1>${t('welcomeTitle')}</h1>
     <p>${t('welcomeDesc')}</p>
@@ -384,8 +375,13 @@ const renderWelcome = (state) => {
             <h3>${t('startQuiz')}</h3>
             <p>${t('startQuizDesc')}</p>
         </div>
-        <div id="browse-professions-card" class="action-card">
-            <h3>${t('browseProfessions')}</h3>
+        <div id="browse-professions-card" class="action-card ${!state.isAdminAuthenticated ? 'locked' : ''}">
+            <h3>
+                ${!state.isAdminAuthenticated 
+                    ? `<span class="lock-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>` 
+                    : ''}
+                ${t('browseProfessions')}
+            </h3>
             <p>${t('browseProfessionsDesc')}</p>
         </div>
         <div id="job-search-card" class="action-card">
@@ -396,7 +392,6 @@ const renderWelcome = (state) => {
             <h3>${t('searchForPraktikum')}</h3>
             <p>${t('searchForPraktikumDesc')}</p>
         </div>
-        ${adminCards}
     </div>
   `;
 
@@ -710,7 +705,7 @@ const renderSavedResultsList = (state) => {
 };
 
 const updateProfessionsContent = (state) => {
-    const { professionsSearchTerm, professionsFilter, currentLanguage } = state;
+    const { professionsSearchTerm, currentLanguage } = state;
     let { professionsCurrentPage } = state;
     
     const professionsGrid = document.getElementById('professions-grid');
@@ -718,11 +713,9 @@ const updateProfessionsContent = (state) => {
     if (!professionsGrid || !paginationControls) return;
 
     const allProfessions = professions.filter(p => {
-        const term = professionsSearchTerm.toLowerCase();
-        const title = p.title[currentLanguage]?.toLowerCase() || '';
-        const matchesTerm = title.includes(term);
-        const matchesFilter = professionsFilter === 'all' || p.type === professionsFilter;
-        return matchesTerm && matchesFilter;
+        const term = (professionsSearchTerm || '').toLowerCase();
+        const title = (p.title[currentLanguage] || '').toLowerCase();
+        return title.includes(term);
     });
 
     let totalPages = Math.ceil(allProfessions.length / PROFESSIONS_PAGE_SIZE);
@@ -739,10 +732,11 @@ const updateProfessionsContent = (state) => {
             <div class="profession-card-details">
                 <p><strong>${t('duration')}:</strong> ${p.duration[currentLanguage]}</p>
                 <p><strong>${t('salary')}:</strong> ${p.salary[currentLanguage]}</p>
+                <p><strong>${t('salaryRangeLabel')}:</strong> ${p.salaryRange[currentLanguage]}</p>
+                <p><strong>${t('jobOutlookLabel')}:</strong> ${p.jobOutlook[currentLanguage]}</p>
                 <p><strong>${t('requirements')}:</strong> ${p.requirements[currentLanguage]}</p>
                 <p><strong>${t('duties')}:</strong> ${p.duties[currentLanguage]}</p>
                 <p><strong>${t('skillsRequired')}:</strong> ${p.skillsRequired[currentLanguage]}</p>
-                <p><strong>${t('typicalDailyTasks')}:</strong> ${p.typicalDailyTasks[currentLanguage]}</p>
             </div>
         </div>
     `).join('') : `<p>${t('noJobsFound')}</p>`;
@@ -763,12 +757,6 @@ const renderProfessionsList = (state) => {
                 <p>${t('professionsDesc')}</p>
                 <div class="professions-controls">
                     <input type="search" id="search-professions" placeholder="${t('searchPlaceholder')}" value="${state.professionsSearchTerm}">
-                    <div class="filter-buttons">
-                        <button class="btn secondary ${state.professionsFilter === 'all' ? 'active' : ''}" data-filter="all">${t('all')}</button>
-                        <button class="btn secondary ${state.professionsFilter === 'ausbildung' ? 'active' : ''}" data-filter="ausbildung">${t('ausbildung')}</button>
-                        <button class="btn secondary ${state.professionsFilter === 'study' ? 'active' : ''}" data-filter="study">${t('study')}</button>
-                        <button class="btn secondary ${state.professionsFilter === 'job' ? 'active' : ''}" data-filter="job">${t('job')}</button>
-                    </div>
                 </div>
                 <div id="professions-grid"></div>
                 <div id="pagination-controls" class="pagination-controls"></div>
@@ -778,46 +766,6 @@ const renderProfessionsList = (state) => {
     
     updateProfessionsContent(state);
 };
-
-const renderCareerVideos = (state) => {
-    if (!state.isAdminAuthenticated) {
-        root.innerHTML = `
-            <div class="page-container">
-                <div class="container maintenance-container">
-                    ${renderTopNav(state)}
-                    <div class="maintenance-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    </div>
-                    <h1>${t('underMaintenanceTitle')}</h1>
-                    <p>${t('underMaintenanceDesc')}</p>
-                </div>
-            </div>
-        `;
-        return;
-    }
-
-    root.innerHTML = `
-        <div class="page-container">
-            <div class="container career-videos-container">
-                ${renderTopNav(state)}
-                <h1>${t('careerPathVideosTitle')}</h1>
-                <p>${t('careerPathVideosDescPage')}</p>
-                <div class="video-grid">
-                    ${professions.map(p => `
-                        <div class="video-card" data-videourl="${p.videoUrl}" data-videotitle="${p.title[state.currentLanguage]}">
-                            <h3>${p.title[state.currentLanguage]}</h3>
-                            <div class="video-embed-container">
-                                <div class="play-button"></div>
-                            </div>
-                            <p class="video-card-duties">${p.duties[state.currentLanguage]}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </div>
-    `;
-};
-
 
 const renderJobSearch = (state) => {
     let resultsContent = '';
@@ -1079,7 +1027,7 @@ const handleApiError = (error, dispatchActionCreator, defaultErrorKey = 'errorTe
             'bad request',
             '[400]',
         ];
-        const lowerCaseErrorMessage = error.message.toLowerCase();
+        const lowerCaseErrorMessage = (error.message || '').toLowerCase();
         if (apiKeyErrorMessages.some(msg => lowerCaseErrorMessage.includes(msg))) {
             errorMessageKey = 'invalidApiKeyError';
         }
@@ -1117,7 +1065,7 @@ const performApiKeyCheck = async () => {
                 'bad request',
                 '[400]',
             ];
-            const lowerCaseErrorMessage = error.message.toLowerCase();
+            const lowerCaseErrorMessage = (error.message || '').toLowerCase();
             if (apiKeyErrorMessages.some(msg => lowerCaseErrorMessage.includes(msg))) {
                 errorMessageKey = 'apiKeyStatusInvalid';
             }
@@ -1283,20 +1231,10 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
     }
 };
 
-const updateBodyPadding = () => {
-    const headerEl = document.querySelector('header');
-    const footerEl = document.querySelector('footer');
-    if (headerEl && footerEl) {
-        const headerHeight = headerEl.offsetHeight;
-        const footerHeight = footerEl.offsetHeight;
-        document.body.style.paddingTop = `${headerHeight}px`;
-        document.body.style.paddingBottom = `${footerHeight}px`;
-    }
-};
-
 let previousView = undefined;
 
 const renderApp = (state) => {
+  document.body.style.paddingTop = '0px'; 
   headerTitle.textContent = t('headerTitle');
   footerText.textContent = t('footerText');
   
@@ -1318,9 +1256,6 @@ const renderApp = (state) => {
       break;
     case 'professionsList':
       renderProfessionsList(state);
-      break;
-    case 'careerVideos':
-      renderCareerVideos(state);
       break;
     case 'jobSearch':
       renderJobSearch(state);
@@ -1351,9 +1286,6 @@ const renderApp = (state) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   previousView = state.currentView;
-
-  // Update body padding after every render to account for content changes
-  updateBodyPadding();
 };
 
 // --- START: PERFORMANCE OPTIMIZATION - CENTRALIZED EVENT LISTENERS ---
@@ -1401,10 +1333,14 @@ function initEventListeners() {
 
         // Welcome Page
         if (target.closest('#start-quiz-card')) { store.dispatch({ type: 'NAVIGATE_TO_QUIZ_INTRO' }); return; }
-        if (target.closest('#browse-professions-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'professionsList' }); return; }
+        if (target.closest('#browse-professions-card')) {
+            if (state.isAdminAuthenticated) {
+                store.dispatch({ type: 'NAVIGATE_TO', payload: 'professionsList' });
+            }
+            return;
+        }
         if (target.closest('#job-search-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'jobSearch' }); return; }
         if (target.closest('#praktikum-search-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'praktikumIntro' }); return; }
-        if (target.closest('#career-videos-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'careerVideos' }); return; }
 
         // Quiz Intro Page
         if (target.closest('#start-quiz-now-btn')) { store.dispatch({ type: 'START_QUIZ' }); return; }
@@ -1464,13 +1400,12 @@ function initEventListeners() {
         if (target.closest('#email-btn')) {
             const { activeReport: results } = state;
             if (!results) return;
-            const de = translations['de'];
-            const subject = de.emailSubject.replace('{name}', results.userName || de.you);
-            let body = `${de.resultsTitleFor.replace('{name}', results.userName || de.you)}\n\n`;
-            body += `--- ${de.personalitySummary} ---\n${results.personalitySummary}\n\n`;
-            body += `--- ${de.recommendedPaths} ---\n`;
-            results.jobSuggestions.forEach(job => { body += `\n* ${job.title} *\n${job.description}\n${job.details}\n`; });
-            body += `\n--- ${de.careerAdvice} ---\n${results.careerAdvice}`;
+            const subject = t('emailSubject').replace('{name}', results.userName || t('you'));
+            let body = `${t('resultsTitleFor').replace('{name}', results.userName || t('you'))}\n\n`;
+            body += `${t('emailSummaryIntro')}\n\n`;
+            body += `--- ${t('recommendedPaths')} ---\n`;
+            results.jobSuggestions.forEach(job => { body += `\n• ${job.title}`; });
+            body += `\n\n---\n${t('footerText')}`;
             window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             return;
         }
@@ -1488,11 +1423,7 @@ function initEventListeners() {
                 const subject = `Neuer Karrierebericht: ${results.userName || 'Anonym'}`;
                 let body = `Ein neuer Karrierebericht wurde gespeichert.\n\nName: ${results.userName || 'Nicht angegeben'}\nAlter: ${state.userAge || 'Nicht angegeben'}\nDatum: ${new Date(results.savedDate).toLocaleString('de-DE')}\nSprache des Berichts: ${state.currentLanguage.toUpperCase()}\n\n==============================================\nKI-GENERIERTER BERICHT\n==============================================\n\n--- ${t('personalitySummary')} ---\n${results.personalitySummary}\n\n--- ${t('recommendedPaths')} ---\n`;
                 results.jobSuggestions.forEach(job => { body += `\n* ${job.title} *\n${job.description}\n${job.details}\n`; });
-                body += `\n--- ${t('careerAdvice')} ---\n${results.careerAdvice}\n\n\n==============================================\nANTWORTEN AUF FRAGEN\n==============================================\n\n`;
-                const questions = quizQuestions[state.currentLanguage];
-                state.userAnswers.forEach((answer, index) => {
-                    if (questions && questions[index]) { body += `F: ${questions[index].question}\nA: ${answer || 'Nicht beantwortet'}\n\n`; }
-                });
+                body += `\n--- ${t('careerAdvice')} ---\n${results.careerAdvice}`;
                 window.location.href = `mailto:${adminEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             } catch (error) { console.error("Fehler beim Öffnen des E-Mail-Clients:", error); }
             return;
@@ -1542,41 +1473,24 @@ function initEventListeners() {
         }
 
         // Professions List
-        const filterBtn = target.closest('.filter-buttons button');
-        if (filterBtn) {
-            // FIX: Cast Element to HTMLElement to access the dataset property.
-            store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { searchTerm: state.professionsSearchTerm, filter: (filterBtn as HTMLElement).dataset.filter, page: 1 } });
+        if (target.closest('#prev-page')) {
+            store.dispatch({
+                type: 'SET_PROFESSIONS_STATE',
+                payload: {
+                    searchTerm: state.professionsSearchTerm,
+                    page: state.professionsCurrentPage - 1
+                }
+            });
             return;
         }
-        if (target.closest('#prev-page')) { store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { ...state.professions, page: state.professionsCurrentPage - 1 } }); return; }
-        if (target.closest('#next-page')) { store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { ...state.professions, page: state.professionsCurrentPage + 1 } }); return; }
-
-        // Career Videos
-        const videoCard = target.closest('.video-card');
-        if (videoCard) {
-            const videoGrid = videoCard.closest('.video-grid');
-            const currentlyPlayingCard = videoGrid?.querySelector('.video-card.playing');
-            if (currentlyPlayingCard && currentlyPlayingCard !== videoCard) {
-                const embedContainer = currentlyPlayingCard.querySelector('.video-embed-container');
-                if (embedContainer) embedContainer.innerHTML = `<div class="play-button"></div>`;
-                currentlyPlayingCard.classList.remove('playing');
-            }
-            if (videoCard.classList.contains('playing')) {
-                const embedContainer = videoCard.querySelector('.video-embed-container');
-                if (embedContainer) embedContainer.innerHTML = `<div class="play-button"></div>`;
-                videoCard.classList.remove('playing');
-                return;
-            }
-            const url = (videoCard as HTMLElement).dataset.videourl;
-            const title = (videoCard as HTMLElement).dataset.videotitle;
-            const embedContainer = videoCard.querySelector('.video-embed-container');
-            if (url && title && embedContainer) {
-                const videoUrl = new URL(url);
-                videoUrl.searchParams.append('autoplay', '1'); videoUrl.searchParams.append('title', '0');
-                videoUrl.searchParams.append('byline', '0'); videoUrl.searchParams.append('portrait', '0');
-                embedContainer.innerHTML = `<iframe src="${videoUrl.toString()}" title="${title}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
-                videoCard.classList.add('playing');
-            }
+        if (target.closest('#next-page')) {
+            store.dispatch({
+                type: 'SET_PROFESSIONS_STATE',
+                payload: {
+                    searchTerm: state.professionsSearchTerm,
+                    page: state.professionsCurrentPage + 1
+                }
+            });
             return;
         }
 
@@ -1706,9 +1620,8 @@ function initEventListeners() {
     // --- INPUT/CHANGE LISTENERS ---
     root.addEventListener('input', (e) => {
         const target = e.target as HTMLElement;
-        const state = store.getState();
         if (target.id === 'search-professions') {
-            store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { searchTerm: (target as HTMLInputElement).value, filter: state.professionsFilter, page: 1 } });
+            store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { searchTerm: (target as HTMLInputElement).value, page: 1 } });
             return;
         }
         if (target.closest('.praktikum-search-inputs')) {
@@ -1738,9 +1651,6 @@ document.documentElement.dir = translations[initialStateFromStore.currentLanguag
 
 // Subscribe the render function to the store
 store.subscribe(renderApp);
-
-// Update padding on window resize
-window.addEventListener('resize', updateBodyPadding);
 
 // Initial render
 renderApp(store.getState());

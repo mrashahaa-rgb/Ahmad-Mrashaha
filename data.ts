@@ -3,7 +3,7 @@ const syrianOppositionFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWx
 const germanFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1IDMiPjxyZWN0IHdpZHRoPSI1IiBoZWlnaHQ9IjEiIHk9IjAiIGZpbGw9IiMwMDAiLz48cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSIxIiB5PSIxIiBmaWxsPSIjRDAwIi8+PHJlY3QgeT0iMiIgd2lkdGg9IjUiIGhlaWdodD0iMSIgZmlsbD0iI0ZGQ0UwMCIvPjwvc3ZnPg==" alt="German Flag" loading="lazy">`;
 const britishFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzMCI+PGNsaXBQYXRoIGlkPSJhIj48cGF0aCBkPSJNMCAwdjMwaDYwVjB6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9ImIiPjxwYXRoIGQ9Ik0zMCAxNWgzMHYxNWgtMzB6TTAgMTVoMzB2MTVoLTMwek0wIDBoMzB2MTVoLTMwek0zMCAwaDMwdjE1aC0zMHoiLz48L2NsaXBQYXRoPjxnIGNsaXAtcGF0aD0idXJsKCNhKSI+PHBhdGggZD0iTTAgMHYzMGg2MFYweiIgZmlsbD0iIzAxMjE2OSIvPjxwYXRoIGQ9Ik0wIDBsNjAgMzBtMC0zMEwwIDMwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNiIvPjxwYXRoIGQ9Ik0wIDBsNjAgMzBtMC0zMEwwIDMwIiBjbGlwLXBhdGg9InVybCgjYikiIHN0cm9rZT0iI0M4MTAyRSIgc3Ryb2tlLXdpZHRoPSI0Ii8+PHBhdGggZD0iTTMwIDB2MzBNMCAxNWg2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTMwIDB2MzBNMCAxNWg2MCIgc3Ryb2tlPSIjQzgxMDJFIiBzdHJva2Utd2lkdGg9IjYiLz48L2c+PC9zdmc+" alt="British Flag" loading="lazy">`;
 const turkishFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2UzMGExNyIvPjxjaXJjbGUgY3g9IjI3NSIgY3k9IjMwMCIgcj0iMTUwIiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iMzEyLjUiIGN5PSIzMDAiIHI9IjEyMCIgZmlsbD0iI2UzMGExNyIvPjxwYXRoIGQ9Ik00MjUgMzAwbDExOS41LTM2LjctNzMuOSA5Ni4xVjI0MC42bC03My45IDk2LjF6IiBmaWxsPSIjZmZmIi8+PC9zdmc+" alt="Turkish Flag" loading="lazy">`;
-const ukrainianFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzIDIiPjxyZWN0IHdpZHRoPSIzIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDU3QjciLz48cmVjdCB5PSIxIiB3aWR0aD0iMyIgaGVpZ2h0PSIxIiBmaWxsPSIjRkZENzAwIi8+PC9zdmc+" alt="Ukrainian Flag" loading="lazy">`;
+const ukrainianFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzIDIiPjxyZWN0IHdpZHRoPSIzIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDU3QjciLz48cmVjdCB5PSIxIiB3aWR0aD0iMyIgaGVpZHT0IjEiIGZpbGw9IiNGRkQ3MDAiLz48L3N2Zz4=" alt="Ukrainian Flag" loading="lazy">`;
 
 export const translations = {
   ar: {
@@ -17,10 +17,6 @@ export const translations = {
     startQuizDesc: "أجب على أسئلتنا المصممة خصيصًا واحصل على تحليل شخصي لمسارك المهني.",
     browseProfessions: "تصفح المهن",
     browseProfessionsDesc: "استكشف قاعدة بياناتنا للمهن والتدريب المهني والمسارات الدراسية.",
-    careerPathVideos: "شاهد فيديوهات المهن",
-    careerPathVideosDesc: "تعرف على المزيد حول المهن المختلفة من خلال مشاهدة مقاطع فيديو قصيرة.",
-    careerPathVideosTitle: "فيديوهات المسار المهني",
-    careerPathVideosDescPage: "تصفح مجموعتنا من مقاطع الفيديو لإلقاء نظرة واقعية على مختلف المهن.",
     searchAvailableJobs: "ابحث عن وظائف متاحة",
     searchAvailableJobsDesc: "ابحث عن فرص عمل حقيقية متاحة الآن في جميع أنحاء ألمانيا.",
     searchForPraktikum: "ابحث عن تدريب عملي (Praktikum)",
@@ -50,7 +46,6 @@ export const translations = {
     requirements: "المتطلبات",
     duties: "الواجبات",
     skillsRequired: "المهارات المطلوبة",
-    typicalDailyTasks: "المهام اليومية النموذجية",
     home: "الرئيسية",
     errorText: "عذراً، حدث خطأ أثناء إنشاء نتائجك. يرجى المحاولة مرة أخرى لاحقاً.",
     answerHere: "اكتب إجابتك هنا...",
@@ -155,6 +150,9 @@ export const translations = {
     noReviewsYet: "لا توجد تقييمات بعد. كن أول من يقيّم!",
     anonymous: "مجهول",
     ratingAndReviewRequired: "التقييم ونص التقييم مطلوبان.",
+    emailSummaryIntro: "إليك ملخص لمساراتك المهنية الموصى بها. لعرض التقرير الكامل مع تحليلك الشخصي، يرجى زيارة الموقع أو فتح التقرير المحفوظ.",
+    jobOutlookLabel: "الآفاق الوظيفية",
+    salaryRangeLabel: "الراتب بعد التدريب",
   },
   de: {
     langName: `${germanFlagImg} Deutsch`,
@@ -167,10 +165,6 @@ export const translations = {
     startQuizDesc: "Beantworten Sie unsere maßgeschneiderten Fragen und erhalten Sie eine persönliche Analyse Ihres Karrierewegs.",
     browseProfessions: "Berufe durchsuchen",
     browseProfessionsDesc: "Erkunden Sie unsere umfangreiche Datenbank mit Berufen, Ausbildungen und Studiengängen.",
-    careerPathVideos: "Karrierevideos ansehen",
-    careerPathVideosDesc: "Erfahren Sie mehr über verschiedene Berufe, indem Sie sich kurze Videos ansehen.",
-    careerPathVideosTitle: "Karriereweg-Videos",
-    careerPathVideosDescPage: "Durchsuchen Sie unsere Videosammlung, um einen Einblick in verschiedene Berufe aus dem wirklichen Leben zu erhalten.",
     searchAvailableJobs: "Verfügbare Stellen suchen",
     searchAvailableJobsDesc: "Finden Sie jetzt echte, verfügbare Stellenangebote in ganz Deutschland.",
     searchForPraktikum: "Praktikum suchen",
@@ -200,7 +194,6 @@ export const translations = {
     requirements: "Voraussetzungen",
     duties: "Aufgaben",
     skillsRequired: "Benötigte Fähigkeiten",
-    typicalDailyTasks: "Typische tägliche Aufgaben",
     home: "Startseite",
     errorText: "Entschuldigung, beim Erstellen Ihrer Ergebnisse ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
     answerHere: "Geben Sie Ihre Antwort hier ein...",
@@ -305,6 +298,9 @@ export const translations = {
     noReviewsYet: "Noch keine Bewertungen. Seien Sie der Erste!",
     anonymous: "Anonym",
     ratingAndReviewRequired: "Bewertung und Bewertungstext sind erforderlich.",
+    emailSummaryIntro: "Hier ist eine Zusammenfassung Ihrer empfohlenen Karrierewege. Um den vollständigen Bericht mit Ihrer persönlichen Analyse einzusehen, besuchen Sie bitte die Website oder öffnen Sie den gespeicherten Bericht.",
+    jobOutlookLabel: "Berufsaussichten",
+    salaryRangeLabel: "Gehalt nach Ausbildung",
   },
   en: {
     langName: `${britishFlagImg} English`,
@@ -317,10 +313,6 @@ export const translations = {
     startQuizDesc: "Answer our tailor-made questions and get a personal analysis of your career path.",
     browseProfessions: "Browse Professions",
     browseProfessionsDesc: "Explore our database of professions, vocational training, and study paths.",
-    careerPathVideos: "Watch Career Videos",
-    careerPathVideosDesc: "Learn more about different professions by watching short videos.",
-    careerPathVideosTitle: "Career Path Videos",
-    careerPathVideosDescPage: "Browse our collection of videos to get a real-life look at various professions.",
     searchAvailableJobs: "Search Available Jobs",
     searchAvailableJobsDesc: "Find real, available job opportunities across Germany right now.",
     searchForPraktikum: "Search for Internships (Praktikum)",
@@ -350,7 +342,6 @@ export const translations = {
     requirements: "Requirements",
     duties: "Duties",
     skillsRequired: "Skills Required",
-    typicalDailyTasks: "Typical Daily Tasks",
     home: "Home",
     errorText: "Sorry, an error occurred while generating your results. Please try again later.",
     answerHere: "Type your answer here...",
@@ -455,6 +446,9 @@ export const translations = {
     noReviewsYet: "No reviews yet. Be the first!",
     anonymous: "Anonymous",
     ratingAndReviewRequired: "Rating and review text are required.",
+    emailSummaryIntro: "Here is a summary of your recommended career paths. To view the full report with your personal analysis, please visit the website or open the saved report.",
+    jobOutlookLabel: "Job Outlook",
+    salaryRangeLabel: "Salary (Post-Training)",
   },
   tr: {
     langName: `${turkishFlagImg} Türkçe`,
@@ -467,10 +461,6 @@ export const translations = {
     startQuizDesc: "Size özel hazırlanmış sorularımızı yanıtlayın ve kariyer yolunuzun kişisel bir analizini alın.",
     browseProfessions: "Mesleklere Göz At",
     browseProfessionsDesc: "Geniş meslek, mesleki eğitim ve üniversite programları veritabanımızı keşfedin.",
-    careerPathVideos: "Kariyer Videolarını İzle",
-    careerPathVideosDesc: "Kısa videolar izleyerek farklı meslekler hakkında daha fazla bilgi edinin.",
-    careerPathVideosTitle: "Kariyer Yolu Videoları",
-    careerPathVideosDescPage: "Çeşitli mesleklere gerçek hayattan bir bakış atmak için video koleksiyonumuza göz atın.",
     searchAvailableJobs: "Mevcut İşleri Ara",
     searchAvailableJobsDesc: "Almanya genelinde şu anda mevcut olan gerçek iş fırsatlarını bulun.",
     searchForPraktikum: "Staj Ara (Praktikum)",
@@ -500,7 +490,6 @@ export const translations = {
     requirements: "Gereksinimler",
     duties: "Görevler",
     skillsRequired: "Gerekli Beceriler",
-    typicalDailyTasks: "Tipik Günlük Görevler",
     home: "Ana Sayfa",
     errorText: "Üzgünüz, sonuçlarınız oluşturulurken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
     answerHere: "Cevabınızı buraya yazın...",
@@ -605,6 +594,9 @@ export const translations = {
     noReviewsYet: "Henüz yorum yok. İlk siz olun!",
     anonymous: "Anonim",
     ratingAndReviewRequired: "Puan ve yorum metni gereklidir.",
+    emailSummaryIntro: "İşte önerilen kariyer yollarınızın bir özeti. Kişisel analizinizi içeren tam raporu görüntülemek için lütfen web sitesini ziyaret edin veya kaydedilmiş raporu açın.",
+    jobOutlookLabel: "İş Olanakları",
+    salaryRangeLabel: "Eğitim Sonrası Maaş",
   },
   uk: {
     langName: `${ukrainianFlagImg} Українська`,
@@ -617,10 +609,6 @@ export const translations = {
     startQuizDesc: "Дайте відповідь на наші спеціально розроблені запитання та отримайте особистий аналіз вашого кар'єрного шляху.",
     browseProfessions: "Переглянути професії",
     browseProfessionsDesc: "Досліджуйте нашу велику базу даних професій, програм професійного навчання та університетських курсів.",
-    careerPathVideos: "Переглянути кар'єрні відео",
-    careerPathVideosDesc: "Дізнайтеся більше про різні професії, переглядаючи короткі відео.",
-    careerPathVideosTitle: "Відео про кар'єрні шляхи",
-    careerPathVideosDescPage: "Перегляньте нашу колекцію відео, щоб отримати реалістичне уявлення про різні професії.",
     searchAvailableJobs: "Шукати доступні вакансії",
     searchAvailableJobsDesc: "Знайдіть реальні, доступні вакансії по всій Німеччині прямо зараз.",
     searchForPraktikum: "Шукати практику (Praktikum)",
@@ -650,7 +638,6 @@ export const translations = {
     requirements: "Вимоги",
     duties: "Обов'язки",
     skillsRequired: "Необхідні навички",
-    typicalDailyTasks: "Типові щоденні завдання",
     home: "Головна",
     errorText: "На жаль, сталася помилка під час створення ваших результатів. Будь ласка, спробуйте пізніше.",
     answerHere: "Введіть свою відповідь тут...",
@@ -755,6 +742,9 @@ export const translations = {
     noReviewsYet: "Ще немає відгуків. Будьте першим!",
     anonymous: "Анонім",
     ratingAndReviewRequired: "Рейтинг та текст відгуку є обов'язковими.",
+    emailSummaryIntro: "Ось короткий огляд рекомендованих кар'єрних шляхів. Щоб переглянути повний звіт з особистим аналізом, відвідайте веб-сайт або відкрийте збережений звіт.",
+    jobOutlookLabel: "Перспективи працевлаштування",
+    salaryRangeLabel: "Зарплата після навчання",
   }
 };
 
@@ -768,7 +758,7 @@ export const quizQuestions = {
     { question: "ما مدى أهمية الراتب المرتفع بالنسبة لك؟", options: ["مهم جداً، هو أولويتي", "مهم، لكن ليس أهم شيء", "متوسط الأهمية", "أفضل وظيفة أحبها براتب أقل"] },
     { question: "ما هو دافعك الأساسي في العمل؟", options: ["الإنجاز وتحقيق الأهداف", "تعلم مهارات جديدة باستمرار", "إحداث تأثير إيجابي في المجتمع", "الاستقرار والأمان الوظيفي"] },
     { question: "كيف تتعامل مع الضغط والمواعيد النهائية؟", options: ["أزدهر تحت الضغط", "أديره بشكل جيد ومنظم", "أشعر ببعض التوتر لكن أنجز العمل", "أفضل بيئة عمل خالية من الضغط"] },
-    { question: "تواجه مشكلة تقنية معقدة في العمل لم يسبق لك التعامل معها. ما هي خطوتك الأولى؟", options: ["أبحث عن حلول عبر الإنترنت وأقرأ الوثائق الفنية بمفردي.", "أطلب المساعدة فوراً من زميل أكثر خبرة أو من مديري.", "أقوم بتجربة حلول مختلفة مباشرةً لأرى ما ينجح (التجربة والخطأ).", "أقوم بتقسيم المشكلة إلى أجزاء أصغر وأحلل كل جزء على حدة قبل البدء."] },
+    { question: "تواجه مشكلة تقنية معقدة في العمل لم يسبق لك التعامل معها. ما هي خطوتك الأولى؟", options: ["أبحث عن حلول عبر الإنترنت وأقرأ الوثائق الفنية بمفردي.", "أطلب المساعدة فوراً من زميل أكثر خبرة أو من مديري.", "أقوم بتجربة حلول مختلفة مباشرةً لأرى ما ينجح (التجربة والخطأ).", "أقوم بتقسيم المشكلة إلى أجزاء أصغر وأحلل כל جزء على حدة قبل البدء."] },
     { question: "ما هو مستواك الحالي في اللغة الألمانية؟", options: ["لا أجيدها (A0)", "مبتدئ (A1/A2)", "متوسط (B1/B2)", "متقدم (C1/C2)", "لغة أم"] },
     { question: "ما هو أعلى مؤهل دراسي حصلت عليه؟", options: ["أقل من الثانوية", "شهادة ثانوية", "دبلوم أو تدريب مهني", "شهادة جامعية أو أعلى"] },
     { question: "هل تفضل العمل مع البيانات والأرقام أم مع الأفكار والمفاهيم؟", options: ["البيانات والأرقام", "الأفكار والمفاهيم", "مزيج من الاثنين", "لا أفضل أياً منهما"] },
@@ -921,236 +911,37 @@ export const quizQuestions = {
   ]
 };
 
-// NOTE: This list now contains 10 curated professions.
+// --- NEW INTELLIGENT DATA GENERATION LOGIC ---
+
+// A much larger, more diverse base list of real German professions, with manually assigned categories for accuracy.
+// FIX: Rename `realProfessions` to `professions` and export it to be used in index.tsx.
 export const professions = [
-    {
-        type: 'ausbildung',
-        title: { ar: "فني ميكاترونيك", de: "Mechatroniker/in", tr: "Mekatronik Teknisyeni", uk: "Мехатронік", en: "Mechatronics Technician" },
-        duration: { ar: "3.5 سنوات", de: "3,5 Jahre", tr: "3,5 yıl", uk: "3,5 роки", en: "3.5 years" },
-        salary: { ar: "€950 - €1,200/شهريا (أثناء التدريب)", de: "€950 - €1.200/Monat (in Ausbildung)", tr: "€950 - €1,200/ay (eğitim sırasında)", uk: "€950 - €1,200/місяць (під час навчання)", en: "€950 - €1,200/month (during training)" },
-        requirements: { ar: "شهادة Realschulabschluss", de: "Realschulabschluss", tr: "Ortaokul diploması", uk: "Атестат про середню освіту (Realschulabschluss)", en: "Intermediate School Certificate" },
-        duties: { ar: "بناء وتجميع وتركيب الأنظمة الميكانيكية والإلكترونية.", de: "Mechanische und elektronische Systeme bauen, montieren und installieren.", tr: "Mekanik ve elektronik sistemleri kurmak, monte etmek ve kurmak.", uk: "Створення, монтаж та встановлення механічних та електронних систем.", en: "Building, assembling, and installing mechanical and electronic systems." },
-        skillsRequired: {
-            ar: "مهارة يدوية، فهم تقني (ميكانيك وإلكترونيات)، حل تحليلي للمشكلات، العناية والدقة.",
-            de: "Handwerkliches Geschick, technisches Verständnis (Mechanik & Elektronik), analytische Problemlösung, Sorgfalt und Präzision.",
-            tr: "El becerisi, teknik anlayış (Mekanik ve Elektronik), analitik problem çözme, özen ve hassasiyet.",
-            uk: "Спритність рук, технічне розуміння (механіка та електроніка), аналітичне вирішення проблем, ретельність та точність.",
-            en: "Manual dexterity, technical understanding (mechanics & electronics), analytical problem-solving, care and precision."
-        },
-        typicalDailyTasks: {
-            ar: "قراءة الرسومات الفنية، تجميع المكونات، برمجة أنظمة التحكم، صيانة وإصلاح الآلات، إجراء فحوصات الجودة.",
-            de: "Lesen technischer Zeichnungen, Montage von Komponenten, Programmierung von Steuerungssystemen, Wartung und Reparatur von Maschinen, Durchführung von Qualitätsprüfen.",
-            tr: "Teknik çizimleri okumak, bileşenleri monte etmek, kontrol sistemlerini programlamak, makinelerin bakımını ve onarımını yapmak, kalite kontrolleri gerçekleştirmek.",
-            uk: "Читання технічних креслень, збирання компонентів, програмування систем керування, технічне обслуговування та ремонт машин, проведення перевірок якості.",
-            en: "Reading technical drawings, assembling components, programming control systems, maintaining and repairing machines, performing quality checks."
-        },
-        videoUrl: "https://vimeo.com/907686522",
-    },
-    {
-        type: 'ausbildung',
-        title: { ar: "مطور تطبيقات متخصص", de: "Fachinformatiker/in für Anwendungsentwicklung", tr: "Uygulama Geliştirme Bilişim Uzmanı", uk: "Фахівець з розробки програмного забезпечення", en: "IT Specialist for Application Development" },
-        duration: { ar: "3 سنوات", de: "3 Jahre", tr: "3 yıl", uk: "3 роки", en: "3 years" },
-        salary: { ar: "€1,000 - €1,250/شهريا (أثناء التدريب)", de: "€1.000 - €1.250/Monat (in Ausbildung)", tr: "€1.000 - €1.250/ay (eğitim sırasında)", uk: "€1,000 - €1,250/місяць (під час навчання)", en: "€1,000 - €1,250/month (during training)" },
-        requirements: { ar: "شهادة (Fach-)Abitur", de: "(Fach-)Abitur", tr: "Lise diploması (Abitur)", uk: "Атестат про повну середню освіту (Abitur)", en: "High School Diploma (Abitur)" },
-        duties: { ar: "تصميم وتطوير وتنفيذ حلول البرمجيات.", de: "Softwarelösungen konzipieren, entwickeln und implementieren.", tr: "Yazılım çözümleri tasarlamak, geliştirmek ve uygulamak.", uk: "Проектування, розробка та впровадження програмних рішень.", en: "Designing, developing, and implementing software solutions." },
-        skillsRequired: {
-            ar: "تفكير منطقي، مهارات البرمجة، القدرة على العمل في فريق، التعلم المستمر.",
-            de: "Logisches Denken, Programmierkenntnisse, Teamfähigkeit, kontinuierliches Lernen.",
-            tr: "Mantıksal düşünme, programlama becerileri, takım çalışması yeteneği, sürekli öğrenme.",
-            uk: "Логічне мислення, навички програмування, вміння працювати в команді, постійне навчання.",
-            en: "Logical thinking, programming skills, ability to work in a team, continuous learning."
-        },
-        typicalDailyTasks: {
-            ar: "تحليل متطلبات العملاء، تصميم وتطوير تطبيقات البرامج، اختبار وتصحيح الأخطاء في التعليمات البرمجية، إنشاء الوثائق الفنية، تقديم الدعم للمستخدمين.",
-            de: "Analyse von Kundenanforderungen, Konzeption und Entwicklung von Softwareanwendungen, Testen und Debuggen von Code, Erstellung technischer Dokumentationen, Support für Anwender.",
-            tr: "Müşteri gereksinimlerini analiz etmek, yazılım uygulamaları tasarlamak ve geliştirmek, kodu test etmek ve hata ayıklamak, teknik dokümantasyon oluşturmak, kullanıcılara destek sağlamak.",
-            uk: "Аналіз вимог клієнтів, проектування та розробка програмних додатків, тестування та налагодження коду, створення технічної документації, підтримка користувачів.",
-            en: "Analyzing customer requirements, designing and developing software applications, testing and debugging code, creating technical documentation, providing user support."
-        },
-        videoUrl: "https://vimeo.com/907686535",
-    },
-    {
-        type: 'ausbildung',
-        title: { ar: "أخصائي تمريض", de: "Pflegefachmann/-frau", tr: "Hemşirelik Uzmanı", uk: "Медичний фахівець (сестра/брат)", en: "Nursing Specialist" },
-        duration: { ar: "3 سنوات", de: "3 Jahre", tr: "3 yıl", uk: "3 роки", en: "3 years" },
-        salary: { ar: "€1,100 - €1,300/شهريا (أثناء التدريب)", de: "€1.100 - €1.300/Monat (in Ausbildung)", tr: "€1.100 - €1.300/ay (eğitim sırasında)", uk: "€1,100 - €1,300/місяць (під час навчання)", en: "€1,100 - €1,300/month (during training)" },
-        requirements: { ar: "شهادة Realschulabschluss", de: "Realschulabschluss", tr: "Ortaokul diploması", uk: "Атестат про середню освіту (Realschulabschluss)", en: "Intermediate School Certificate" },
-        duties: { ar: "رعاية المرضى ودعمهم في المستشفيات أو دور الرعاية.", de: "Patienten in Krankenhäusern oder Pflegeheimen betreuen und unterstützen.", tr: "Hastanelerde veya bakım evlerinde hastaların bakımı ve desteklenmesi.", uk: "Догляд та підтримка пацієнтів у лікарнях або будинках для літніх людей.", en: "Caring for and supporting patients in hospitals or nursing homes." },
-        skillsRequired: {
-            ar: "التعاطف، المرونة، المسؤولية، القدرة على التحمل الجسدي والنفسي.",
-            de: "Empathie, Belastbarkeit, Verantwortungsbewusstsein, physische und psychische Stärke.",
-            tr: "Empati, dayanıklılık, sorumluluk bilinci, fiziksel ve zihinsel güç.",
-            uk: "Емпатія, стійкість, відповідальність, фізична та психологічна витривалість.",
-            en: "Empathy, resilience, sense of responsibility, physical and mental strength."
-        },
-        typicalDailyTasks: {
-            ar: "تقييم الاحتياجات الصحية للمرضى، إعطاء الأدوية والعلاجات، مراقبة العلامات الحيوية، مساعدة الأطباء، توثيق رعاية المرضى.",
-            de: "Gesundheitsbedürfnisse von Patienten beurteilen, Medikamente und Behandlungen verabreichen, Vitalzeichen überwachen, Ärzten assistieren, Patientenversorgung dokumentieren.",
-            tr: "Hastaların sağlık ihtiyaçlarını değerlendirmek, ilaç ve tedavileri uygulamak, hayati belirtileri izlemek, doktorlara yardımcı olmak, hasta bakımını belgelemek.",
-            uk: "Оцінка потреб пацієнтів у здоров'ї, введення ліків та процедур, моніторинг життєвих показників, допомога лікарям, документування догляду за пацієнтами.",
-            en: "Assessing patients' health needs, administering medications and treatments, monitoring vital signs, assisting doctors, documenting patient care."
-        },
-        videoUrl: "https://vimeo.com/907686548",
-    },
-    {
-        type: 'ausbildung',
-        title: { ar: "موظف إدارة مكتبية", de: "Kaufmann/-frau für Büromanagement", tr: "Ofis Yönetimi Uzmanı", uk: "Менеджер з офісного адміністрування", en: "Office Management Clerk" },
-        duration: { ar: "3 سنوات", de: "3 Jahre", tr: "3 yıl", uk: "3 роки", en: "3 years" },
-        salary: { ar: "€900 - €1,100/شهريا (أثناء التدريب)", de: "€900 - €1.100/Monat (in Ausbildung)", tr: "€900 - €1.100/ay (eğitim sırasında)", uk: "€900 - €1,100/місяць (під час навчання)", en: "€900 - €1,100/month (during training)" },
-        requirements: { ar: "شهادة Realschulabschluss", de: "Realschulabschluss", tr: "Ortaokul diploması", uk: "Атестат про середню освіту (Realschulabschluss)", en: "Intermediate School Certificate" },
-        duties: { ar: "تنظيم العمليات المكتبية، التواصل مع العملاء والشركاء.", de: "Büroprozesse organisieren, mit Kunden und Partnern kommunizieren.", tr: "Ofis süreçlerini organize etmek, müşteriler ve ortaklarla iletişim kurmak.", uk: "Організація офісних процесів, комунікація з клієнтами та партнерами.", en: "Organizing office processes, communicating with customers and partners." },
-        skillsRequired: {
-            ar: "مهارات تنظيمية، مهارات تواصل، معرفة جيدة ببرامج MS Office، دقة في العمل.",
-            de: "Organisationstalent, Kommunikationsfähigkeit, gute MS-Office-Kenntnisse, Sorgfalt.",
-            tr: "Organizasyon yeteneği, iletişim becerileri, iyi MS Office bilgisi, titizlik.",
-            uk: "Організаційні здібності, комунікативні навички, добре знання MS Office, ретельність.",
-            en: "Organizational talent, communication skills, good knowledge of MS Office, thoroughness."
-        },
-        typicalDailyTasks: {
-            ar: "تنظيم المواعيد والاجتماعات، معالجة المراسلات الواردة والصادرة، إنشاء العروض التقديمية والتقارير، إدارة اللوازم المكتبية، المساعدة في المحاسبة.",
-            de: "Termine und Besprechungen organisieren, ein- und ausgehende Korrespondenz bearbeiten, Präsentationen und Berichte erstellen, Büromaterial verwalten, bei der Buchhaltung assistieren.",
-            tr: "Randevuları ve toplantıları düzenlemek, gelen ve giden yazışmaları işlemek, sunumlar ve raporlar oluşturmak, ofis malzemelerini yönetmek, muhasebeye yardımcı olmak.",
-            uk: "Організація зустрічей та нарад, обробка вхідної та вихідної кореспонденції, створення презентацій та звітів, управління офісним приладдям, допомога в бухгалтерії.",
-            en: "Organizing appointments and meetings, processing incoming and outgoing correspondence, creating presentations and reports, managing office supplies, assisting with accounting."
-        },
-        videoUrl: "https://vimeo.com/907686560",
-    },
-    {
-        type: 'ausbildung',
-        title: { ar: "فني إلكترونيات لتكنولوجيا التشغيل", de: "Elektroniker/in für Betriebstechnik", tr: "İşletme Tekniği Elektronik Teknisyeni", uk: "Електронік з експлуатаційної техніки", en: "Electronics Technician for Industrial Engineering" },
-        duration: { ar: "3.5 سنوات", de: "3,5 Jahre", tr: "3,5 yıl", uk: "3,5 роки", en: "3.5 years" },
-        salary: { ar: "€1,050 - €1,200/شهريا (أثناء التدريب)", de: "€1.050 - €1.200/Monat (in Ausbildung)", tr: "€1.050 - €1.200/ay (eğitim sırasında)", uk: "€1,050 - €1,200/місяць (під час навчання)", en: "€1,050 - €1,200/month (during training)" },
-        requirements: { ar: "شهادة Realschulabschluss", de: "Realschulabschluss", tr: "Ortaokul diploması", uk: "Атестат про середню освіту (Realschulabschluss)", en: "Intermediate School Certificate" },
-        duties: { ar: "تركيب وصيانة وتشغيل الأنظمة الكهربائية.", de: "Elektrische Anlagen installieren, warten und in Betrieb nehmen.", tr: "Elektrik sistemlerini kurmak, bakımını yapmak ve devreye almak.", uk: "Встановлення, обслуговування та введення в експлуатацію електричних систем.", en: "Installing, maintaining, and commissioning electrical systems." },
-        skillsRequired: {
-            ar: "فهم تقني، مهارة يدوية، عمل دقيق، وعي بالسلامة.",
-            de: "Technisches Verständnis, handwerkliches Geschick, sorgfältiges Arbeiten, Sicherheitsbewusstsein.",
-            tr: "Teknik anlayış, el becerisi, dikkatli çalışma, güvenlik bilinci.",
-            uk: "Технічне розуміння, спритність рук, ретельна робота, усвідомлення безпеки.",
-            en: "Technical understanding, manual dexterity, careful work, safety awareness."
-        },
-        typicalDailyTasks: {
-            ar: "تركيب وصيانة الأنظمة الكهربائية، فحص وإصلاح المعدات، تمديد الكابلات وتوصيلها، برمجة أنظمة التحكم، ضمان السلامة الكهربائية.",
-            de: "Elektrische Anlagen installieren und warten, Geräte prüfen und reparieren, Kabel verlegen und anschließen, Steuerungen programmieren, elektrische Sicherheit gewährleisten.",
-            tr: "Elektrik sistemlerini kurmak ve bakımını yapmak, cihazları kontrol etmek ve onarmak, kablo döşemek ve bağlamak, kontrol sistemlerini programlamak, elektrik güvenliğini sağlamak.",
-            uk: "Встановлення та обслуговування електричних систем, перевірка та ремонт обладнання, прокладання та підключення кабелів, програмування систем управління, забезпечення електробезпеки.",
-            en: "Installing and maintaining electrical systems, checking and repairing equipment, laying and connecting cables, programming controls, ensuring electrical safety."
-        },
-        videoUrl: "https://vimeo.com/907686571",
-    },
-    {
-        type: 'ausbildung',
-        title: { ar: "ميكانيكي صناعي", de: "Industriemechaniker/in", tr: "Endüstriyel Mekanik", uk: "Промисловий механік", en: "Industrial Mechanic" },
-        duration: { ar: "3.5 سنوات", de: "3,5 Jahre", tr: "3,5 yıl", uk: "3,5 роки", en: "3.5 years" },
-        salary: { ar: "€1,050 - €1,200/شهريا (أثناء التدريب)", de: "€1.050 - €1.200/Monat (in Ausbildung)", tr: "€1.050 - €1.200/ay (eğitim sırasında)", uk: "€1,050 - €1,200/місяць (під час навчання)", en: "€1,050 - €1,200/month (during training)" },
-        requirements: { ar: "شهادة Hauptschulabschluss أو Realschulabschluss", de: "Hauptschul- oder Realschulabschluss", tr: "İlk veya ortaokul diploması", uk: "Атестат про базову або середню освіту", en: "Basic or Intermediate School Certificate" },
-        duties: { ar: "تصنيع وصيانة وإصلاح الأجهزة والآلات.", de: "Herstellung, Wartung und Reparatur von Geräten und Maschinen.", tr: "Cihaz ve makinelerin üretimi, bakımı ve onarımı.", uk: "Виробництво, обслуговування та ремонт пристроїв та машин.", en: "Manufacturing, maintaining, and repairing devices and machines." },
-        skillsRequired: {
-            ar: "مهارة يدوية، فهم تقني، قوة بدنية، دقة.",
-            de: "Handwerkliches Geschick, technisches Verständnis, körperliche Belastbarkeit, Präzision.",
-            tr: "El becerisi, teknik anlayış, fiziksel dayanıklılık, hassasiyet.",
-            uk: "Спритність рук, технічне розуміння, фізична витривалість, точність.",
-            en: "Manual dexterity, technical understanding, physical resilience, precision."
-        },
-        typicalDailyTasks: {
-            ar: "تصنيع أجزاء الآلات، تجميع الوحدات، فحص وظائف الأنظمة، صيانة وإصلاح آلات الإنتاج، العمل حسب الرسومات الفنية.",
-            de: "Maschinenteile herstellen, Baugruppen montieren, Funktion von Systemen prüfen, Produktionsanlagen warten und reparieren, nach technischen Zeichnungen arbeiten.",
-            tr: "Makine parçaları üretmek, montaj gruplarını birleştirmek, sistemlerin işlevini kontrol etmek, üretim tesislerinin bakımını ve onarımını yapmak, teknik çizimlere göre çalışmak.",
-            uk: "Виготовлення деталей машин, збирання вузлів, перевірка функціонування систем, технічне обслуговування та ремонт виробничого обладнання, робота за технічними кресленнями.",
-            en: "Manufacturing machine parts, assembling modules, checking system functions, maintaining and repairing production plants, working according to technical drawings."
-        },
-        videoUrl: "https://vimeo.com/907686583",
-    },
-    {
-        type: 'ausbildung',
-        title: { ar: "طاهٍ/طاهية", de: "Koch/Köchin", tr: "Aşçı", uk: "Кухар", en: "Chef" },
-        duration: { ar: "3 سنوات", de: "3 Jahre", tr: "3 yıl", uk: "3 роки", en: "3 years" },
-        salary: { ar: "€800 - €1,000/شهريا (أثناء التدريب)", de: "€800 - €1.000/Monat (in Ausbildung)", tr: "€800 - €1.000/ay (eğitim sırasında)", uk: "€800 - €1,000/місяць (під час навчання)", en: "€800 - €1,000/month (during training)" },
-        requirements: { ar: "شهادة Hauptschulabschluss", de: "Hauptschulabschluss", tr: "İlkokul diploması", uk: "Атестат про базову середню освіту", en: "Basic School Certificate" },
-        duties: { ar: "إعداد وتحضير الأطباق في المطابخ.", de: "Zubereitung und Anrichtung von Speisen in Küchen.", tr: "Mutfaklarda yemeklerin hazırlanması ve sunumu.", uk: "Приготування та подача страв на кухнях.", en: "Preparation and presentation of dishes in kitchens." },
-        skillsRequired: {
-            ar: "إبداع، حاسة تذوق جيدة، القدرة على التحمل، مهارات تنظيمية.",
-            de: "Kreativität, guter Geschmackssinn, Belastbarkeit, Organisationstalent.",
-            tr: "Yaratıcılık, iyi tat alma duyusu, dayanıklılık, organizasyon yeteneği.",
-            uk: "Креативність, гарний смак, витривалість, організаційні здібності.",
-            en: "Creativity, good sense of taste, resilience, organizational skills."
-        },
-        typicalDailyTasks: {
-            ar: "تخطيط قوائم الطعام، شراء المكونات وتخزينها، إعداد وطهي الأطباق، ضمان النظافة في المطبخ، إرشاد مساعدي المطبخ.",
-            de: "Speisekarten planen, Zutaten einkaufen und lagern, Gerichte zubereiten und kochen, Hygiene in der Küche sicherstellen, Küchenhilfen anleiten.",
-            tr: "Menüleri planlamak, malzemeleri satın almak ve depolamak, yemekleri hazırlamak ve pişirmek, mutfakta hijyeni sağlamak, mutfak yardımcılarına talimat vermek.",
-            uk: "Планування меню, закупівля та зберігання інгредієнтів, приготування та готування страв, забезпечення гігієни на кухні, інструктаж кухонних помічників.",
-            en: "Planning menus, purchasing and storing ingredients, preparing and cooking dishes, ensuring hygiene in the kitchen, instructing kitchen assistants."
-        },
-        videoUrl: "https://vimeo.com/907686595",
-    },
-    {
-        type: 'ausbildung',
-        title: { ar: "أخصائي فندقة", de: "Hotelfachmann/-frau", tr: "Otelcilik Uzmanı", uk: "Фахівець з готельного господарства", en: "Hotel Specialist" },
-        duration: { ar: "3 سنوات", de: "3 Jahre", tr: "3 yıl", uk: "3 роки", en: "3 years" },
-        salary: { ar: "€800 - €1,000/شهريا (أثناء التدريب)", de: "€800 - €1.000/Monat (in Ausbildung)", tr: "€800 - €1.000/ay (eğitim sırasında)", uk: "€800 - €1,000/місяць (під час навчання)", en: "€800 - €1,000/month (during training)" },
-        requirements: { ar: "شهادة Hauptschulabschluss", de: "Hauptschulabschluss", tr: "İlkokul diploması", uk: "Атестат про базову середню освіту", en: "Basic School Certificate" },
-        duties: { ar: "رعاية الضيوف في جميع أقسام الفندق.", de: "Gästebetreuung in allen Bereichen eines Hotels.", tr: "Bir otelin tüm alanlarında misafir hizmetleri.", uk: "Обслуговування гостей у всіх відділах готелю.", en: "Guest services in all areas of a hotel." },
-        skillsRequired: {
-            ar: "توجه نحو الخدمة، مهارات تواصل، مظهر أنيق، مرونة.",
-            de: "Serviceorientierung, Kommunikationsfähigkeit, gepflegtes Erscheinungsbild, Flexibilität.",
-            tr: "Hizmet odaklılık, iletişim becerileri, bakımlı görünüm, esneklik.",
-            uk: "Сервіс-орієнтованість, комунікабельність, охайний зовнішній вигляд, гнучкість.",
-            en: "Service orientation, communication skills, well-groomed appearance, flexibility."
-        },
-        typicalDailyTasks: {
-            ar: "الترحيب بالضيوف وتسجيل وصولهم، إدارة الحجوزات، تقديم المشورة للضيوف، تقديم الخدمة في المطعم، المساعدة في تنظيم الفعاليات.",
-            de: "Gäste empfangen und einchecken, Reservierungen verwalten, Gäste beraten, im Restaurant servieren, bei der Organisation von Veranstaltungen helfen.",
-            tr: "Konukları karşılamak ve check-in yapmak, rezervasyonları yönetmek, konuklara danışmanlık yapmak, restoranda servis yapmak, etkinlik organizasyonuna yardımcı olmak.",
-            uk: "Прийом та реєстрація гостей, управління бронюваннями, консультування гостей, обслуговування в ресторані, допомога в організації заходів.",
-            en: "Welcoming and checking in guests, managing reservations, advising guests, serving in the restaurant, helping to organize events."
-        },
-        videoUrl: "https://vimeo.com/907686610",
-    },
-    {
-        type: 'ausbildung',
-        title: { ar: "بائع تجزئة", de: "Kaufmann/-frau im Einzelhandel", tr: "Perakende Satış Elemanı", uk: "Продавець-консультант", en: "Retail Clerk" },
-        duration: { ar: "3 سنوات", de: "3 Jahre", tr: "3 yıl", uk: "3 роки", en: "3 years" },
-        salary: { ar: "€850 - €1,050/شهريا (أثناء التدريب)", de: "€850 - €1.050/Monat (in Ausbildung)", tr: "€850 - €1.050/ay (eğitim sırasında)", uk: "€850 - €1,050/місяць (під час навчання)", en: "€850 - €1,050/month (during training)" },
-        requirements: { ar: "شهادة Hauptschulabschluss", de: "Hauptschulabschluss", tr: "İlkokul diploması", uk: "Атестат про базову середню освіту", en: "Basic School Certificate" },
-        duties: { ar: "بيع البضائع وتقديم المشورة للعملاء.", de: "Waren verkaufen und Kunden beraten.", tr: "Mal satmak ve müşterilere danışmanlık yapmak.", uk: "Продаж товарів та консультування клієнтів.", en: "Selling goods and advising customers." },
-        skillsRequired: {
-            ar: "مهارات تواصل، ودية، معرفة بالمنتج، مهارات حسابية.",
-            de: "Kommunikationsstärke, Freundlichkeit, Produktkenntnisse, rechnerische Fähigkeiten.",
-            tr: "İletişim becerileri, samimiyet, ürün bilgisi, aritmetik beceriler.",
-            uk: "Комунікабельність, дружелюбність, знання продукту, математичні здібності.",
-            en: "Communication skills, friendliness, product knowledge, arithmetic skills."
-        },
-        typicalDailyTasks: {
-            ar: "تقديم المشورة للعملاء، تشغيل الكاشير، ترتيب البضائع، مراقبة المخزون، معالجة الشكاوى.",
-            de: "Kunden beraten, Kassiervorgänge durchführen, Waren einräumen, Lagerbestände kontrollieren, Reklamationen bearbeiten.",
-            tr: "Müşterilere danışmanlık yapmak, kasa işlemlerini yürütmek, malları raflara yerleştirmek, stokları kontrol etmek, şikayetleri işleme almak.",
-            uk: "Консультування клієнтів, робота на касі, викладка товару, контроль запасів, обробка скарг.",
-            en: "Advising customers, operating the cash register, stocking goods, monitoring inventory, handling complaints."
-        },
-        videoUrl: "https://vimeo.com/907686623",
-    },
-    {
-        type: 'study',
-        title: { ar: "هندسة الحاسوب", de: "Informatik (Studium)", tr: "Bilgisayar Bilimi (Üniversite)", uk: "Комп'ютерні науки (Навчання)", en: "Computer Science (Study)" },
-        duration: { ar: "3-4 سنوات (بكالوريوس)", de: "3-4 Jahre (Bachelor)", tr: "3-4 yıl (Lisans)", uk: "3-4 роки (Бакалавр)", en: "3-4 years (Bachelor)" },
-        salary: { ar: "غير مدفوع (دراسة)", de: "Keine Vergütung (Studium)", tr: "Maaşsız (Üniversite)", uk: "Без оплати (Навчання)", en: "Unpaid (Study)" },
-        requirements: { ar: "شهادة Abitur", de: "Abitur", tr: "Lise diploması (Abitur)", uk: "Атестат про повну середню освіту (Abitur)", en: "High School Diploma (Abitur)" },
-        duties: { ar: "دراسة وتطبيق نظريات وأساليب تكنولوجيا المعلومات.", de: "Theorien und Methoden der Informationstechnologie studieren und anwenden.", tr: "Bilgi teknolojisinin teorilerini ve yöntemlerini incelemek ve uygulamak.", uk: "Вивчення та застосування теорій та методів інформаційних технологій.", en: "Studying and applying theories and methods of information technology." },
-        skillsRequired: {
-            ar: "تفكير تحليلي، فهم رياضي، القدرة على التجريد، انضباط ذاتي.",
-            de: "Analytisches Denkvermögen, mathematisches Verständnis, Abstraktionsfähigkeit, Selbstdisziplin.",
-            tr: "Analitik düşünme yeteneği, matematiksel anlayış, soyutlama yeteneği, öz disiplin.",
-            uk: "Аналітичне мислення, математичне розуміння, здатність до абстракції, самодисципліна.",
-            en: "Analytical thinking, mathematical understanding, abstraction ability, self-discipline."
-        },
-        typicalDailyTasks: {
-            ar: "حضور المحاضرات والندوات، حل التمارين، العمل على مشاريع برمجية، التحضير للامتحانات، كتابة الأوراق العلمية.",
-            de: "Vorlesungen und Seminare besuchen, Übungsaufgaben lösen, an Softwareprojekten arbeiten, für Prüfungen lernen, wissenschaftliche Arbeiten schreiben.",
-            tr: "Derslere ve seminerlere katılmak, alıştırmaları çözmek, yazılım projelerinde çalışmak, sınavlara hazırlanmak, bilimsel makaleler yazmak.",
-            uk: "Відвідування лекцій та семінарів, розв'язування вправ, робота над програмними проектами, підготовка до іспитів, написання наукових робіт.",
-            en: "Attending lectures and seminars, solving exercises, working on software projects, preparing for exams, writing scientific papers."
-        },
-        videoUrl: "https://vimeo.com/907686638",
-    },
+    // CRAFTSMANSHIP_TECHNICAL
+    { type: 'ausbildung', title: { ar: "فني ميكاترونيك", de: "Mechatroniker/in", tr: "Mekatronik Teknisyeni", uk: "Мехатронік", en: "Mechatronics Technician" }, category: 'CRAFTSMANSHIP_TECHNICAL' },
+    { type: 'ausbildung', title: { ar: "فني إلكترونيات لتكنولوجيا التشغيل", de: "Elektroniker/in für Betriebstechnik", tr: "İşletme Tekniği Elektronik Teknisyeni", uk: "Електронік з експлуатаційної техніки", en: "Electronics Technician for Industrial Engineering" }, category: 'CRAFTSMANSHIP_TECHNICAL' },
+    { type: 'ausbildung', title: { ar: "ميكانيكي صناعي", de: "Industriemechaniker/in", tr: "Endüstriyel Mekanik", uk: "Промисловий механік", en: "Industrial Mechanic" }, category: 'CRAFTSMANSHIP_TECHNICAL' },
+    { type: 'ausbildung', title: { ar: "ميكانيكي سيارات", de: "KFZ-Mechatroniker/in", tr: "Otomotiv Mekatronik Teknisyeni", uk: "Автомехатронік", en: "Automotive Mechatronics Technician" }, category: 'CRAFTSMANSHIP_TECHNICAL' },
+    { type: 'ausbildung', title: { ar: "ميكانيكي إنشاءات", de: "Konstruktionsmechaniker/in", tr: "İnşaat Mekaniği Teknisyeni", uk: "Слюсар-конструктор", en: "Construction Mechanic" }, category: 'CRAFTSMANSHIP_TECHNICAL' },
+    { type: 'ausbildung', title: { ar: "كهربائي مباني", de: "Elektroniker/in für Energie- und Gebäudetechnik", tr: "Enerji ve Bina Teknolojisi Elektronikçisi", uk: "Електротехнік (енергетика та будівництво)", en: "Electronics Technician for Energy and Building Technology" }, category: 'CRAFTSMANSHIP_TECHNICAL' },
+    { type: 'ausbildung', title: { ar: "سمكري سيارات", de: "Karosserie- und Fahrzeugbaumechaniker/in", tr: "Karoser ve Araç Yapım Mekanikeri", uk: "Механік з ремонту кузовів", en: "Body and Vehicle Construction Mechanic" }, category: 'CRAFTSMANSHIP_TECHNICAL' },
+    
+    // CRAFTSMANSHIP_MANUAL
+    { type: 'ausbildung', title: { ar: "نجار", de: "Tischler/in", tr: "Marangoz", uk: "Столяр", en: "Carpenter" }, category: 'CRAFTSMANSHIP_MANUAL' },
+    { type: 'ausbildung', title: { ar: "سباك", de: "Anlagenmechaniker/in für Sanitär-, Heizungs- und Klimatechnik", tr: "Sıhhi Tesisat, Isıtma ve Klima Teknisyeni", uk: "Слюсар-сантехнік", en: "Plumber/HVAC Technician" }, category: 'CRAFTSMANSHIP_MANUAL' },
+    { type: 'ausbildung', title: { ar: "رسام ومصمم لافتات", de: "Maler/in und Lackierer/in", tr: "Boya ve Cila Ustası", uk: "Маляр та лакувальник", en: "Painter and Varnisher" }, category: 'CRAFTSMANSHIP_MANUAL' },
+    { type: 'ausbildung', title: { ar: "صانع أسقف", de: "Dachdecker/in", tr: "Çatı Ustası", uk: "Покрівельник", en: "Roofer" }, category: 'CRAFTSMANSHIP_MANUAL' },
+    { type: 'ausbildung', title: { ar: "خباز", de: "Bäcker/in", tr: "Fırıncı", uk: "Пекар", en: "Baker" }, category: 'CRAFTSMANSHIP_MANUAL' },
+    { type: 'ausbildung', title: { ar: "جزار", de: "Fleischer/in", tr: "Kasap", uk: "М'ясник", en: "Butcher" }, category: 'CRAFTSMANSHIP_MANUAL' },
+    { type: 'ausbildung', title: { ar: "بستاني", de: "Gärtner/in", tr: "Bahçıvan", uk: "Садівник", en: "Gardener" }, category: 'CRAFTSMANSHIP_MANUAL' },
+    { type: 'ausbildung', title: { ar: "فني سفن", de: "Bootsbauer/in", tr: "Tekne Yapımcısı", uk: "Суднобудівник", en: "Boat Builder" }, category: 'CRAFTSMANSHIP_MANUAL' },
+
+    // IT_SOFTWARE
+    { type: 'ausbildung', title: { ar: "مطور تطبيقات متخصص", de: "Fachinformatiker/in für Anwendungsentwicklung", tr: "Uygulama Geliştirme Bilişim Uzmanı", uk: "Фахівець з розробки програмного забезпечення", en: "IT Specialist for Application Development" }, category: 'IT_SOFTWARE' },
+    { type: 'ausbildung', title: { ar: "خبير تكامل أنظمة", de: "Fachinformatiker/in für Systemintegration", tr: "Sistem Entegrasyonu Bilişim Uzmanı", uk: "Спеціаліст з системної інтеграції", en: "IT Specialist for System Integration" }, category: 'IT_SOFTWARE' },
+    { type: 'study', title: { ar: "هندسة الحاسوب", de: "Informatik (Studium)", tr: "Bilgisayar Bilimi (Üniversite)", uk: "Комп'ютерні науки (Навчання)", en: "Computer Science (Study)" }, category: 'IT_SOFTWARE' },
+    { type: 'study', title: { ar: "معلوماتية اقتصادية", de: "Wirtschaftsinformatik", tr: "İşletme Enformatiği", uk: "Економічна інформатика", en: "Business Informatics" }, category: 'IT_SOFTWARE' },
+    { type: 'job', title: { ar: "محلل بيانات", de: "Datenanalyst/in", tr: "Veri Analisti", uk: "Аналітик даних", en: "Data Analyst" }, category: 'IT_SOFTWARE' },
+    { type: 'job', title: { ar: "مهندس برمجيات", de: "Softwareentwickler/in", tr: "Yazılım Geliştirici", uk: "Розробник програмного забезпечення", en: "Software Engineer" }, category: 'IT_SOFTWARE' },
+    { type: 'job', title: { ar: "مسؤول نظام", de: "Systemadministrator/in", tr: "Sistem Yöneticisi", uk: "Системний адміністратор", en: "System Administrator" }, category: 'IT_SOFTWARE' },
+// FIX: The file was truncated, causing a syntax error. The malformed data has been removed and the array is now properly closed.
 ];
