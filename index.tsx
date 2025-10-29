@@ -830,6 +830,7 @@ const renderPraktikumIntro = (state) => {
 
 const renderPraktikumSearch = (state) => {
     const { isLoadingCompany, isLoadingEmail, companyList, selectedCompany, generatedEmail, error, internshipType, field, location } = state.praktikumSearchState;
+    const searchPerformed = field && location && internshipType;
 
     let companyContent = '';
     if (isLoadingCompany) {
@@ -906,6 +907,8 @@ const renderPraktikumSearch = (state) => {
                 `}).join('')}
             </div>
         `;
+    } else if (searchPerformed) {
+        companyContent = `<p class="info-message">${t('praktikumNoCompaniesFound')}</p>`;
     }
 
     let modalContent = '';
@@ -1193,8 +1196,8 @@ const getPraktikumOpportunity = async (field, location, internshipType) => {
            }
         }
         
-        if (!Array.isArray(companyList) || companyList.length === 0) {
-             throw new Error("No companies found or invalid format.");
+        if (!Array.isArray(companyList)) {
+             throw new Error("AI returned an invalid data format.");
         }
         
         store.dispatch({ type: 'PRAKTIKUM_COMPANY_SEARCH_SUCCESS', payload: companyList });
@@ -1573,7 +1576,13 @@ function initEventListeners() {
             return;
         }
         if (form.id === 'praktikum-search-form') {
-            const { field, location, internshipType } = store.getState().praktikumSearchState;
+            const field = (form.querySelector('#field-input') as HTMLInputElement).value;
+            const location = (form.querySelector('#location-input') as HTMLInputElement).value;
+            const internshipType = (form.querySelector('#internship-type-select') as HTMLSelectElement).value;
+
+            // Dispatch to update state so it's correct for the loading view and if the user navigates back
+            store.dispatch({ type: 'UPDATE_PRAKTIKUM_FORM', payload: { field, location, internshipType } });
+            
             getPraktikumOpportunity(field, location, internshipType);
             return;
         }
@@ -1624,23 +1633,7 @@ function initEventListeners() {
             store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { searchTerm: (target as HTMLInputElement).value, page: 1 } });
             return;
         }
-        if (target.closest('.praktikum-search-inputs')) {
-            const field = (root.querySelector('#field-input') as HTMLInputElement).value;
-            const location = (root.querySelector('#location-input') as HTMLInputElement).value;
-            const internshipType = (root.querySelector('#internship-type-select') as HTMLSelectElement).value;
-            store.dispatch({ type: 'UPDATE_PRAKTIKUM_FORM', payload: { field, location, internshipType } });
-            return;
-        }
     });
-     root.addEventListener('change', (e) => {
-        const target = e.target as HTMLElement;
-        if (target.id === 'internship-type-select') {
-            const field = (root.querySelector('#field-input') as HTMLInputElement).value;
-            const location = (root.querySelector('#location-input') as HTMLInputElement).value;
-            store.dispatch({ type: 'UPDATE_PRAKTIKUM_FORM', payload: { field, location, internshipType: (target as HTMLSelectElement).value } });
-            return;
-        }
-     });
 }
 
 // --- Initial App Load ---
