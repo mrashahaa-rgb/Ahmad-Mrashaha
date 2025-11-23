@@ -262,6 +262,132 @@ const store = createStore(appReducer, initialState);
 
 // --- END: CENTRALIZED STATE MANAGEMENT (REFACTOR) ---
 
+// --- START: TEXT TO SPEECH & SPEECH TO TEXT HELPERS ---
+
+const stopSpeaking = () => {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+    }
+};
+
+const speakText = (text) => {
+    stopSpeaking(); // Stop any current speech first
+    if ('speechSynthesis' in window) {
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        
+        // Determine language code based on app state
+        const currentLang = store.getState().currentLanguage;
+        let langCode = 'de-DE'; // Default
+        switch(currentLang) {
+            case 'ar': langCode = 'ar-SA'; break;
+            case 'en': langCode = 'en-US'; break;
+            case 'tr': langCode = 'tr-TR'; break;
+            case 'uk': langCode = 'uk-UA'; break;
+            case 'de': langCode = 'de-DE'; break;
+        }
+        msg.lang = langCode;
+        
+        msg.onerror = (e) => {
+            // @ts-ignore
+            if (e.error === 'interrupted' || e.error === 'canceled') {
+                return; // Ignore interruption errors
+            }
+            console.error('Speech synthesis error', e);
+        };
+        
+        window.speechSynthesis.speak(msg);
+    } else {
+        alert("Sorry, your browser doesn't support text-to-speech.");
+    }
+};
+
+const renderReadBtn = (text) => {
+    // Escape single quotes for the attribute
+    const safeText = text.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+    return `
+        <button class="read-text-btn" data-text="${safeText}" aria-label="Read text aloud">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+        </button>
+    `;
+};
+
+// Helper to render the microphone button for speech-to-text
+const renderMicBtn = (targetInputId) => {
+    return `
+        <button class="mic-btn" data-target="${targetInputId}" aria-label="Speak answer" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+        </button>
+    `;
+};
+
+// Speech Recognition Function
+const startDictation = (inputId) => {
+    // @ts-ignore
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (!SpeechRecognition) {
+        alert("Sorry, your browser doesn't support speech recognition.");
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+    const currentLang = store.getState().currentLanguage;
+    let langCode = 'de-DE';
+     switch(currentLang) {
+            case 'ar': langCode = 'ar-SA'; break;
+            case 'en': langCode = 'en-US'; break;
+            case 'tr': langCode = 'tr-TR'; break;
+            case 'uk': langCode = 'uk-UA'; break;
+            case 'de': langCode = 'de-DE'; break;
+    }
+    recognition.lang = langCode;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    const micBtn = document.querySelector(`.mic-btn[data-target="${inputId}"]`);
+    micBtn?.classList.add('listening');
+
+    recognition.start();
+
+    recognition.onresult = (event) => {
+        const speechResult = event.results[0][0].transcript;
+        const input = document.getElementById(inputId) as HTMLInputElement;
+        if (input) {
+            // Append if there's already text, or just set it
+            input.value = speechResult; 
+            // Trigger event for any listeners
+            input.dispatchEvent(new Event('input'));
+        }
+        micBtn?.classList.remove('listening');
+    };
+
+    recognition.onspeechend = () => {
+        recognition.stop();
+        micBtn?.classList.remove('listening');
+    };
+
+    recognition.onerror = (event) => {
+        console.error('Speech recognition error', event.error);
+        micBtn?.classList.remove('listening');
+    };
+    
+    // Add global reference to stop if needed
+    // @ts-ignore
+    window.currentRecognition = recognition;
+};
+
+// --- END: TEXT TO SPEECH & SPEECH TO TEXT HELPERS ---
+
+
 const t = (key) => {
   return translations[store.getState().currentLanguage][key] || key;
 };
@@ -367,9 +493,12 @@ const renderHeaderActions = (state) => {
 };
 
 const renderWelcome = (state) => {
+  const titleText = t('welcomeTitle');
+  const descText = t('welcomeDesc');
+
   const mainContentHTML = `
-    <h1>${t('welcomeTitle')}</h1>
-    <p>${t('welcomeDesc')}</p>
+    <h1>${titleText} ${renderReadBtn(titleText)}</h1>
+    <p>${descText} ${renderReadBtn(descText)}</p>
     <div class="welcome-actions">
         <div id="start-quiz-card" class="action-card primary">
             <h3>${t('startQuiz')}</h3>
@@ -450,12 +579,15 @@ const renderAdminLogin = (state) => {
 }
 
 const renderQuizIntro = (state) => {
+    const introTitle = t('quizIntroTitle');
+    const introDesc = t('quizIntroDesc');
+    
     root.innerHTML = `
         <div class="page-container">
             <div class="container quiz-intro-container">
                 ${renderTopNav(state)}
-                <h1>${t('quizIntroTitle')}</h1>
-                <p>${t('quizIntroDesc')}</p>
+                <h1>${introTitle} ${renderReadBtn(introTitle)}</h1>
+                <p>${introDesc} ${renderReadBtn(introDesc)}</p>
                 <button id="start-quiz-now-btn" class="btn">${t('quizIntroStartBtn')}</button>
             </div>
         </div>
@@ -480,14 +612,20 @@ const renderQuiz = (state) => {
       questionContent = `
           <div class="quiz-input-group">
               <label for="quiz-input">${question.question}</label>
-              <input type="text" id="quiz-input" value="${value}" placeholder="${t('answerHere')}">
+              <div class="input-wrapper">
+                  <input type="text" id="quiz-input" value="${value}" placeholder="${t('answerHere')}">
+                  ${renderMicBtn('quiz-input')}
+              </div>
           </div>
       `;
     } else {
       questionContent = `
           <div class="quiz-input-group">
               <label for="quiz-input">${question.question}</label>
-              <textarea id="quiz-input" rows="5" placeholder="${t('answerHere')}">${value}</textarea>
+              <div class="input-wrapper">
+                  <textarea id="quiz-input" rows="5" placeholder="${t('answerHere')}">${value}</textarea>
+                  ${renderMicBtn('quiz-input')}
+              </div>
           </div>
       `;
     }
@@ -496,7 +634,10 @@ const renderQuiz = (state) => {
     questionContent = `
       <div class="quiz-input-group">
           <label for="quiz-input">${question.question}</label>
-          <input type="number" id="quiz-input" value="${value}" placeholder="${t('answerHere')}">
+          <div class="input-wrapper">
+            <input type="number" id="quiz-input" value="${value}" placeholder="${t('answerHere')}">
+            ${renderMicBtn('quiz-input')}
+          </div>
       </div>
     `;
   } else {
@@ -519,7 +660,10 @@ const renderQuiz = (state) => {
           <div class="progress-bar">
             <div class="progress-bar-inner" style="width: ${progress}%"></div>
           </div>
-          <p class="question-text">${question.type !== 'text' && question.type !== 'number' ? `${state.currentQuestionIndex + 1 - 2}.` : ''} ${question.question}</p>
+          <p class="question-text">
+            ${question.type !== 'text' && question.type !== 'number' ? `${state.currentQuestionIndex + 1 - 2}.` : ''} ${question.question}
+            ${renderReadBtn(question.question)}
+          </p>
           ${questionContent}
           <div class="quiz-nav">
             <button id="back-btn" class="btn secondary" ${state.currentQuestionIndex === 0 ? 'disabled' : ''}>${t('back')}</button>
@@ -602,6 +746,10 @@ const renderResults = async (state) => {
   const feedbackStore = getFeedbackStore();
   const reportFeedback = feedbackStore[results.savedDate] || {};
 
+  // Clean HTML tags for speech
+  const cleanPersonality = results.personalitySummary.replace(/[*#]/g, '');
+  const cleanAdvice = results.careerAdvice.replace(/[*#]/g, '');
+
   root.innerHTML = `
     <div class="page-container">
         <div class="container results-container">
@@ -615,7 +763,7 @@ const renderResults = async (state) => {
           </nav>
 
           <div id="personality-summary" class="result-section">
-            <h2>${t('personalitySummary')}</h2>
+            <h2>${t('personalitySummary')} ${renderReadBtn(cleanPersonality)}</h2>
             <div>${personalitySummaryHtml}</div>
             <div class="feedback-controls" data-section-key="personality">
               ${renderFeedbackUI('personality', reportFeedback)}
@@ -626,7 +774,7 @@ const renderResults = async (state) => {
             <h2>${t('recommendedPaths')}</h2>
             ${results.jobSuggestions.map(job => `
               <div class="job-suggestion-card">
-                <h3>${job.title}</h3>
+                <h3>${job.title} ${renderReadBtn(`${job.title}. ${job.description}`)}</h3>
                 <p>${job.description}</p>
                 <p class="details">${job.details}</p>
               </div>
@@ -637,7 +785,7 @@ const renderResults = async (state) => {
           </div>
 
           <div id="career-advice" class="result-section">
-            <h2>${t('careerAdvice')}</h2>
+            <h2>${t('careerAdvice')} ${renderReadBtn(cleanAdvice)}</h2>
             <div>${careerAdviceHtml}</div>
             <div class="feedback-controls" data-section-key="advice">
               ${renderFeedbackUI('advice', reportFeedback)}
@@ -1237,6 +1385,12 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
 let previousView = undefined;
 
 const renderApp = (state) => {
+  stopSpeaking(); // Stop speaking when navigating between views
+  // Also stop listening if active
+  if ((window as any).currentRecognition) {
+      (window as any).currentRecognition.stop();
+  }
+
   document.body.style.paddingTop = '0px'; 
   headerTitle.textContent = t('headerTitle');
   footerText.textContent = t('footerText');
@@ -1302,6 +1456,29 @@ function initEventListeners() {
         const target = e.target as HTMLElement;
         const state = store.getState();
         
+        // Text-to-Speech Button Logic
+        const readBtn = target.closest('.read-text-btn');
+        if (readBtn) {
+            e.stopPropagation();
+            const textToRead = (readBtn as HTMLElement).dataset.text;
+            if (textToRead) {
+                speakText(textToRead);
+            }
+            return;
+        }
+
+        // Speech-to-Text Button Logic
+        const micBtn = target.closest('.mic-btn');
+        if (micBtn) {
+            e.stopPropagation();
+            const inputId = (micBtn as HTMLElement).dataset.target;
+            if (inputId) {
+                startDictation(inputId);
+            }
+            return;
+        }
+
+
         // Language Switcher
         const langDropdown = langSwitcherContainer.querySelector('.lang-switcher-dropdown');
         if (target.closest('.lang-btn-current')) {
@@ -1351,7 +1528,7 @@ function initEventListeners() {
         // Quiz Page
         const optionBtn = target.closest('.option-btn');
         if (optionBtn) {
-            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('.option-btn.selected').forEach(b => b.classList.remove('selected'));
             optionBtn.classList.add('selected');
             optionBtn.classList.add('clicked');
             optionBtn.addEventListener('animationend', () => optionBtn.classList.remove('clicked'), { once: true });
