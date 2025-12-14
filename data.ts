@@ -1,3 +1,5 @@
+
+
 // Define high-quality, consistent SVG flags for all languages.
 const syrianOppositionFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwN2EzZCIvPjxyZWN0IHk9IjIwMCIgd2lkdGg9IjkwMCIgaGVpZGhtPSIyMDAiIGZpbGw9IiNmZmYiLz48cmVjdCB5PSI0MDAiIHdpZHRoPSI5MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMDAwIi8+PGcgZmlsbD0iI2NlMTEyNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwIDMwMCkgc2NhbGUoMjIpIj48ZyBpZD0icyI+PHBhdGggZD0iTTAtMi4zNzc1bDEuNTQ1IDQuNzU1LTQuMDcyLTIuOTM5aDUuMDU0TC0xLjU0NSAyLjM4eiIvPjwvZz48dXNlIGhyZWY9IiNzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTIpIi8+PHVzZSBocmVmPSIjcyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCkiLz48dXNlIGhyZWY9IiNzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMikiLz48L2c+PC9zdmc+" alt="Syrian Flag" loading="lazy">`;
 const germanFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1IDMiPjxyZWN0IHdpZHRoPSI1IiBoZWlnaHQ9IjEiIHk9IjAiIGZpbGw9IiMwMDAiLz48cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSIxIiB5PSIxIiBmaWxsPSIjRDAwIi8+PHJlY3QgeT0iMiIgd2lkdGg9IjUiIGhlaWdodD0iMSIgZmlsbD0iI0ZGQ0UwMCIvPjwvc3ZnPg==" alt="German Flag" loading="lazy">`;
@@ -21,6 +23,8 @@ export const translations = {
     searchAvailableJobsDesc: "ابحث عن فرص عمل حقيقية متاحة الآن في جميع أنحاء ألمانيا.",
     searchForPraktikum: "ابحث عن تدريب عملي (Praktikum)",
     searchForPraktikumDesc: "اعثر على فرص تدريب عملي وأنشئ رسائل بريد إلكتروني احترافية لتقديم طلبك.",
+    createResume: "إنشاء سيرة ذاتية (CV)",
+    createResumeDesc: "أجب على بعض الأسئلة وسنقوم بإنشاء سيرة ذاتية احترافية لك.",
     professionsDesc: "ابحث وتصفح فرص العمل والتدريب المهني والدراسة الجامعية في ألمانيا.",
     quizIntroTitle: "قبل أن تبدأ",
     quizIntroDesc: "يتكون هذا الاختبار من 30 سؤالاً حول شخصيتك ومهاراتك وطموحاتك. ستساعدنا إجاباتك الصادقة في إنشاء تقرير مفصل مع اقتراحات مهنية مخصصة. لا توجد إجابات صحيحة أو خاطئة، فقط كن على طبيعتك!",
@@ -154,6 +158,39 @@ export const translations = {
     emailSummaryIntro: "إليك ملخص لمساراتك المهنية الموصى بها. لعرض التقرير الكامل مع تحليلك الشخصي، يرجى زيارة الموقع أو فتح التقرير المحفوظ.",
     jobOutlookLabel: "الآفاق الوظيفية",
     salaryRangeLabel: "الراتب بعد التدريب",
+    registrationUnavailableTitle: "التسجيل غير متاح حالياً",
+    registrationUnavailableDesc: "نعتذر، التسجيل العام مغلق في الوقت الحالي. يرجى التواصل مع إدارة الموقع لإنشاء حساب.",
+    backToLogin: "العودة لتسجيل الدخول",
+    // Resume Builder Translations
+    resumeTitle: "منشئ السيرة الذاتية",
+    resumeDesc: "أكمل البيانات التالية لإنشاء سيرة ذاتية احترافية.",
+    resumePersonalInfo: "المعلومات الشخصية",
+    resumeExperience: "الخبرة العملية",
+    resumeEducation: "التعليم",
+    resumeSkills: "المهارات واللغات",
+    resumeGenerateBtn: "إنشاء السيرة الذاتية",
+    resumeDownloadPDF: "حفظ كـ PDF",
+    resumeDownloadWord: "تحميل كـ Word",
+    resumeEdit: "تعديل المعلومات",
+    resumeFullName: "الاسم الكامل",
+    resumeJobTitle: "المسمى الوظيفي (مثل: مطور ويب)",
+    resumeEmail: "البريد الإلكتروني",
+    resumePhone: "رقم الهاتف",
+    resumeAddress: "العنوان (المدينة، الدولة)",
+    resumeSummary: "ملخص مهني (نبذة عنك)",
+    resumeAddExperience: "إضافة خبرة",
+    resumeAddEducation: "إضافة تعليم",
+    resumeCompany: "اسم الشركة",
+    resumePosition: "المسمى الوظيفي",
+    resumeDateStart: "تاريخ البدء",
+    resumeDateEnd: "تاريخ الانتهاء",
+    resumeDescription: "وصف المهام",
+    resumeSchool: "اسم المدرسة / الجامعة",
+    resumeDegree: "الشهادة / الدرجة العلمية",
+    resumeSkillsPlaceholder: "مثال: إدارة الوقت، برمجة، لغة إنجليزية...",
+    resumePhoto: "صورة شخصية",
+    resumePhotoUpload: "رفع صورة",
+    remove: "إزالة",
   },
   de: {
     langName: `${germanFlagImg} Deutsch`,
@@ -170,6 +207,8 @@ export const translations = {
     searchAvailableJobsDesc: "Finden Sie jetzt echte, verfügbare Stellenangebote in ganz Deutschland.",
     searchForPraktikum: "Praktikum suchen",
     searchForPraktikumDesc: "Finden Sie Praktikumsplätze und erstellen Sie professionelle Anfrage-E-Mails.",
+    createResume: "Lebenslauf (CV) erstellen",
+    createResumeDesc: "Beantworten Sie einige Fragen und wir erstellen einen professionellen Lebenslauf für Sie.",
     professionsDesc: "Suchen und durchsuchen Sie Hunderte von Stellenangeboten, Ausbildungen und Studiengängen in Deutschland.",
     quizIntroTitle: "Bevor Sie beginnen",
     quizIntroDesc: "Dieses Quiz besteht aus 30 Fragen zu Ihrer Persönlichkeit, Ihren Fähigkeiten und Ihren Zielen. Ihre ehrlichen Antworten helfen uns, einen detaillierten Bericht mit personalisierten Karrierevorschlägen zu erstellen. Es gibt keine richtigen oder falschen Antworten, seien Sie einfach Sie selbst!",
@@ -248,7 +287,7 @@ export const translations = {
     praktikumIntroDesc2: "Nachdem Sie ein Unternehmen ausgewählt haben, helfen wir Ihnen, einen professionellen E-Mail-Entwurf zu erstellen, den Sie zur Anfrage versenden können. Sie selbst senden die endgültige E-Mail.",
     praktikumIntroDisclaimer: "<strong>Wichtiger Hinweis:</strong> Diese Methode ist eine Initiativbewerbung. Das bedeutet, die gefundenen Unternehmen haben möglicherweise keine offenen Praktikumsstellen ausgeschrieben. Unser Ziel ist es, Sie zu befähigen, die Initiative zu ergreifen und professionell Kontakt aufzunehmen, was auf dem deutschen Arbeitsmarkt sehr geschätzt wird. Eine Zusage ist nicht zu 100% garantiert, aber es ist ein exzellenter, proaktiver Schritt.",
     praktikumIntroStartBtn: "Verstanden, Suche starten",
-    praktikumSearchPrompt: "ROLLE: Hochpräziser Unternehmens-Ermittler für den deutschen Markt.\n\nAUFGABE: Finde über die Google-Suche 5-7 relevante Unternehmen in oder nahe bei '{location}', die potenziell ein '{internshipType}' im Bereich '{field}' anbieten. Priorisiere offizielle Firmenwebsites gegenüber reinen Verzeichniseinträgen.\n\nKRITISCHE ANWEISUNGEN:\n1.  **ABSOLUTE DATENTREUE**: Erfinde NIEMALS Informationen. Wenn eine Information (z.B. Ansprechpartner, E-Mail) in den Suchergebnissen NICHT EXPLIZIT genannt wird, MUSS der Wert für dieses Feld ein leerer String `\"\"` sein.\n2.  **REINES JSON-FORMAT**: Deine Antwort MUSS ausschließlich ein valides JSON-Array sein. Kein einleitender Text, keine Kommentare, kein Markdown wie ```json.\n\nJSON-AUSGABESTRUKTUR:\n`[{\"name\": \"Vollständiger offizieller Firmenname\", \"address\": \"Straße, PLZ, Ort\", \"contactPerson\": \"\", \"applicationEmail\": \"\", \"description\": \"Ein kurzer Satz, der die Hauptbranche oder Tätigkeit des Unternehmens beschreibt.\", \"website\": \"Offizielle Website-URL\"}]`",
+    praktikumSearchPrompt: "ROLLE: Hochpräziser Unternehmens-Ermittler für den deutschen Markt.\n\nAUFGABE: Finde über die Google-Suche 5-7 relevant Unternehmen in oder nahe bei '{location}', die potenziell ein '{internshipType}' im Bereich '{field}' anbieten. Priorisiere offizielle Firmenwebsites gegenüber reinen Verzeichniseinträgen.\n\nKRITISCHE ANWEISUNGEN:\n1.  **ABSOLUTE DATENTREUE**: Erfinde NIEMALS Informationen. Wenn eine Information (z.B. Ansprechpartner, E-Mail) in den Suchergebnissen NICHT EXPLIZIT genannt wird, MUSS der Wert für dieses Feld ein leerer String `\"\"` sein.\n2.  **REINES JSON-FORMAT**: Deine Antwort MUSS ausschließlich ein valides JSON-Array. Kein einleitender Text, keine Kommentare, kein Markdown wie ```json.\n\nJSON-AUSGABESTRUKTUR:\n`[{\"name\": \"Vollständiger offizieller Firmenname\", \"address\": \"Straße, PLZ, Ort\", \"contactPerson\": \"\", \"applicationEmail\": \"\", \"description\": \"Ein kurzer Satz, der die Hauptbranche oder Tätigkeit des Unternehmens beschreibt.\", \"website\": \"Offizielle Website-URL\"}]`",
     praktikumEmailPrompt: "Betreff: Anfrage für ein {internshipType} im Bereich {field}\n\nSehr geehrte Damen und Herren,\n\nmein Name ist {userName} und ich habe großes Interesse an einer beruflichen Zukunft im Bereich {field}. Auf der Suche nach praktischen Erfahrungen bin ich auf Ihr Unternehmen, {companyName}, aufmerksam geworden.\n\nHiermit möchte ich höflich anfragen, ob in Ihrem Unternehmen die Möglichkeit besteht, ein {internshipType} zu absolvieren. Ich bin sehr motiviert, von Experten zu lernen und meine Fähigkeiten in einem professionellen Umfeld einzubringen.\n\nÜber eine positive Rückmeldung und Informationen, an wen ich eine formelle Bewerbung richten kann, würde ich mich sehr freuen.\n\nVielen Dank für Ihre Zeit und Mühe.\n\nMit freundlichen Grüßen\n{userName}",
     internshipTypeLabel: "Art des Praktikums",
     internshipTypePlaceholder: "Art des Praktikums wählen...",
@@ -303,6 +342,39 @@ export const translations = {
     emailSummaryIntro: "Hier ist eine Zusammenfassung Ihrer empfohlenen Karrierewege. Um den vollständigen Bericht mit Ihrer persönlichen Analyse einzusehen, besuchen Sie bitte die Website oder öffnen Sie den gespeicherten Bericht.",
     jobOutlookLabel: "Berufsaussichten",
     salaryRangeLabel: "Gehalt nach Ausbildung",
+    registrationUnavailableTitle: "Registrierung nicht verfügbar",
+    registrationUnavailableDesc: "Die Registrierung ist derzeit geschlossen. Bitte wenden Sie sich an die Administration, um ein Konto zu erstellen.",
+    backToLogin: "Zurück zur Anmeldung",
+    // Resume Builder Translations
+    resumeTitle: "Lebenslauf-Ersteller",
+    resumeDesc: "Füllen Sie die folgenden Daten aus, um einen professionellen Lebenslauf zu erstellen.",
+    resumePersonalInfo: "Persönliche Daten",
+    resumeExperience: "Berufserfahrung",
+    resumeEducation: "Ausbildung",
+    resumeSkills: "Fähigkeiten & Sprachen",
+    resumeGenerateBtn: "Lebenslauf erstellen",
+    resumeDownloadPDF: "Als PDF speichern",
+    resumeDownloadWord: "Als Word laden",
+    resumeEdit: "Daten bearbeiten",
+    resumeFullName: "Vollständiger Name",
+    resumeJobTitle: "Berufsbezeichnung (z.B. Webentwickler)",
+    resumeEmail: "E-Mail-Adresse",
+    resumePhone: "Telefonnummer",
+    resumeAddress: "Adresse (Stadt, Land)",
+    resumeSummary: "Berufliches Profil (Über mich)",
+    resumeAddExperience: "Erfahrung hinzufügen",
+    resumeAddEducation: "Ausbildung hinzufügen",
+    resumeCompany: "Firmenname",
+    resumePosition: "Position",
+    resumeDateStart: "Startdatum",
+    resumeDateEnd: "Enddatum",
+    resumeDescription: "Beschreibung der Aufgaben",
+    resumeSchool: "Schule / Universität",
+    resumeDegree: "Abschluss / Grad",
+    resumeSkillsPlaceholder: "z.B. Zeitmanagement, Programmierung, Englisch...",
+    resumePhoto: "Profilbild",
+    resumePhotoUpload: "Foto hochladen",
+    remove: "Entfernen",
   },
   en: {
     langName: `${britishFlagImg} English`,
@@ -319,6 +391,8 @@ export const translations = {
     searchAvailableJobsDesc: "Find real, available job opportunities across Germany right now.",
     searchForPraktikum: "Search for Internships (Praktikum)",
     searchForPraktikumDesc: "Find internship opportunities and generate professional inquiry emails.",
+    createResume: "Create Resume (CV)",
+    createResumeDesc: "Answer a few questions and we will generate a professional resume for you.",
     professionsDesc: "Search and browse job opportunities, vocational training, and university studies in Germany.",
     quizIntroTitle: "Before You Begin",
     quizIntroDesc: "This quiz consists of 30 questions about your personality, skills, and ambitions. Your honest answers will help us create a detailed report with personalized career suggestions. There are no right or wrong answers, just be yourself!",
@@ -397,7 +471,7 @@ export const translations = {
     praktikumIntroDesc2: "After selecting a company, we will help you generate a professional email draft that you can send to inquire about an opportunity. You will send the final email yourself.",
     praktikumIntroDisclaimer: "<strong>Important Note:</strong> This method is an 'unsolicited application' (Initiativbewerbung). This means the companies we find may not have publicly advertised internship vacancies. Our goal is to empower you to take the initiative and make professional contact, which is highly valued in the German job market. An opportunity is not 100% guaranteed, but it is an excellent, proactive step.",
     praktikumIntroStartBtn: "Understood, Let's Start Searching",
-    praktikumSearchPrompt: "ROLE: High-precision company investigator for the German market.\n\nTASK: Using Google Search, find 5-7 relevant companies in or near '{location}' that potentially offer a '{internshipType}' in the '{field}' sector. Prioritize official company websites over simple directory listings.\n\nCRITICAL INSTRUCTIONS:\n1.  **ABSOLUTE DATA FIDELITY**: NEVER invent information. If a piece of information (e.g., contact person, email) is NOT EXPLICITLY mentioned in the search results, the value for that field MUST be an empty string `\"\"`.\n2.  **PURE JSON FORMAT**: Your entire response MUST be exclusively a valid JSON array. No introductory text, no comments, no markdown like ```json.\n\nJSON OUTPUT STRUCTURE:\n`[{\"name\": \"Full Official Company Name\", \"address\": \"Street, Postal Code, City\", \"contactPerson\": \"\", \"applicationEmail\": \"\", \"description\": \"A single, concise sentence describing the company's main industry or activity.\", \"website\": \"Official Website URL\"}]`",
+    praktikumSearchPrompt: "ROLE: High-precision company investigator for the German market.\n\nTASK: Using Google Search, find 5-7 relevant companies in or near '{location}' that potentially offer a '{internshipType}' in the '{field}' sector. Prioritize official company websites over simple directory listings.\n\nKRITICAL INSTRUCTIONS:\n1.  **ABSOLUTE DATA FIDELITY**: NEVER invent information. If a piece of information (e.g., contact person, email) is NOT EXPLICITLY mentioned in the search results, the value for that field MUST be an empty string `\"\"`.\n2.  **PURE JSON FORMAT**: Your entire response MUST be exclusively a valid JSON array. No introductory text, no comments, no markdown like ```json.\n\nJSON OUTPUT STRUCTURE:\n`[{\"name\": \"Full Official Company Name\", \"address\": \"Street, Postal Code, City\", \"contactPerson\": \"\", \"applicationEmail\": \"\", \"description\": \"A single, concise sentence describing the company's main industry or activity.\", \"website\": \"Official Website URL\"}]`",
     praktikumEmailPrompt: "You are an excellent career assistant. Write a professional and polite draft email in GERMAN. The email is from '{userName}' to '{companyName}' to inquire about an internship (Praktikum) in the '{field}' field. The purpose of the internship is '{internshipType}'. Adapt the content and tone VERY precisely to match the internship type:\n\n- If the type is 'for school' (Schülerpraktikum): Write as a motivated student. Mention this is a mandatory school internship. Ask about possible time frames and required documents. The tone should be polite and youthful.\n- If the type is 'for career orientation' (Berufsorientierung): Express strong interest in the '{field}' area and the company. Explain that the goal is to gain initial insights and facilitate career choice. The tone should be curious and enthusiastic.\n- If the type is 'for vocational training' (Ausbildung): Write more formally and professionally. State that the applicant is seeking vocational training in this field and wants to gain practical experience. Emphasize the motivation to apply skills practically.\n\nAlways use a proper salutation (Sehr geehrte Damen und Herren,) and closing (Mit freundlichen Grüßen). Ask about the right contact person for applications.",
     internshipTypeLabel: "Type of Internship",
     internshipTypePlaceholder: "Select internship type...",
@@ -452,6 +526,39 @@ export const translations = {
     emailSummaryIntro: "Here is a summary of your recommended career paths. To view the full report with your personal analysis, please visit the website or open the saved report.",
     jobOutlookLabel: "Job Outlook",
     salaryRangeLabel: "Salary (Post-Training)",
+    registrationUnavailableTitle: "Registration Unavailable",
+    registrationUnavailableDesc: "Registration is currently closed. Please contact site administration to create an account.",
+    backToLogin: "Back to Login",
+    // Resume Builder Translations
+    resumeTitle: "Resume Builder",
+    resumeDesc: "Complete the following data to create a professional resume.",
+    resumePersonalInfo: "Personal Information",
+    resumeExperience: "Work Experience",
+    resumeEducation: "Education",
+    resumeSkills: "Skills & Languages",
+    resumeGenerateBtn: "Generate Resume",
+    resumeDownloadPDF: "Save as PDF",
+    resumeDownloadWord: "Download as Word",
+    resumeEdit: "Edit Data",
+    resumeFullName: "Full Name",
+    resumeJobTitle: "Job Title (e.g. Web Developer)",
+    resumeEmail: "Email Address",
+    resumePhone: "Phone Number",
+    resumeAddress: "Address (City, Country)",
+    resumeSummary: "Professional Summary (About Me)",
+    resumeAddExperience: "Add Experience",
+    resumeAddEducation: "Add Education",
+    resumeCompany: "Company Name",
+    resumePosition: "Position",
+    resumeDateStart: "Start Date",
+    resumeDateEnd: "End Date",
+    resumeDescription: "Description of Tasks",
+    resumeSchool: "School / University",
+    resumeDegree: "Degree / Certificate",
+    resumeSkillsPlaceholder: "e.g., Time Management, Programming, English...",
+    resumePhoto: "Profile Photo",
+    resumePhotoUpload: "Upload Photo",
+    remove: "Remove",
   },
   tr: {
     langName: `${turkishFlagImg} Türkçe`,
@@ -468,6 +575,8 @@ export const translations = {
     searchAvailableJobsDesc: "Almanya genelinde şu anda mevcut olan gerçek iş fırsatlarını bulun.",
     searchForPraktikum: "Staj Ara (Praktikum)",
     searchForPraktikumDesc: "Staj yerleri bulun ve profesyonel başvuru e-postaları oluşturun.",
+    createResume: "Özgeçmiş (CV) Oluştur",
+    createResumeDesc: "Birkaç soruyu yanıtlayın ve sizin için profesyonel bir özgeçmiş oluşturalım.",
     professionsDesc: "Almanya'daki yüzlerce iş, mesleki eğitim ve üniversite fırsatını arayın ve inceleyin.",
     quizIntroTitle: "Başlamadan Önce",
     quizIntroDesc: "Bu test, kişiliğiniz, becerileriniz ve hedefleriniz hakkında 30 sorudan oluşmaktadır. Dürüst cevaplarınız, kişiselleştirilmiş kariyer önerileri içeren ayrıntılı bir rapor oluşturmamıza yardımcı olacaktır. Doğru ya da yanlış cevap yoktur, sadece kendiniz olun!",
@@ -544,10 +653,10 @@ export const translations = {
     praktikumIntroTitle: "Staj Yolunuz (Praktikum)",
     praktikumIntroDesc1: "Bu araç, istediğiniz alanda ve konumda staj imkanı sunabilecek şirketleri bulmak için yapay zekayı kullanır.",
     praktikumIntroDesc2: "Bir şirket seçtikten sonra, başvuru yapmak için gönderebileceğiniz profesyonel bir e-posta taslağı oluşturmanıza yardımcı olacağız. Son e-postayı kendiniz göndereceksiniz.",
-    praktikumIntroDisclaimer: "<strong>Önemli Not:</strong> Bu yöntem bir 'talep dışı başvuru' (Initiativbewerbung) niteliğindedir. Bu, bulduğumuz şirketlerin halka açık stajyer ilanları olmayabileceği anlamına gelir. Amacımız, Alman iş piyasasında çok değer verilen inisiyatif almanızı ve profesyonel iletişim kurmanızı sağlamaktır. Bir fırsat %100 garanti edilmez, ancak bu mükemmel ve proaktif bir adımdır.",
+    praktikumIntroDisclaimer: "<strong>Önemli Not:</strong> Bu yöntem bir 'talep dışı başvuru' (Initiativbewerbung). Bu, bulduğumuz şirketlerin halka açık stajyer ilanları olmayabileceği anlamına gelir. Amacımız, Alman iş piyasasında çok değer verilen inisiyatif almanızı ve profesyonel iletişim kurmanızı sağlamaktır. Bir fırsat %100 garanti edilmez, ancak bu mükemmel ve proaktif bir adımdır.",
     praktikumIntroStartBtn: "Anlaşıldı, Aramaya Başlayalım",
     praktikumSearchPrompt: "ROL: Alman pazarı için yüksek hassasiyetli şirket araştırmacısı.\n\nGÖREV: Google Arama'yı kullanarak '{location}' veya yakınlarında, '{field}' sektöründe potansiyel olarak bir '{internshipType}' sunan 5-7 ilgili şirket bulun. Basit dizin listelemeleri yerine resmi şirket web sitelerine öncelik verin.\n\nKRİTİK TALİMATLAR:\n1.  **MUTLAK VERİ DOĞRULUĞU**: ASLA bilgi uydurmayın. Bir bilgi (örneğin, iletişim kişisi, e-posta) arama sonuçlarında AÇIKÇA belirtilmemişse, o alanın değeri MUTLAKA boş bir dize `\"\"` olmalıdır.\n2.  **SAF JSON FORMATI**: Tüm yanıtınız SADECE geçerli bir JSON dizisi olmalıdır. Giriş metni, yorum veya ```json gibi markdown içermemelidir.\n\nJSON ÇIKTI YAPISI:\n`[{\"name\": \"Tam Resmi Şirket Adı\", \"address\": \"Sokak, Posta Kodu, Şehir\", \"contactPerson\": \"\", \"applicationEmail\": \"\", \"description\": \"Şirketin ana endüstrisini veya faaliyetini tanımlayan tek ve öz bir cümle.\", \"website\": \"Resmi Web Sitesi URL'si\"}]`",
-    praktikumEmailPrompt: "Harika bir kariyer asistanısın. ALMANCA dilinde profesyonel ve kibar bir e-posta taslağı yaz. E-posta, '{userName}' tarafından '{companyName}' şirketine '{field}' alanında bir staj (Praktikum) hakkında bilgi almak için yazılmıştır. Stajın amacı '{internshipType}'. İçeriği ve tonu, staj türüne ÇOK hassas bir şekilde uyarlayın:\n\n- Tür 'okul için' (Schülerpraktikum) ise: Motive bir öğrenci olarak yazın. Bunun zorunlu bir okul stajı olduğunu belirtin. Olası zaman dilimlerini ve gerekli belgeleri sorun. Ton kibar ve genç olmalıdır.\n- Tür 'kariyer yönelimi için' (Berufsorientierung) ise: '{field}' alanına ve şirkete güçlü bir ilgi ifade edin. Amacın ilk izlenimleri kazanmak ve kariyer seçimini kolaylaştırmak olduğunu açıklayın. Ton meraklı ve hevesli olmalıdır.\n- Tür 'mesleki eğitim için' (Ausbildung) ise: Daha resmi ve profesyonel bir şekilde yazın. Başvuranın bu alanda mesleki eğitim aradığını ve pratik deneyim kazanmak istediğini belirtin. Becerileri pratik olarak uygulama motivasyonunu vurgulayın.\n\nHer zaman uygun bir selamlama (Sehr geehrte Damen und Herren,) ve kapanış (Mit freundlichen Grüßen) kullanın. Başvurular için doğru iletişim kişisini sorun.",
+    praktikumEmailPrompt: "Harika bir kariyer asistanısın. ALMANCA dilinde profesyonel ve kibar bir e-posta taslağı yaz. E-posta, '{userName}' tarafından '{companyName}' şirketine '{field}' alanında bir staj (Praktikum) hakkında bilgi almak için yazılmıştır. Stajın amacı '{internshipType}'. İçeriği ve tonu, staj türüne ÇOK hassas bir şekilde uyarlayın:\n\n- Tür 'okul için' (Schülerpraktikum) ise: Motive bir öğrenci olarak yazın. Bunun zorunlu bir okul stajı olduğunu belirtin. Olası zaman dilimlerini ve gerekli belgeleri sorun. Ton kibar ve genç olmalıdır.\n- Tür 'kariyer yönelimi için' (Berufsorientierung) ise: '{field}' alanına ve şirkete güçlü bir ilgi ifade edin. Amacın ilk izlenimleri kazanmak ve kariyer seçimini kolaylaştırmak olduğunu açıklayın. Ton meraklı ve hevesli olmalıdır.\n- Tür 'mesleki eğitim için' (Ausbildung) ise: Daha resmi ve profesyonel bir şekilde yazın. Başvuranın bu alanda mesleki eğitim aradığını ve pratik deneyim kazanmak istediğini belirtin. Becerileri pratik olarak uygulama motivasyonunu vurgulayın.\n\nHer zaman uygun bir selamlama (Sehr geehrte Damen und Herren,) ve kapanış (Mit freundlichen Grüßen). Başvurular için doğru iletişim kişisini sorun.",
     internshipTypeLabel: "Staj Türü",
     internshipTypePlaceholder: "Staj türünü seçin...",
     internshipTypeSchool: "Okul İçin",
@@ -601,6 +710,39 @@ export const translations = {
     emailSummaryIntro: "İşte önerilen kariyer yollarınızın bir özeti. Kişisel analizinizle tam raporu görüntülemek için lütfen web sitesini ziyaret edin veya kaydedilen raporu açın.",
     jobOutlookLabel: "İş Görünümü",
     salaryRangeLabel: "Maaş (Eğitim Sonrası)",
+    registrationUnavailableTitle: "Kayıt Mevcut Değil",
+    registrationUnavailableDesc: "Kayıt şu anda kapalıdır. Hesap oluşturmak için lütfen site yönetimiyle iletişime geçin.",
+    backToLogin: "Girişe Dön",
+    // Resume Builder Translations
+    resumeTitle: "Özgeçmiş Oluşturucu",
+    resumeDesc: "Profesyonel bir özgeçmiş oluşturmak için aşağıdaki verileri doldurun.",
+    resumePersonalInfo: "Kişisel Bilgiler",
+    resumeExperience: "İş Deneyimi",
+    resumeEducation: "Eğitim",
+    resumeSkills: "Beceriler & Diller",
+    resumeGenerateBtn: "Özgeçmiş Oluştur",
+    resumeDownloadPDF: "PDF Olarak Kaydet",
+    resumeDownloadWord: "Word Olarak İndir",
+    resumeEdit: "Verileri Düzenle",
+    resumeFullName: "Ad Soyad",
+    resumeJobTitle: "İş Unvanı (Örn: Web Geliştirici)",
+    resumeEmail: "E-posta Adresi",
+    resumePhone: "Telefon Numarası",
+    resumeAddress: "Adres (Şehir, Ülke)",
+    resumeSummary: "Özet (Hakkımda)",
+    resumeAddExperience: "Deneyim Ekle",
+    resumeAddEducation: "Eğitim Ekle",
+    resumeCompany: "Şirket Adı",
+    resumePosition: "Pozisyon",
+    resumeDateStart: "Başlangıç Tarihi",
+    resumeDateEnd: "Bitiş Tarihi",
+    resumeDescription: "Görev Tanımı",
+    resumeSchool: "Okul / Üniversite",
+    resumeDegree: "Derece / Sertifika",
+    resumeSkillsPlaceholder: "Örn: Zaman Yönetimi, Programlama, İngilizce...",
+    resumePhoto: "Profil Fotoğrafı",
+    resumePhotoUpload: "Fotoğraf Yükle",
+    remove: "Kaldır",
   },
   uk: {
     langName: `${ukrainianFlagImg} Українська`,
@@ -617,6 +759,8 @@ export const translations = {
     searchAvailableJobsDesc: "Знайдіть реальні, доступні вакансії по всій Німеччині прямо зараз.",
     searchForPraktikum: "Пошук стажування (Praktikum)",
     searchForPraktikumDesc: "Знайдіть можливості для стажування та створюйте професійні запити електронною поштою.",
+    createResume: "Створити резюме (CV)",
+    createResumeDesc: "Дайте відповідь на кілька запитань, і ми створимо для вас професійне резюме.",
     professionsDesc: "Шукайте та переглядайте можливості працевлаштування, професійного навчання та навчання в університетах Німеччини.",
     quizIntroTitle: "Перед початком",
     quizIntroDesc: "Цей тест складається з 30 запитань про вашу особистість, навички та амбіції. Ваші чесні відповіді допоможуть нам створити детальний звіт з персоналізованими кар'єрними пропозиціями. Немає правильних чи неправильних відповідей, просто будьте собою!",
@@ -725,18 +869,18 @@ export const translations = {
     apiKeyNotConfiguredError: "Помилка конфігурації: ключ API не знайдено. Будь ласка, переконайтеся, що ви додали змінну середовища `API_KEY` у налаштуваннях розгортання.",
     invalidApiKeyError: "Вибачте, сталася помилка. Схоже, налаштований ключ API недійсний або термін його дії минув. Будь ласка, перевірте змінні середовища в налаштуваннях розгортання.",
     apiKeyStatus: "Статус ключа API",
-    apiKeyStatusDesc: "Якщо у вас виникають проблеми з функціями ШІ, використовуйте цю перевірку, щоб переконатися, що ваш ключ API налаштований правильно та підключений до служб Google.",
+    apiKeyStatusDesc: "Якщо у вас виникають проблеми з функціями ШІ, використовуйте цю перевірку, щоб переконатися, що ваш ключ API налаштовано правильно і він підключений до служб Google.",
     checkApiKey: "Перевірити ключ",
     checkingApiKey: "Перевірка...",
     apiKeyStatusOK: "Успіх: ключ API дійсний і підключений.",
-    apiKeyStatusInvalid: "Помилка: ключ API недійсний. Будь ласка, ще раз перевірте значення у ваших змінних середовища Netlify.",
-    apiKeyStatusNotSet: "Помилка: ключ API не налаштований. Будь ласка, додайте змінну середовища `API_KEY` в Netlify.",
+    apiKeyStatusInvalid: "Помилка: ключ API недійсний. Перевірте значення в змінних середовища.",
+    apiKeyStatusNotSet: "Помилка: ключ API не налаштовано.",
     wasThisHelpful: "Чи було це корисно?",
     yes: "Так",
     no: "Ні",
-    feedbackThanks: "Дякуємо за ваш відгук!",
+    feedbackThanks: "Дякуємо за відгук!",
     contactPerson: "Контактна особа",
-    applicationEmail: "Електронна пошта для заявок",
+    applicationEmail: "Email для заявок",
     companyDescription: "Опис компанії",
     notAvailable: "Недоступно",
     reviews: "Відгуки",
@@ -746,2594 +890,698 @@ export const translations = {
     submitReview: "Надіслати відгук",
     noReviewsYet: "Відгуків ще немає. Будьте першим!",
     anonymous: "Анонім",
-    ratingAndReviewRequired: "Рейтинг та текст відгуку є обов'язковими.",
-    emailSummaryIntro: "Ось короткий опис рекомендованих вам кар'єрних шляхів. Щоб переглянути повний звіт з вашим особистим аналізом, будь ласка, відвідайте веб-сайт або відкрийте збережений звіт.",
+    ratingAndReviewRequired: "Рейтинг і текст відгуку обов'язкові.",
+    emailSummaryIntro: "Ось короткий огляд рекомендованих кар'єрних шляхів. Для повного звіту відвідайте сайт або відкрийте збережений звіт.",
     jobOutlookLabel: "Перспективи працевлаштування",
     salaryRangeLabel: "Зарплата (після навчання)",
+    registrationUnavailableTitle: "Реєстрація недоступна",
+    registrationUnavailableDesc: "Наразі реєстрація закрита. Будь ласка, зверніться до адміністрації сайту.",
+    backToLogin: "Назад до входу",
+    resumeTitle: "Конструктор резюме",
+    resumeDesc: "Заповніть дані нижче, щоб створити професійне резюме.",
+    resumePersonalInfo: "Особиста інформація",
+    resumeExperience: "Досвід роботи",
+    resumeEducation: "Освіта",
+    resumeSkills: "Навички та мови",
+    resumeGenerateBtn: "Створити резюме",
+    resumeDownloadPDF: "Зберегти як PDF",
+    resumeDownloadWord: "Завантажити як Word",
+    resumeEdit: "Редагувати дані",
+    resumeFullName: "Повне ім'я",
+    resumeJobTitle: "Посада (напр. Веб-розробник)",
+    resumeEmail: "Email",
+    resumePhone: "Телефон",
+    resumeAddress: "Адреса",
+    resumeSummary: "Професійне резюме (Про мене)",
+    resumeAddExperience: "Додати досвід",
+    resumeAddEducation: "Додати освіту",
+    resumeCompany: "Назва компанії",
+    resumePosition: "Посада",
+    resumeDateStart: "Дата початку",
+    resumeDateEnd: "Дата закінчення",
+    resumeDescription: "Опис обов'язків",
+    resumeSchool: "Навчальний заклад",
+    resumeDegree: "Ступінь / Сертифікат",
+    resumeSkillsPlaceholder: "напр. Тайм-менеджмент, Програмування...",
+    resumePhoto: "Фото профілю",
+    resumePhotoUpload: "Завантажити фото",
+    remove: "Видалити",
   },
 };
 
-export const quizQuestions = {
-  ar: [
-    { type: 'text', id: 'name', question: 'أولاً، ما هو اسمك؟' },
-    { type: 'number', id: 'age', question: 'كم عمرك؟' },
-    { type: 'options', question: 'أي بيئة عمل تفضلها؟', options: ['مكتب هادئ ومنظم', 'بيئة ديناميكية ومتغيرة', 'في الهواء الطلق أو ورشة عمل', 'العمل من المنزل بمرونة'] },
-    { type: 'options', question: 'ما هو مستوى تفاعلك الاجتماعي المفضل في العمل؟', options: ['العمل بمفردي على المهام', 'العمل ضمن فريق صغير', 'التفاعل المستمر مع العملاء والجمهور', 'قيادة وتوجيه الفرق الكبيرة'] },
-    { type: 'options', question: 'كيف تتعامل مع المهام الصعبة؟', options: ['أحللها إلى خطوات صغيرة', 'أبحث عن حلول إبداعية', 'أطلب المساعدة من الزملاء', 'أواجهها مباشرة بحماس'] },
-    { type: 'options', question: 'ما الذي يحفزك أكثر؟', options: ['تحقيق نتائج ملموسة', 'تعلم مهارات جديدة', 'مساعدة الآخرين', 'الحصول على تقدير وترقية'] },
-    { type: 'options', question: 'ما هي المواد الدراسية التي كنت تفضلها في المدرسة؟', options: ['الرياضيات والعلوم', 'اللغات والفنون', 'الرياضة والأعمال اليدوية', 'التاريخ والجغرافيا'] },
-    { type: 'options', question: 'كيف تصف أسلوبك في اتخاذ القرارات؟', options: ['تحليلي ומבוסס على البيانات', 'حدسي وسريع', 'تعاوني وآخذ بآراء الآخرين', 'حذر ومدروس'] },
-    { type: 'options', question: 'ما مدى أهمية الراتب والاستقرار المادي لك؟', options: ['الأهم على الإطلاق', 'مهم ولكنه ليس كل شيء', 'أقل أهمية من الرضا الوظيفي', 'غير مهم على المدى القصير'] },
-    { type: 'options', question: 'هل تفضل العمل الروتيني أم المهام المتنوعة؟', options: ['أفضل الروتين والاستقرار', 'أحب التنوع والتحديات الجديدة', 'مزيج من الاثنين جيد', 'لا أهتم طالما أنجز العمل'] },
-    { type: 'options', question: 'ما هو دور التكنولوجيا في عملك المثالي؟', options: ['أساسي وحيوي، أعمل مع أحدث التقنيات', 'أداة مساعدة، ولكن ليست المحور', 'أفضل الأعمال التي لا تعتمد كثيرًا على التكنولوجيا', 'لا يوجد تفضيل معين'] },
-    { type: 'options', question: 'كيف تتعامل مع الضغط والمواعيد النهائية؟', options: ['أعمل بشكل أفضل تحت الضغط', 'أشعر بالتوتر ولكني أنجز المهام', 'أحاول تجنب الضغط قدر الإمكان', 'أخطط مسبقًا لتجنب الضغط'] },
-    { type: 'options', question: 'ما هو مدى استعدادك للسفر من أجل العمل؟', options: ['مستعد للسفر باستمرار', 'موافق على السفر أحيانًا', 'أفضل عدم السفر', 'فقط داخل المدينة'] },
-    { type: 'options', question: 'أي من هذه الأنشطة تستمتع به أكثر في وقت فراغك؟', options: ['القراءة وحل الألغاز', 'الرسم أو العزف على آلة موسيقية', 'ممارسة الرياضة أو الأنشطة الخارجية', 'التطوع ومساعدة الآخرين'] },
-    { type: 'options', question: 'ما مدى أهمية التطور والتعلم المستمر في مهنتك؟', options: ['ضروري للغاية، أريد أن أتعلم دائمًا', 'مهم للحفاظ على مواكبة التطورات', 'أفضل الاستقرار في المهارات الحالية', 'لست مهتمًا بالتعلم بعد انتهاء التدريب الأساسي'] },
-    { type: 'options', question: 'هل تفضل العمل بيديك أم بعقلك؟', options: ['أفضل استخدام يدي في صنع الأشياء', 'أفضل حل المشكلات والتفكير الاستراتيجي', 'أستمتع بمزيج من الاثنين', 'لا فرق لدي'] },
-    { type: 'options', question: 'كيف تصف قدرتك على التكيف مع التغيير؟', options: ['أتأقلم بسرعة وسهولة', 'أحتاج بعض الوقت للتكيف', 'أجد صعوبة في التغيير', 'أقاوم التغيير'] },
-    { type: 'options', question: 'ما هو مستوى المسؤولية الذي تطمح إليه؟', options: ['إدارة مشاريع أو فرق', 'مسؤول عن عملي الخاص فقط', 'جزء من فريق دون مسؤولية قيادية', 'أطمح لامتلاك عملي الخاص'] },
-    { type: 'options', question: 'ما مدى أهمية التأثير الإيجابي على المجتمع في عملك؟', options: ['مهم جدًا، أريد أن أحدث فرقًا', 'أمر جيد ولكنه ليس أولوية', 'أركز على مسيرتي المهنية الشخصية', 'لا أفكر في هذا الأمر'] },
-    { type: 'options', question: 'هل تستمتع بالعمل الذي يتطلب دقة وانتباهًا للتفاصيل؟', options: ['نعم، أستمتع بذلك كثيرًا', 'إلى حد ما', 'لا، أفضل الصورة الكبيرة', 'يمكنني القيام به إذا لزم الأمر'] },
-    { type: 'options', question: 'ما هو موقفك من المخاطرة في العمل؟', options: ['أحب المخاطرة المحسوبة', 'أفضل البقاء في منطقة الأمان', 'أتجنب المخاطر تمامًا', 'أنا جريء وأتحمل مخاطر كبيرة'] },
-    { type: 'options', question: 'كيف تتعامل مع النقد؟', options: ['أتقبله وأتعلم منه', 'أشعر بالإحباط في البداية ثم أتعلم', 'أجد صعوبة في تقبل النقد', 'أميل إلى اتخاذ موقف دفاعي'] },
-    { type: 'options', question: 'ما مدى أهمية الإبداع في وظيفتك؟', options: ['أساسي، أحتاج إلى التعبير عن إبداعي', 'ميزة إضافية لطيفة', 'ليس مهمًا على الإطلاق', 'أفضل اتباع إجراءات محددة'] },
-    { type: 'options', question: 'ما نوع المشاكل التي تستمتع بحلها؟', options: ['مشاكل منطقية ورياضية', 'مشاكل إنسانية واجتماعية', 'مشاكل عملية وتقنية', 'مشاكل استراتيجية وتجارية'] },
-    { type: 'options', question: 'ما هو توازن العمل والحياة المثالي بالنسبة لك؟', options: ['ساعات عمل مرنة والعمل عن بعد', 'ساعات عمل منتظمة من 9 إلى 5', 'لا أمانع العمل لساعات طويلة لتحقيق أهدافي', 'أفضل العمل بدوام جزئي'] },
-    { type: 'options', question: 'هل تفضل العمل في شركة كبيرة أم شركة صغيرة/ناشئة؟', options: ['شركة كبيرة ومستقرة', 'شركة صغيرة وديناميكية', 'العمل لحسابي الخاص', 'لا فرق لدي'] },
-    { type: 'options', question: 'ما هو مستوى شهادتك الدراسية الحالية أو التي تخطط للحصول عليها؟', options: ['أقل من الثانوية العامة', 'شهادة ثانوية عامة', 'شهادة تدريب مهني (Ausbildung)', 'شهادة جامعية (بكالوريوس أو أعلى)'] },
-    { type: 'options', question: 'ما هو مستواك في اللغة الألمانية؟', options: ['مبتدئ (A1/A2)', 'متوسط (B1/B2)', 'متقدم (C1/C2)', 'اللغة الأم'] },
-    { type: 'options', question: 'هل لديك خبرة عملية سابقة في أي مجال؟', options: ['نعم، خبرة واسعة', 'نعم، بعض الخبرة', 'لا، ليس لدي خبرة عملية', 'تدريب عملي (Praktikum) فقط'] },
-    { type: 'text', question: 'أخيرًا، هل هناك أي شغف أو اهتمام معين تود أن نأخذه في الاعتبار؟' },
-  ],
-  de: [
-    { type: 'text', id: 'name', question: 'Wie ist Ihr Name?' },
-    { type: 'number', id: 'age', question: 'Wie alt sind Sie?' },
-    { type: 'options', question: 'Welche Arbeitsumgebung bevorzugen Sie?', options: ['Ruhiges und organisiertes Büro', 'Dynamisches und wechselhaftes Umfeld', 'Im Freien oder in einer Werkstatt', 'Flexibles Homeoffice'] },
-    { type: 'options', question: 'Welches Maß an sozialer Interaktion bevorzugen Sie bei der Arbeit?', options: ['Alleine an Aufgaben arbeiten', 'In einem kleinen Team arbeiten', 'Ständiger Kontakt mit Kunden und der Öffentlichkeit', 'Führung und Leitung großer Teams'] },
-    { type: 'options', question: 'Wie gehen Sie mit schwierigen Aufgaben um?', options: ['Ich zerlege sie in kleine Schritte', 'Ich suche nach kreativen Lösungen', 'Ich bitte Kollegen um Hilfe', 'Ich stelle mich ihnen direkt mit Begeisterung'] },
-    { type: 'options', question: 'Was motiviert Sie am meisten?', options: ['Greifbare Ergebnisse erzielen', 'Neue Fähigkeiten erlernen', 'Anderen helfen', 'Anerkennung und Beförderung erhalten'] },
-    { type: 'options', question: 'Welche Schulfächer mochten Sie am liebsten?', options: ['Mathematik und Naturwissenschaften', 'Sprachen und Kunst', 'Sport und handwerkliche Fächer', 'Geschichte und Geografie'] },
-    { type: 'options', question: 'Wie beschreiben Sie Ihren Entscheidungsstil?', options: ['Analytisch und datenbasiert', 'Intuitiv und schnell', 'Kollaborativ und andere Meinungen einholend', 'Vorsichtig und überlegt'] },
-    { type: 'options', question: 'Wie wichtig sind Ihnen Gehalt und finanzielle Stabilität?', options: ['Absolut am wichtigsten', 'Wichtig, aber nicht alles', 'Weniger wichtig als Arbeitszufriedenheit', 'Kurzfristig nicht wichtig'] },
-    { type: 'options', question: 'Bevorzugen Sie Routinearbeit oder abwechslungsreiche Aufgaben?', options: ['Ich bevorzuge Routine und Stabilität', 'Ich liebe Abwechslung und neue Herausforderungen', 'Eine Mischung aus beidem ist gut', 'Es ist mir egal, solange die Arbeit erledigt wird'] },
-    { type: 'options', question: 'Welche Rolle spielt Technologie in Ihrer idealen Arbeit?', options: ['Zentral und entscheidend, ich arbeite mit den neuesten Technologien', 'Ein Hilfsmittel, aber nicht der Fokus', 'Ich bevorzuge Arbeiten, die nicht stark von Technologie abhängen', 'Keine besondere Präferenz'] },
-    { type: 'options', question: 'Wie gehen Sie mit Druck und Fristen um?', options: ['Unter Druck arbeite ich am besten', 'Ich fühle mich gestresst, erledige aber die Aufgaben', 'Ich versuche, Druck so weit wie möglich zu vermeiden', 'Ich plane im Voraus, um Druck zu vermeiden'] },
-    { type: 'options', question: 'Wie bereit sind Sie, für die Arbeit zu reisen?', options: ['Bereit, ständig zu reisen', 'Einverstanden, gelegentlich zu reisen', 'Ich reise lieber nicht', 'Nur innerhalb der Stadt'] },
-    { type: 'options', question: 'Welche dieser Aktivitäten genießen Sie in Ihrer Freizeit am meisten?', options: ['Lesen und Rätsel lösen', 'Malen oder ein Instrument spielen', 'Sport oder Outdoor-Aktivitäten', 'Ehrenamtliche Arbeit und anderen helfen'] },
-    { type: 'options', question: 'Wie wichtig ist Ihnen kontinuierliche Weiterentwicklung und Lernen in Ihrem Beruf?', options: ['Absolut unerlässlich, ich möchte immer lernen', 'Wichtig, um auf dem Laufenden zu bleiben', 'Ich bevorzuge Stabilität in meinen aktuellen Fähigkeiten', 'Ich bin nicht am Lernen interessiert, nachdem die Grundausbildung abgeschlossen ist'] },
-    { type: 'options', question: 'Arbeiten Sie lieber mit den Händen oder mit dem Kopf?', options: ['Ich benutze lieber meine Hände, um Dinge herzustellen', 'Ich löse lieber Probleme und denke strategisch', 'Ich genieße eine Mischung aus beidem', 'Kein Unterschied für mich'] },
-    { type: 'options', question: 'Wie beschreiben Sie Ihre Fähigkeit, sich an Veränderungen anzupassen?', options: ['Ich passe mich schnell und einfach an', 'Ich brauche etwas Zeit, um mich anzupassen', 'Veränderungen fallen mir schwer', 'Ich widersetze mich Veränderungen'] },
-    { type: 'options', question: 'Welches Verantwortungsniveau streben Sie an?', options: ['Projekte oder Teams leiten', 'Nur für meine eigene Arbeit verantwortlich sein', 'Teil eines Teams ohne Führungsverantwortung', 'Ich strebe an, mein eigenes Unternehmen zu haben'] },
-    { type: 'options', question: 'Wie wichtig ist es Ihnen, mit Ihrer Arbeit einen positiven Einfluss auf die Gesellschaft zu haben?', options: ['Sehr wichtig, ich möchte einen Unterschied machen', 'Schön, aber keine Priorität', 'Ich konzentriere mich auf meine persönliche Karriere', 'Darüber denke ich nicht nach'] },
-    { type: 'options', question: 'Macht Ihnen Arbeit Spaß, die Genauigkeit und Liebe zum Detail erfordert?', options: ['Ja, das macht mir sehr viel Spaß', 'Bis zu einem gewissen Grad', 'Nein, ich bevorzuge das große Ganze', 'Ich kann es tun, wenn es nötig ist'] },
-    { type: 'options', question: 'Was ist Ihre Haltung zum Risiko bei der Arbeit?', options: ['Ich mag kalkulierte Risiken', 'Ich bleibe lieber in meiner Komfortzone', 'Ich vermeide Risiken komplett', 'Ich bin mutig und gehe große Risiken ein'] },
-    { type: 'options', question: 'Wie gehen Sie mit Kritik um?', options: ['Ich nehme sie an und lerne daraus', 'Zuerst bin ich entmutigt, aber dann lerne ich', 'Es fällt mir schwer, Kritik anzunehmen', 'Ich neige dazu, in die Defensive zu gehen'] },
-    { type: 'options', question: 'Wie wichtig ist Kreativität in Ihrem Job?', options: ['Unerlässlich, ich muss meine Kreativität ausleben', 'Ein nettes Extra', 'Überhaupt nicht wichtig', 'Ich befolge lieber festgelegte Verfahren'] },
-    { type: 'options', question: 'Welche Art von Problemen lösen Sie gerne?', options: ['Logische und mathematische Probleme', 'Menschliche und soziale Probleme', 'Praktische und technische Probleme', 'Strategische und geschäftliche Probleme'] },
-    { type: 'options', question: 'Was ist Ihre ideale Work-Life-Balance?', options: ['Flexible Arbeitszeiten und Remote-Arbeit', 'Regelmäßige Arbeitszeiten von 9 bis 17 Uhr', 'Es macht mir nichts aus, lange zu arbeiten, um meine Ziele zu erreichen', 'Ich bevorzuge Teilzeitarbeit'] },
-    { type: 'options', question: 'Arbeiten Sie lieber in einem großen Unternehmen oder einem kleinen/Startup?', options: ['Großes und stabiles Unternehmen', 'Kleines und dynamisches Unternehmen', 'Selbstständig arbeiten', 'Kein Unterschied für mich'] },
-    { type: 'options', question: 'Was ist Ihr aktueller oder geplanter Bildungsabschluss?', options: ['Weniger als Hauptschulabschluss', 'Abitur oder Fachabitur', 'Berufsausbildung', 'Hochschulabschluss (Bachelor oder höher)'] },
-    { type: 'options', question: 'Wie ist Ihr Deutschniveau?', options: ['Anfänger (A1/A2)', 'Mittelstufe (B1/B2)', 'Fortgeschritten (C1/C2)', 'Muttersprache'] },
-    { type: 'options', question: 'Haben Sie bereits Berufserfahrung in irgendeinem Bereich?', options: ['Ja, umfangreiche Erfahrung', 'Ja, etwas Erfahrung', 'Nein, keine Berufserfahrung', 'Nur Praktika'] },
-    { type: 'text', question: 'Gibt es eine bestimmte Leidenschaft oder ein Interesse, das wir berücksichtigen sollten?' },
-  ],
-  en: [
-    { type: 'text', id: 'name', question: 'First, what is your name?' },
-    { type: 'number', id: 'age', question: 'How old are you?' },
-    { type: 'options', question: 'Which work environment do you prefer?', options: ['Quiet and organized office', 'Dynamic and changing environment', 'Outdoors or in a workshop', 'Flexible remote work'] },
-    { type: 'options', question: 'What is your preferred level of social interaction at work?', options: ['Working alone on tasks', 'Working in a small team', 'Constant interaction with clients and the public', 'Leading and directing large teams'] },
-    { type: 'options', question: 'How do you handle difficult tasks?', options: ['I break them down into small steps', 'I look for creative solutions', 'I ask colleagues for help', 'I face them head-on with enthusiasm'] },
-    { type: 'options', question: 'What motivates you the most?', options: ['Achieving tangible results', 'Learning new skills', 'Helping others', 'Receiving recognition and promotion'] },
-    { type: 'options', question: 'What were your favorite subjects in school?', options: ['Math and Science', 'Languages and Arts', 'Sports and Crafts', 'History and Geography'] },
-    { type: 'options', question: 'How would you describe your decision-making style?', options: ['Analytical and data-driven', 'Intuitive and quick', 'Collaborative and seeking others\' opinions', 'Cautious and deliberate'] },
-    { type: 'options', question: 'How important are salary and financial stability to you?', options: ['The most important thing', 'Important, but not everything', 'Less important than job satisfaction', 'Not important in the short term'] },
-    { type: 'options', question: 'Do you prefer routine work or varied tasks?', options: ['I prefer routine and stability', 'I love variety and new challenges', 'A mix of both is good', 'I don\'t care as long as the work gets done'] },
-    { type: 'options', question: 'What role does technology play in your ideal job?', options: ['Central and vital, I work with the latest technologies', 'A helpful tool, but not the focus', 'I prefer jobs that don\'t rely heavily on technology', 'No particular preference'] },
-    { type: 'options', question: 'How do you handle pressure and deadlines?', options: ['I work best under pressure', 'I get stressed but I get the tasks done', 'I try to avoid pressure as much as possible', 'I plan ahead to avoid pressure'] },
-    { type: 'options', question: 'How willing are you to travel for work?', options: ['Willing to travel constantly', 'Okay with occasional travel', 'I prefer not to travel', 'Only within the city'] },
-    { type: 'options', question: 'Which of these activities do you enjoy most in your free time?', options: ['Reading and solving puzzles', 'Painting or playing an instrument', 'Sports or outdoor activities', 'Volunteering and helping others'] },
-    { type: 'options', question: 'How important is continuous development and learning in your career?', options: ['Absolutely essential, I always want to learn', 'Important to keep up with developments', 'I prefer stability in my current skills', 'Not interested in learning after basic training is complete'] },
-    { type: 'options', question: 'Do you prefer to work with your hands or your mind?', options: ['I prefer using my hands to make things', 'I prefer solving problems and thinking strategically', 'I enjoy a mix of both', 'No difference to me'] },
-    { type: 'options', question: 'How do you describe your ability to adapt to change?', options: ['I adapt quickly and easily', 'I need some time to adjust', 'I find change difficult', 'I resist change'] },
-    { type: 'options', question: 'What level of responsibility do you aspire to?', options: ['Managing projects or teams', 'Responsible only for my own work', 'Part of a team without leadership responsibility', 'I aspire to own my own business'] },
-    { type: 'options', question: 'How important is making a positive impact on society in your work?', options: ['Very important, I want to make a difference', 'A good thing, but not a priority', 'I focus on my personal career', 'I don\'t think about that'] },
-    { type: 'options', question: 'Do you enjoy work that requires precision and attention to detail?', options: ['Yes, I enjoy it very much', 'To some extent', 'No, I prefer the big picture', 'I can do it if necessary'] },
-    { type: 'options', question: 'What is your attitude towards risk at work?', options: ['I like calculated risks', 'I prefer to stay in my comfort zone', 'I avoid risks completely', 'I am bold and take big risks'] },
-    { type: 'options', question: 'How do you handle criticism?', options: ['I accept it and learn from it', 'I feel discouraged at first but then I learn', 'I find it difficult to accept criticism', 'I tend to get defensive'] },
-    { type: 'options', question: 'How important is creativity in your job?', options: ['Essential, I need to express my creativity', 'A nice bonus', 'Not important at all', 'I prefer to follow set procedures'] },
-    { type: 'options', question: 'What kind of problems do you enjoy solving?', options: ['Logical and mathematical problems', 'Human and social problems', 'Practical and technical problems', 'Strategic and business problems'] },
-    { type: 'options', question: 'What is your ideal work-life balance?', options: ['Flexible hours and remote work', 'Regular 9-to-5 hours', 'I don\'t mind working long hours to achieve my goals', 'I prefer part-time work'] },
-    { type: 'options', question: 'Do you prefer working in a large corporation or a small company/startup?', options: ['Large and stable corporation', 'Small and dynamic company', 'Working for myself', 'No difference to me'] },
-    { type: 'options', question: 'What is your current or planned level of education?', options: ['Less than high school diploma', 'High school diploma', 'Vocational training certificate (Ausbildung)', 'University degree (Bachelor\'s or higher)'] },
-    { type: 'options', question: 'What is your level of German?', options: ['Beginner (A1/A2)', 'Intermediate (B1/B2)', 'Advanced (C1/C2)', 'Native speaker'] },
-    { type: 'options', question: 'Do you have any prior work experience in any field?', options: ['Yes, extensive experience', 'Yes, some experience', 'No, no work experience', 'Only internships (Praktikum)'] },
-    { type: 'text', question: 'Finally, is there any particular passion or interest you would like us to consider?' },
-  ],
-  tr: [
-    { type: 'text', id: 'name', question: 'Öncelikle, adınız nedir?' },
-    { type: 'number', id: 'age', question: 'Kaç yaşındasınız?' },
-    { type: 'options', question: 'Hangi çalışma ortamını tercih edersiniz?', options: ['Sessiz ve düzenli bir ofis', 'Dinamik ve değişken bir ortam', 'Açık havada veya bir atölyede', 'Esnek evden çalışma'] },
-    { type: 'options', question: 'İşte tercih ettiğiniz sosyal etkileşim düzeyi nedir?', options: ['Görevler üzerinde tek başıma çalışmak', 'Küçük bir ekipte çalışmak', 'Müşteriler ve halkla sürekli etkileşim', 'Büyük ekiplere liderlik etmek ve yönlendirmek'] },
-    { type: 'options', question: 'Zor görevlerle nasıl başa çıkarsınız?', options: ['Onları küçük adımlara ayırırım', 'Yaratıcı çözümler ararım', 'İş arkadaşlarımdan yardım isterim', 'Onlarla doğrudan ve hevesle yüzleşirim'] },
-    { type: 'options', question: 'Sizi en çok ne motive eder?', options: ['Somut sonuçlar elde etmek', 'Yeni beceriler öğrenmek', 'Başkalarına yardım etmek', 'Takdir ve terfi almak'] },
-    { type: 'options', question: 'Okulda en sevdiğiniz dersler hangileriydi?', options: ['Matematik ve Fen Bilimleri', 'Diller ve Sanat', 'Spor ve El Sanatları', 'Tarih ve Coğrafya'] },
-    { type: 'options', question: 'Karar verme tarzınızı nasıl tanımlarsınız?', options: ['Analitik ve veriye dayalı', 'Sezgisel ve hızlı', 'İşbirlikçi ve başkalarının görüşlerini alan', 'Dikkatli ve düşünceli'] },
-    { type: 'options', question: 'Maaş ve finansal istikrar sizin için ne kadar önemli?', options: ['Kesinlikle en önemlisi', 'Önemli, ama her şey değil', 'İş tatmininden daha az önemli', 'Kısa vadede önemli değil'] },
-    { type: 'options', question: 'Rutin işleri mi yoksa çeşitli görevleri mi tercih edersiniz?', options: ['Rutin ve istikrarı tercih ederim', 'Çeşitliliği ve yeni zorlukları severim', 'İkisinin bir karışımı iyidir', 'İş yapıldığı sürece umrumda değil'] },
-    { type: 'options', question: 'İdeal işinizde teknolojinin rolü nedir?', options: ['Merkezi ve hayati, en son teknolojilerle çalışırım', 'Yardımcı bir araç, ama odak noktası değil', 'Teknolojiye fazla dayanmayan işleri tercih ederim', 'Belirli bir tercihim yok'] },
-    { type: 'options', question: 'Baskı ve son teslim tarihleriyle nasıl başa çıkarsınız?', options: ['Baskı altında en iyi şekilde çalışırım', 'Stres olurum ama görevleri tamamlarım', 'Baskıdan mümkün olduğunca kaçınmaya çalışırım', 'Baskıdan kaçınmak için önceden plan yaparım'] },
-    { type: 'options', question: 'İş için seyahat etmeye ne kadar isteklisiniz?', options: ['Sürekli seyahat etmeye istekliyim', 'Ara sıra seyahat etmeyi kabul ederim', 'Seyahat etmemeyi tercih ederim', 'Sadece şehir içinde'] },
-    { type: 'options', question: 'Boş zamanlarınızda bu aktivitelerden en çok hangisini yapmaktan hoşlanırsınız?', options: ['Okumak ve bulmaca çözmek', 'Resim yapmak veya bir enstrüman çalmak', 'Spor veya açık hava etkinlikleri', 'Gönüllülük ve başkalarına yardım etmek'] },
-    { type: 'options', question: 'Kariyerinizde sürekli gelişim ve öğrenme ne kadar önemli?', options: ['Kesinlikle gerekli, her zaman öğrenmek isterim', 'Gelişmeleri takip etmek için önemli', 'Mevcut becerilerimde istikrarı tercih ederim', 'Temel eğitim tamamlandıktan sonra öğrenmekle ilgilenmiyorum'] },
-    { type: 'options', question: 'Ellerinizle mi yoksa zihninizle mi çalışmayı tercih edersiniz?', options: ['Bir şeyler yapmak için ellerimi kullanmayı tercih ederim', 'Problem çözmeyi ve stratejik düşünmeyi tercih ederim', 'İkisinin bir karışımından hoşlanırım', 'Benim için fark etmez'] },
-    { type: 'options', question: 'Değişime uyum sağlama yeteneğinizi nasıl tanımlarsınız?', options: ['Hızlı ve kolay bir şekilde uyum sağlarım', 'Uyum sağlamak için biraz zamana ihtiyacım var', 'Değişimi zor buluyorum', 'Değişime direnirim'] },
-    { type: 'options', question: 'Hangi sorumluluk seviyesini hedefliyorsunuz?', options: ['Projeleri veya ekipleri yönetmek', 'Sadece kendi işimden sorumlu olmak', 'Liderlik sorumluluğu olmayan bir ekibin parçası olmak', 'Kendi işimi kurmayı hedefliyorum'] },
-    { type: 'options', question: 'İşinizde topluma olumlu bir etki yaratmak ne kadar önemli?', options: ['Çok önemli, bir fark yaratmak istiyorum', 'İyi bir şey, ama bir öncelik değil', 'Kişisel kariyerime odaklanırım', 'Bunu düşünmüyorum'] },
-    { type: 'options', question: 'Hassasiyet ve detaylara dikkat gerektiren işlerden hoşlanır mısınız?', options: ['Evet, bundan çok hoşlanırım', 'Bir dereceye kadar', 'Hayır, büyük resmi tercih ederim', 'Gerekirse yapabilirim'] },
-    { type: 'options', question: 'İşte riske karşı tutumunuz nedir?', options: ['Hesaplanmış riskleri severim', 'Konfor alanımda kalmayı tercih ederim', 'Risklerden tamamen kaçınırım', 'Cesurum ve büyük riskler alırım'] },
-    { type: 'options', question: 'Eleştiriyle nasıl başa çıkarsınız?', options: ['Kabul eder ve ondan öğrenirim', 'Başta cesaretim kırılır ama sonra öğrenirim', 'Eleştiriyi kabul etmekte zorlanırım', 'Savunmacı olma eğilimindeyim'] },
-    { type: 'options', question: 'İşinizde yaratıcılık ne kadar önemli?', options: ['Gerekli, yaratıcılığımı ifade etmeliyim', 'Hoş bir bonus', 'Hiç önemli değil', 'Belirlenmiş prosedürleri takip etmeyi tercih ederim'] },
-    { type: 'options', question: 'Ne tür problemler çözmekten hoşlanırsınız?', options: ['Mantıksal ve matematiksel problemler', 'İnsani ve sosyal problemler', 'Pratik ve teknik problemler', 'Stratejik ve iş problemleri'] },
-    { type: 'options', question: 'İdeal iş-yaşam dengeniz nedir?', options: ['Esnek saatler ve uzaktan çalışma', 'Düzenli 9-5 saatleri', 'Hedeflerime ulaşmak için uzun saatler çalışmaktan çekinmem', 'Yarı zamanlı çalışmayı tercih ederim'] },
-    { type: 'options', question: 'Büyük bir şirkette mi yoksa küçük bir şirkette/startupta mı çalışmayı tercih edersiniz?', options: ['Büyük ve istikrarlı bir şirket', 'Küçük ve dinamik bir şirket', 'Kendi işimi yapmak', 'Benim için fark etmez'] },
-    { type: 'options', question: 'Mevcut veya planladığınız eğitim seviyeniz nedir?', options: ['Lise diplomasından daha az', 'Lise diploması', 'Mesleki eğitim sertifikası (Ausbildung)', 'Üniversite derecesi (Lisans veya üstü)'] },
-    { type: 'options', question: 'Almanca seviyeniz nedir?', options: ['Başlangıç (A1/A2)', 'Orta (B1/B2)', 'İleri (C1/C2)', 'Ana dil'] },
-    { type: 'options', question: 'Herhangi bir alanda önceden iş deneyiminiz var mı?', options: ['Evet, geniş deneyim', 'Evet, biraz deneyim', 'Hayır, iş deneyimi yok', 'Sadece stajlar (Praktikum)'] },
-    { type: 'text', question: 'Son olarak, dikkate almamızı istediğiniz özel bir tutkunuz veya ilginiz var mı?' },
-  ],
-  uk: [
-    { type: 'text', id: 'name', question: 'Для початку, як вас звати?' },
-    { type: 'number', id: 'age', question: 'Скільки вам років?' },
-    { type: 'options', question: 'Якому робочому середовищу ви віддаєте перевагу?', options: ['Тихий та організований офіс', 'Динамічне та мінливе середовище', 'На відкритому повітрі або в майстерні', 'Гнучка віддалена робота'] },
-    { type: 'options', question: 'Який рівень соціальної взаємодії на роботі ви віддаєте перевагу?', options: ['Працювати над завданнями самостійно', 'Працювати в невеликій команді', 'Постійна взаємодія з клієнтами та громадськістю', 'Керувати великими командами'] },
-    { type: 'options', question: 'Як ви справляєтеся зі складними завданнями?', options: ['Я розбиваю їх на маленькі кроки', 'Я шукаю творчі рішення', 'Я прошу допомоги у колег', 'Я зустрічаю їх з ентузіазмом'] },
-    { type: 'options', question: 'Що вас найбільше мотивує?', options: ['Досягнення відчутних результатів', 'Вивчення нових навичок', 'Допомога іншим', 'Отримання визнання та підвищення'] },
-    { type: 'options', question: 'Які предмети вам найбільше подобалися в школі?', options: ['Математика та природничі науки', 'Мови та мистецтво', 'Спорт та ремесла', 'Історія та географія'] },
-    { type: 'options', question: 'Як би ви описали свій стиль прийняття рішень?', options: ['Аналітичний та на основі даних', 'Інтуїтивний та швидкий', 'Спільний та з урахуванням думок інших', 'Обережний та продуманий'] },
-    { type: 'options', question: 'Наскільки для вас важливі зарплата та фінансова стабільність?', options: ['Найважливіше', 'Важливо, але не все', 'Менш важливо, ніж задоволення від роботи', 'Не важливо в короткостроковій перспективі'] },
-    { type: 'options', question: 'Ви віддаєте перевагу рутинній роботі чи різноманітним завданням?', options: ['Я віддаю перевагу рутині та стабільності', 'Я люблю різноманітність та нові виклики', 'Добре, коли є поєднання обох', 'Мені все одно, аби робота була виконана'] },
-    { type: 'options', question: 'Яку роль відіграє технологія у вашій ідеальній роботі?', options: ['Центральну та життєво важливу, я працюю з новітніми технологіями', 'Допоміжний інструмент, але не в центрі уваги', 'Я віддаю перевагу роботі, яка не сильно залежить від технологій', 'Немає особливих переваг'] },
-    { type: 'options', question: 'Як ви справляєтеся з тиском та дедлайнами?', options: ['Я найкраще працюю під тиском', 'Я відчуваю стрес, але виконую завдання', 'Я намагаюся уникати тиску, наскільки це можливо', 'Я планую наперед, щоб уникнути тиску'] },
-    { type: 'options', question: 'Наскільки ви готові подорожувати по роботі?', options: ['Готовий подорожувати постійно', 'Згоден на періодичні поїздки', 'Я віддаю перевагу не подорожувати', 'Тільки в межах міста'] },
-    { type: 'options', question: 'Яким з цих занять ви найбільше насолоджуєтеся у вільний час?', options: ['Читання та розгадування головоломок', 'Малювання або гра на музичному інструменті', 'Спорт або активний відпочинок на природі', 'Волонтерство та допомога іншим'] },
-    { type: 'options', question: 'Наскільки важливим є постійний розвиток та навчання у вашій кар\'єрі?', options: ['Абсолютно необхідно, я завжди хочу вчитися', 'Важливо, щоб бути в курсі подій', 'Я віддаю перевагу стабільності у своїх поточних навичках', 'Не зацікавлений у навчанні після закінчення базової підготовки'] },
-    { type: 'options', question: 'Ви віддаєте перевагу працювати руками чи головою?', options: ['Я віддаю перевагу використовувати руки для створення речей', 'Я віддаю перевагу вирішенню проблем та стратегічному мисленню', 'Мені подобається поєднання обох', 'Для мене немає різниці'] },
-    { type: 'options', question: 'Як ви описуєте свою здатність адаптуватися до змін?', options: ['Я адаптуюся швидко і легко', 'Мені потрібен час, щоб пристосуватися', 'Мені важко звикати до змін', 'Я чиню опір змінам'] },
-    { type: 'options', question: 'До якого рівня відповідальності ви прагнете?', options: ['Керування проектами або командами', 'Відповідальність лише за власну роботу', 'Бути частиною команди без керівної відповідальності', 'Я прагну мати власний бізнес'] },
-    { type: 'options', question: 'Наскільки важливо для вас, щоб ваша робота мала позитивний вплив на суспільство?', options: ['Дуже важливо, я хочу щось змінити', 'Це добре, але не пріоритет', 'Я зосереджуюся на своїй особистій кар\'єрі', 'Я про це не думаю'] },
-    { type: 'options', question: 'Чи подобається вам робота, що вимагає точності та уваги до деталей?', options: ['Так, мені це дуже подобається', 'Певною мірою', 'Ні, я віддаю перевагу загальній картині', 'Я можу це робити, якщо необхідно'] },
-    { type: 'options', question: 'Яке ваше ставлення до ризику на роботі?', options: ['Мені подобаються прораховані ризики', 'Я віддаю перевагу залишатися в зоні комфорту', 'Я повністю уникаю ризиків', 'Я сміливий і йду на великі ризики'] },
-    { type: 'options', question: 'Як ви ставитеся до критики?', options: ['Я приймаю її і вчуся на ній', 'Спочатку я засмучуюся, але потім вчуся', 'Мені важко приймати критику', 'Я схильний захищатися'] },
-    { type: 'options', question: 'Наскільки важлива творчість у вашій роботі?', options: ['Дуже важлива, мені потрібно виражати свою творчість', 'Приємний бонус', 'Зовсім не важлива', 'Я віддаю перевагу дотриманню встановлених процедур'] },
-    { type: 'options', question: 'Які проблеми вам подобається вирішувати?', options: ['Логічні та математичні проблеми', 'Людські та соціальні проблеми', 'Практичні та технічні проблеми', 'Стратегічні та бізнес-проблеми'] },
-    { type: 'options', question: 'Який ваш ідеальний баланс між роботою та особистим життям?', options: ['Гнучкий графік та віддалена робота', 'Регулярний графік з 9 до 17', 'Я не проти працювати довго, щоб досягти своїх цілей', 'Я віддаю перевагу неповній зайнятості'] },
-    { type: 'options', question: 'Ви віддаєте перевагу працювати у великій корпорації чи в невеликій компанії/стартапі?', options: ['Велика та стабільна корпорація', 'Маленька та динамічна компанія', 'Працювати на себе', 'Для мене немає різниці'] },
-    { type: 'options', question: 'Який ваш поточний або запланований рівень освіти?', options: ['Нижче середньої освіти', 'Атестат про повну загальну середню освіту', 'Свідоцтво про професійне навчання (Ausbildung)', 'Вища освіта (бакалавр або вище)'] },
-    { type: 'options', question: 'Який ваш рівень володіння німецькою мовою?', options: ['Початковий (A1/A2)', 'Середній (B1/B2)', 'Просунутий (C1/C2)', 'Рідна мова'] },
-    { type: 'options', question: 'Чи маєте ви попередній досвід роботи в будь-якій галузі?', options: ['Так, великий досвід', 'Так, невеликий досвід', 'Ні, досвіду роботи немає', 'Тільки стажування (Praktikum)'] },
-    { type: 'text', question: 'Нарешті, чи є у вас якась особлива пристрасть або інтерес, який ми повинні врахувати?' },
-  ]
-};
+const commonQuestions = [
+    {
+      id: "name",
+      type: "text",
+      question: {
+        ar: "ما هو اسمك الكامل؟",
+        de: "Wie ist Ihr vollständiger Name?",
+        en: "What is your full name?",
+        tr: "Tam adınız nedir?",
+        uk: "Яке ваше повне ім'я?",
+      },
+    },
+    {
+      id: "age",
+      type: "number",
+      question: {
+        ar: "كم عمرك؟",
+        de: "Wie alt sind Sie?",
+        en: "How old are you?",
+        tr: "Kaç yaşındasınız?",
+        uk: "Скільки вам років?",
+      },
+    },
+    {
+      id: "interest",
+      type: "multiple_choice",
+      question: {
+        ar: "ما هو المجال الذي يثير اهتمامك أكثر؟",
+        de: "Welcher Bereich interessiert Sie am meisten?",
+        en: "Which field interests you the most?",
+        tr: "Hangi alan ilginizi daha çok çekiyor?",
+        uk: "Яка сфера вас найбільше цікавить?",
+      },
+      options: {
+        ar: ["التكنولوجيا والبرمجة", "الطب والرعاية الصحية", "الهندسة والبناء", "الفنون والتصميم", "التجارة والأعمال"],
+        de: ["Technologie & Programmierung", "Medizin & Gesundheit", "Ingenieurwesen & Bau", "Kunst & Design", "Wirtschaft & Handel"],
+        en: ["Technology & Programming", "Medicine & Healthcare", "Engineering & Construction", "Arts & Design", "Business & Trade"],
+        tr: ["Teknoloji ve Programlama", "Tıp ve Sağlık", "Mühendislik ve İnşaat", "Sanat ve Tasarım", "Ticaret ve İş"],
+        uk: ["Технології та програмування", "Медицина та охорона здоров'я", "Інженерія та будівництво", "Мистецтво та дизайн", "Торгівля та бізнес"],
+      },
+    },
+    {
+        id: "work_style",
+        type: "multiple_choice",
+        question: {
+          ar: "كيف تفضل أن تعمل؟",
+          de: "Wie arbeiten Sie am liebsten?",
+          en: "How do you prefer to work?",
+          tr: "Nasıl çalışmayı tercih edersiniz?",
+          uk: "Як ви віддаєте перевагу працювати?",
+        },
+        options: {
+          ar: ["بشكل مستقل", "مع شريك", "ضمن فريق", "قيادة الآخرين"],
+          de: ["Unabhängig", "Mit einem Partner", "Im Team", "Andere führen"],
+          en: ["Independently", "With a partner", "In a team", "Leading others"],
+          tr: ["Bağımsız", "Bir ortakla", "Takım halinde", "Başkalarına liderlik ederek"],
+          uk: ["Самостійно", "З партнером", "У команді", "Керуючи іншими"],
+        },
+      },
+      {
+        id: "environment",
+        type: "multiple_choice",
+        question: {
+            ar: "أي بيئة عمل تفضل؟",
+            de: "Welches Arbeitsumfeld bevorzugen Sie?",
+            en: "Which work environment do you prefer?",
+            tr: "Hangi çalışma ortamını tercih edersiniz?",
+            uk: "Яке робоче середовище ви віддаєте перевагу?",
+        },
+        options: {
+            ar: ["مكتب هادئ", "موقع عمل خارجي وحركي", "مختبر أو ورشة", "العمل من المنزل"],
+            de: ["Ruhiges Büro", "Außendienst & Bewegung", "Labor oder Werkstatt", "Home Office"],
+            en: ["Quiet office", "Outdoors & Active", "Lab or Workshop", "Work from home"],
+            tr: ["Sessiz ofis", "Dış mekan ve aktif", "Laboratuvar veya atölye", "Evden çalışma"],
+            uk: ["Тихий офіс", "На відкритому повітрі та активний", "Лабораторія або майстерня", "Робота з дому"],
+        }
+      },
+      // --- Extended 25 Questions ---
+      {
+        id: "stress",
+        type: "multiple_choice",
+        question: {
+            ar: "كيف تتعامل مع الضغط؟",
+            de: "Wie gehen Sie mit Stress um?",
+            en: "How do you handle stress?",
+            tr: "Stresle nasıl başa çıkarsınız?",
+            uk: "Як ви справляєтеся зі стресом?"
+        },
+        options: {
+            ar: ["أزدهر تحت الضغط", "أبقى هادئاً ومنظماً", "أطلب الدعم من الآخرين", "أفضل البيئات قليلة التوتر"],
+            de: ["Ich blühe unter Druck auf", "Ich bleibe ruhig und organisiert", "Ich suche Unterstützung bei anderen", "Ich bevorzuge stressarme Umgebungen"],
+            en: ["I thrive under pressure", "I stay calm and organized", "I seek support from others", "I prefer low-stress environments"],
+            tr: ["Baskı altında gelişirim", "Sakin ve düzenli kalırım", "Başkalarından destek isterim", "Düşük stresli ortamları tercih ederim"],
+            uk: ["Я процвітаю під тиском", "Я залишаюся спокійним і організованим", "Я шукаю підтримки в інших", "Я віддаю перевагу середовищу з низьким рівнем стресу"]
+        }
+      },
+      {
+        id: "detail_level",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تفضل التفاصيل أم الصورة الكبيرة؟",
+            de: "Bevorzugen Sie Details oder das große Ganze?",
+            en: "Do you prefer details or the big picture?",
+            tr: "Detayları mı yoksa büyük resmi mi tercih edersiniz?",
+            uk: "Ви віддаєте перевагу деталям чи загальній картині?"
+        },
+        options: {
+            ar: ["أحب التفاصيل الدقيقة", "أفضل الصورة الكبيرة", "أحب التوازن بين الاثنين", "أركز على التطبيق العملي"],
+            de: ["Ich liebe genaue Details", "Ich bevorzuge das große Ganze", "Ich mag eine Balance aus beidem", "Ich konzentriere mich auf die praktische Anwendung"],
+            en: ["I love precise details", "I prefer the big picture", "I like a balance of both", "I focus on practical application"],
+            tr: ["Hassas detayları severim", "Büyük resmi tercih ederim", "İkisinin dengesini severim", "Pratik uygulamaya odaklanırım"],
+            uk: ["Мені подобаються точні деталі", "Я віддаю перевагу загальній картині", "Мені подобається баланс обох", "Я зосереджуюсь на практичному застосуванні"]
+        }
+      },
+      {
+        id: "leadership",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تفضل القيادة أم اتباع التعليمات؟",
+            de: "Führen Sie lieber oder folgen Sie Anweisungen?",
+            en: "Do you prefer leading or following instructions?",
+            tr: "Liderlik etmeyi mi yoksa talimatları izlemeyi mi tercih edersiniz?",
+            uk: "Ви віддаєте перевагу керувати чи слідувати інструкціям?"
+        },
+        options: {
+            ar: ["أحب تولي المسؤولية", "أفضل دوراً داعماً", "أحب التنسيق والتسهيل", "أفضل العمل بمفردي"],
+            de: ["Ich übernehme gerne die Führung", "Ich bevorzuge eine unterstützende Rolle", "Ich koordiniere gerne", "Ich arbeite lieber allein"],
+            en: ["I like to take charge", "I prefer a supportive role", "I like to facilitate/coordinate", "I prefer to work alone"],
+            tr: ["Sorumluluk almayı severim", "Destekleyici bir rolü tercih ederim", "Kolaylaştırmayı/koordine etmeyi severim", "Yalnız çalışmayı tercih ederim"],
+            uk: ["Мені подобається брати на себе відповідальність", "Я віддаю перевагу допоміжній ролі", "Мені подобається координувати", "Я віддаю перевагу працювати наодинці"]
+        }
+      },
+      {
+        id: "learning_style",
+        type: "multiple_choice",
+        question: {
+            ar: "كيف تتعلم بشكل أفضل؟",
+            de: "Wie lernen Sie am besten?",
+            en: "How do you learn best?",
+            tr: "En iyi nasıl öğrenirsiniz?",
+            uk: "Як ви навчаєтесь найкраще?"
+        },
+        options: {
+            ar: ["الممارسة العملية", "القراءة والكتابة", "بصري (رسوم بيانية/مخططات)", "سمعي (الاستماع)"],
+            de: ["Tun (Praktisch)", "Lesen & Schreiben", "Visuell (Diagramme/Grafiken)", "Auditiv (Zuhören)"],
+            en: ["Doing (Hands-on)", "Reading & Writing", "Visual (Charts/Graphs)", "Auditory (Listening)"],
+            tr: ["Yaparak (Pratik)", "Okuma & Yazma", "Görsel (Grafikler)", "İşitsel (Dinleme)"],
+            uk: ["Практика (робити руками)", "Читання та письмо", "Візуально (діаграми/графіки)", "Аудіально (слухання)"]
+        }
+      },
+      {
+        id: "routine",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تفضل الروتين أم التنوع؟",
+            de: "Bevorzugen Sie Routine oder Abwechslung?",
+            en: "Do you prefer routine or variety?",
+            tr: "Rutin mi yoksa çeşitlilik mi tercih edersiniz?",
+            uk: "Ви віддаєте перевагу рутині чи різноманітності?"
+        },
+        options: {
+            ar: ["روتين صارم واستقرار", "روتين في الغالب مع بعض التغيير", "تنوع متكرر ومهام جديدة", "يجب أن يكون كل يوم مختلفاً"],
+            de: ["Strenge Routine und Stabilität", "Meistens Routine mit etwas Abwechslung", "Häufige Abwechslung und neue Aufgaben", "Jeder Tag sollte anders sein"],
+            en: ["Strict routine and stability", "Mostly routine with some change", "Frequent variety and new tasks", "Every day should be different"],
+            tr: ["Katı rutin ve istikrar", "Çoğunlukla rutin biraz değişiklikle", "Sık çeşitlilik ve yeni görevler", "Her gün farklı olmalı"],
+            uk: ["Сувора рутина та стабільність", "Переважно рутина з деякими змінами", "Часта різноманітність та нові завдання", "Кожен день має бути іншим"]
+        }
+      },
+      {
+        id: "risk",
+        type: "multiple_choice",
+        question: {
+            ar: "ما هو موقفك من المخاطرة؟",
+            de: "Wie stehen Sie zu Risiken?",
+            en: "What is your attitude towards risk?",
+            tr: "Riske karşı tutumunuz nedir?",
+            uk: "Яке ваше ставлення до ризику?"
+        },
+        options: {
+            ar: ["أتجنب المخاطر تماماً", "أقوم بمخاطرات محسوبة", "أستمتع بالغموض المعتدل", "أنا مغامر جداً"],
+            de: ["Ich vermeide Risiken komplett", "Ich gehe kalkulierte Risiken ein", "Ich mag moderate Unsicherheit", "Ich bin sehr risikofreudig"],
+            en: ["I avoid risk completely", "I take calculated risks", "I enjoy moderate uncertainty", "I am a high-risk taker"],
+            tr: ["Riskten tamamen kaçınırım", "Hesaplanmış riskler alırım", "Orta düzeyde belirsizlikten hoşlanırım", "Yüksek risk alırım"],
+            uk: ["Я повністю уникаю ризику", "Я йду на виважені ризики", "Мені подобається помірна невизначеність", "Я дуже ризикований"]
+        }
+      },
+      {
+        id: "social",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تستمتع بلقاء أشخاص جدد؟",
+            de: "Genießen Sie es, neue Leute kennenzulernen?",
+            en: "Do you enjoy meeting new people?",
+            tr: "Yeni insanlarla tanışmaktan hoşlanır mısınız?",
+            uk: "Вам подобається знайомитися з новими людьми?"
+        },
+        options: {
+            ar: ["تفاعل مستمر مع الناس", "تفاعل منتظم مع الفريق", "تفاعل عرضي", "تفاعل ضئيل أو معدوم"],
+            de: ["Ständige Interaktion mit Menschen", "Regelmäßige Teaminteraktion", "Gelegentliche Interaktion", "Minimale bis keine Interaktion"],
+            en: ["Constant interaction with people", "Regular team interaction", "Occasional interaction", "Minimal to no interaction"],
+            tr: ["İnsanlarla sürekli etkileşim", "Düzenli ekip etkileşimi", "Ara sıra etkileşim", "Minimum veya hiç etkileşim"],
+            uk: ["Постійна взаємодія з людьми", "Регулярна взаємодія в команді", "Епізодична взаємодія", "Мінімальна або відсутня взаємодія"]
+        }
+      },
+      {
+        id: "thinking",
+        type: "multiple_choice",
+        question: {
+            ar: "عند اتخاذ القرارات، هل تعتمد على؟",
+            de: "Worauf verlassen Sie sich bei Entscheidungen?",
+            en: "When making decisions, do you rely on?",
+            tr: "Karar verirken neye güvenirsiniz?",
+            uk: "Приймаючи рішення, на що ви покладаєтеся?"
+        },
+        options: {
+            ar: ["المنطق والبيانات البحتة", "التجارب السابقة", "الشعور الغريزي والحدس", "نصيحة الآخرين"],
+            de: ["Reine Logik und Daten", "Vergangene Erfahrungen", "Bauchgefühl und Intuition", "Rat von anderen"],
+            en: ["Pure logic and data", "Past experience", "Gut feeling and intuition", "Advice from others"],
+            tr: ["Saf mantık ve veri", "Geçmiş deneyim", "İçgüdü ve sezgi", "Başkalarından tavsiye"],
+            uk: ["Чиста логіка та дані", "Минулий досвід", "Внутрішнє відчуття та інтуїція", "Поради інших"]
+        }
+      },
+      {
+        id: "deadlines",
+        type: "multiple_choice",
+        question: {
+            ar: "كيف تتعامل مع المواعيد النهائية؟",
+            de: "Wie gehen Sie mit Deadlines um?",
+            en: "How do you handle deadlines?",
+            tr: "Son teslim tarihleriyle nasıl başa çıkarsınız?",
+            uk: "Як ви справляєтеся з дедлайнами?"
+        },
+        options: {
+            ar: ["الانتهاء قبل الموعد بكثير", "العمل بوتيرة ثابتة حتى النهاية", "العمل بشكل أفضل تحت ضغط اللحظة الأخيرة", "أفضل الجداول الزمنية المرنة بدون مواعيد نهائية صارمة"],
+            de: ["Weit vor der Zeit fertig werden", "Gleichmäßiges Tempo bis zum Ende", "Beste Arbeit unter Last-Minute-Druck", "Bevorzuge flexible Zeitpläne ohne strikte Fristen"],
+            en: ["Finish way ahead of time", "Pace steadily until the end", "Work best under last-minute pressure", "Prefer flexible timelines without strict deadlines"],
+            tr: ["Zamanından çok önce bitirmek", "Sona kadar istikrarlı tempo", "Son dakika baskısı altında en iyi çalışma", "Katı son tarihler olmadan esnek zaman çizelgeleri tercihi"],
+            uk: ["Закінчити задовго до терміну", "Рівномірний темп до кінця", "Найкраще працюю під тиском в останню хвилину", "Віддаю перевагу гнучким термінам без суворих дедлайнів"]
+        }
+      },
+      {
+        id: "creativity",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تفضل العمل الإبداعي أم الهيكلي؟",
+            de: "Bevorzugen Sie kreative oder strukturierte Arbeit?",
+            en: "Do you prefer creative or structured work?",
+            tr: "Yaratıcı mı yoksa yapılandırılmış işi mi tercih edersiniz?",
+            uk: "Ви віддаєте перевагу творчій чи структурованій роботі?"
+        },
+        options: {
+            ar: ["فني ومعبر للغاية", "حل المشكلات بشكل مبتكر", "اتباع المبادئ التوجيهية المعمول بها", "تحسين العمليات الحالية"],
+            de: ["Sehr künstlerisch und ausdrucksstark", "Innovative Problemlösung", "Befolgen etablierter Richtlinien", "Verbesserung bestehender Prozesse"],
+            en: ["Highly artistic and expressive", "Innovative problem solving", "Following established guidelines", "Improving existing processes"],
+            tr: ["Son derece sanatsal ve etkileyici", "Yenilikçi problem çözme", "Yerleşik kurallara uyma", "Mevcut süreçleri iyileştirme"],
+            uk: ["Високохудожній та експресивний", "Інноваційне вирішення проблем", "Дотримання встановлених інструкцій", "Удосконалення існуючих процесів"]
+        }
+      },
+      {
+        id: "patience",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تعتبر نفسك صبوراً؟",
+            de: "Halten Sie sich für geduldig?",
+            en: "Do you consider yourself patient?",
+            tr: "Kendinizi sabırlı buluyor musunuz?",
+            uk: "Чи вважаєте ви себе терплячим?"
+        },
+        options: {
+            ar: ["صبور جداً مع الأهداف طويلة المدى", "صبور مع الناس ولكن ليس مع العمليات", "غير صبور - أريد نتائج سريعة", "أفضل البيئات سريعة التغير"],
+            de: ["Extrem geduldig bei langfristigen Zielen", "Geduldig mit Menschen aber nicht Prozessen", "Ungeduldig - ich will schnelle Ergebnisse", "Ich bevorzuge schnelllebige, wechselnde Umgebungen"],
+            en: ["Extremely patient with long-term goals", "Patient with people but not processes", "Impatient - I want quick results", "I prefer fast-paced changing environments"],
+            tr: ["Uzun vadeli hedeflerde son derece sabırlı", "İnsanlara karşı sabırlı ama süreçlere değil", "Sabırsız - hızlı sonuçlar isterim", "Hızlı tempolu değişen ortamları tercih ederim"],
+            uk: ["Надзвичайно терплячий до довгострокових цілей", "Терплячий до людей, але не до процесів", "Нетерплячий - хочу швидких результатів", "Віддаю перевагу швидкому середовищу, що змінюється"]
+        }
+      },
+      {
+        id: "problem_solving",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تستمتع بحل المشاكل المعقدة؟",
+            de: "Lösen Sie gerne komplexe Probleme?",
+            en: "Do you enjoy solving complex problems?",
+            tr: "Karmaşık sorunları çözmekten hoşlanır mısınız?",
+            uk: "Вам подобається вирішувати складні проблеми?"
+        },
+        options: {
+            ar: ["تحليل البيانات والحقائق", "عصف ذهني لحلول إبداعية", "التجربة والخطأ العملي", "المناقشة مع مجموعة"],
+            de: ["Daten und Fakten analysieren", "Kreative Lösungen brainstormen", "Praktisches Ausprobieren (Trial & Error)", "Diskussion in der Gruppe"],
+            en: ["Analyze data and facts", "Brainstorm creative solutions", "Hands-on trial and error", "Discuss with a group"],
+            tr: ["Veri ve gerçekleri analiz etme", "Yaratıcı çözümler üzerine beyin fırtınası", "Pratik deneme yanılma", "Bir grupla tartışma"],
+            uk: ["Аналіз даних і фактів", "Мозковий штурм творчих рішень", "Практичні спроби та помилки", "Обговорення в групі"]
+        }
+      },
+      {
+        id: "money_motivation",
+        type: "multiple_choice",
+        question: {
+            ar: "هل المال هو حافزك الرئيسي؟",
+            de: "Ist Geld Ihre Hauptmotivation?",
+            en: "Is money your main motivation?",
+            tr: "Para ana motivasyon kaynağınız mı?",
+            uk: "Гроші - ваша головна мотивація?"
+        },
+        options: {
+            ar: ["المال هو المحفز الوحيد", "المال مهم جداً ولكنه ليس كل شيء", "الشغف أهم من المال", "المساهمة في المجتمع هي الهدف الرئيسي"],
+            de: ["Geld ist der einzige Motivator", "Geld ist sehr wichtig, aber nicht alles", "Leidenschaft ist wichtiger als Geld", "Beitrag zur Gesellschaft ist das Hauptziel"],
+            en: ["Money is the sole motivator", "Money is highly important but not everything", "Passion is more important than money", "Contributing to society is the main goal"],
+            tr: ["Para tek motivasyon kaynağıdır", "Para çok önemlidir ama her şey değildir", "Tutku paradan daha önemlidir", "Topluma katkıda bulunmak ana hedeftir"],
+            uk: ["Гроші є єдиним мотиватором", "Гроші дуже важливі, але не все", "Пристрасть важливіша за гроші", "Внесок у суспільство є головною метою"]
+        }
+      },
+      {
+        id: "work_life_balance",
+        type: "multiple_choice",
+        question: {
+            ar: "ما مدى أهمية التوازن بين العمل والحياة؟",
+            de: "Wie wichtig ist Work-Life-Balance?",
+            en: "How important is work-life balance?",
+            tr: "İş-yaşam dengesi ne kadar önemli?",
+            uk: "Наскільки важливий баланс між роботою та життям?"
+        },
+        options: {
+            ar: ["فصل صارم بين العمل والحياة (9-5)", "دمج مرن بين العمل والحياة", "مستعد للتضحية بالوقت الشخصي من أجل المهنة", "العمل هو حياتي"],
+            de: ["Strikte Trennung (9-bis-5)", "Flexible Integration von Arbeit und Leben", "Bereit, persönliche Zeit für die Karriere zu opfern", "Arbeit ist mein Leben"],
+            en: ["Strict 9-to-5 separation", "Flexible integration of work and life", "Willing to sacrifice personal time for career", "Work is my life"],
+            tr: ["Katı 9-5 ayrımı", "İş ve yaşamın esnek entegrasyonu", "Kariyer için kişisel zamandan fedakarlık etmeye istekli", "İş benim hayatımdır"],
+            uk: ["Суворий поділ 9-до-5", "Гнучка інтеграція роботи та життя", "Готовий жертвувати особистим часом заради кар'єри", "Робота - це моє життя"]
+        }
+      },
+      {
+        id: "public_speaking",
+        type: "multiple_choice",
+        question: {
+            ar: "كيف تشعر تجاه التحدث أمام الجمهور؟",
+            de: "Wie fühlen Sie sich beim öffentlichen Reden?",
+            en: "How do you feel about public speaking?",
+            tr: "Topluluk önünde konuşma hakkında ne hissediyorsunuz?",
+            uk: "Як ви ставитеся до публічних виступів?"
+        },
+        options: {
+            ar: ["أستمتع بالتحدث أمام حشود كبيرة", "أفضل المناقشات في مجموعات صغيرة", "يمكنني فعل ذلك إذا استعديت ولكني لا أحبه", "أتجنبه تماماً"],
+            de: ["Ich spreche gerne vor großem Publikum", "Ich bevorzuge Diskussionen in kleinen Gruppen", "Ich kann es mit Vorbereitung, liebe es aber nicht", "Ich vermeide es komplett"],
+            en: ["I enjoy speaking to large crowds", "I prefer small group discussions", "I can do it if prepared but don't love it", "I avoid it completely"],
+            tr: ["Büyük kalabalıklara konuşmaktan hoşlanırım", "Küçük grup tartışmalarını tercih ederim", "Hazırlıklıysam yapabilirim ama sevmem", "Tamamen kaçınırım"],
+            uk: ["Мені подобається виступати перед великою аудиторією", "Я віддаю перевагу обговоренням у малих групах", "Я можу це зробити, якщо підготуюсь, але не люблю", "Я цього повністю уникаю"]
+        }
+      },
+      {
+        id: "tech_savvy",
+        type: "multiple_choice",
+        question: {
+            ar: "ما مدى راحتك مع التكنولوجيا؟",
+            de: "Wie wohl fühlen Sie sich mit Technologie?",
+            en: "How comfortable are you with technology?",
+            tr: "Teknolojiyle aranız nasıl?",
+            uk: "Наскільки вам комфортно з технологіями?"
+        },
+        options: {
+            ar: ["يمكنني بناء وبرمجة التكنولوجيا", "أنا مستخدم متقدم", "أنا مرتاح مع الأساسيات", "أفضل الأدوات غير التقنية"],
+            de: ["Ich kann Technik bauen und programmieren", "Ich bin ein fortgeschrittener Nutzer", "Ich komme mit den Grundlagen zurecht", "Ich bevorzuge nicht-technische Werkzeuge"],
+            en: ["I can build and program tech", "I am an advanced user", "I am comfortable with basics", "I prefer non-technical tools"],
+            tr: ["Teknoloji inşa edip programlayabilirim", "İleri düzey bir kullanıcıyım", "Temel bilgilerle rahatım", "Teknik olmayan araçları tercih ederim"],
+            uk: ["Я можу створювати та програмувати техніку", "Я просунутий користувач", "Мені комфортно з основами", "Я віддаю перевагу нетехнічним інструментам"]
+        }
+      },
+      {
+        id: "travel",
+        type: "multiple_choice",
+        question: {
+            ar: "هل ترغب في السفر من أجل العمل؟",
+            de: "Möchten Sie beruflich reisen?",
+            en: "Would you like to travel for work?",
+            tr: "İş için seyahat etmek ister misiniz?",
+            uk: "Ви б хотіли подорожувати по роботі?"
+        },
+        options: {
+            ar: ["أريد السفر باستمرار (رحالة)", "أود القيام برحلات عمل متكررة", "السفر العرضي جيد", "أحتاج أن أكون في المنزل كل ليلة"],
+            de: ["Ich möchte ständig reisen (Nomade)", "Ich hätte gerne häufige Geschäftsreisen", "Gelegentliche Reisen sind in Ordnung", "Ich muss jeden Abend zu Hause sein"],
+            en: ["I want to travel constantly (Nomad)", "I'd like frequent business trips", "Occasional travel is fine", "I need to be home every night"],
+            tr: ["Sürekli seyahat etmek istiyorum (Göçebe)", "Sık iş seyahatleri isterim", "Ara sıra seyahat uygundur", "Her gece evde olmalıyım"],
+            uk: ["Я хочу постійно подорожувати (Кочівник)", "Я хотів би часті відрядження", "Епізодичні подорожі - це нормально", "Мені потрібно бути вдома щовечора"]
+        }
+      },
+      {
+        id: "physical_work",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تفضل العمل البدني أم المكتبي؟",
+            de: "Bevorzugen Sie körperliche Arbeit oder Büroarbeit?",
+            en: "Do you prefer physical work or desk work?",
+            tr: "Fiziksel işi mi yoksa masa başı işi mi tercih edersiniz?",
+            uk: "Ви віддаєте перевагу фізичній роботі чи роботі за столом?"
+        },
+        options: {
+            ar: ["عمل بدني شاق / بناء", "حركة نشطة / وقوف", "مزيج من المكتب والنشاط", "عمل مكتبي مستقر"],
+            de: ["Schwere körperliche Arbeit / Bau", "Aktive Bewegung / Stehen", "Mischung aus Schreibtisch und Aktivität", "Sitzende Schreibtischarbeit"],
+            en: ["Heavy physical labor / Construction", "Active movement / Standing", "Mix of desk and activity", "Sedentary desk work"],
+            tr: ["Ağır fiziksel iş / İnşaat", "Aktif hareket / Ayakta durma", "Masa başı ve aktivite karışımı", "Oturarak masa başı işi"],
+            uk: ["Важка фізична праця / Будівництво", "Активний рух / Стояння", "Суміш столу та активності", "Сидяча робота за столом"]
+        }
+      },
+      {
+        id: "math_skills",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تجيد التعامل مع الأرقام؟",
+            de: "Sind Sie gut im Umgang mit Zahlen?",
+            en: "Are you good with numbers?",
+            tr: "Sayılarla aranız iyi mi?",
+            uk: "Ви добре ладнаєте з цифрами?"
+        },
+        options: {
+            ar: ["أحب الرياضيات المعقدة والإحصاء", "أنا مرتاح مع الرياضيات التجارية", "يمكنني القيام بالأساسيات بشكل جيد", "أتجنب الرياضيات / أفضل الكلمات"],
+            de: ["Ich liebe komplexe Mathematik und Statistik", "Ich fühle mich wohl mit Wirtschaftsmathematik", "Ich beherrsche die Grundlagen gut", "Ich vermeide Mathe/bevorzuge Worte"],
+            en: ["I love complex math and statistics", "I am comfortable with business math", "I can do basics well", "I avoid math/prefer words"],
+            tr: ["Karmaşık matematik ve istatistiği severim", "İş matematiği ile rahatım", "Temel bilgileri iyi yapabilirim", "Matematikten kaçınırım/kelimeleri tercih ederim"],
+            uk: ["Я люблю складну математику та статистику", "Мені комфортно з бізнес-математикою", "Я добре знаю основи", "Я уникаю математики/віддаю перевагу словам"]
+        }
+      },
+      {
+        id: "conflict",
+        type: "multiple_choice",
+        question: {
+            ar: "كيف تتعامل مع النزاعات؟",
+            de: "Wie gehen Sie mit Konflikten um?",
+            en: "How do you handle conflict?",
+            tr: "Çatışmalarla nasıl başa çıkarsınız?",
+            uk: "Як ви справляєтеся з конфліктами?"
+        },
+        options: {
+            ar: ["أتولى زمام الأمور وأحلها مباشرة", "أتفاوض للوصول إلى حل وسط", "أحاول تلطيف الأجواء", "أنسحب لتجنب التوتر"],
+            de: ["Ich übernehme die Führung und löse es direkt", "Ich verhandle einen Kompromiss", "Ich versuche, die Wogen zu glätten", "Ich ziehe mich zurück, um Stress zu vermeiden"],
+            en: ["I take charge and resolve it directly", "I negotiate a compromise", "I try to smooth things over", "I withdraw to avoid stress"],
+            tr: ["Kontrolü ele alır ve doğrudan çözerim", "Bir uzlaşma pazarlığı yaparım", "İşleri yoluna koymaya çalışırım", "Stresten kaçınmak için geri çekilirim"],
+            uk: ["Я беру на себе відповідальність і вирішую це безпосередньо", "Я домовляюся про компроміс", "Я намагаюся згладити ситуацію", "Я відсторонююся, щоб уникнути стресу"]
+        }
+      },
+      {
+        id: "helping_others",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تحب مساعدة الآخرين بشكل مباشر؟",
+            de: "Helfen Sie anderen gerne direkt?",
+            en: "Do you like helping others directly?",
+            tr: "Başkalarına doğrudan yardım etmeyi sever misiniz?",
+            uk: "Вам подобається допомагати іншим безпосередньо?"
+        },
+        options: {
+            ar: ["رعاية مباشرة (تمريض/علاج)", "تدريس/توجيه", "دعم إداري/خدمة", "أفضل التركيز على المهام وليس الناس"],
+            de: ["Direkte Pflege (Krankenpflege/Therapie)", "Lehren/Mentoring", "Administrative Unterstützung/Service", "Ich konzentriere mich lieber auf Aufgaben, nicht Menschen"],
+            en: ["Direct care (Nursing/Therapy)", "Teaching/Mentoring", "Administrative support/Service", "I prefer focusing on tasks, not people"],
+            tr: ["Doğrudan bakım (Hemşirelik/Terapi)", "Öğretmenlik/Mentorluk", "İdari destek/Hizmet", "İnsanlara değil görevlere odaklanmayı tercih ederim"],
+            uk: ["Безпосередній догляд (Медсестринство/Терапія)", "Викладання/Наставництво", "Адміністративна підтримка/Обслуговування", "Я віддаю перевагу зосередженню на завданнях, а не на людях"]
+        }
+      },
+      {
+        id: "stability",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تفضل الاستقرار الوظيفي أم الإثارة؟",
+            de: "Bevorzugen Sie Arbeitsplatzsicherheit oder Aufregung?",
+            en: "Do you prefer job stability or excitement?",
+            tr: "İş güvenliğini mi yoksa heyecanı mı tercih edersiniz?",
+            uk: "Ви віддаєте перевагу стабільності роботи чи хвилюванню?"
+        },
+        options: {
+            ar: ["أقصى درجات الأمان (وظيفة حكومية)", "مهنة مؤسسية مستقرة", "بيئة شركات ناشئة عالية النمو", "مخاطر العمل الحر/ريادة الأعمال"],
+            de: ["Maximale Sicherheit (Beamtentum)", "Stabile Karriere im Unternehmen", "Wachstumsstarkes Startup-Umfeld", "Freiberufliches/Unternehmerisches Risiko"],
+            en: ["Maximum security (Government job)", "Stable corporate career", "High-growth startup environment", "Freelance/Entrepreneurial risk"],
+            tr: ["Maksimum güvenlik (Devlet işi)", "İstikrarlı kurumsal kariyer", "Yüksek büyüme oranlı girişim ortamı", "Serbest meslek/Girişimcilik riski"],
+            uk: ["Максимальна безпека (Державна служба)", "Стабільна корпоративна кар'єра", "Середовище стартапу зі швидким зростанням", "Ризик фрілансу/підприємництва"]
+        }
+      },
+      {
+        id: "organization",
+        type: "multiple_choice",
+        question: {
+            ar: "ما مدى تنظيمك؟",
+            de: "Wie organisiert sind Sie?",
+            en: "How organized are you?",
+            tr: "Ne kadar düzenlisiniz?",
+            uk: "Наскільки ви організовані?"
+        },
+        options: {
+            ar: ["مخطط منظم ومفصل للغاية", "منظم ولكن مرن", "منظم في الصورة الكبيرة (تفاصيل فوضوية)", "عفوي وارتجالي"],
+            de: ["Hochstrukturiert und detaillierter Planer", "Organisiert aber flexibel", "Im Großen und Ganzen organisiert (Details chaotisch)", "Spontan und improvisierend"],
+            en: ["Highly structured and detailed planner", "Organized but flexible", "Big-picture organized (messy details)", "Spontaneous and improvisational"],
+            tr: ["Son derece yapılandırılmış ve detaylı planlayıcı", "Düzenli ama esnek", "Büyük resimde düzenli (detaylar dağınık)", "Spontane ve doğaçlama"],
+            uk: ["Високоструктурований і детальний планувальник", "Організований, але гнучкий", "Організований загалом (безлад у деталях)", "Спонтанний та імпровізаційний"]
+        }
+      },
+      {
+        id: "planning",
+        type: "multiple_choice",
+        question: {
+            ar: "هل تحب التخطيط للمستقبل؟",
+            de: "Planen Sie gerne für die Zukunft?",
+            en: "Do you like planning for the future?",
+            tr: "Gelecek için plan yapmayı sever misiniz?",
+            uk: "Вам подобається планувати майбутнє?"
+        },
+        options: {
+            ar: ["خطة مفصلة لمدة 5-10 سنوات", "أهداف لمدة 1-2 سنة", "أهداف قصيرة المدى (شهرية)", "يوماً بيوم (بدون خطة محددة)"],
+            de: ["Detaillierter 5-10 Jahresplan", "1-2 Jahresziele", "Kurzfristige (monatliche) Ziele", "Tag für Tag (Kein konkreter Plan)"],
+            en: ["5-10 year detailed plan", "1-2 year goals", "Short-term (monthly) goals", "Day-by-day (No specific plan)"],
+            tr: ["5-10 yıllık detaylı plan", "1-2 yıllık hedefler", "Kısa vadeli (aylık) hedefler", "Günden güne (Belirli bir plan yok)"],
+            uk: ["Детальний план на 5-10 років", "Цілі на 1-2 роки", "Короткострокові (щомісячні) цілі", "День за днем (Без конкретного плану)"]
+        }
+      },
+      {
+        id: "schedule",
+        type: "multiple_choice",
+        question: {
+            ar: "ما هو جدول العمل المفضل لديك؟",
+            de: "Was ist Ihr bevorzugter Arbeitsplan?",
+            en: "What is your preferred work schedule?",
+            tr: "Tercih ettiğiniz çalışma programı nedir?",
+            uk: "Який ваш бажаний графік роботи?"
+        },
+        options: {
+            ar: ["ساعات العمل القياسية (9-5)", "ساعات مرنة (في أي وقت)", "العمل بنظام الورديات (ليلاً/عطلات نهاية الأسبوع)", "سباقات قائمة على المشاريع"],
+            de: ["Standard-Geschäftszeiten (9-5)", "Flexible Arbeitszeiten (Jederzeit)", "Schichtarbeit (Nachts/Wochenende)", "Projektbasierte Sprints"],
+            en: ["Standard business hours (9-5)", "Flexible hours (Anytime)", "Shift work (Nights/Weekends)", "Project-based sprints"],
+            tr: ["Standart iş saatleri (9-5)", "Esnek saatler (Herhangi bir zaman)", "Vardiyalı çalışma (Geceler/Hafta sonları)", "Proje bazlı sprintler"],
+            uk: ["Стандартний робочий час (9-5)", "Гнучкий графік (У будь-який час)", "Позмінна робота (Ночі/Вихідні)", "Проектні спринти"]
+        }
+      }
+  ];
+  
+  export const quizQuestions = {
+    ar: commonQuestions.map(q => ({ ...q, question: q.question.ar, options: q.options ? q.options.ar : undefined })),
+    de: commonQuestions.map(q => ({ ...q, question: q.question.de, options: q.options ? q.options.de : undefined })),
+    en: commonQuestions.map(q => ({ ...q, question: q.question.en, options: q.options ? q.options.en : undefined })),
+    tr: commonQuestions.map(q => ({ ...q, question: q.question.tr, options: q.options ? q.options.tr : undefined })),
+    uk: commonQuestions.map(q => ({ ...q, question: q.question.uk, options: q.options ? q.options.uk : undefined })),
+  };
 
-export const professions = [
-  {
-    title: {
-      ar: 'مطور برمجيات',
-      de: 'Softwareentwickler/in',
-      en: 'Software Developer',
-      tr: 'Yazılım Geliştirici',
-      uk: 'Розробник програмного забезпечення',
-    },
-    category: 'job',
-    duration: {
-      ar: 'يختلف (عادةً يتطلب درجة جامعية أو تدريبًا مكثفًا)',
-      de: 'Variiert (meist Studium oder intensive Ausbildung)',
-      en: 'Varies (usually requires a degree or intensive training)',
-      tr: 'Değişir (genellikle bir derece veya yoğun eğitim gerektirir)',
-      uk: 'Різниться (зазвичай вимагає вищої освіти або інтенсивного навчання)',
-    },
-    salary: {
-      ar: '€45,000 - €75,000 سنويًا',
-      de: '€45.000 - €75.000/Jahr',
-      en: '€45,000 - €75,000/year',
-      tr: '€45.000 - €75.000/yıl',
-      uk: '€45,000 - €75,000/рік',
-    },
-    salaryRange: {
-      ar: '€3,500 - €6,000 شهرياً',
-      de: '€3.500 - €6.000/Monat',
-      en: '€3,500 - €6,000/month',
-      tr: '€3.500 - €6.000/ay',
-      uk: '€3,500 - €6,000/місяць',
-    },
-    jobOutlook: {
-      ar: 'ممتازة',
-      de: 'Ausgezeichnet',
-      en: 'Excellent',
-      tr: 'Mükemmel',
-      uk: 'Відмінні',
-    },
-    requirements: {
-      ar: 'مهارات برمجية قوية، تفكير منطقي، شهادة في علوم الحاسوب أو مجال ذي صلة.',
-      de: 'Starke Programmierkenntnisse, logisches Denken, Abschluss in Informatik oder verwandtem Feld.',
-      en: 'Strong programming skills, logical thinking, degree in Computer Science or related field.',
-      tr: 'Güçlü programlama becerileri, mantıksal düşünme, Bilgisayar Bilimleri veya ilgili alanda bir derece.',
-      uk: 'Сильні навички програмування, логічне мислення, диплом у галузі комп\'ютерних наук або суміжній галузі.',
-    },
-    duties: {
-      ar: 'تصميم وتطوير واختبار وصيانة تطبيقات البرمجيات.',
-      de: 'Entwurf, Entwicklung, Test und Wartung von Softwareanwendungen.',
-      en: 'Designing, developing, testing, and maintaining software applications.',
-      tr: 'Yazılım uygulamaları tasarlamak, geliştirmek, test etmek ve bakımını yapmak.',
-      uk: 'Проектування, розробка, тестування та підтримка програмних додатків.',
-    },
-    skillsRequired: {
-      ar: 'حل المشكلات، الاهتمام بالتفاصيل، التعاون الجماعي، التعلم المستمر',
-      de: 'Problemlösung, Detailgenauigkeit, Teamarbeit, kontinuierliches Lernen',
-      en: 'Problem-solving, attention to detail, teamwork, continuous learning',
-      tr: 'Problem çözme, detaylara dikkat, takım çalışması, sürekli öğrenme',
-      uk: 'Вирішення проблем, увага до деталей, командна робота, безперервне навчання',
-    },
-  },
-  {
-    title: {
-      ar: 'ممرض/ممرضة',
-      de: 'Pflegefachmann/Pflegefachfrau',
-      en: 'Nurse',
-      tr: 'Hemşire',
-      uk: 'Медсестра/Медбрат',
-    },
-    category: 'ausbildung',
-    duration: {
-      ar: '3 سنوات',
-      de: '3 Jahre',
-      en: '3 years',
-      tr: '3 yıl',
-      uk: '3 роки',
-    },
-    salary: {
-      ar: '€1,100 - €1,300 شهريًا (أثناء التدريب)',
-      de: '€1.100 - €1.300/Monat (während der Ausbildung)',
-      en: '€1,100 - €1,300/month (during training)',
-      tr: '€1.100 - €1.300/ay (eğitim sırasında)',
-      uk: '€1,100 - €1,300/місяць (під час навчання)',
-    },
-    salaryRange: {
-      ar: '€2,800 - €3,800 شهرياً',
-      de: '€2.800 - €3.800/Monat',
-      en: '€2,800 - €3,800/month',
-      tr: '€2.800 - €3.800/ay',
-      uk: '€2,800 - €3,800/місяць',
-    },
-    jobOutlook: {
-      ar: 'ممتازة',
-      de: 'Ausgezeichnet',
-      en: 'Excellent',
-      tr: 'Mükemmel',
-      uk: 'Відмінні',
-    },
-    requirements: {
-      ar: 'شهادة Realschulabschluss، تعاطف، مرونة جسدية ونفسية.',
-      de: 'Realschulabschluss, Empathie, körperliche und psychische Belastbarkeit.',
-      en: 'Intermediate school certificate, empathy, physical and psychological resilience.',
-      tr: 'Ortaokul diploması, empati, fiziksel ve psikolojik dayanıklılık.',
-      uk: 'Атестат про середню освіту, емпатія, фізична та психологічна стійкість.',
-    },
-    duties: {
-      ar: 'رعاية المرضى، إعطاء الأدوية، توثيق الإجراءات الطبية، دعم الأطباء.',
-      de: 'Pflege von Patienten, Verabreichung von Medikamenten, Dokumentation von medizinischen Maßnahmen, Unterstützung von Ärzten.',
-      en: 'Caring for patients, administering medication, documenting medical procedures, assisting doctors.',
-      tr: 'Hastaların bakımı, ilaçların uygulanması, tıbbi prosedürlerin belgelenmesi, doktorlara yardımcı olmak.',
-      uk: 'Догляд за пацієнтами, введення ліків, документування медичних процедур, допомога лікарям.',
-    },
-    skillsRequired: {
-      ar: 'مهارات تواصل، تعاطف، مسؤولية، قدرة على العمل تحت الضغط',
-      de: 'Kommunikationsfähigkeit, Empathie, Verantwortungsbewusstsein, Belastbarkeit',
-      en: 'Communication skills, empathy, responsibility, ability to work under pressure',
-      tr: 'İletişim becerileri, empati, sorumluluk, baskı altında çalışabilme becerisi',
-      uk: 'Комунікативні навички, емпатія, відповідальність, здатність працювати під тиском',
-    },
-  },
-  {
-    title: {
-      ar: 'ميكانيكي سيارات (ميكاترونيك)',
-      de: 'KFZ-Mechatroniker/in',
-      en: 'Automotive Mechatronics Technician',
-      tr: 'Otomotiv Mekatronik Teknisyeni',
-      uk: 'Автомобільний технік-мехатронік',
-    },
-    category: 'ausbildung',
-    duration: {
-      ar: '3.5 سنوات',
-      de: '3,5 Jahre',
-      en: '3.5 years',
-      tr: '3.5 yıl',
-      uk: '3,5 роки',
-    },
-    salary: {
-      ar: '€800 - €1,100 شهريًا (أثناء التدريب)',
-      de: '€800 - €1.100/Monat (während der Ausbildung)',
-      en: '€800 - €1,100/month (during training)',
-      tr: '€800 - €1.100/ay (eğitim sırasında)',
-      uk: '€800 - €1,100/місяць (під час навчання)',
-    },
-    salaryRange: {
-      ar: '€2,500 - €3,500 شهرياً',
-      de: '€2.500 - €3.500/Monat',
-      en: '€2,500 - €3,500/month',
-      tr: '€2.500 - €3.500/ay',
-      uk: '€2,500 - €3,500/місяць',
-    },
-    jobOutlook: {
-      ar: 'جيدة',
-      de: 'Gut',
-      en: 'Good',
-      tr: 'İyi',
-      uk: 'Хороші',
-    },
-    requirements: {
-      ar: 'شهادة Hauptschulabschluss أو Realschulabschluss، فهم تقني، مهارات يدوية.',
-      de: 'Hauptschulabschluss oder Realschulabschluss, technisches Verständnis, handwerkliches Geschick.',
-      en: 'Basic or intermediate school certificate, technical understanding, manual skills.',
-      tr: 'Temel veya ortaokul diploması, teknik anlayış, el becerileri.',
-      uk: 'Базова або середня шкільна освіта, технічне розуміння, ручні навички.',
-    },
-    duties: {
-      ar: 'صيانة وإصلاح وتشخيص المركبات، بما في ذلك الأنظمة الميكانيكية والإلكترونية.',
-      de: 'Wartung, Reparatur und Diagnose von Fahrzeugen, einschließlich mechanischer und elektronischer Systeme.',
-      en: 'Maintaining, repairing, and diagnosing vehicles, including mechanical and electronic systems.',
-      tr: 'Mekanik ve elektronik sistemler dahil olmak üzere araçların bakımı, onarımı ve teşhisi.',
-      uk: 'Технічне обслуговування, ремонт та діагностика транспортних засобів, включаючи механічні та електронні системи.',
-    },
-    skillsRequired: {
-      ar: 'مهارات تحليلية، دقة، عمل موجه للعملاء، تعلم مستمر',
-      de: 'Analytische Fähigkeiten, Genauigkeit, kundenorientiertes Arbeiten, ständiges Lernen',
-      en: 'Analytical skills, precision, customer-oriented work, continuous learning',
-      tr: 'Analitik beceriler, hassasiyet, müşteri odaklı çalışma, sürekli öğrenme',
-      uk: 'Аналітичні навички, точність, клієнтоорієнтована робота, безперервне навчання',
-    },
-  },
-  {
-    title: {
-      ar: 'دراسة إدارة الأعمال (BWL)',
-      de: 'Betriebswirtschaftslehre (BWL) Studium',
-      en: 'Business Administration Studies',
-      tr: 'İşletme Yönetimi Eğitimi',
-      uk: 'Вивчення ділового адміністрування',
-    },
-    category: 'study',
-    duration: {
-      ar: '3 سنوات (بكالوريوس)',
-      de: '3 Jahre (Bachelor)',
-      en: '3 years (Bachelor)',
-      tr: '3 yıl (Lisans)',
-      uk: '3 роки (бакалавр)',
-    },
-    salary: {
-      ar: 'لا يوجد راتب (ممكن الحصول على وظيفة طالب)',
-      de: 'Kein Gehalt (Werkstudentenjobs möglich)',
-      en: 'No salary (student jobs possible)',
-      tr: 'Maaş yok (öğrenci işleri mümkün)',
-      uk: 'Без зарплати (можлива робота для студентів)',
-    },
-    salaryRange: {
-      ar: '€3,500 - €5,500 شهرياً (بعد التخرج)',
-      de: '€3.500 - €5.500/Monat (nach Abschluss)',
-      en: '€3,500 - €5,500/month (after graduation)',
-      tr: '€3.500 - €5.500/ay (mezuniyet sonrası)',
-      uk: '€3,500 - €5,500/місяць (після закінчення)',
-    },
-    jobOutlook: {
-      ar: 'جيدة جداً',
-      de: 'Sehr gut',
-      en: 'Very good',
-      tr: 'Çok iyi',
-      uk: 'Дуже хороші',
-    },
-    requirements: {
-      ar: 'شهادة Abitur أو ما يعادلها، مهارات تحليلية، اهتمام بالاقتصاد.',
-      de: 'Abitur oder gleichwertiger Abschluss, analytische Fähigkeiten, Interesse an Wirtschaft.',
-      en: 'High school diploma (Abitur) or equivalent, analytical skills, interest in economics.',
-      tr: 'Lise diploması (Abitur) veya eşdeğeri, analitik beceriler, ekonomiye ilgi.',
-      uk: 'Атестат про повну загальну середню освіту (Abitur) або еквівалент, аналітичні навички, інтерес до економіки.',
-    },
-    duties: {
-      ar: 'فهم وتحليل العمليات التجارية، وتولي مهام في مجالات مثل التسويق، والتمويل، والموارد البشرية.',
-      de: 'Verständnis und Analyse von Geschäftsprozessen, Übernahme von Aufgaben in Bereichen wie Marketing, Finanzen, Personal.',
-      en: 'Understanding and analyzing business processes, taking on tasks in areas like marketing, finance, human resources.',
-      tr: 'Pazarlama, finans, insan kaynakları gibi alanlarda görevler alarak iş süreçlerini anlama ve analiz etme.',
-      uk: 'Розуміння та аналіз бізнес-процесів, виконання завдань у таких сферах, як маркетинг, фінанси, управління персоналом.',
-    },
-    skillsRequired: {
-      ar: 'تفكير استراتيجي، مهارات تواصل، قدرة على التنظيم، مهارات قيادية',
-      de: 'Strategisches Denken, Kommunikationsfähigkeit, Organisationstalent, Führungskompetenz',
-      en: 'Strategic thinking, communication skills, organizational talent, leadership skills',
-      tr: 'Stratejik düşünme, iletişim becerileri, organizasyon yeteneği, liderlik becerileri',
-      uk: 'Стратегічне мислення, комунікативні навички, організаторські здібності, лідерські якості',
-    },
-  },
-  {
-    title: {
-      ar: 'مصمم جرافيك',
-      de: 'Grafikdesigner/in',
-      en: 'Graphic Designer',
-      tr: 'Grafik Tasarımcı',
-      uk: 'Графічний дизайнер',
-    },
-    category: 'ausbildung',
-    duration: {
-      ar: '3 سنوات (تدريب مدرسي)',
-      de: '3 Jahre (schulische Ausbildung)',
-      en: '3 years (school-based training)',
-      tr: '3 yıl (okul tabanlı eğitim)',
-      uk: '3 роки (шкільне навчання)',
-    },
-    salary: {
-      ar: 'غير مدفوع الأجر (قد يتم تطبيق رسوم مدرسية)',
-      de: 'Unvergütet (ggf. Schulgeld)',
-      en: 'Unpaid (school fees may apply)',
-      tr: 'Ücretsiz (okul ücretleri uygulanabilir)',
-      uk: 'Неоплачуване (може стягуватися плата за навчання)',
-    },
-    salaryRange: {
-      ar: '€2,400 - €3,800 شهرياً',
-      de: '€2.400 - €3.800/Monat',
-      en: '€2,400 - €3,800/month',
-      tr: '€2.400 - €3.800/ay',
-      uk: '€2,400 - €3,800/місяць',
-    },
-    jobOutlook: {
-      ar: 'متوسطة',
-      de: 'Mittel',
-      en: 'Moderate',
-      tr: 'Orta',
-      uk: 'Помірні',
-    },
-    requirements: {
-      ar: 'شهادة Realschulabschluss، إبداع، مهارات في برامج التصميم (Adobe Creative Suite).',
-      de: 'Realschulabschluss, Kreativität, Kenntnisse in Design-Software (Adobe Creative Suite).',
-      en: 'Intermediate school certificate, creativity, skills in design software (Adobe Creative Suite).',
-      tr: 'Ortaokul diploması, yaratıcılık, tasarım yazılımı becerileri (Adobe Creative Suite).',
-      uk: 'Атестат про середню освіту, творчість, навички роботи з дизайнерським програмним забезпеченням (Adobe Creative Suite).',
-    },
-    duties: {
-      ar: 'إنشاء مفاهيم بصرية للشركات، بما في ذلك الشعارات والمواقع الإلكترونية والمواد التسويقية.',
-      de: 'Erstellung von visuellen Konzepten für Unternehmen, einschließlich Logos, Websites und Marketingmaterialien.',
-      en: 'Creating visual concepts for companies, including logos, websites, and marketing materials.',
-      tr: 'Logolar, web siteleri ve pazarlama materyalleri dahil olmak üzere şirketler için görsel konseptler oluşturmak.',
-      uk: 'Створення візуальних концепцій для компаній, включаючи логотипи, веб-сайти та маркетингові матеріали.',
-    },
-    skillsRequired: {
-      ar: 'إبداع، اهتمام بالتفاصيل، مهارات تواصل، إدارة الوقت',
-      de: 'Kreativität, Liebe zum Detail, Kommunikationsfähigkeit, Zeitmanagement',
-      en: 'Creativity, attention to detail, communication skills, time management',
-      tr: 'Yaratıcılık, detaylara dikkat, iletişim becerileri, zaman yönetimi',
-      uk: 'Творчість, увага до деталей, комунікативні навички, управління часом',
-    },
-  },
-  {
-    title: {
-      ar: 'كهربائي/كهربائية',
-      de: 'Elektroniker/in',
-      en: 'Electrician',
-      tr: 'Elektrikçi',
-      uk: 'Електрик',
-    },
-    category: 'ausbildung',
-    duration: {
-      ar: '3.5 سنوات',
-      de: '3,5 Jahre',
-      en: '3.5 years',
-      tr: '3.5 yıl',
-      uk: '3,5 роки',
-    },
-    salary: {
-      ar: '€850 - €1,200 شهريًا (أثناء التدريب)',
-      de: '€850 - €1.200/Monat (während der Ausbildung)',
-      en: '€850 - €1,200/month (during training)',
-      tr: '€850 - €1.200/ay (eğitim sırasında)',
-      uk: '€850 - €1,200/місяць (під час навчання)',
-    },
-    salaryRange: {
-      ar: '€2,800 - €3,800 شهرياً',
-      de: '€2.800 - €3.800/Monat',
-      en: '€2,800 - €3,800/month',
-      tr: '€2.800 - €3.800/ay',
-      uk: '€2,800 - €3,800/місяць',
-    },
-    jobOutlook: {
-      ar: 'جيدة جداً',
-      de: 'Sehr gut',
-      en: 'Very good',
-      tr: 'Çok iyi',
-      uk: 'Дуже хороші',
-    },
-    requirements: {
-      ar: 'شهادة Hauptschulabschluss أو Realschulabschluss، فهم تقني، عمل دقيق.',
-      de: 'Hauptschulabschluss oder Realschulabschluss, technisches Verständnis, sorgfältiges Arbeiten.',
-      en: 'Basic or intermediate school certificate, technical understanding, careful work.',
-      tr: 'Temel veya ortaokul diploması, teknik anlayış, dikkatli çalışma.',
-      uk: 'Базова або середня шкільна освіта, технічне розуміння, акуратна робота.',
-    },
-    duties: {
-      ar: 'تركيب وصيانة وإصلاح الأنظمة والتركيبات الكهربائية.',
-      de: 'Installation, Wartung und Reparatur von elektrischen Anlagen und Installationen.',
-      en: 'Installing, maintaining, and repairing electrical systems and installations.',
-      tr: 'Elektrik sistem ve tesisatlarının kurulumu, bakımı ve onarımı.',
-      uk: 'Монтаж, технічне обслуговування та ремонт електричних систем та установок.',
-    },
-    skillsRequired: {
-      ar: 'مهارات يدوية، وعي بالسلامة، تفكير منطقي، دقة',
-      de: 'Handwerkliches Geschick, Sicherheitsbewusstsein, logisches Denken, Genauigkeit',
-      en: 'Manual dexterity, safety awareness, logical thinking, precision',
-      tr: 'El becerisi, güvenlik bilinci, mantıksal düşünme, hassasiyet',
-      uk: 'Ручні навички, усвідомлення безпеки, логічне мислення, точність',
-    },
-  },
-  {
-    title: {
-      ar: 'طباخ/طباخة',
-      de: 'Koch/Köchin',
-      en: 'Cook/Chef',
-      tr: 'Aşçı',
-      uk: 'Кухар/Шеф-кухар',
-    },
-    category: 'ausbildung',
-    duration: {
-      ar: '3 سنوات',
-      de: '3 Jahre',
-      en: '3 years',
-      tr: '3 yıl',
-      uk: '3 роки',
-    },
-    salary: {
-      ar: '€700 - €1,000 شهريًا (أثناء التدريب)',
-      de: '€700 - €1.000/Monat (während der Ausbildung)',
-      en: '€700 - €1,000/month (during training)',
-      tr: '€700 - €1.000/ay (eğitim sırasında)',
-      uk: '€700 - €1,000/місяць (під час навчання)',
-    },
-    salaryRange: {
-      ar: '€2,200 - €3,200 شهرياً',
-      de: '€2.200 - €3.200/Monat',
-      en: '€2,200 - €3,200/month',
-      tr: '€2.200 - €3.200/ay',
-      uk: '€2,200 - €3,200/місяць',
-    },
-    jobOutlook: {
-      ar: 'جيدة',
-      de: 'Gut',
-      en: 'Good',
-      tr: 'İyi',
-      uk: 'Хороші',
-    },
-    requirements: {
-      ar: 'شهادة Hauptschulabschluss، إبداع، قدرة على التحمل، عمل جماعي.',
-      de: 'Hauptschulabschluss, Kreativität, Belastbarkeit, Teamfähigkeit.',
-      en: 'Basic school certificate, creativity, resilience, teamwork.',
-      tr: 'Temel okul diploması, yaratıcılık, dayanıklılık, takım çalışması.',
-      uk: 'Базова шкільна освіта, творчість, стійкість, командна робота.',
-    },
-    duties: {
-      ar: 'تحضير وطهي الأطباق، تخطيط القوائم، تنظيم عمليات المطبخ.',
-      de: 'Zubereitung und Kochen von Speisen, Planung von Menüs, Organisation von Küchenabläufen.',
-      en: 'Preparing and cooking dishes, planning menus, organizing kitchen operations.',
-      tr: 'Yemeklerin hazırlanması ve pişirilmesi, menülerin planlanması, mutfak operasyonlarının organize edilmesi.',
-      uk: 'Приготування страв, планування меню, організація роботи кухні.',
-    },
-    skillsRequired: {
-      ar: 'إبداع، إدارة الوقت، قدرة على العمل تحت الضغط، اهتمام بالجودة',
-      de: 'Kreativität, Zeitmanagement, Belastbarkeit, Qualitätsbewusstsein',
-      en: 'Creativity, time management, ability to work under pressure, quality awareness',
-      tr: 'Yaratıcılık, zaman yönetimi, baskı altında çalışabilme becerisi, kalite bilinci',
-      uk: 'Творчість, управління часом, здатність працювати під тиском, усвідомлення якості',
-    },
-  },
-  {
-    title: {
-      ar: 'معلم/معلمة رياض أطفال',
-      de: 'Erzieher/in',
-      en: 'Kindergarten Teacher/Educator',
-      tr: 'Anaokulu Öğretmeni/Eğitimci',
-      uk: 'Вихователь/Вихователька дитячого садка',
-    },
-    category: 'ausbildung',
-    duration: {
-      ar: '3-5 سنوات (تدريب مدرسي)',
-      de: '3-5 Jahre (schulische Ausbildung)',
-      en: '3-5 years (school-based training)',
-      tr: '3-5 yıl (okul tabanlı eğitim)',
-      uk: '3-5 років (шкільне навчання)',
-    },
-    salary: {
-      ar: 'يختلف (قد يكون غير مدفوع الأجر أو مدفوعًا)',
-      de: 'Variiert (kann unvergütet oder vergütet sein)',
-      en: 'Varies (can be unpaid or paid)',
-      tr: 'Değişir (ücretsiz veya ücretli olabilir)',
-      uk: 'Різниться (може бути неоплачуваним або оплачуваним)',
-    },
-    salaryRange: {
-      ar: '€2,800 - €3,800 شهرياً',
-      de: '€2.800 - €3.800/Monat',
-      en: '€2,800 - €3,800/month',
-      tr: '€2.800 - €3.800/ay',
-      uk: '€2,800 - €3,800/місяць',
-    },
-    jobOutlook: {
-      ar: 'ممتازة',
-      de: 'Ausgezeichnet',
-      en: 'Excellent',
-      tr: 'Mükemmel',
-      uk: 'Відмінні',
-    },
-    requirements: {
-      ar: 'شهادة Realschulabschluss، صبر، إبداع، مسؤولية.',
-      de: 'Realschulabschluss, Geduld, Kreativität, Verantwortungsbewusstsein.',
-      en: 'Intermediate school certificate, patience, creativity, responsibility.',
-      tr: 'Ortaokul diploması, sabır, yaratıcılık, sorumluluk.',
-      uk: 'Атестат про середню освіту, терпіння, творчість, відповідальність.',
-    },
-    duties: {
-      ar: 'رعاية وتعليم الأطفال، تخطيط الأنشطة التربوية، التواصل مع أولياء الأمور.',
-      de: 'Betreuung und Erziehung von Kindern, Planung von pädagogischen Aktivitäten, Kommunikation mit Eltern.',
-      en: 'Caring for and educating children, planning educational activities, communicating with parents.',
-      tr: 'Çocukların bakımı ve eğitimi, eğitici faaliyetlerin planlanması, ebeveynlerle iletişim.',
-      uk: 'Догляд та виховання дітей, планування освітніх заходів, спілкування з батьками.',
-    },
-    skillsRequired: {
-      ar: 'تعاطف، مهارات تواصل، صبر، قدرة على التنظيم',
-      de: 'Empathie, Kommunikationsfähigkeit, Geduld, Organisationstalent',
-      en: 'Empathy, communication skills, patience, organizational skills',
-      tr: 'Empati, iletişim becerileri, sabır, organizasyon becerileri',
-      uk: 'Емпатія, комунікативні навички, терпіння, організаторські здібності',
-    },
-  },
-  {
-    title: {
-      ar: 'صيدلي/صيدلانية',
-      de: 'Apotheker/in',
-      en: 'Pharmacist',
-      tr: 'Eczacı',
-      uk: 'Фармацевт',
-    },
-    category: 'study',
-    duration: {
-      ar: '5 سنوات (دراسة جامعية)',
-      de: '5 Jahre (Studium)',
-      en: '5 years (University study)',
-      tr: '5 yıl (Üniversite eğitimi)',
-      uk: '5 років (Університетське навчання)',
-    },
-    salary: {
-      ar: 'لا يوجد راتب أثناء الدراسة',
-      de: 'Kein Gehalt während des Studiums',
-      en: 'No salary during study',
-      tr: 'Eğitim sırasında maaş yok',
-      uk: 'Немає зарплати під час навчання',
-    },
-    salaryRange: {
-      ar: '€4,000 - €5,500 شهرياً',
-      de: '€4.000 - €5.500/Monat',
-      en: '€4,000 - €5,500/month',
-      tr: '€4.000 - €5.500/ay',
-      uk: '€4,000 - €5,500/місяць',
-    },
-    jobOutlook: {
-      ar: 'جيدة جداً',
-      de: 'Sehr gut',
-      en: 'Very good',
-      tr: 'Çok iyi',
-      uk: 'Дуже хороші',
-    },
-    requirements: {
-      ar: 'شهادة الثانوية العامة (Abitur)، دراسة الصيدلة، ترخيص مزاولة المهنة',
-      de: 'Abitur, Pharmaziestudium, Approbation',
-      en: 'High school diploma (Abitur), pharmacy studies, license to practice',
-      tr: 'Lise diploması (Abitur), eczacılık eğitimi, çalışma izni',
-      uk: 'Атестат про повну загальну середню освіту (Abitur), фармацевтична освіта, ліцензія на практику',
-    },
-    duties: {
-      ar: 'صرف الأدوية، تقديم المشورة للمرضى حول الأدوية، تصنيع بعض الأدوية، إدارة الصيدلية.',
-      de: 'Abgabe von Medikamenten, Beratung von Patienten über Arzneimittel, Herstellung von Rezepturen, Verwaltung der Apotheke.',
-      en: 'Dispensing medications, advising patients on drugs, manufacturing certain pharmaceuticals, managing the pharmacy.',
-      tr: 'İlaçları hazırlamak, hastalara ilaçlar hakkında danışmanlık yapmak, belirli ilaçları üretmek, eczaneyi yönetmek.',
-      uk: 'Видача ліків, консультування пацієнтів щодо ліків, виготовлення деяких лікарських засобів, управління аптекою.',
-    },
-    skillsRequired: {
-      ar: 'دقة عالية، معرفة علمية، مهارات تواصل، حس بالمسؤولية',
-      de: 'Hohe Genauigkeit, wissenschaftliches Wissen, Kommunikationsfähigkeit, Verantwortungsbewusstsein',
-      en: 'High accuracy, scientific knowledge, communication skills, sense of responsibility',
-      tr: 'Yüksek doğruluk, bilimsel bilgi, iletişim becerileri, sorumluluk duygusu',
-      uk: 'Висока точність, наукові знання, комунікативні навички, почуття відповідальності',
+  export const professions = [
+    {
+        title: {
+            ar: "مطور برمجيات",
+            de: "Softwareentwickler",
+            en: "Software Developer",
+            tr: "Yazılım Geliştirici",
+            uk: "Розробник програмного забезпечення"
+        },
+        duration: {
+            ar: "3 سنوات (تدريب) أو 3-4 سنوات (جامعة)",
+            de: "3 Jahre (Ausbildung) oder 3-4 Jahre (Studium)",
+            en: "3 years (Apprenticeship) or 3-4 years (University)",
+            tr: "3 yıl (Mesleki Eğitim) veya 3-4 yıl (Üniversite)",
+            uk: "3 роки (професійне навчання) або 3-4 роки (університет)"
+        },
+        salary: {
+            ar: "1000-1200 يورو (أثناء التدريب)",
+            de: "1000-1200 € (während Ausbildung)",
+            en: "1000-1200 € (during training)",
+            tr: "1000-1200 € (eğitim sırasında)",
+            uk: "1000-1200 € (під час навчання)"
+        },
+        salaryRange: {
+             ar: "45,000 - 70,000 يورو سنوياً",
+             de: "45.000 - 70.000 € jährlich",
+             en: "45,000 - 70,000 € annually",
+             tr: "Yıllık 45.000 - 70.000 €",
+             uk: "45,000 - 70,000 € на рік"
+        },
+        jobOutlook: {
+             ar: "مطلوب جداً",
+             de: "Sehr gefragt",
+             en: "High demand",
+             tr: "Yüksek talep",
+             uk: "Високий попит"
+        },
+        requirements: {
+            ar: "شهادة ثانوية (Abitur) أو متوسطة (Realschule) جيدة، منطق قوي",
+            de: "Abitur oder guter Realschulabschluss, logisches Denken",
+            en: "A-Levels or good secondary school certificate, logical thinking",
+            tr: "Lise diploması veya iyi ortaokul diploması, mantıksal düşünme",
+            uk: "Атестат про середню освіту або хороший атестат реальної школи, логічне мислення"
+        },
+        duties: {
+            ar: "كتابة الأكواد، تطوير التطبيقات، حل المشاكل التقنية",
+            de: "Code schreiben, Apps entwickeln, technische Probleme lösen",
+            en: "Writing code, developing apps, solving technical problems",
+            tr: "Kod yazma, uygulama geliştirme, teknik sorunları çözme",
+            uk: "Написання коду, розробка додатків, вирішення технічних проблем"
+        },
+        skillsRequired: {
+            ar: "Java, Python, C++, حل المشكلات، العمل الجماعي",
+            de: "Java, Python, C++, Problemlösung, Teamarbeit",
+            en: "Java, Python, C++, Problem Solving, Teamwork",
+            tr: "Java, Python, C++, Problem Çözme, Takım Çalışması",
+            uk: "Java, Python, C++, вирішення проблем, командна робота"
+        }
+    },
+    {
+        title: {
+            ar: "ممرض / ممرضة",
+            de: "Pflegefachmann / Pflegefachfrau",
+            en: "Nurse",
+            tr: "Hemşire",
+            uk: "Медсестра / Медбрат"
+        },
+        duration: {
+            ar: "3 سنوات (تدريب مهني)",
+            de: "3 Jahre (Ausbildung)",
+            en: "3 years (Vocational Training)",
+            tr: "3 yıl (Mesleki Eğitim)",
+            uk: "3 роки (професійне навчання)"
+        },
+        salary: {
+            ar: "1100-1300 يورو (أثناء التدريب)",
+            de: "1100-1300 € (während Ausbildung)",
+            en: "1100-1300 € (during training)",
+            tr: "1100-1300 € (eğitim sırasında)",
+            uk: "1100-1300 € (під час навчання)"
+        },
+        salaryRange: {
+             ar: "35,000 - 45,000 يورو سنوياً",
+             de: "35.000 - 45.000 € jährlich",
+             en: "35,000 - 45,000 € annually",
+             tr: "Yıllık 35.000 - 45.000 €",
+             uk: "35,000 - 45.000 € на рік"
+        },
+        jobOutlook: {
+             ar: "نقص حاد في الموظفين، فرص ممتازة",
+             de: "Starker Mangel, exzellente Chancen",
+             en: "Severe shortage, excellent opportunities",
+             tr: "Ciddi personel açığı, mükemmel fırsatlar",
+             uk: "Гостра нестача персоналу, відмінні можливості"
+        },
+        requirements: {
+            ar: "شهادة متوسطة (Realschule)، تعاطف، قدرة على التحمل",
+            de: "Realschulabschluss, Empathie, Belastbarkeit",
+            en: "Secondary school certificate, empathy, resilience",
+            tr: "Ortaokul diploması, empati, dayanıklılık",
+            uk: "Атестат реальної школи, емпатія, стійкість"
+        },
+        duties: {
+            ar: "رعاية المرضى، تقديم الأدوية، توثيق الحالات",
+            de: "Patienten betreuen, Medikamente vergeben, Dokumentation",
+            en: "Caring for patients, administering medication, documentation",
+            tr: "Hastalara bakmak, ilaç vermek, dokümantasyon",
+            uk: "Догляд за пацієнтами, введення ліків, документація"
+        },
+        skillsRequired: {
+            ar: "التواصل، الصبر، العمل تحت الضغط",
+            de: "Kommunikation, Geduld, Stressresistenz",
+            en: "Communication, Patience, Working under pressure",
+            tr: "İletişim, Sabır, Baskı altında çalışma",
+            uk: "Комунікація, терпіння, робота під тиском"
+        }
     }
-  },
-  {
-    title: {
-        ar: 'فني تدفئة وتكييف وصرف صحي',
-        de: 'Anlagenmechaniker/in für Sanitär-, Heizungs- und Klimatechnik',
-        en: 'Plumber/Heating and Air Conditioning Technician',
-        tr: 'Sıhhi Tesisat, Isıtma ve Klima Teknisyeni',
-        uk: 'Технік із санітарних, опалювальних та кондиціонерних систем'
-    },
-    category: 'ausbildung',
-    duration: {
-        ar: '3.5 سنوات',
-        de: '3,5 Jahre',
-        en: '3.5 years',
-        tr: '3.5 yıl',
-        uk: '3,5 роки'
-    },
-    salary: {
-        ar: '€750 - €1,150 شهريًا (أثناء التدريب)',
-        de: '€750 - €1.150/Monat (während der Ausbildung)',
-        en: '€750 - €1,150/month (during training)',
-        tr: '€750 - €1.150/ay (eğitim sırasında)',
-        uk: '€750 - €1,150/місяць (під час навчання)'
-    },
-    salaryRange: {
-        ar: '€2,900 - €3,900 شهرياً',
-        de: '€2.900 - €3.900/Monat',
-        en: '€2,900 - €3,900/month',
-        tr: '€2.900 - €3.900/ay',
-        uk: '€2,900 - €3,900/місяць'
-    },
-    jobOutlook: {
-        ar: 'ممتازة',
-        de: 'Ausgezeichnet',
-        en: 'Excellent',
-        tr: 'Mükemmel',
-        uk: 'Відмінні'
-    },
-    requirements: {
-        ar: 'شهادة Hauptschulabschluss، مهارات يدوية، فهم تقني.',
-        de: 'Hauptschulabschluss, handwerkliches Geschick, technisches Verständnis.',
-        en: 'Basic school certificate, manual skills, technical understanding.',
-        tr: 'Temel okul diploması, el becerileri, teknik anlayış.',
-        uk: 'Базова шкільна освіта, ручні навички, технічне розуміння.'
-    },
-    duties: {
-        ar: 'تركيب وصيانة أنظمة التدفئة والتكييف والصرف الصحي.',
-        de: 'Installation und Wartung von Heizungs-, Klima- und Sanitäranlagen.',
-        en: 'Installing and maintaining heating, air conditioning, and plumbing systems.',
-        tr: 'Isıtma, klima ve sıhhi tesisat sistemlerinin kurulumu ve bakımı.',
-        uk: 'Монтаж та обслуговування систем опалення, кондиціонування та сантехніки.'
-    },
-    skillsRequired: {
-        ar: 'مهارات حل المشكلات، دقة، توجه نحو العملاء، وعي بالسلامة.',
-        de: 'Problemlösungsfähigkeit, Sorgfalt, Kundenorientierung, Sicherheitsbewusstsein.',
-        en: 'Problem-solving skills, diligence, customer focus, safety awareness.',
-        tr: 'Problem çözme becerileri, özen, müşteri odaklılık, güvenlik bilinci.',
-        uk: 'Навички вирішення проблем, старанність, клієнтоорієнтованість, усвідомлення безпеки.'
-    }
-  },
-  {
-      title: {
-          ar: 'مصرفي',
-          de: 'Bankkaufmann/Bankkauffrau',
-          en: 'Bank Clerk',
-          tr: 'Bankacı',
-          uk: 'Банківський службовець'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€1,050 - €1,200 شهريًا (أثناء التدريب)',
-          de: '€1.050 - €1.200/Monat (während der Ausbildung)',
-          en: '€1,050 - €1,200/month (during training)',
-          tr: '€1.050 - €1.200/ay (eğitim sırasında)',
-          uk: '€1,050 - €1,200/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€3,000 - €4,500 شهرياً',
-          de: '€3.000 - €4.500/Monat',
-          en: '€3,000 - €4,500/month',
-          tr: '€3.000 - €4.500/ay',
-          uk: '€3,000 - €4,500/місяць'
-      },
-      jobOutlook: {
-          ar: 'متوسطة',
-          de: 'Mittel',
-          en: 'Moderate',
-          tr: 'Orta',
-          uk: 'Помірні'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss أو Abitur، اهتمام بالأمور المالية، مهارات تواصل.',
-          de: 'Realschulabschluss oder Abitur, Interesse an Finanzen, Kommunikationsstärke.',
-          en: 'Intermediate or high school certificate, interest in finance, communication skills.',
-          tr: 'Ortaokul veya lise diploması, finansa ilgi, iletişim becerileri.',
-          uk: 'Середня або вища шкільна освіта, інтерес до фінансів, комунікативні навички.'
-      },
-      duties: {
-          ar: 'تقديم المشورة للعملاء بشأن المنتجات المالية، معالجة المعاملات، إدارة الحسابات.',
-          de: 'Kundenberatung zu Finanzprodukten, Abwicklung von Transaktionen, Kontoführung.',
-          en: 'Advising customers on financial products, processing transactions, managing accounts.',
-          tr: 'Finansal ürünler hakkında müşterilere danışmanlık yapmak, işlemleri yürütmek, hesapları yönetmek.',
-          uk: 'Консультування клієнтів щодо фінансових продуктів, обробка транзакцій, ведення рахунків.'
-      },
-      skillsRequired: {
-          ar: 'مهارات بيع، دقة، جدارة بالثقة، مهارات عددية.',
-          de: 'Verkaufstalent, Genauigkeit, Vertrauenswürdigkeit, Zahlenverständnis.',
-          en: 'Sales skills, accuracy, trustworthiness, numeracy.',
-          tr: 'Satış becerileri, doğruluk, güvenilirlik, sayısal yetenek.',
-          uk: 'Навички продажів, точність, надійність, вміння рахувати.'
-      }
-  },
-  {
-      title: {
-          ar: 'عالم أحياء',
-          de: 'Biologe/Biologin',
-          en: 'Biologist',
-          tr: 'Biyolog',
-          uk: 'Біолог'
-      },
-      category: 'study',
-      duration: {
-          ar: '5 سنوات (بكالوريوس + ماجستير)',
-          de: '5 Jahre (Bachelor + Master)',
-          en: '5 years (Bachelor + Master)',
-          tr: '5 yıl (Lisans + Yüksek Lisans)',
-          uk: '5 років (бакалавр + магістр)'
-      },
-      salary: {
-          ar: 'لا يوجد راتب (ممكن الحصول على وظيفة طالب)',
-          de: 'Kein Gehalt (Werkstudentenjobs möglich)',
-          en: 'No salary (student jobs possible)',
-          tr: 'Maaş yok (öğrenci işleri mümkün)',
-          uk: 'Без зарплати (можлива робота для студентів)'
-      },
-      salaryRange: {
-          ar: '€3,800 - €5,500 شهرياً',
-          de: '€3.800 - €5.500/Monat',
-          en: '€3,800 - €5,500/month',
-          tr: '€3.800 - €5.500/ay',
-          uk: '€3,800 - €5,500/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Abitur، دراسة علم الأحياء، شغف بالبحث العلمي.',
-          de: 'Abitur, Biologiestudium, Leidenschaft für Forschung.',
-          en: 'High school diploma (Abitur), biology studies, passion for research.',
-          tr: 'Lise diploması (Abitur), biyoloji eğitimi, araştırma tutkusu.',
-          uk: 'Атестат про повну загальну середню освіту (Abitur), вивчення біології, пристрасть до досліджень.'
-      },
-      duties: {
-          ar: 'إجراء أبحاث في المختبر أو الميدان، تحليل البيانات، نشر النتائج العلمية.',
-          de: 'Forschung im Labor oder Feld durchführen, Daten analysieren, wissenschaftliche Ergebnisse veröffentlichen.',
-          en: 'Conducting research in labs or in the field, analyzing data, publishing scientific findings.',
-          tr: 'Laboratuvarda veya sahada araştırma yapmak, verileri analiz etmek, bilimsel bulguları yayınlamak.',
-          uk: 'Проведення досліджень у лабораторіях або в польових умовах, аналіз даних, публікація наукових результатів.'
-      },
-      skillsRequired: {
-          ar: 'تفكير تحليلي، صبر، دقة، فضول علمي.',
-          de: 'Analytisches Denken, Geduld, Genauigkeit, wissenschaftliche Neugier.',
-          en: 'Analytical thinking, patience, accuracy, scientific curiosity.',
-          tr: 'Analitik düşünme, sabır, doğruluk, bilimsel merak.',
-          uk: 'Аналітичне мислення, терпіння, точність, наукова допитливість.'
-      }
-  },
-  {
-      title: {
-          ar: 'نجار',
-          de: 'Tischler/in (Schreiner/in)',
-          en: 'Carpenter/Joiner',
-          tr: 'Marangoz',
-          uk: 'Столяр'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€700 - €950 شهريًا (أثناء التدريب)',
-          de: '€700 - €950/Monat (während der Ausbildung)',
-          en: '€700 - €950/month (during training)',
-          tr: '€700 - €950/ay (eğitim sırasında)',
-          uk: '€700 - €950/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,500 - €3,400 شهرياً',
-          de: '€2.500 - €3.400/Monat',
-          en: '€2,500 - €3,400/month',
-          tr: '€2.500 - €3.400/ay',
-          uk: '€2,500 - €3,400/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، مهارات يدوية، إدراك مكاني.',
-          de: 'Hauptschulabschluss, handwerkliches Geschick, räumliches Vorstellungsvermögen.',
-          en: 'Basic school certificate, manual skills, spatial awareness.',
-          tr: 'Temel okul diploması, el becerileri, mekansal farkındalık.',
-          uk: 'Базова шкільна освіта, ручні навички, просторове уявлення.'
-      },
-      duties: {
-          ar: 'صناعة وإصلاح الأثاث والنوافذ والأبواب والمكونات الخشبية الأخرى.',
-          de: 'Herstellung und Reparatur von Möbeln, Fenstern, Türen und anderen Holzbauteilen.',
-          en: 'Making and repairing furniture, windows, doors, and other wooden components.',
-          tr: 'Mobilya, pencere, kapı ve diğer ahşap bileşenleri yapmak ve onarmak.',
-          uk: 'Виготовлення та ремонт меблів, вікон, дверей та інших дерев\'яних компонентів.'
-      },
-      skillsRequired: {
-          ar: 'دقة، إبداع، فهم رياضي، قوة بدنية.',
-          de: 'Präzision, Kreativität, mathematisches Verständnis, körperliche Fitness.',
-          en: 'Precision, creativity, mathematical understanding, physical fitness.',
-          tr: 'Hassasiyet, yaratıcılık, matematiksel anlayış, fiziksel uygunluk.',
-          uk: 'Точність, творчість, математичне розуміння, фізична підготовка.'
-      }
-  },
-  {
-      title: {
-          ar: 'مهندس معماري',
-          de: 'Architekt/in',
-          en: 'Architect',
-          tr: 'Mimar',
-          uk: 'Архітектор'
-      },
-      category: 'study',
-      duration: {
-          ar: '5 سنوات (بكالوريوس + ماجستير)',
-          de: '5 Jahre (Bachelor + Master)',
-          en: '5 years (Bachelor + Master)',
-          tr: '5 yıl (Lisans + Yüksek Lisans)',
-          uk: '5 років (бакалавр + магістр)'
-      },
-      salary: {
-          ar: 'لا يوجد راتب (ممكن الحصول على وظيفة طالب)',
-          de: 'Kein Gehalt (Werkstudentenjobs möglich)',
-          en: 'No salary (student jobs possible)',
-          tr: 'Maaş yok (öğrenci işleri mümkün)',
-          uk: 'Без зарплати (можлива робота для студентів)'
-      },
-      salaryRange: {
-          ar: '€3,500 - €6,000 شهرياً',
-          de: '€3.500 - €6.000/Monat',
-          en: '€3,500 - €6,000/month',
-          tr: '€3.500 - €6.000/ay',
-          uk: '€3,500 - €6,000/місяць'
-      },
-      jobOutlook: {
-          ar: 'متوسطة',
-          de: 'Mittel',
-          en: 'Moderate',
-          tr: 'Orta',
-          uk: 'Помірні'
-      },
-      requirements: {
-          ar: 'شهادة Abitur، دراسة الهندسة المعمارية، إبداع، فهم تقني.',
-          de: 'Abitur, Architekturstudium, Kreativität, technisches Verständnis.',
-          en: 'High school diploma (Abitur), architecture studies, creativity, technical understanding.',
-          tr: 'Lise diploması (Abitur), mimarlık eğitimi, yaratıcılık, teknik anlayış.',
-          uk: 'Атестат про повну загальну середню освіту (Abitur), вивчення архітектури, творчість, технічне розуміння.'
-      },
-      duties: {
-          ar: 'تصميم وتخطيط والإشراف على بناء المباني.',
-          de: 'Entwerfen, Planen und Überwachen des Baus von Gebäuden.',
-          en: 'Designing, planning, and supervising the construction of buildings.',
-          tr: 'Binaların tasarımını, planlamasını ve inşaatını denetlemek.',
-          uk: 'Проектування, планування та нагляд за будівництвом будівель.'
-      },
-      skillsRequired: {
-          ar: 'تفكير مكاني، مهارات تصميم، معرفة بالبناء، مهارات تنظيمية.',
-          de: 'Räumliches Denken, Designfähigkeiten, Baukenntnisse, organisatorische Fähigkeiten.',
-          en: 'Spatial thinking, design skills, construction knowledge, organizational skills.',
-          tr: 'Mekansal düşünme, tasarım becerileri, inşaat bilgisi, organizasyon becerileri.',
-          uk: 'Просторове мислення, дизайнерські навички, знання будівництва, організаторські здібності.'
-      }
-  },
-  {
-      title: {
-          ar: 'مساعد طبيب أسنان',
-          de: 'Zahnmedizinische/r Fachangestellte/r (ZFA)',
-          en: 'Dental Assistant',
-          tr: 'Diş Hekimi Asistanı',
-          uk: 'Асистент стоматолога'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€800 - €1,000 شهريًا (أثناء التدريب)',
-          de: '€800 - €1.000/Monat (während der Ausbildung)',
-          en: '€800 - €1,000/month (during training)',
-          tr: '€800 - €1.000/ay (eğitim sırasında)',
-          uk: '€800 - €1,000/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,200 - €2,900 شهرياً',
-          de: '€2.200 - €2.900/Monat',
-          en: '€2,200 - €2,900/month',
-          tr: '€2.200 - €2.900/ay',
-          uk: '€2,200 - €2,900/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، مهارات يدوية دقيقة، تعاطف.',
-          de: 'Hauptschulabschluss, feines handwerkliches Geschick, Einfühlungsvermögen.',
-          en: 'Basic school certificate, fine motor skills, empathy.',
-          tr: 'Temel okul diploması, ince motor becerileri, empati.',
-          uk: 'Базова шкільна освіта, дрібна моторика, емпатія.'
-      },
-      duties: {
-          ar: 'المساعدة في علاجات الأسنان، تنظيم المواعيد، إدارة شؤون المرضى.',
-          de: 'Assistenz bei Zahnbehandlungen, Terminorganisation, Patientenverwaltung.',
-          en: 'Assisting with dental treatments, organizing appointments, managing patient affairs.',
-          tr: 'Diş tedavilerinde asistanlık yapmak, randevuları organize etmek, hasta işlerini yönetmek.',
-          uk: 'Асистування при стоматологічних процедурах, організація прийомів, ведення справ пацієнтів.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تنظيمية، دقة، مهارات تواصل، هدوء.',
-          de: 'Organisationsgeschick, Sorgfalt, Kommunikationsfähigkeit, ruhige Art.',
-          en: 'Organizational skills, diligence, communication skills, calm demeanor.',
-          tr: 'Organizasyon becerileri, özen, iletişim becerileri, sakin mizaç.',
-          uk: 'Організаторські здібності, старанність, комунікативні навички, спокійний характер.'
-      }
-  },
-  {
-      title: {
-          ar: 'أخصائي علاج طبيعي',
-          de: 'Physiotherapeut/in',
-          en: 'Physiotherapist',
-          tr: 'Fizyoterapist',
-          uk: 'Фізіотерапевт'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات (تدريب مدرسي)',
-          de: '3 Jahre (schulische Ausbildung)',
-          en: '3 years (school-based training)',
-          tr: '3 yıl (okul tabanlı eğitim)',
-          uk: '3 роки (шкільне навчання)'
-      },
-      salary: {
-          ar: 'غير مدفوع الأجر (قد يتم تطبيق رسوم مدرسية)',
-          de: 'Unvergütet (ggf. Schulgeld)',
-          en: 'Unpaid (school fees may apply)',
-          tr: 'Ücretsiz (okul ücretleri uygulanabilir)',
-          uk: 'Неоплачуване (може стягуватися плата за навчання)'
-      },
-      salaryRange: {
-          ar: '€2,800 - €3,800 شهرياً',
-          de: '€2.800 - €3.800/Monat',
-          en: '€2,800 - €3,800/month',
-          tr: '€2.800 - €3.800/ay',
-          uk: '€2,800 - €3,800/місяць'
-      },
-      jobOutlook: {
-          ar: 'ممتازة',
-          de: 'Ausgezeichnet',
-          en: 'Excellent',
-          tr: 'Mükemmel',
-          uk: 'Відмінні'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، اهتمام بالطب، لياقة بدنية.',
-          de: 'Realschulabschluss, Interesse an Medizin, körperliche Fitness.',
-          en: 'Intermediate school certificate, interest in medicine, physical fitness.',
-          tr: 'Ortaokul diploması, tıbba ilgi, fiziksel uygunluk.',
-          uk: 'Атестат про середню освіту, інтерес до медицини, фізична підготовка.'
-      },
-      duties: {
-          ar: 'علاج المرضى الذين يعانون من قيود حركية من خلال التمارين والتدليك.',
-          de: 'Behandlung von Patienten mit Bewegungseinschränkungen durch Übungen und Massagen.',
-          en: 'Treating patients with mobility restrictions through exercises and massages.',
-          tr: 'Egzersizler ve masajlarla hareket kısıtlılığı olan hastaları tedavi etmek.',
-          uk: 'Лікування пацієнтів з обмеженнями рухливості за допомогою вправ та масажу.'
-      },
-      skillsRequired: {
-          ar: 'تعاطف، مهارات تحفيزية، معرفة تشريحية، صبر.',
-          de: 'Empathie, Motivationsfähigkeit, anatomische Kenntnisse, Geduld.',
-          en: 'Empathy, motivational skills, anatomical knowledge, patience.',
-          tr: 'Empati, motivasyon becerileri, anatomi bilgisi, sabır.',
-          uk: 'Емпатія, мотиваційні навички, знання анатомії, терпіння.'
-      }
-  },
-  {
-      title: {
-          ar: 'أخصائي لوجستيات المستودعات',
-          de: 'Fachkraft für Lagerlogistik',
-          en: 'Warehouse Logistics Specialist',
-          tr: 'Depo Lojistiği Uzmanı',
-          uk: 'Спеціаліст зі складської логістики'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€850 - €1,100 شهريًا (أثناء التدريب)',
-          de: '€850 - €1.100/Monat (während der Ausbildung)',
-          en: '€850 - €1,100/month (during training)',
-          tr: '€850 - €1.100/ay (eğitim sırasında)',
-          uk: '€850 - €1,100/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,400 - €3,200 شهرياً',
-          de: '€2.400 - €3.200/Monat',
-          en: '€2,400 - €3,200/month',
-          tr: '€2.400 - €3.200/ay',
-          uk: '€2,400 - €3,200/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، مهارات تنظيمية، فهم أساسي للحاسوب.',
-          de: 'Hauptschulabschluss, Organisationstalent, grundlegende PC-Kenntnisse.',
-          en: 'Basic school certificate, organizational skills, basic computer knowledge.',
-          tr: 'Temel okul diploması, organizasyon becerileri, temel bilgisayar bilgisi.',
-          uk: 'Базова шкільна освіта, організаторські здібності, базові знання комп\'ютера.'
-      },
-      duties: {
-          ar: 'استلام وتخزين وشحن البضائع، تحسين عمليات المستودعات.',
-          de: 'Annahme, Lagerung und Versand von Gütern, Optimierung von Lagerprozessen.',
-          en: 'Receiving, storing, and shipping goods, optimizing warehouse processes.',
-          tr: 'Malları teslim almak, depolamak ve göndermek, depo süreçlerini optimize etmek.',
-          uk: 'Приймання, зберігання та відвантаження товарів, оптимізація складських процесів.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تنظيمية، دقة، لياقة بدنية، عمل جماعي.',
-          de: 'Organisationsfähigkeit, Genauigkeit, körperliche Fitness, Teamarbeit.',
-          en: 'Organizational skills, accuracy, physical fitness, teamwork.',
-          tr: 'Organizasyon becerileri, doğruluk, fiziksel uygunluk, takım çalışması.',
-          uk: 'Організаторські здібності, точність, фізична підготовка, командна робота.'
-      }
-  },
-  {
-      title: {
-          ar: 'بائع تجزئة',
-          de: 'Kaufmann/Kauffrau im Einzelhandel',
-          en: 'Retail Salesperson',
-          tr: 'Perakende Satış Elemanı',
-          uk: 'Продавець-консультант у роздрібній торгівлі'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€800 - €1,000 شهريًا (أثناء التدريب)',
-          de: '€800 - €1.000/Monat (während der Ausbildung)',
-          en: '€800 - €1,000/month (during training)',
-          tr: '€800 - €1.000/ay (eğitim sırasında)',
-          uk: '€800 - €1,000/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,100 - €2,800 شهرياً',
-          de: '€2.100 - €2.800/Monat',
-          en: '€2,100 - €2,800/month',
-          tr: '€2.100 - €2.800/ay',
-          uk: '€2,100 - €2,800/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، الاستمتاع بالتواصل مع العملاء، مظهر أنيق.',
-          de: 'Hauptschulabschluss, Freude am Kundenkontakt, gepflegtes Erscheinungsbild.',
-          en: 'Basic school certificate, enjoyment of customer contact, neat appearance.',
-          tr: 'Temel okul diploması, müşteriyle iletişimden keyif alma, düzgün görünüm.',
-          uk: 'Базова шкільна освіта, задоволення від спілкування з клієнтами, охайний вигляд.'
-      },
-      duties: {
-          ar: 'بيع البضائع، تقديم المشورة للعملاء، إدارة عمليات الدفع، ترتيب المتجر.',
-          de: 'Verkauf von Waren, Kundenberatung, Kassiertätigkeiten, Warenpräsentation.',
-          en: 'Selling goods, advising customers, cashier duties, product presentation.',
-          tr: 'Mal satmak, müşterilere danışmanlık yapmak, kasada çalışmak, ürün sunumu yapmak.',
-          uk: 'Продаж товарів, консультування клієнтів, робота на касі, презентація товарів.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تواصل، توجه نحو العملاء، مرونة، مهارات عددية.',
-          de: 'Kommunikationsstärke, Kundenorientierung, Flexibilität, Rechenkenntnisse.',
-          en: 'Communication skills, customer focus, flexibility, numeracy skills.',
-          tr: 'İletişim becerileri, müşteri odaklılık, esneklik, aritmetik becerileri.',
-          uk: 'Комунікативні навички, клієнтоорієнтованість, гнучкість, навички лічби.'
-      }
-  },
-  {
-      title: {
-          ar: 'مهندس ميكانيكي',
-          de: 'Maschinenbauingenieur/in',
-          en: 'Mechanical Engineer',
-          tr: 'Makine Mühendisi',
-          uk: 'Інженер-механік'
-      },
-      category: 'study',
-      duration: {
-          ar: '5 سنوات (بكالوريوس + ماجستير)',
-          de: '5 Jahre (Bachelor + Master)',
-          en: '5 years (Bachelor + Master)',
-          tr: '5 yıl (Lisans + Yüksek Lisans)',
-          uk: '5 років (бакалавр + магістр)'
-      },
-      salary: {
-          ar: 'لا يوجد راتب (ممكن الحصول على وظيفة طالب)',
-          de: 'Kein Gehalt (Werkstudentenjobs möglich)',
-          en: 'No salary (student jobs possible)',
-          tr: 'Maaş yok (öğrenci işleri mümkün)',
-          uk: 'Без зарплати (можлива робота для студентів)'
-      },
-      salaryRange: {
-          ar: '€4,500 - €7,000 شهرياً',
-          de: '€4.500 - €7.000/Monat',
-          en: '€4,500 - €7,000/month',
-          tr: '€4.500 - €7.000/ay',
-          uk: '€4,500 - €7,000/місяць'
-      },
-      jobOutlook: {
-          ar: 'ممتازة',
-          de: 'Ausgezeichnet',
-          en: 'Excellent',
-          tr: 'Mükemmel',
-          uk: 'Відмінні'
-      },
-      requirements: {
-          ar: 'شهادة Abitur، دراسة الهندسة الميكانيكية، فهم تقني عميق.',
-          de: 'Abitur, Maschinenbaustudium, tiefes technisches Verständnis.',
-          en: 'High school diploma (Abitur), mechanical engineering studies, deep technical understanding.',
-          tr: 'Lise diploması (Abitur), makine mühendisliği eğitimi, derin teknik anlayış.',
-          uk: 'Атестат про повну загальну середню освіту (Abitur), вивчення машинобудування, глибоке технічне розуміння.'
-      },
-      duties: {
-          ar: 'تطوير وتصميم وبناء الآلات والأنظمة.',
-          de: 'Entwicklung, Konstruktion und Bau von Maschinen und Anlagen.',
-          en: 'Developing, designing, and constructing machines and systems.',
-          tr: 'Makinelerin ve sistemlerin geliştirilmesi, tasarlanması ve inşası.',
-          uk: 'Розробка, проектування та конструювання машин і систем.'
-      },
-      skillsRequired: {
-          ar: 'تفكير تحليلي، إبداع، معرفة بالمواد، مهارات برامج التصميم بمساعدة الحاسوب (CAD).',
-          de: 'Analytisches Denken, Kreativität, Materialkenntnisse, CAD-Kenntnisse.',
-          en: 'Analytical thinking, creativity, knowledge of materials, CAD skills.',
-          tr: 'Analitik düşünme, yaratıcılık, malzeme bilgisi, CAD becerileri.',
-          uk: 'Аналітичне мислення, творчість, знання матеріалів, навички роботи з CAD.'
-      }
-  },
-  {
-      title: {
-          ar: 'أخصائي تكنولوجيا المعلومات - تكامل الأنظمة',
-          de: 'Fachinformatiker/in für Systemintegration',
-          en: 'IT Specialist - System Integration',
-          tr: 'Bilişim Uzmanı - Sistem Entegrasyonu',
-          uk: 'ІТ-спеціаліст - Системна інтеграція'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€950 - €1,150 شهريًا (أثناء التدريب)',
-          de: '€950 - €1.150/Monat (während der Ausbildung)',
-          en: '€950 - €1,150/month (during training)',
-          tr: '€950 - €1.150/ay (eğitim sırasında)',
-          uk: '€950 - €1,150/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€3,200 - €4,500 شهرياً',
-          de: '€3.200 - €4.500/Monat',
-          en: '€3,200 - €4,500/month',
-          tr: '€3.200 - €4.500/ay',
-          uk: '€3,200 - €4,500/місяць'
-      },
-      jobOutlook: {
-          ar: 'ممتازة',
-          de: 'Ausgezeichnet',
-          en: 'Excellent',
-          tr: 'Mükemmel',
-          uk: 'Відмінні'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، تفكير منطقي، اهتمام بالشبكات والأجهزة.',
-          de: 'Realschulabschluss, logisches Denken, Interesse an Netzwerken und Hardware.',
-          en: 'Intermediate school certificate, logical thinking, interest in networks and hardware.',
-          tr: 'Ortaokul diploması, mantıksal düşünme, ağlara ve donanıma ilgi.',
-          uk: 'Атестат про середню освіту, логічне мислення, інтерес до мереж та апаратного забезпечення.'
-      },
-      duties: {
-          ar: 'تخطيط وتركيب وإدارة أنظمة وشبكات تكنولوجيا المعلومات.',
-          de: 'Planung, Installation und Verwaltung von IT-Systemen und Netzwerken.',
-          en: 'Planning, installing, and managing IT systems and networks.',
-          tr: 'BT sistemleri ve ağlarının planlanması, kurulması ve yönetilmesi.',
-          uk: 'Планування, встановлення та управління ІТ-системами та мережами.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تحليلية، توجه نحو الخدمة، تعلم مستمر، صبر.',
-          de: 'Analytische Fähigkeiten, Serviceorientierung, ständiges Lernen, Geduld.',
-          en: 'Analytical skills, service orientation, continuous learning, patience.',
-          tr: 'Analitik beceriler, hizmet odaklılık, sürekli öğrenme, sabır.',
-          uk: 'Аналітичні навички, сервісна орієнтація, безперервне навчання, терпіння.'
-      }
-  },
-  {
-      title: {
-          ar: 'مساعد قانوني',
-          de: 'Rechtsanwaltsfachangestellte/r',
-          en: 'Paralegal',
-          tr: 'Hukuk Asistanı',
-          uk: 'Помічник юриста'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€700 - €1,000 شهريًا (أثناء التدريب)',
-          de: '€700 - €1.000/Monat (während der Ausbildung)',
-          en: '€700 - €1,000/month (during training)',
-          tr: '€700 - €1.000/ay (eğitim sırasında)',
-          uk: '€700 - €1,000/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,400 - €3,300 شهرياً',
-          de: '€2.400 - €3.300/Monat',
-          en: '€2,400 - €3,300/month',
-          tr: '€2.400 - €3.300/ay',
-          uk: '€2,400 - €3,300/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، مهارات لغوية جيدة، دقة.',
-          de: 'Realschulabschluss, gute Sprachkenntnisse, Sorgfalt.',
-          en: 'Intermediate school certificate, good language skills, diligence.',
-          tr: 'Ortaokul diploması, iyi dil becerileri, özen.',
-          uk: 'Атестат про середню освіту, добрі мовні навички, старанність.'
-      },
-      duties: {
-          ar: 'دعم المحامين في المهام التنظيمية والإدارية، إعداد المستندات، التواصل مع العملاء.',
-          de: 'Unterstützung von Anwälten bei organisatorischen und administrativen Aufgaben, Erstellung von Dokumenten, Kommunikation mit Mandanten.',
-          en: 'Supporting lawyers with organizational and administrative tasks, preparing documents, communicating with clients.',
-          tr: 'Avukatlara organizasyonel ve idari görevlerde destek olmak, belgeler hazırlamak, müvekkillerle iletişim kurmak.',
-          uk: 'Підтримка юристів у організаційних та адміністративних завданнях, підготовка документів, спілкування з клієнтами.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تنظيمية، تقدير، اهتمام بالتفاصيل، مهارات تواصل.',
-          de: 'Organisationstalent, Diskretion, Detailgenauigkeit, Kommunikationsfähigkeit.',
-          en: 'Organizational skills, discretion, attention to detail, communication skills.',
-          tr: 'Organizasyon becerileri, gizlilik, detaylara dikkat, iletişim becerileri.',
-          uk: 'Організаторські здібності, обачність, увага до деталей, комунікативні навички.'
-      }
-  },
-  {
-      title: {
-          ar: 'مصفف شعر',
-          de: 'Friseur/in',
-          en: 'Hairdresser',
-          tr: 'Kuaför',
-          uk: 'Перукар'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€550 - €800 شهريًا (أثناء التدريب)',
-          de: '€550 - €800/Monat (während der Ausbildung)',
-          en: '€550 - €800/month (during training)',
-          tr: '€550 - €800/ay (eğitim sırasında)',
-          uk: '€550 - €800/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€1,800 - €2,500 شهرياً (بالإضافة إلى البقشيش)',
-          de: '€1.800 - €2.500/Monat (zzgl. Trinkgeld)',
-          en: '€1,800 - €2,500/month (plus tips)',
-          tr: '€1.800 - €2.500/ay (artı bahşiş)',
-          uk: '€1,800 - €2,500/місяць (плюс чайові)'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، إبداع، مهارات تواصل.',
-          de: 'Hauptschulabschluss, Kreativität, Kommunikationsstärke.',
-          en: 'Basic school certificate, creativity, communication skills.',
-          tr: 'Temel okul diploması, yaratıcılık, iletişim becerileri.',
-          uk: 'Базова шкільна освіта, творчість, комунікативні навички.'
-      },
-      duties: {
-          ar: 'تقديم المشورة للعملاء، قص وتلوين وتصفيف الشعر، العناية بفروة الرأس.',
-          de: 'Kundenberatung, Schneiden, Färben und Stylen von Haaren, Kopfhautpflege.',
-          en: 'Advising customers, cutting, coloring, and styling hair, scalp care.',
-          tr: 'Müşterilere danışmanlık yapmak, saç kesmek, boyamak ve şekillendirmek, saç derisi bakımı yapmak.',
-          uk: 'Консультування клієнтів, стрижка, фарбування та укладання волосся, догляд за шкірою голови.'
-      },
-      skillsRequired: {
-          ar: 'مهارات يدوية، حس جمالي، توجه نحو العملاء، ودود.',
-          de: 'Handwerkliches Geschick, Sinn für Ästhetik, Kundenorientierung, Freundlichkeit.',
-          en: 'Manual dexterity, sense of aesthetics, customer focus, friendliness.',
-          tr: 'El becerisi, estetik anlayışı, müşteri odaklılık, güler yüzlülük.',
-          uk: 'Ручні навички, почуття естетики, клієнтоорієнтованість, дружелюбність.'
-      }
-  },
-  {
-      title: {
-          ar: 'طبيب',
-          de: 'Arzt/Ärztin',
-          en: 'Doctor/Physician',
-          tr: 'Doktor/Hekim',
-          uk: 'Лікар'
-      },
-      category: 'study',
-      duration: {
-          ar: '6 سنوات (دراسة) + 5-6 سنوات (تخصص)',
-          de: '6 Jahre (Studium) + 5-6 Jahre (Facharzt)',
-          en: '6 years (study) + 5-6 years (specialization)',
-          tr: '6 yıl (eğitim) + 5-6 yıl (uzmanlık)',
-          uk: '6 років (навчання) + 5-6 років (спеціалізація)'
-      },
-      salary: {
-          ar: 'لا يوجد راتب أثناء الدراسة',
-          de: 'Kein Gehalt während des Studiums',
-          en: 'No salary during study',
-          tr: 'Eğitim sırasında maaş yok',
-          uk: 'Без зарплати під час навчання'
-      },
-      salaryRange: {
-          ar: '€5,000 - €10,000+ شهرياً',
-          de: '€5.000 - €10.000+/Monat',
-          en: '€5,000 - €10,000+/month',
-          tr: '€5.000 - €10.000+/ay',
-          uk: '€5,000 - €10,000+/місяць'
-      },
-      jobOutlook: {
-          ar: 'ممتازة',
-          de: 'Ausgezeichnet',
-          en: 'Excellent',
-          tr: 'Mükemmel',
-          uk: 'Відмінні'
-      },
-      requirements: {
-          ar: 'شهادة Abitur بتقدير ممتاز (Numerus Clausus)، دراسة الطب، ترخيص مزاولة المهنة.',
-          de: 'Abitur mit exzellentem Notendurchschnitt (Numerus Clausus), Medizinstudium, Approbation.',
-          en: 'High school diploma (Abitur) with excellent grades (Numerus Clausus), medical studies, license to practice.',
-          tr: 'Mükemmel not ortalamasına sahip lise diploması (Abitur) (Numerus Clausus), tıp eğitimi, çalışma izni.',
-          uk: 'Атестат про повну загальну середню освіту (Abitur) з відмінними оцінками (Numerus Clausus), медична освіта, ліцензія на практику.'
-      },
-      duties: {
-          ar: 'تشخيص وعلاج الأمراض، تقديم الرعاية للمرضى، إجراء الفحوصات.',
-          de: 'Diagnose und Behandlung von Krankheiten, Betreuung von Patienten, Durchführung von Untersuchungen.',
-          en: 'Diagnosing and treating illnesses, caring for patients, conducting examinations.',
-          tr: 'Hastalıkları teşhis etmek ve tedavi etmek, hastaların bakımını yapmak, muayeneler yapmak.',
-          uk: 'Діагностика та лікування захворювань, догляд за пацієнтами, проведення обстежень.'
-      },
-      skillsRequired: {
-          ar: 'حس بالمسؤولية، قدرة على التحمل، تعاطف، مهارات اتخاذ القرار.',
-          de: 'Verantwortungsbewusstsein, Belastbarkeit, Empathie, Entscheidungsfähigkeit.',
-          en: 'Sense of responsibility, resilience, empathy, decision-making skills.',
-          tr: 'Sorumluluk duygusu, dayanıklılık, empati, karar verme becerileri.',
-          uk: 'Почуття відповідальності, стійкість, емпатія, навички прийняття рішень.'
-      }
-  },
-  {
-      title: {
-          ar: 'مدير فندق',
-          de: 'Hotelfachmann/Hotelfachfrau',
-          en: 'Hotel Specialist',
-          tr: 'Otelcilik Uzmanı',
-          uk: 'Готельний спеціаліст'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€750 - €1,000 شهريًا (أثناء التدريب)',
-          de: '€750 - €1.000/Monat (während der Ausbildung)',
-          en: '€750 - €1,000/month (during training)',
-          tr: '€750 - €1.000/ay (eğitim sırasında)',
-          uk: '€750 - €1,000/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,300 - €3,100 شهرياً',
-          de: '€2.300 - €3.100/Monat',
-          en: '€2,300 - €3,100/month',
-          tr: '€2.300 - €3.100/ay',
-          uk: '€2,300 - €3,100/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، توجه نحو الخدمة، مرونة.',
-          de: 'Hauptschulabschluss, Serviceorientierung, Flexibilität.',
-          en: 'Basic school certificate, service orientation, flexibility.',
-          tr: 'Temel okul diploması, hizmet odaklılık, esneklik.',
-          uk: 'Базова шкільна освіта, сервісна орієнтація, гнучкість.'
-      },
-      duties: {
-          ar: 'العمل في جميع أقسام الفندق (الاستقبال، المطعم، خدمة الغرف)، تنظيم الفعاليات.',
-          de: 'Arbeit in allen Hotelbereichen (Rezeption, Restaurant, Zimmerservice), Organisation von Veranstaltungen.',
-          en: 'Working in all hotel departments (reception, restaurant, room service), organizing events.',
-          tr: 'Tüm otel departmanlarında (resepsiyon, restoran, oda servisi) çalışmak, etkinlikler düzenlemek.',
-          uk: 'Робота у всіх відділах готелю (рецепція, ресторан, обслуговування номерів), організація заходів.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تنظيمية، مهارات تواصل، تعدد المهام، ودود.',
-          de: 'Organisationstalent, Kommunikationsfähigkeit, Multitasking, Freundlichkeit.',
-          en: 'Organizational skills, communication skills, multitasking, friendliness.',
-          tr: 'Organizasyon becerileri, iletişim becerileri, çoklu görev yeteneği, güler yüzlülük.',
-          uk: 'Організаторські здібності, комунікативні навички, багатозадачність, дружелюбність.'
-      }
-  },
-  {
-      title: {
-          ar: 'مزارع',
-          de: 'Landwirt/in',
-          en: 'Farmer',
-          tr: 'Çiftçi',
-          uk: 'Фермер'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€700 - €900 شهريًا (أثناء التدريب)',
-          de: '€700 - €900/Monat (während der Ausbildung)',
-          en: '€700 - €900/month (during training)',
-          tr: '€700 - €900/ay (eğitim sırasında)',
-          uk: '€700 - €900/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,200 - €3,000 شهرياً',
-          de: '€2.200 - €3.000/Monat',
-          en: '€2,200 - €3,000/month',
-          tr: '€2.200 - €3.000/ay',
-          uk: '€2,200 - €3,000/місяць'
-      },
-      jobOutlook: {
-          ar: 'مستقرة',
-          de: 'Stabil',
-          en: 'Stable',
-          tr: 'İstikrarlı',
-          uk: 'Стабільні'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، حب الطبيعة، قوة بدنية.',
-          de: 'Hauptschulabschluss, Liebe zur Natur, körperliche Belastbarkeit.',
-          en: 'Basic school certificate, love of nature, physical resilience.',
-          tr: 'Temel okul diploması, doğa sevgisi, fiziksel dayanıklılık.',
-          uk: 'Базова шкільна освіта, любов до природи, фізична витривалість.'
-      },
-      duties: {
-          ar: 'زراعة المحاصيل، تربية الحيوانات، تشغيل الآلات الزراعية.',
-          de: 'Anbau von Pflanzen, Aufzucht von Tieren, Bedienung von Landmaschinen.',
-          en: 'Cultivating crops, raising animals, operating agricultural machinery.',
-          tr: 'Ekin yetiştirmek, hayvan yetiştirmek, tarım makinelerini kullanmak.',
-          uk: 'Вирощування сільськогосподарських культур, розведення тварин, робота з сільськогосподарською технікою.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تنظيمية، فهم تقني، معرفة بيولوجية، مرونة.',
-          de: 'Organisationsfähigkeit, technisches Verständnis, biologisches Wissen, Flexibilität.',
-          en: 'Organizational skills, technical understanding, biological knowledge, flexibility.',
-          tr: 'Organizasyon becerileri, teknik anlayış, biyolojik bilgi, esneklik.',
-          uk: 'Організаторські здібності, технічне розуміння, біологічні знання, гнучкість.'
-      }
-  },
-  {
-      title: {
-          ar: 'دهان',
-          de: 'Maler/in und Lackierer/in',
-          en: 'Painter and Varnisher',
-          tr: 'Boya ve Vernik Ustası',
-          uk: 'Маляр та лакувальник'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€700 - €900 شهريًا (أثناء التدريب)',
-          de: '€700 - €900/Monat (während der Ausbildung)',
-          en: '€700 - €900/month (during training)',
-          tr: '€700 - €900/ay (eğitim sırasında)',
-          uk: '€700 - €900/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,500 - €3,300 شهرياً',
-          de: '€2.500 - €3.300/Monat',
-          en: '€2,500 - €3,300/month',
-          tr: '€2.500 - €3.300/ay',
-          uk: '€2,500 - €3,300/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، مهارات يدوية، عدم وجود حساسية من الألوان والمذيبات.',
-          de: 'Hauptschulabschluss, handwerkliches Geschick, keine Allergien gegen Farben und Lösungsmittel.',
-          en: 'Basic school certificate, manual skills, no allergies to paints and solvents.',
-          tr: 'Temel okul diploması, el becerileri, boya ve solventlere alerjisi olmamak.',
-          uk: 'Базова шкільна освіта, ручні навички, відсутність алергії на фарби та розчинники.'
-      },
-      duties: {
-          ar: 'تجهيز الأسطح، دهن الجدران والواجهات، تطبيق الطلاءات والورق الجدراني.',
-          de: 'Untergründe vorbereiten, Wände und Fassaden streichen, Lacke und Tapeten anbringen.',
-          en: 'Preparing surfaces, painting walls and facades, applying varnishes and wallpapers.',
-          tr: 'Yüzeyleri hazırlamak, duvarları ve cepheleri boyamak, vernik ve duvar kağıdı uygulamak.',
-          uk: 'Підготовка поверхонь, фарбування стін та фасадів, нанесення лаків та шпалер.'
-      },
-      skillsRequired: {
-          ar: 'دقة، حس بالألوان، عمل نظيف، لياقة بدنية.',
-          de: 'Sorgfalt, Farbgefühl, sauberes Arbeiten, körperliche Fitness.',
-          en: 'Diligence, color sense, clean work, physical fitness.',
-          tr: 'Özen, renk anlayışı, temiz çalışma, fiziksel uygunluk.',
-          uk: 'Старанність, відчуття кольору, акуратна робота, фізична підготовка.'
-      }
-  },
-  {
-      title: {
-          ar: 'عامل اجتماعي',
-          de: 'Sozialarbeiter/in',
-          en: 'Social Worker',
-          tr: 'Sosyal Hizmet Uzmanı',
-          uk: 'Соціальний працівник'
-      },
-      category: 'study',
-      duration: {
-          ar: '3 سنوات (بكالوريوس)',
-          de: '3 Jahre (Bachelor)',
-          en: '3 years (Bachelor)',
-          tr: '3 yıl (Lisans)',
-          uk: '3 роки (бакалавр)'
-      },
-      salary: {
-          ar: 'لا يوجد راتب (ممكن الحصول على تدريب عملي مدفوع الأجر)',
-          de: 'Kein Gehalt (bezahlte Praktika möglich)',
-          en: 'No salary (paid internships possible)',
-          tr: 'Maaş yok (ücretli stajlar mümkün)',
-          uk: 'Без зарплати (можливі оплачувані стажування)'
-      },
-      salaryRange: {
-          ar: '€3,300 - €4,500 شهرياً',
-          de: '€3.300 - €4.500/Monat',
-          en: '€3,300 - €4,500/month',
-          tr: '€3.300 - €4.500/ay',
-          uk: '€3,300 - €4,500/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'شهادة Abitur أو Fachabitur، دراسة العمل الاجتماعي، تعاطف.',
-          de: 'Abitur oder Fachabitur, Studium der Sozialen Arbeit, Empathie.',
-          en: 'High school or specialized diploma, social work studies, empathy.',
-          tr: 'Lise veya meslek lisesi diploması, sosyal hizmetler eğitimi, empati.',
-          uk: 'Атестат про повну або фахову середню освіту, вивчення соціальної роботи, емпатія.'
-      },
-      duties: {
-          ar: 'تقديم المشورة والدعم للأشخاص في المواقف الصعبة (مثل الإدمان، الديون، مشاكل الأسرة).',
-          de: 'Beratung und Unterstützung von Menschen in schwierigen Lebenslagen (z.B. Sucht, Schulden, Familienprobleme).',
-          en: 'Advising and supporting people in difficult life situations (e.g., addiction, debt, family problems).',
-          tr: 'Zor yaşam durumlarındaki (ör. bağımlılık, borç, aile sorunları) insanlara danışmanlık ve destek sağlamak.',
-          uk: 'Консультування та підтримка людей у складних життєвих ситуаціях (напр., залежність, борги, сімейні проблеми).'
-      },
-      skillsRequired: {
-          ar: 'مهارات تواصل، تعاطف، قدرة على التحمل النفسي، معرفة قانونية.',
-          de: 'Kommunikationsfähigkeit, Empathie, psychische Belastbarkeit, rechtliche Kenntnisse.',
-          en: 'Communication skills, empathy, psychological resilience, legal knowledge.',
-          tr: 'İletişim becerileri, empati, psikolojik dayanıklılık, yasal bilgi.',
-          uk: 'Комунікативні навички, емпатія, психологічна стійкість, юридичні знання.'
-      }
-  },
-  {
-      title: {
-          ar: 'خبير ضرائب',
-          de: 'Steuerfachangestellte/r',
-          en: 'Tax Clerk',
-          tr: 'Vergi Danışmanı Asistanı',
-          uk: 'Податковий консультант'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€850 - €1,100 شهريًا (أثناء التدريب)',
-          de: '€850 - €1.100/Monat (während der Ausbildung)',
-          en: '€850 - €1,100/month (during training)',
-          tr: '€850 - €1.100/ay (eğitim sırasında)',
-          uk: '€850 - €1,100/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,700 - €3,800 شهرياً',
-          de: '€2.700 - €3.800/Monat',
-          en: '€2,700 - €3,800/month',
-          tr: '€2.700 - €3.800/ay',
-          uk: '€2,700 - €3,800/місяць'
-      },
-      jobOutlook: {
-          ar: 'ممتازة',
-          de: 'Ausgezeichnet',
-          en: 'Excellent',
-          tr: 'Mükemmel',
-          uk: 'Відмінні'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، فهم جيد للأرقام، دقة.',
-          de: 'Realschulabschluss, gutes Zahlenverständnis, Genauigkeit.',
-          en: 'Intermediate school certificate, good understanding of numbers, accuracy.',
-          tr: 'Ortaokul diploması, iyi sayısal anlayış, doğruluk.',
-          uk: 'Атестат про середню освіту, добре розуміння чисел, точність.'
-      },
-      duties: {
-          ar: 'إعداد الإقرارات الضريبية، المحاسبة، كشوف المرتبات للعملاء.',
-          de: 'Erstellung von Steuererklärungen, Buchführung und Lohnabrechnungen für Mandanten.',
-          en: 'Preparing tax returns, bookkeeping, and payroll accounting for clients.',
-          tr: 'Müvekkiller için vergi beyannameleri, defter tutma ve maaş bordroları hazırlamak.',
-          uk: 'Підготовка податкових декларацій, ведення бухгалтерського обліку та розрахунок заробітної плати для клієнтів.'
-      },
-      skillsRequired: {
-          ar: 'دقة، فهم للقوانين، جدارة بالثقة، مهارات تنظيمية.',
-          de: 'Sorgfalt, Gesetzesverständnis, Vertrauenswürdigkeit, Organisationstalent.',
-          en: 'Diligence, understanding of laws, trustworthiness, organizational skills.',
-          tr: 'Özen, yasa bilgisi, güvenilirlik, organizasyon becerileri.',
-          uk: 'Старанність, розуміння законів, надійність, організаторські здібності.'
-      }
-  },
-  {
-      title: {
-          ar: 'مصور فوتوغرافي',
-          de: 'Fotograf/in',
-          en: 'Photographer',
-          tr: 'Fotoğrafçı',
-          uk: 'Фотограф'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€600 - €850 شهريًا (أثناء التدريب)',
-          de: '€600 - €850/Monat (während der Ausbildung)',
-          en: '€600 - €850/month (during training)',
-          tr: '€600 - €850/ay (eğitim sırasında)',
-          uk: '€600 - €850/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,200 - €3,500 شهرياً (يمكن أن يختلف بشكل كبير)',
-          de: '€2.200 - €3.500/Monat (stark variierend)',
-          en: '€2,200 - €3,500/month (can vary greatly)',
-          tr: '€2.200 - €3.500/ay (büyük ölçüde değişebilir)',
-          uk: '€2,200 - €3,500/місяць (може сильно відрізнятися)'
-      },
-      jobOutlook: {
-          ar: 'متوسطة',
-          de: 'Mittel',
-          en: 'Moderate',
-          tr: 'Orta',
-          uk: 'Помірні'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، عين فنية، فهم تقني للكاميرات.',
-          de: 'Hauptschulabschluss, kreatives Auge, technisches Verständnis für Kameras.',
-          en: 'Basic school certificate, creative eye, technical understanding of cameras.',
-          tr: 'Temel okul diploması, yaratıcı göz, kameralar hakkında teknik bilgi.',
-          uk: 'Базова шкільна освіта, творчий погляд, технічне розуміння камер.'
-      },
-      duties: {
-          ar: 'التقاط الصور في مختلف المجالات (صور شخصية، منتجات، فعاليات)، معالجة الصور.',
-          de: 'Aufnahme von Fotos in verschiedenen Bereichen (Porträt, Produkt, Event), Bildbearbeitung.',
-          en: 'Taking photos in various fields (portrait, product, event), image editing.',
-          tr: 'Çeşitli alanlarda (portre, ürün, etkinlik) fotoğraf çekmek, görüntü düzenleme.',
-          uk: 'Фотографування у різних сферах (портрет, продукт, подія), обробка зображень.'
-      },
-      skillsRequired: {
-          ar: 'إبداع، مهارات تواصل، صبر، مهارات في برامج التحرير.',
-          de: 'Kreativität, Kommunikationsfähigkeit, Geduld, Kenntnisse in Bildbearbeitungsprogrammen.',
-          en: 'Creativity, communication skills, patience, skills in editing software.',
-          tr: 'Yaratıcılık, iletişim becerileri, sabır, düzenleme yazılımı becerileri.',
-          uk: 'Творчість, комунікативні навички, терпіння, навички роботи з програмами для редагування.'
-      }
-  },
-  {
-      title: {
-          ar: 'ميكانيكي صناعي',
-          de: 'Industriemechaniker/in',
-          en: 'Industrial Mechanic',
-          tr: 'Endüstriyel Mekanik',
-          uk: 'Промисловий механік'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3.5 سنوات',
-          de: '3,5 Jahre',
-          en: '3.5 years',
-          tr: '3.5 yıl',
-          uk: '3,5 роки'
-      },
-      salary: {
-          ar: '€950 - €1,200 شهريًا (أثناء التدريب)',
-          de: '€950 - €1.200/Monat (während der Ausbildung)',
-          en: '€950 - €1,200/month (during training)',
-          tr: '€950 - €1.200/ay (eğitim sırasında)',
-          uk: '€950 - €1,200/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€3,200 - €4,200 شهرياً',
-          de: '€3.200 - €4.200/Monat',
-          en: '€3,200 - €4,200/month',
-          tr: '€3.200 - €4.200/ay',
-          uk: '€3,200 - €4,200/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، فهم تقني، مهارات يدوية.',
-          de: 'Realschulabschluss, technisches Verständnis, handwerkliches Geschick.',
-          en: 'Intermediate school certificate, technical understanding, manual skills.',
-          tr: 'Ortaokul diploması, teknik anlayış, el becerileri.',
-          uk: 'Атестат про середню освіту, технічне розуміння, ручні навички.'
-      },
-      duties: {
-          ar: 'صناعة وصيانة وإصلاح الآلات والأنظمة الصناعية.',
-          de: 'Herstellung, Wartung und Reparatur von Industriemaschinen und -anlagen.',
-          en: 'Manufacturing, maintaining, and repairing industrial machines and systems.',
-          tr: 'Endüstriyel makinelerin ve sistemlerin üretimi, bakımı ve onarımı.',
-          uk: 'Виробництво, технічне обслуговування та ремонт промислових машин і систем.'
-      },
-      skillsRequired: {
-          ar: 'دقة، تفكير تحليلي، وعي بالسلامة، عمل جماعي.',
-          de: 'Präzision, analytisches Denken, Sicherheitsbewusstsein, Teamarbeit.',
-          en: 'Precision, analytical thinking, safety awareness, teamwork.',
-          tr: 'Hassasiyet, analitik düşünme, güvenlik bilinci, takım çalışması.',
-          uk: 'Точність, аналітичне мислення, усвідомлення безпеки, командна робота.'
-      }
-  },
-  {
-      title: {
-          ar: 'مدرس',
-          de: 'Lehrer/in',
-          en: 'Teacher',
-          tr: 'Öğretmen',
-          uk: 'Вчитель'
-      },
-      category: 'study',
-      duration: {
-          ar: '5-7 سنوات (دراسة + تدريب عملي)',
-          de: '5-7 Jahre (Studium + Referendariat)',
-          en: '5-7 years (study + practical training)',
-          tr: '5-7 yıl (eğitim + staj)',
-          uk: '5-7 років (навчання + практика)'
-      },
-      salary: {
-          ar: 'حوالي €1,500 شهريًا (أثناء التدريب العملي)',
-          de: 'ca. 1.500 €/Monat (im Referendariat)',
-          en: 'approx. €1,500/month (during practical training)',
-          tr: 'yaklaşık 1.500 €/ay (staj sırasında)',
-          uk: 'прибл. €1,500/місяць (під час практики)'
-      },
-      salaryRange: {
-          ar: '€4,000 - €5,500 شهرياً (كموظف حكومي)',
-          de: '€4.000 - €5.500/Monat (als Beamter)',
-          en: '€4,000 - €5,500/month (as a civil servant)',
-          tr: '€4.000 - €5.500/ay (memur olarak)',
-          uk: '€4,000 - €5,500/місяць (як державний службовець)'
-      },
-      jobOutlook: {
-          ar: 'جيدة (تعتمد على المادة الدراسية)',
-          de: 'Gut (fächerabhängig)',
-          en: 'Good (subject-dependent)',
-          tr: 'İyi (derse bağlı)',
-          uk: 'Хороші (залежно від предмета)'
-      },
-      requirements: {
-          ar: 'شهادة Abitur، دراسة تخصصين دراسيين وعلم التربية.',
-          de: 'Abitur, Studium von zwei Unterrichtsfächern und Pädagogik.',
-          en: 'High school diploma (Abitur), study of two teaching subjects and pedagogy.',
-          tr: 'Lise diploması (Abitur), iki öğretim dalı ve pedagoji eğitimi.',
-          uk: 'Атестат про повну загальну середню освіту (Abitur), вивчення двох предметів та педагогіки.'
-      },
-      duties: {
-          ar: 'تخطيط وتنفيذ الدروس، تقييم أداء الطلاب، التواصل مع أولياء الأمور.',
-          de: 'Planung und Durchführung von Unterricht, Bewertung von Schülerleistungen, Elternkommunikation.',
-          en: 'Planning and conducting lessons, assessing student performance, parent communication.',
-          tr: 'Dersleri planlamak ve yürütmek, öğrenci performansını değerlendirmek, veli iletişimi.',
-          uk: 'Планування та проведення уроків, оцінювання успішності учнів, спілкування з батьками.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تربوية، صبر، مهارات تنظيمية، معرفة متخصصة.',
-          de: 'Pädagogisches Geschick, Geduld, Organisationstalent, Fachwissen.',
-          en: 'Pedagogical skills, patience, organizational skills, subject knowledge.',
-          tr: 'Pedagojik beceriler, sabır, organizasyon becerileri, konu bilgisi.',
-          uk: 'Педагогічні навички, терпіння, організаторські здібності, знання предмета.'
-      }
-  },
-  {
-      title: {
-          ar: 'صانع أسقف',
-          de: 'Dachdecker/in',
-          en: 'Roofer',
-          tr: 'Çatı Ustası',
-          uk: 'Покрівельник'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€750 - €1,000 شهريًا (أثناء التدريب)',
-          de: '€750 - €1.000/Monat (während der Ausbildung)',
-          en: '€750 - €1,000/month (during training)',
-          tr: '€750 - €1.000/ay (eğitim sırasında)',
-          uk: '€750 - €1,000/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,800 - €3,800 شهرياً',
-          de: '€2.800 - €3.800/Monat',
-          en: '€2,800 - €3,800/month',
-          tr: '€2.800 - €3.800/ay',
-          uk: '€2,800 - €3,800/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، عدم الخوف من المرتفعات، لياقة بدنية.',
-          de: 'Hauptschulabschluss, Schwindelfreiheit, körperliche Fitness.',
-          en: 'Basic school certificate, no fear of heights, physical fitness.',
-          tr: 'Temel okul diploması, yükseklik korkusu olmamak, fiziksel uygunluk.',
-          uk: 'Базова шкільна освіта, відсутність страху висоти, фізична підготовка.'
-      },
-      duties: {
-          ar: 'تغطية وعزل وإصلاح الأسطح والواجهات.',
-          de: 'Eindecken, Abdichten und Reparieren von Dächern und Fassaden.',
-          en: 'Covering, sealing, and repairing roofs and facades.',
-          tr: 'Çatıları ve cepheleri kaplamak, yalıtmak ve onarmak.',
-          uk: 'Покриття, герметизація та ремонт дахів і фасадів.'
-      },
-      skillsRequired: {
-          ar: 'مهارات يدوية، عمل جماعي، وعي بالسلامة، مقاومة للعوامل الجوية.',
-          de: 'Handwerkliches Geschick, Teamfähigkeit, Sicherheitsbewusstsein, Wetterfestigkeit.',
-          en: 'Manual dexterity, teamwork, safety awareness, weather resistance.',
-          tr: 'El becerisi, takım çalışması, güvenlik bilinci, hava koşullarına dayanıklılık.',
-          uk: 'Ручні навички, командна робота, усвідомлення безпеки, стійкість до погодних умов.'
-      }
-  },
-  {
-      title: {
-          ar: 'عالم نفس',
-          de: 'Psychologe/Psychologin',
-          en: 'Psychologist',
-          tr: 'Psikolog',
-          uk: 'Психолог'
-      },
-      category: 'study',
-      duration: {
-          ar: '5 سنوات (بكالوريوس + ماجستير)',
-          de: '5 Jahre (Bachelor + Master)',
-          en: '5 years (Bachelor + Master)',
-          tr: '5 yıl (Lisans + Yüksek Lisans)',
-          uk: '5 років (бакалавр + магістр)'
-      },
-      salary: {
-          ar: 'لا يوجد راتب أثناء الدراسة',
-          de: 'Kein Gehalt während des Studiums',
-          en: 'No salary during study',
-          tr: 'Eğitim sırasında maaş yok',
-          uk: 'Без зарплати під час навчання'
-      },
-      salaryRange: {
-          ar: '€4,000 - €6,000 شهرياً',
-          de: '€4.000 - €6.000/Monat',
-          en: '€4,000 - €6,000/month',
-          tr: '€4.000 - €6.000/ay',
-          uk: '€4,000 - €6,000/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Abitur بتقدير جيد (Numerus Clausus)، دراسة علم النفس.',
-          de: 'Abitur mit gutem Notendurchschnitt (Numerus Clausus), Psychologiestudium.',
-          en: 'High school diploma (Abitur) with good grades (Numerus Clausus), psychology studies.',
-          tr: 'İyi not ortalamasına sahip lise diploması (Abitur) (Numerus Clausus), psikoloji eğitimi.',
-          uk: 'Атестат про повну загальну середню освіту (Abitur) з добрими оцінками (Numerus Clausus), вивчення психології.'
-      },
-      duties: {
-          ar: 'تشخيص ومعالجة الاضطرابات النفسية، تقديم المشورة، إجراء البحوث.',
-          de: 'Diagnose und Behandlung von psychischen Störungen, Beratung, Durchführung von Forschung.',
-          en: 'Diagnosing and treating mental disorders, providing counseling, conducting research.',
-          tr: 'Zihinsel bozuklukları teşhis etmek ve tedavi etmek, danışmanlık yapmak, araştırma yapmak.',
-          uk: 'Діагностика та лікування психічних розладів, надання консультацій, проведення досліджень.'
-      },
-      skillsRequired: {
-          ar: 'تعاطف، مهارات تحليلية، مهارات تواصل، استقرار نفسي.',
-          de: 'Empathie, analytische Fähigkeiten, Kommunikationsfähigkeit, psychische Stabilität.',
-          en: 'Empathy, analytical skills, communication skills, psychological stability.',
-          tr: 'Empati, analitik beceriler, iletişim becerileri, psikolojik istikrar.',
-          uk: 'Емпатія, аналітичні навички, комунікативні навички, психологічна стійкість.'
-      }
-  },
-  {
-      title: {
-          ar: 'أخصائي إعلام وتكنولوجيا معلومات',
-          de: 'Mediengestalter/in Digital und Print',
-          en: 'Media Designer for Digital and Print',
-          tr: 'Dijital ve Basılı Medya Tasarımcısı',
-          uk: 'Медіа-дизайнер для цифрових та друкованих видань'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€900 - €1,100 شهريًا (أثناء التدريب)',
-          de: '€900 - €1.100/Monat (während der Ausbildung)',
-          en: '€900 - €1,100/month (during training)',
-          tr: '€900 - €1.100/ay (eğitim sırasında)',
-          uk: '€900 - €1,100/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,600 - €3,600 شهرياً',
-          de: '€2.600 - €3.600/Monat',
-          en: '€2,600 - €3,600/month',
-          tr: '€2.600 - €3.600/ay',
-          uk: '€2,600 - €3,600/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، إبداع، فهم تقني.',
-          de: 'Realschulabschluss, Kreativität, technisches Verständnis.',
-          en: 'Intermediate school certificate, creativity, technical understanding.',
-          tr: 'Ortaokul diploması, yaratıcılık, teknik anlayış.',
-          uk: 'Атестат про середню освіту, творчість, технічне розуміння.'
-      },
-      duties: {
-          ar: 'تصميم وتطوير المنتجات الإعلامية مثل المواقع الإلكترونية، النشرات، مقاطع الفيديو.',
-          de: 'Gestaltung und Entwicklung von Medienprodukten wie Webseiten, Flyern, Videos.',
-          en: 'Designing and developing media products such as websites, flyers, videos.',
-          tr: 'Web siteleri, broşürler, videolar gibi medya ürünleri tasarlamak ve geliştirmek.',
-          uk: 'Розробка та створення медіа-продуктів, таких як веб-сайти, флаєри, відео.'
-      },
-      skillsRequired: {
-          ar: 'حس جمالي، مهارات برامج التصميم، توجه نحو العملاء، عمل جماعي.',
-          de: 'Sinn für Ästhetik, Softwarekenntnisse, Kundenorientierung, Teamarbeit.',
-          en: 'Aesthetic sense, software skills, customer focus, teamwork.',
-          tr: 'Estetik anlayışı, yazılım becerileri, müşteri odaklılık, takım çalışması.',
-          uk: 'Естетичний смак, навички роботи з програмним забезпеченням, клієнтоорієнтованість, командна робота.'
-      }
-  },
-  {
-      title: {
-          ar: 'سائق حافلة',
-          de: 'Berufskraftfahrer/in (Personenverkehr)',
-          en: 'Bus Driver',
-          tr: 'Otobüs Şoförü',
-          uk: 'Водій автобуса'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€800 - €1,000 شهريًا (أثناء التدريب)',
-          de: '€800 - €1.000/Monat (während der Ausbildung)',
-          en: '€800 - €1,000/month (during training)',
-          tr: '€800 - €1.000/ay (eğitim sırasında)',
-          uk: '€800 - €1,000/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,500 - €3,200 شهرياً',
-          de: '€2.500 - €3.200/Monat',
-          en: '€2,500 - €3,200/month',
-          tr: '€2.500 - €3.200/ay',
-          uk: '€2,500 - €3,200/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، رخصة قيادة سيارة، حس بالمسؤولية.',
-          de: 'Hauptschulabschluss, PKW-Führerschein, Verantwortungsbewusstsein.',
-          en: 'Basic school certificate, car driving license, sense of responsibility.',
-          tr: 'Temel okul diploması, araba ehliyeti, sorumluluk duygusu.',
-          uk: 'Базова шкільна освіта, водійське посвідчення категорії B, почуття відповідальності.'
-      },
-      duties: {
-          ar: 'نقل الركاب بأمان، بيع التذاكر، تقديم المعلومات.',
-          de: 'Sichere Beförderung von Fahrgästen, Ticketverkauf, Auskunftserteilung.',
-          en: 'Safely transporting passengers, selling tickets, providing information.',
-          tr: 'Yolcuları güvenli bir şekilde taşımak, bilet satmak, bilgi vermek.',
-          uk: 'Безпечне перевезення пасажирів, продаж квитків, надання інформації.'
-      },
-      skillsRequired: {
-          ar: 'تركيز، ودود، هدوء، فهم تقني.',
-          de: 'Konzentrationsfähigkeit, Freundlichkeit, Gelassenheit, technisches Verständnis.',
-          en: 'Concentration, friendliness, composure, technical understanding.',
-          tr: 'Konsantrasyon, güler yüzlülük, soğukkanlılık, teknik anlayış.',
-          uk: 'Концентрація, дружелюбність, спокій, технічне розуміння.'
-      }
-  },
-  {
-      title: {
-          ar: 'محاسب',
-          de: 'Buchhalter/in',
-          en: 'Accountant',
-          tr: 'Muhasebeci',
-          uk: 'Бухгалтер'
-      },
-      category: 'job',
-      duration: {
-          ar: 'يتطلب تدريبًا مهنيًا (مثل خبير ضرائب) أو دراسة جامعية',
-          de: 'Erfordert kaufmännische Ausbildung (z.B. Steuerfachangestellte/r) oder Studium',
-          en: 'Requires commercial training (e.g., tax clerk) or university studies',
-          tr: 'Ticari eğitim (ör. vergi danışmanı asistanı) veya üniversite eğitimi gerektirir',
-          uk: 'Вимагає комерційної освіти (напр., податковий консультант) або вищої освіти'
-      },
-      salary: {
-          ar: 'لا ينطبق',
-          de: 'N/A',
-          en: 'N/A',
-          tr: 'Uygulanamaz',
-          uk: 'Н/Д'
-      },
-      salaryRange: {
-          ar: '€3,000 - €4,800 شهرياً',
-          de: '€3.000 - €4.800/Monat',
-          en: '€3,000 - €4,800/month',
-          tr: '€3.000 - €4.800/ay',
-          uk: '€3,000 - €4,800/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'تدريب مهني في التجارة، دقة، فهم جيد للأرقام.',
-          de: 'Kaufmännische Ausbildung, Genauigkeit, gutes Zahlenverständnis.',
-          en: 'Commercial vocational training, accuracy, good understanding of numbers.',
-          tr: 'Ticari mesleki eğitim, doğruluk, iyi sayısal anlayış.',
-          uk: 'Комерційна професійна освіта, точність, добре розуміння чисел.'
-      },
-      duties: {
-          ar: 'تسجيل المعاملات التجارية، إعداد الميزانيات السنوية، إدارة الحسابات الدائنة والمدينة.',
-          de: 'Verbuchung von Geschäftsvorfällen, Erstellung von Jahresabschlüssen, Debitoren- und Kreditorenbuchhaltung.',
-          en: 'Recording business transactions, preparing annual financial statements, accounts receivable and payable management.',
-          tr: 'İşlemleri kaydetmek, yıllık mali tabloları hazırlamak, alacak ve borç hesaplarını yönetmek.',
-          uk: 'Облік господарських операцій, підготовка річної фінансової звітності, ведення дебіторської та кредиторської заборгованості.'
-      },
-      skillsRequired: {
-          ar: 'اهتمام بالتفاصيل، تفكير تحليلي، جدارة بالثقة، معرفة ببرامج المحاسبة.',
-          de: 'Detailgenauigkeit, analytisches Denken, Vertrauenswürdigkeit, Kenntnisse in Buchhaltungssoftware.',
-          en: 'Attention to detail, analytical thinking, trustworthiness, knowledge of accounting software.',
-          tr: 'Detaylara dikkat, analitik düşünme, güvenilirlik, muhasebe yazılımı bilgisi.',
-          uk: 'Увага до деталей, аналітичне мислення, надійність, знання бухгалтерського програмного забезпечення.'
-      }
-  },
-  {
-      title: {
-          ar: 'فني مختبر طبي',
-          de: 'Medizinische/r Technologe/Technologin für Laboratoriumsanalytik (MTLA)',
-          en: 'Medical Laboratory Technologist',
-          tr: 'Tıbbi Laboratuvar Teknoloğu',
-          uk: 'Медичний лаборант'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات (تدريب مدرسي)',
-          de: '3 Jahre (schulische Ausbildung)',
-          en: '3 years (school-based training)',
-          tr: '3 yıl (okul tabanlı eğitim)',
-          uk: '3 роки (шкільне навчання)'
-      },
-      salary: {
-          ar: 'يختلف (قد يكون غير مدفوع الأجر أو مدفوعًا)',
-          de: 'Variiert (kann unvergütet oder vergütet sein)',
-          en: 'Varies (can be unpaid or paid)',
-          tr: 'Değişir (ücretsiz veya ücretli olabilir)',
-          uk: 'Різниться (може бути неоплачуваним або оплачуваним)'
-      },
-      salaryRange: {
-          ar: '€3,000 - €4,000 شهرياً',
-          de: '€3.000 - €4.000/Monat',
-          en: '€3,000 - €4,000/month',
-          tr: '€3.000 - €4.000/ay',
-          uk: '€3,000 - €4,000/місяць'
-      },
-      jobOutlook: {
-          ar: 'ممتازة',
-          de: 'Ausgezeichnet',
-          en: 'Excellent',
-          tr: 'Mükemmel',
-          uk: 'Відмінні'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، اهتمام بالعلوم، دقة.',
-          de: 'Realschulabschluss, Interesse an Naturwissenschaften, Genauigkeit.',
-          en: 'Intermediate school certificate, interest in natural sciences, accuracy.',
-          tr: 'Ortaokul diploması, doğa bilimlerine ilgi, doğruluk.',
-          uk: 'Атестат про середню освіту, інтерес до природничих наук, точність.'
-      },
-      duties: {
-          ar: 'تحليل عينات الدم والأنسجة وسوائل الجسم الأخرى، تشغيل أجهزة المختبر.',
-          de: 'Analyse von Blut-, Gewebe- und anderen Körperflüssigkeitsproben, Bedienung von Laborgeräten.',
-          en: 'Analyzing blood, tissue, and other body fluid samples, operating laboratory equipment.',
-          tr: 'Kan, doku ve diğer vücut sıvısı örneklerini analiz etmek, laboratuvar ekipmanlarını kullanmak.',
-          uk: 'Аналіз зразків крові, тканин та інших рідин організму, робота з лабораторним обладнанням.'
-      },
-      skillsRequired: {
-          ar: 'دقة، حس بالمسؤولية، فهم تقني، عمل دقيق.',
-          de: 'Sorgfalt, Verantwortungsbewusstsein, technisches Verständnis, präzises Arbeiten.',
-          en: 'Diligence, sense of responsibility, technical understanding, precise work.',
-          tr: 'Özen, sorumluluk duygusu, teknik anlayış, hassas çalışma.',
-          uk: 'Старанність, почуття відповідальності, технічне розуміння, точна робота.'
-      }
-  },
-  {
-      title: {
-          ar: 'لحام',
-          de: 'Schweißer/in',
-          en: 'Welder',
-          tr: 'Kaynakçı',
-          uk: 'Зварювальник'
-      },
-      category: 'job',
-      duration: {
-          ar: 'يتطلب دورة تدريبية (عدة أشهر)',
-          de: 'Erfordert Weiterbildungskurs (mehrere Monate)',
-          en: 'Requires a training course (several months)',
-          tr: 'Bir eğitim kursu gerektirir (birkaç ay)',
-          uk: 'Вимагає навчального курсу (кілька місяців)'
-      },
-      salary: {
-          ar: 'لا ينطبق',
-          de: 'N/A',
-          en: 'N/A',
-          tr: 'Uygulanamaz',
-          uk: 'Н/Д'
-      },
-      salaryRange: {
-          ar: '€2,800 - €3,900 شهرياً',
-          de: '€2.800 - €3.900/Monat',
-          en: '€2,800 - €3,900/month',
-          tr: '€2.800 - €3.900/ay',
-          uk: '€2,800 - €3,900/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة',
-          de: 'Gut',
-          en: 'Good',
-          tr: 'İyi',
-          uk: 'Хороші'
-      },
-      requirements: {
-          ar: 'مهارات يدوية، فهم تقني، شهادات لحام صالحة.',
-          de: 'Handwerkliches Geschick, technisches Verständnis, gültige Schweißerpässe.',
-          en: 'Manual dexterity, technical understanding, valid welding certificates.',
-          tr: 'El becerisi, teknik anlayış, geçerli kaynak sertifikaları.',
-          uk: 'Ручні навички, технічне розуміння, дійсні зварювальні сертифікати.'
-      },
-      duties: {
-          ar: 'ربط المكونات المعدنية باستخدام عمليات اللحام المختلفة.',
-          de: 'Verbinden von Metallteilen durch verschiedene Schweißverfahren.',
-          en: 'Joining metal components using various welding processes.',
-          tr: 'Çeşitli kaynak işlemleriyle metal bileşenleri birleştirmek.',
-          uk: 'З\'єднання металевих компонентів за допомогою різних зварювальних процесів.'
-      },
-      skillsRequired: {
-          ar: 'دقة، وعي بالسلامة، قوة بدنية، تركيز.',
-          de: 'Präzision, Sicherheitsbewusstsein, körperliche Belastbarkeit, Konzentration.',
-          en: 'Precision, safety awareness, physical resilience, concentration.',
-          tr: 'Hassasiyet, güvenlik bilinci, fiziksel dayanıklılık, konsantrasyon.',
-          uk: 'Точність, усвідомлення безпеки, фізична витривалість, концентрація.'
-      }
-  },
-  {
-      title: {
-          ar: 'مساعد إداري',
-          de: 'Kaufmann/Kauffrau für Büromanagement',
-          en: 'Office Management Clerk',
-          tr: 'Ofis Yönetimi Asistanı',
-          uk: 'Клерк з офісного менеджменту'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€850 - €1,100 شهريًا (أثناء التدريب)',
-          de: '€850 - €1.100/Monat (während der Ausbildung)',
-          en: '€850 - €1,100/month (during training)',
-          tr: '€850 - €1.100/ay (eğitim sırasında)',
-          uk: '€850 - €1,100/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,500 - €3,400 شهرياً',
-          de: '€2.500 - €3.400/Monat',
-          en: '€2,500 - €3,400/month',
-          tr: '€2.500 - €3.400/ay',
-          uk: '€2,500 - €3,400/місяць'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، مهارات تنظيمية، معرفة جيدة باللغة الألمانية.',
-          de: 'Realschulabschluss, Organisationstalent, gute Deutschkenntnisse.',
-          en: 'Intermediate school certificate, organizational skills, good German language skills.',
-          tr: 'Ortaokul diploması, organizasyon becerileri, iyi Almanca dil becerileri.',
-          uk: 'Атестат про середню освіту, організаторські здібності, добре знання німецької мови.'
-      },
-      duties: {
-          ar: 'تنظيم مهام المكتب، التواصل الكتابي والشفهي، تخطيط المواعيد.',
-          de: 'Organisation von Büroaufgaben, schriftliche und mündliche Kommunikation, Terminplanung.',
-          en: 'Organizing office tasks, written and oral communication, appointment scheduling.',
-          tr: 'Ofis görevlerini organize etmek, yazılı ve sözlü iletişim, randevu planlaması.',
-          uk: 'Організація офісних завдань, письмова та усна комунікація, планування зустрічей.'
-      },
-      skillsRequired: {
-          ar: 'مهارات تواصل، تعدد المهام، معرفة ببرامج مايكروسوفت أوفيس، توجه نحو الخدمة.',
-          de: 'Kommunikationsfähigkeit, Multitasking, MS-Office-Kenntnisse, Serviceorientierung.',
-          en: 'Communication skills, multitasking, MS Office knowledge, service orientation.',
-          tr: 'İletişim becerileri, çoklu görev, MS Office bilgisi, hizmet odaklılık.',
-          uk: 'Комунікативні навички, багатозадачність, знання MS Office, сервісна орієнтація.'
-      }
-  },
-  {
-      title: {
-          ar: 'مزارع كروم',
-          de: 'Winzer/in',
-          en: 'Winemaker/Vintner',
-          tr: 'Şarap Üreticisi',
-          uk: 'Винороб'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '3 سنوات',
-          de: '3 Jahre',
-          en: '3 years',
-          tr: '3 yıl',
-          uk: '3 роки'
-      },
-      salary: {
-          ar: '€700 - €950 شهريًا (أثناء التدريب)',
-          de: '€700 - €950/Monat (während der Ausbildung)',
-          en: '€700 - €950/month (during training)',
-          tr: '€700 - €950/ay (eğitim sırasında)',
-          uk: '€700 - €950/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,400 - €3,500 شهرياً',
-          de: '€2.400 - €3.500/Monat',
-          en: '€2,400 - €3,500/month',
-          tr: '€2.400 - €3.500/ay',
-          uk: '€2,400 - €3,500/місяць'
-      },
-      jobOutlook: {
-          ar: 'متوسطة',
-          de: 'Mittel',
-          en: 'Moderate',
-          tr: 'Orta',
-          uk: 'Помірні'
-      },
-      requirements: {
-          ar: 'شهادة Hauptschulabschluss، اهتمام بالطبيعة والنبيذ، قوة بدنية.',
-          de: 'Hauptschulabschluss, Interesse an Natur und Wein, körperliche Belastbarkeit.',
-          en: 'Basic school certificate, interest in nature and wine, physical resilience.',
-          tr: 'Temel okul diploması, doğa ve şaraba ilgi, fiziksel dayanıklılık.',
-          uk: 'Базова шкільна освіта, інтерес до природи та вина, фізична витривалість.'
-      },
-      duties: {
-          ar: 'العناية بكروم العنب، حصاد العنب، إنتاج وتعتيق النبيذ.',
-          de: 'Pflege der Weinberge, Lese der Trauben, Herstellung und Ausbau von Wein.',
-          en: 'Caring for vineyards, harvesting grapes, producing and aging wine.',
-          tr: 'Bağların bakımı, üzüm hasadı, şarap üretimi ve eskitilmesi.',
-          uk: 'Догляд за виноградниками, збір врожаю, виробництво та витримка вина.'
-      },
-      skillsRequired: {
-          ar: 'مهارات حسية (تذوق، شم)، معرفة بالنباتات، دقة، صبر.',
-          de: 'Sensorische Fähigkeiten (Schmecken, Riechen), Pflanzenkenntnisse, Sorgfalt, Geduld.',
-          en: 'Sensory skills (tasting, smelling), plant knowledge, diligence, patience.',
-          tr: 'Duyusal beceriler (tatma, koklama), bitki bilgisi, özen, sabır.',
-          uk: 'Сенсорні навички (смак, нюх), знання рослин, старанність, терпіння.'
-      }
-  },
-  {
-      title: {
-          ar: 'شرطي',
-          de: 'Polizeivollzugsbeamter/beamtin',
-          en: 'Police Officer',
-          tr: 'Polis Memuru',
-          uk: 'Поліцейський'
-      },
-      category: 'ausbildung',
-      duration: {
-          ar: '2.5 - 3 سنوات (تدريب في أكاديمية الشرطة)',
-          de: '2,5 - 3 Jahre (Ausbildung an Polizeiakademie)',
-          en: '2.5 - 3 years (training at police academy)',
-          tr: '2.5 - 3 yıl (polis akademisinde eğitim)',
-          uk: '2,5 - 3 роки (навчання в поліцейській академії)'
-      },
-      salary: {
-          ar: 'حوالي €1,300 شهريًا (أثناء التدريب)',
-          de: 'ca. 1.300 €/Monat (während der Ausbildung)',
-          en: 'approx. €1,300/month (during training)',
-          tr: 'yaklaşık 1.300 €/ay (eğitim sırasında)',
-          uk: 'прибл. €1,300/місяць (під час навчання)'
-      },
-      salaryRange: {
-          ar: '€2,900 - €4,500 شهرياً (كموظف حكومي)',
-          de: '€2.900 - €4.500/Monat (als Beamter)',
-          en: '€2,900 - €4,500/month (as a civil servant)',
-          tr: '€2.900 - €4.500/ay (memur olarak)',
-          uk: '€2,900 - €4,500/місяць (як державний службовець)'
-      },
-      jobOutlook: {
-          ar: 'جيدة جداً',
-          de: 'Sehr gut',
-          en: 'Very good',
-          tr: 'Çok iyi',
-          uk: 'Дуже хороші'
-      },
-      requirements: {
-          ar: 'شهادة Realschulabschluss، الجنسية الألمانية (أو جنسية الاتحاد الأوروبي)، لياقة بدنية، سجل جنائي نظيف.',
-          de: 'Realschulabschluss, deutsche (oder EU-) Staatsbürgerschaft, körperliche Fitness, einwandfreies Führungszeugnis.',
-          en: 'Intermediate school certificate, German (or EU) citizenship, physical fitness, clean criminal record.',
-          tr: 'Ortaokul diploması, Alman (veya AB) vatandaşlığı, fiziksel uygunluk, temiz sabıka kaydı.',
-          uk: 'Атестат про середню освіту, німецьке (або ЄС) громадянство, фізична підготовка, відсутність судимостей.'
-      },
-      duties: {
-          ar: 'الحفاظ على النظام العام، مكافحة الجريمة، تنظيم حركة المرور.',
-          de: 'Aufrechterhaltung der öffentlichen Ordnung, Verbrechensbekämpfung, Verkehrsregelung.',
-          en: 'Maintaining public order, crime fighting, traffic control.',
-          tr: 'Kamu düzenini sağlamak, suçla mücadele etmek, trafiği düzenlemek.',
-          uk: 'Підтримання громадського порядку, боротьба зі злочинністю, регулювання дорожнього руху.'
-      },
-      skillsRequired: {
-          ar: 'قدرة على التحمل النفسي، عمل جماعي، مهارات اتخاذ القرار، حزم.',
-          de: 'Psychische Belastbarkeit, Teamfähigkeit, Entscheidungsfreude, Durchsetzungsvermögen.',
-          en: 'Psychological resilience, teamwork, decision-making skills, assertiveness.',
-          tr: 'Psikolojik dayanıklılık, takım çalışması, karar verme becerileri, iddialılık.',
-          uk: 'Психологічна стійкість, командна робота, навички прийняття рішень, напористість.'
-      }
-  }
-];
+  ];

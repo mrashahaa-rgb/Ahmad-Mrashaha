@@ -1,13 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
-*/
-// FIX: Import `Type` enum for defining the response schema.
 import { GoogleGenAI, Type } from "@google/genai";
 import { marked } from 'marked';
-import { quizQuestions, translations, professions } from './data';
+import { translations, quizQuestions, professions } from './data';
 
 const API_KEY = process.env.API_KEY;
+const PROFESSIONS_PAGE_SIZE = 6;
 
 const root = document.getElementById('root');
 const headerTitle = document.getElementById('header-title');
@@ -25,10 +21,6 @@ if (API_KEY) {
 } else {
     console.error("API_KEY environment variable not set. AI features will be disabled.");
 }
-
-// --- START: CENTRALIZED STATE MANAGEMENT (REFACTOR) ---
-
-const PROFESSIONS_PAGE_SIZE = 20;
 
 // 1. Define the Initial State
 const initialState = {
@@ -58,6 +50,18 @@ const initialState = {
     field: '',
     location: '',
   },
+  resumeState: {
+    fullName: '',
+    jobTitle: '',
+    email: '',
+    phone: '',
+    address: '',
+    summary: '',
+    skills: '',
+    photo: null, // Data URL
+    experience: [{ id: Date.now(), company: '', position: '', startDate: '', endDate: '', description: '' }],
+    education: [{ id: Date.now(), school: '', degree: '', startDate: '', endDate: '' }],
+  },
   isAdminAuthenticated: false,
   loginError: null,
   activeReport: null,
@@ -70,7 +74,6 @@ const initialState = {
 };
 
 // 2. Create the Reducer Function
-// This function is the only place where state can be modified.
 const appReducer = (state, action) => {
   switch (action.type) {
     case 'NAVIGATE_TO':
@@ -143,7 +146,6 @@ const appReducer = (state, action) => {
     case 'LOAD_SAVED_RESULTS':
       return { ...state, savedResults: action.payload };
     case 'SET_SAVED_RESULTS':
-        // This action is used for adding/deleting without a full re-render
         return { ...state, savedResults: action.payload };
     case 'SET_ACTIVE_REPORT':
         return {
@@ -159,14 +161,12 @@ const appReducer = (state, action) => {
             professionsSearchTerm: action.payload.searchTerm,
             professionsCurrentPage: action.payload.page,
         };
-    // Job Search Actions
     case 'JOB_SEARCH_START':
       return { ...state, jobSearchState: { isLoading: true, results: null, error: null } };
     case 'JOB_SEARCH_SUCCESS':
       return { ...state, jobSearchState: { isLoading: false, results: action.payload, error: null } };
     case 'JOB_SEARCH_ERROR':
       return { ...state, jobSearchState: { isLoading: false, results: null, error: action.payload } };
-    // Praktikum Search Actions
     case 'PRAKTIKUM_COMPANY_SEARCH_START':
         return {
             ...state,
@@ -221,6 +221,50 @@ const appReducer = (state, action) => {
                 ...action.payload
             }
         };
+    case 'UPDATE_RESUME_FIELD':
+        return {
+            ...state,
+            resumeState: { ...state.resumeState, [action.payload.field]: action.payload.value }
+        };
+    case 'UPDATE_RESUME_EXPERIENCE':
+        const newExperience = state.resumeState.experience.map(item => 
+            item.id === action.payload.id ? { ...item, [action.payload.field]: action.payload.value } : item
+        );
+        return { ...state, resumeState: { ...state.resumeState, experience: newExperience } };
+    case 'ADD_RESUME_EXPERIENCE':
+        return {
+            ...state,
+            resumeState: { 
+                ...state.resumeState, 
+                experience: [...state.resumeState.experience, { id: Date.now(), company: '', position: '', startDate: '', endDate: '', description: '' }] 
+            }
+        };
+    case 'REMOVE_RESUME_EXPERIENCE':
+        return {
+            ...state,
+            resumeState: { ...state.resumeState, experience: state.resumeState.experience.filter(i => i.id !== action.payload) }
+        };
+    case 'UPDATE_RESUME_EDUCATION':
+        const newEducation = state.resumeState.education.map(item => 
+            item.id === action.payload.id ? { ...item, [action.payload.field]: action.payload.value } : item
+        );
+        return { ...state, resumeState: { ...state.resumeState, education: newEducation } };
+    case 'ADD_RESUME_EDUCATION':
+        return {
+            ...state,
+            resumeState: { 
+                ...state.resumeState, 
+                education: [...state.resumeState.education, { id: Date.now(), school: '', degree: '', startDate: '', endDate: '' }] 
+            }
+        };
+    case 'REMOVE_RESUME_EDUCATION':
+        return {
+            ...state,
+            resumeState: { ...state.resumeState, education: state.resumeState.education.filter(i => i.id !== action.payload) }
+        };
+    case 'SET_RESUME_PHOTO':
+        return { ...state, resumeState: { ...state.resumeState, photo: action.payload } };
+        
     case 'API_KEY_CHECK_START':
         return { ...state, apiKeyCheck: { isLoading: true, status: 'checking', message: '' } };
     case 'API_KEY_CHECK_RESULT':
@@ -239,9 +283,11 @@ const createStore = (reducer, initialState) => {
 
   const getState = () => state;
 
-  const dispatch = (action) => {
+  const dispatch = (action, options = { silent: false }) => {
     state = reducer(state, action);
-    listeners.forEach(listener => listener(state));
+    if (!options.silent) {
+        listeners.forEach(listener => listener(state));
+    }
   };
 
   const subscribe = (listener) => {
@@ -260,10 +306,7 @@ const createStore = (reducer, initialState) => {
 // 4. Instantiate the Store
 const store = createStore(appReducer, initialState);
 
-// --- END: CENTRALIZED STATE MANAGEMENT (REFACTOR) ---
-
-// --- START: TEXT TO SPEECH & SPEECH TO TEXT HELPERS ---
-
+// ... (Text-to-speech helpers)
 const stopSpeaking = () => {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -293,7 +336,8 @@ const speakText = (text) => {
             if (e.error === 'interrupted' || e.error === 'canceled') {
                 return; // Ignore interruption errors
             }
-            console.error('Speech synthesis error', e);
+            // @ts-ignore
+            console.error('Speech synthesis error:', e.error);
         };
         
         window.speechSynthesis.speak(msg);
@@ -315,7 +359,7 @@ const renderReadBtn = (text) => {
     `;
 };
 
-// Helper to render the microphone button for speech-to-text
+// ... (renderMicBtn, startDictation, helpers)
 const renderMicBtn = (targetInputId) => {
     return `
         <button class="mic-btn" data-target="${targetInputId}" aria-label="Speak answer" type="button">
@@ -329,7 +373,6 @@ const renderMicBtn = (targetInputId) => {
     `;
 };
 
-// Speech Recognition Function
 const startDictation = (inputId) => {
     // @ts-ignore
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -385,13 +428,11 @@ const startDictation = (inputId) => {
     window.currentRecognition = recognition;
 };
 
-// --- END: TEXT TO SPEECH & SPEECH TO TEXT HELPERS ---
-
-
 const t = (key) => {
   return translations[store.getState().currentLanguage][key] || key;
 };
 
+// ... (loadSavedResults, getCompanyId, getReviews, saveReview, renderStars helpers)
 const loadSavedResults = () => {
     try {
         const saved = localStorage.getItem('careerResults');
@@ -404,11 +445,7 @@ const loadSavedResults = () => {
     }
 }
 
-
-// --- START: REVIEW SYSTEM HELPERS ---
-
 const getCompanyId = (company) => {
-    // Create a reasonably unique ID from company name and address
     return `${company.name}-${company.address || ''}`.replace(/[\s\W]+/g, '-').toLowerCase();
 };
 
@@ -446,10 +483,6 @@ const renderStars = (rating) => {
     return starsHtml;
 };
 
-// --- END: REVIEW SYSTEM HELPERS ---
-
-
-// --- RENDER FUNCTIONS (Now receive state as a parameter) ---
 
 const renderLanguageSwitcher = (state) => {
     const currentLangName = translations[state.currentLanguage].langName;
@@ -476,9 +509,6 @@ const renderLanguageSwitcher = (state) => {
             </div>
         </div>
     `;
-
-    // NOTE: Event listeners are now handled centrally in initEventListeners for performance.
-    // This function now only handles rendering the initial HTML.
 };
 
 const renderHeaderActions = (state) => {
@@ -504,6 +534,7 @@ const renderWelcome = (state) => {
             <h3>${t('startQuiz')}</h3>
             <p>${t('startQuizDesc')}</p>
         </div>
+        <!-- Create Resume removed from here, now in Admin -->
         <div id="browse-professions-card" class="action-card ${!state.isAdminAuthenticated ? 'locked' : ''}">
             <h3>
                 ${!state.isAdminAuthenticated 
@@ -563,20 +594,49 @@ const renderTopNav = (state) => {
 
 const renderAdminLogin = (state) => {
     root.innerHTML = `
-        <div class="page-container">
+        <div class="page-container login-page-wrapper">
+            <!-- Glassmorphism Login Form Centered -->
             <div class="container admin-login-container">
                 ${renderTopNav(state)}
-                <h1>${t('adminLogin')}</h1>
+                <h1>${t('login')}</h1>
                 <form id="login-form" class="login-form">
-                    <input type="text" id="username" placeholder="${t('username')}" required>
-                    <input type="password" id="password" placeholder="${t('password')}" required>
-                    <button type="submit" class="btn">${t('login')}</button>
+                    <div class="input-group-glass">
+                        <input type="text" id="username" required autocomplete="off">
+                        <label for="username">${t('username')}</label>
+                    </div>
+                    <div class="input-group-glass">
+                        <input type="password" id="password" required>
+                            <label for="password">${t('password')}</label>
+                    </div>
+                    <div class="login-extras">
+                        <label class="remember-me">
+                            <input type="checkbox"> <span>${state.currentLanguage === 'de' ? 'Erinnere dich an mich' : 'Remember me'}</span>
+                        </label>
+                        <a href="#" class="forgot-pass">${state.currentLanguage === 'de' ? 'Passwort vergessen?' : 'Forgot Password?'}</a>
+                    </div>
+                    <button type="submit" class="btn login-btn">${t('login')}</button>
+                    
+                        <div class="register-link">
+                        <p>${state.currentLanguage === 'de' ? 'Haben Sie kein Konto?' : "Don't have an account?"} <a href="#" id="register-link">${state.currentLanguage === 'de' ? 'Registrieren' : 'Register'}</a></p>
+                        </div>
                 </form>
-                ${state.loginError ? `<p class="error-message">${state.loginError}</p>` : ''}
+                ${state.loginError ? `<p class="error-message glass-error">${state.loginError}</p>` : ''}
             </div>
         </div>
     `;
 }
+
+const renderRegistrationUnavailable = (state) => {
+    root.innerHTML = `
+        <div class="page-container login-page-wrapper">
+            <div class="container admin-login-container">
+                <h1>${t('registrationUnavailableTitle')}</h1>
+                <p style="color: white; text-align: center; margin-bottom: 2rem;">${t('registrationUnavailableDesc')}</p>
+                <button id="back-to-login-btn" class="btn login-btn">${t('backToLogin')}</button>
+            </div>
+        </div>
+    `;
+};
 
 const renderQuizIntro = (state) => {
     const introTitle = t('quizIntroTitle');
@@ -642,10 +702,11 @@ const renderQuiz = (state) => {
     `;
   } else {
      questionContent = `
-        <div class="options-grid">
+        <div class="options-list">
             ${question.options.map((option) => `
-              <button class="option-btn ${state.userAnswers[state.currentQuestionIndex] === option ? 'selected' : ''}" data-option="${option}">
-                ${option}
+              <button class="option-text-row ${state.userAnswers[state.currentQuestionIndex] === option ? 'selected' : ''}" data-option="${option}">
+                <span class="radio-circle"></span>
+                <span class="option-text">${option}</span>
               </button>
             `).join('')}
         </div>
@@ -731,6 +792,7 @@ const renderFeedbackUI = (sectionKey, feedbackData) => {
     }
 };
 
+// --- UPDATED RENDER RESULTS (PREMIUM DARK OVERLAY) ---
 const renderResults = async (state) => {
   const { activeReport: results, isNewReport: isNew, savedResults } = state;
 
@@ -750,52 +812,78 @@ const renderResults = async (state) => {
   const cleanPersonality = results.personalitySummary.replace(/[*#]/g, '');
   const cleanAdvice = results.careerAdvice.replace(/[*#]/g, '');
 
+  // Render Full Page Wrapper (Not fixed overlay)
   root.innerHTML = `
-    <div class="page-container">
-        <div class="container results-container">
-          ${renderTopNav(state)}
-          <h1>${t('resultsTitleFor').replace('{name}', results.userName || t('you'))}</h1>
+    <div class="creative-results-wrapper">
+        <button id="close-results-overlay" class="close-results-btn" aria-label="Home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </button>
+        
+        <div class="creative-container">
+          <!-- Hero Section -->
+          <div class="creative-header">
+             <h1>${t('resultsTitleFor').replace('{name}', results.userName || t('you'))}</h1>
+             <p>${t('quizIntroDesc')}</p>
+          </div>
+
+          <!-- Personality Card -->
+          <div class="creative-card animate-delay-1">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    ${t('personalitySummary')} ${renderReadBtn(cleanPersonality)}
+                </h2>
+                <div class="creative-card-content">${personalitySummaryHtml}</div>
+                <div class="feedback-controls" data-section-key="personality">
+                    ${renderFeedbackUI('personality', reportFeedback)}
+                </div>
+          </div>
+
+          <!-- Jobs Section -->
+          <section class="creative-jobs-section animate-delay-2">
+             <h2>${t('recommendedPaths')}</h2>
+             <div class="creative-jobs-grid">
+                ${results.jobSuggestions.map(job => `
+                  <div class="creative-job-card">
+                    <div class="job-card-header">
+                        <h3>
+                            ${job.title} 
+                            ${renderReadBtn(`${job.title}. ${job.description}`)}
+                        </h3>
+                    </div>
+                    <div class="job-card-body">
+                        <p>${job.description}</p>
+                    </div>
+                    <div class="job-card-footer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        <span>${job.details.length > 60 ? job.details.substring(0, 60) + '...' : job.details}</span>
+                    </div>
+                  </div>
+                `).join('')}
+             </div>
+             <div class="creative-card" style="margin-top: 2rem; padding: 1.5rem; text-align: center;">
+                <div class="feedback-controls" data-section-key="paths" style="margin-top: 0; border: none; justify-content: center;">
+                    ${renderFeedbackUI('paths', reportFeedback)}
+                </div>
+             </div>
+          </section>
+
+          <!-- Advice Section -->
+          <div class="creative-card creative-advice-card animate-delay-3" style="margin-top: 3rem;">
+                <h2>
+                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                   ${t('careerAdvice')} ${renderReadBtn(cleanAdvice)}
+                </h2>
+                <div class="card-content">${careerAdviceHtml}</div>
+                <div class="feedback-controls" data-section-key="advice">
+                    ${renderFeedbackUI('advice', reportFeedback)}
+                </div>
+          </div>
           
-          <nav class="results-nav">
-            <a href="#personality-summary">${t('personalitySummary')}</a>
-            <a href="#recommended-paths">${t('recommendedPaths')}</a>
-            <a href="#career-advice">${t('careerAdvice')}</a>
-          </nav>
-
-          <div id="personality-summary" class="result-section">
-            <h2>${t('personalitySummary')} ${renderReadBtn(cleanPersonality)}</h2>
-            <div>${personalitySummaryHtml}</div>
-            <div class="feedback-controls" data-section-key="personality">
-              ${renderFeedbackUI('personality', reportFeedback)}
-            </div>
-          </div>
-
-          <div id="recommended-paths" class="result-section">
-            <h2>${t('recommendedPaths')}</h2>
-            ${results.jobSuggestions.map(job => `
-              <div class="job-suggestion-card">
-                <h3>${job.title} ${renderReadBtn(`${job.title}. ${job.description}`)}</h3>
-                <p>${job.description}</p>
-                <p class="details">${job.details}</p>
-              </div>
-            `).join('')}
-             <div class="feedback-controls" data-section-key="paths">
-              ${renderFeedbackUI('paths', reportFeedback)}
-            </div>
-          </div>
-
-          <div id="career-advice" class="result-section">
-            <h2>${t('careerAdvice')} ${renderReadBtn(cleanAdvice)}</h2>
-            <div>${careerAdviceHtml}</div>
-            <div class="feedback-controls" data-section-key="advice">
-              ${renderFeedbackUI('advice', reportFeedback)}
-            </div>
-          </div>
-          
-          <div class="results-actions">
+          <!-- Static Action Bar -->
+          <div class="creative-actions">
             <button id="print-btn" class="btn secondary">${t('printReport')}</button>
             <button id="email-btn" class="btn secondary">${t('emailReport')}</button>
-            ${isNew ? `<button id="save-btn" class="btn secondary" ${isAlreadySaved ? 'disabled' : ''}>${isAlreadySaved ? t('reportSaved') : t('saveReport')}</button>` : ''}
+            ${isNew ? `<button id="save-btn" class="btn" ${isAlreadySaved ? 'disabled' : ''}>${isAlreadySaved ? t('reportSaved') : t('saveReport')}</button>` : ''}
           </div>
         </div>
     </div>
@@ -811,15 +899,19 @@ const renderSavedResultsList = (state) => {
     }
 
     const apiCheckerHtml = `
-        <div class="api-status-checker">
-            <h2>${t('apiKeyStatus')}</h2>
-            <p>${t('apiKeyStatusDesc')}</p>
-            <button id="check-api-key-btn" class="btn secondary" ${isLoading ? 'disabled' : ''}>
-                ${isLoading ? t('checkingApiKey') : t('checkApiKey')}
-            </button>
-            <div id="api-status-result">
-                ${statusHtml}
-            </div>
+        <div class="api-checker-wrapper">
+            <details class="api-status-details">
+                <summary class="api-status-summary">${t('apiKeyStatus')}</summary>
+                <div class="api-status-checker">
+                    <p>${t('apiKeyStatusDesc')}</p>
+                    <button id="check-api-key-btn" class="btn secondary" ${isLoading ? 'disabled' : ''}>
+                        ${isLoading ? t('checkingApiKey') : t('checkApiKey')}
+                    </button>
+                    <div id="api-status-result">
+                        ${statusHtml}
+                    </div>
+                </div>
+            </details>
         </div>
     `;
 
@@ -829,6 +921,7 @@ const renderSavedResultsList = (state) => {
                 ${renderTopNav(state)}
                 <div class="saved-reports-header">
                     <h1>${t('savedReportsTitle')}</h1>
+                     <button id="create-cv-btn" class="btn small-btn">${t('createResume')}</button>
                 </div>
                 ${state.savedResults.length > 0 ? `
                     <ul>
@@ -852,6 +945,7 @@ const renderSavedResultsList = (state) => {
     `;
 };
 
+// ... (Professions and Job Search views)
 const updateProfessionsContent = (state) => {
     const { professionsSearchTerm, currentLanguage } = state;
     let { professionsCurrentPage } = state;
@@ -871,7 +965,7 @@ const updateProfessionsContent = (state) => {
     if (professionsCurrentPage > totalPages) professionsCurrentPage = totalPages;
     
     const startIndex = (professionsCurrentPage - 1) * PROFESSIONS_PAGE_SIZE;
-    // FIX: The slice method takes 2 arguments (start and end), not 3. The end index is calculated by adding the page size to the start index.
+    // FIX: The slice method takes 2 arguments (start and end), not 3.
     const paginatedProfessions = allProfessions.slice(startIndex, startIndex + PROFESSIONS_PAGE_SIZE);
 
     professionsGrid.innerHTML = paginatedProfessions.length > 0 ? paginatedProfessions.map(p => `
@@ -959,6 +1053,282 @@ const renderJobSearch = (state) => {
     `;
 };
 
+// --- START: RESUME CREATOR VIEWS ---
+
+const renderResumeCreator = (state) => {
+    const { resumeState } = state;
+    
+    const experienceHtml = resumeState.experience.map((exp, index) => `
+        <div class="resume-section-item" data-id="${exp.id}">
+            <div class="form-row">
+                <div class="form-group-natural">
+                    <label>${t('resumeCompany')}</label>
+                    <div class="natural-input-wrapper">
+                        <input type="text" class="resume-input" data-field="company" data-section="experience" data-id="${exp.id}" value="${exp.company}" required>
+                        ${renderMicBtn(`company-${exp.id}`)}
+                    </div>
+                </div>
+                <div class="form-group-natural">
+                     <label>${t('resumePosition')}</label>
+                     <div class="natural-input-wrapper">
+                        <input type="text" class="resume-input" data-field="position" data-section="experience" data-id="${exp.id}" value="${exp.position}" required>
+                        ${renderMicBtn(`position-${exp.id}`)}
+                     </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group-natural">
+                    <label>${t('resumeDateStart')}</label>
+                    <div class="natural-input-wrapper">
+                        <input type="text" class="resume-input" data-field="startDate" data-section="experience" data-id="${exp.id}" value="${exp.startDate}" required>
+                        ${renderMicBtn(`start-${exp.id}`)}
+                    </div>
+                </div>
+                <div class="form-group-natural">
+                    <label>${t('resumeDateEnd')}</label>
+                    <div class="natural-input-wrapper">
+                        <input type="text" class="resume-input" data-field="endDate" data-section="experience" data-id="${exp.id}" value="${exp.endDate}" required>
+                        ${renderMicBtn(`end-${exp.id}`)}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-natural">
+                <label>${t('resumeDescription')}</label>
+                <div class="natural-input-wrapper">
+                    <textarea class="resume-input" data-field="description" data-section="experience" data-id="${exp.id}" rows="3" required>${exp.description}</textarea>
+                     ${renderMicBtn(`desc-${exp.id}`)}
+                </div>
+            </div>
+            ${resumeState.experience.length > 1 ? `<button class="btn secondary small-btn remove-exp-btn" data-id="${exp.id}">${t('remove')}</button>` : ''}
+        </div>
+    `).join('');
+
+    const educationHtml = resumeState.education.map((edu, index) => `
+        <div class="resume-section-item" data-id="${edu.id}">
+             <div class="form-row">
+                <div class="form-group-natural">
+                    <label>${t('resumeSchool')}</label>
+                    <div class="natural-input-wrapper">
+                        <input type="text" class="resume-input" data-field="school" data-section="education" data-id="${edu.id}" value="${edu.school}" required>
+                        ${renderMicBtn(`school-${edu.id}`)}
+                    </div>
+                </div>
+                <div class="form-group-natural">
+                     <label>${t('resumeDegree')}</label>
+                     <div class="natural-input-wrapper">
+                        <input type="text" class="resume-input" data-field="degree" data-section="education" data-id="${edu.id}" value="${edu.degree}" required>
+                        ${renderMicBtn(`degree-${edu.id}`)}
+                     </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group-natural">
+                    <label>${t('resumeDateStart')}</label>
+                    <div class="natural-input-wrapper">
+                        <input type="text" class="resume-input" data-field="startDate" data-section="education" data-id="${edu.id}" value="${edu.startDate}" required>
+                        ${renderMicBtn(`edu-start-${edu.id}`)}
+                    </div>
+                </div>
+                <div class="form-group-natural">
+                    <label>${t('resumeDateEnd')}</label>
+                    <div class="natural-input-wrapper">
+                        <input type="text" class="resume-input" data-field="endDate" data-section="education" data-id="${edu.id}" value="${edu.endDate}" required>
+                        ${renderMicBtn(`edu-end-${edu.id}`)}
+                    </div>
+                </div>
+            </div>
+             ${resumeState.education.length > 1 ? `<button class="btn secondary small-btn remove-edu-btn" data-id="${edu.id}">${t('remove')}</button>` : ''}
+        </div>
+    `).join('');
+
+    root.innerHTML = `
+        <div class="page-container">
+             <div class="container resume-builder-container">
+                ${renderTopNav(state)}
+                <h1>${t('resumeTitle')}</h1>
+                <p style="margin-bottom: 2rem;">${t('resumeDesc')}</p>
+                
+                <form id="resume-form" class="resume-form">
+                    
+                    <!-- Personal Info -->
+                    <div class="resume-section">
+                        <h2>${t('resumePersonalInfo')}</h2>
+                        <div class="resume-photo-section">
+                             <div class="photo-preview" style="background-image: url('${resumeState.photo || ''}')">
+                                ${!resumeState.photo ? '<span>📷</span>' : ''}
+                             </div>
+                             <div class="photo-upload-controls">
+                                <label for="resume-photo-upload" class="btn secondary small-btn">${t('resumePhotoUpload')}</label>
+                                <input type="file" id="resume-photo-upload" accept="image/*" style="display: none;">
+                                <div class="ai-avatar-control">
+                                    <button type="button" id="generate-ai-avatar-btn" class="btn small-btn">${t('resumeGenerateAIPhoto')}</button>
+                                </div>
+                             </div>
+                        </div>
+                        <div id="ai-avatar-prompt-container" style="display:none; margin-bottom: 1rem;">
+                           <div class="form-group-natural">
+                                <label>${t('resumeAIPhotoPrompt')}</label>
+                                <div class="natural-input-wrapper">
+                                    <input type="text" id="avatar-desc" placeholder="${t('resumeAIPhotoPrompt')}" required>
+                                </div>
+                           </div>
+                           <button type="button" id="confirm-ai-avatar" class="btn small-btn">${t('generate')}</button>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group-natural">
+                                <label for="resume-fullname">${t('resumeFullName')}</label>
+                                <div class="natural-input-wrapper">
+                                    <input type="text" class="resume-input" data-field="fullName" value="${resumeState.fullName}" required id="resume-fullname">
+                                    ${renderMicBtn('resume-fullname')}
+                                </div>
+                            </div>
+                            <div class="form-group-natural">
+                                <label for="resume-jobtitle">${t('resumeJobTitle')}</label>
+                                <div class="natural-input-wrapper">
+                                    <input type="text" class="resume-input" data-field="jobTitle" value="${resumeState.jobTitle}" required id="resume-jobtitle">
+                                    ${renderMicBtn('resume-jobtitle')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                             <div class="form-group-natural">
+                                <label for="resume-email">${t('resumeEmail')}</label>
+                                <div class="natural-input-wrapper">
+                                    <input type="email" class="resume-input" data-field="email" value="${resumeState.email}" required id="resume-email">
+                                    ${renderMicBtn('resume-email')}
+                                </div>
+                            </div>
+                            <div class="form-group-natural">
+                                <label for="resume-phone">${t('resumePhone')}</label>
+                                <div class="natural-input-wrapper">
+                                    <input type="text" class="resume-input" data-field="phone" value="${resumeState.phone}" required id="resume-phone">
+                                    ${renderMicBtn('resume-phone')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-natural">
+                             <label for="resume-address">${t('resumeAddress')}</label>
+                             <div class="natural-input-wrapper">
+                                <input type="text" class="resume-input" data-field="address" value="${resumeState.address}" required id="resume-address">
+                                ${renderMicBtn('resume-address')}
+                             </div>
+                        </div>
+                         <div class="form-group-natural">
+                             <label for="resume-summary">${t('resumeSummary')}</label>
+                             <div class="natural-input-wrapper">
+                                 <textarea class="resume-input" data-field="summary" rows="4" required id="resume-summary">${resumeState.summary}</textarea>
+                                 ${renderMicBtn('resume-summary')}
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="resume-section">
+                        <h2>${t('resumeExperience')}</h2>
+                        <div id="experience-list">
+                            ${experienceHtml}
+                        </div>
+                        <button type="button" id="add-experience-btn" class="btn secondary small-btn" style="margin-top: 1rem;">+ ${t('resumeAddExperience')}</button>
+                    </div>
+
+                     <!-- Education -->
+                    <div class="resume-section">
+                        <h2>${t('resumeEducation')}</h2>
+                        <div id="education-list">
+                            ${educationHtml}
+                        </div>
+                        <button type="button" id="add-education-btn" class="btn secondary small-btn" style="margin-top: 1rem;">+ ${t('resumeAddEducation')}</button>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="resume-section">
+                        <h2>${t('resumeSkills')}</h2>
+                        <div class="form-group-natural">
+                             <label for="resume-skills">${t('resumeSkills')}</label>
+                             <div class="natural-input-wrapper">
+                                 <textarea class="resume-input" data-field="skills" rows="3" required id="resume-skills">${resumeState.skills}</textarea>
+                                 ${renderMicBtn('resume-skills')}
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-actions">
+                         <button type="button" id="generate-resume-btn" class="btn">${t('resumeGenerateBtn')}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+};
+
+const renderResumePreview = (state) => {
+    const { resumeState } = state;
+
+    root.innerHTML = `
+        <div class="page-container">
+            <div class="container resume-preview-wrapper">
+                 <div class="preview-toolbar">
+                    <button id="edit-resume-btn" class="btn secondary small-btn">${t('resumeEdit')}</button>
+                    <button id="download-pdf-btn" class="btn small-btn">${t('resumeDownloadPDF')}</button>
+                    <button id="download-word-btn" class="btn secondary small-btn">${t('resumeDownloadWord')}</button>
+                    <button id="top-home-btn" class="btn secondary small-btn">${t('home')}</button>
+                 </div>
+
+                 <div id="resume-paper" class="resume-paper">
+                    <div class="resume-sidebar">
+                        ${resumeState.photo ? `<div class="resume-avatar"><img src="${resumeState.photo}" alt="Profile"></div>` : ''}
+                        
+                        <div class="resume-contact">
+                            <h3>Contact</h3>
+                            ${resumeState.email ? `<p>📧 ${resumeState.email}</p>` : ''}
+                            ${resumeState.phone ? `<p>📞 ${resumeState.phone}</p>` : ''}
+                            ${resumeState.address ? `<p>📍 ${resumeState.address}</p>` : ''}
+                        </div>
+
+                        <div class="resume-skills-section">
+                            <h3>Skills</h3>
+                            <p>${resumeState.skills.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-main">
+                        <header class="resume-header">
+                            <h1>${resumeState.fullName}</h1>
+                            <h2>${resumeState.jobTitle}</h2>
+                            <p class="resume-summary">${resumeState.summary}</p>
+                        </header>
+
+                        <section class="resume-body-section">
+                            <h3>Experience</h3>
+                            ${resumeState.experience.map(exp => `
+                                <div class="resume-item">
+                                    <h4>${exp.position}</h4>
+                                    <div class="resume-meta">${exp.company} | ${exp.startDate} - ${exp.endDate}</div>
+                                    <p>${exp.description.replace(/\n/g, '<br>')}</p>
+                                </div>
+                            `).join('')}
+                        </section>
+
+                        <section class="resume-body-section">
+                            <h3>Education</h3>
+                             ${resumeState.education.map(edu => `
+                                <div class="resume-item">
+                                    <h4>${edu.degree}</h4>
+                                    <div class="resume-meta">${edu.school} | ${edu.startDate} - ${edu.endDate}</div>
+                                </div>
+                            `).join('')}
+                        </section>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    `;
+};
+
+// ... (END: RESUME CREATOR VIEWS)
+
+// ... (renderPraktikumIntro, renderPraktikumSearch, API logic remain same)
 const renderPraktikumIntro = (state) => {
     root.innerHTML = `
         <div class="page-container">
@@ -1159,14 +1529,6 @@ const renderPraktikumSearch = (state) => {
 
 // --- LOGIC ---
 
-/**
- * A centralized handler for API errors.
- * It checks for common API key-related error messages and provides a more specific,
- * user-friendly error message, guiding the user to check their environment variables.
- * @param {any} error The error object caught.
- * @param {(payload: string) => object} [dispatchActionCreator] An optional function that takes an error message payload and returns a dispatchable action object.
- * @param {string} [defaultErrorKey='errorText'] The default translation key to use if the error is not an API key error.
- */
 const handleApiError = (error, dispatchActionCreator, defaultErrorKey = 'errorText') => {
     console.error("API Error:", error);
     let errorMessageKey = defaultErrorKey;
@@ -1382,6 +1744,66 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
     }
 };
 
+const generateAiAvatar = async () => {
+    const description = (document.getElementById('avatar-desc') as HTMLInputElement).value;
+    if (!description) { alert('Please enter a description'); return; }
+    
+    // Stop any existing speech
+    stopSpeaking();
+    
+    if (!ai) { alert('API Key missing'); return; }
+    
+    // Show loading state on button
+    const btn = document.getElementById('confirm-ai-avatar') as HTMLButtonElement;
+    const originalText = btn.textContent;
+    btn.textContent = t('loading');
+    btn.disabled = true;
+
+    try {
+        // Use Nano Banana (gemini-2.5-flash-image) model as requested
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash-image',
+            contents: {
+                parts: [
+                    { text: `Generate a professional LinkedIn-style profile picture of a person matching this description: ${description}. The background should be blurred office or neutral studio. High quality, photorealistic.` }
+                ]
+            }
+        });
+        
+        let imageUrl = null;
+        if(response.candidates?.[0]?.content?.parts) {
+            for (const part of response.candidates[0].content.parts) {
+                if (part.inlineData) {
+                    imageUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+                    break;
+                }
+            }
+        }
+        
+        if (imageUrl) {
+            store.dispatch({ type: 'SET_RESUME_PHOTO', payload: imageUrl });
+             // Update preview immediately
+             const preview = document.querySelector('.photo-preview') as HTMLElement;
+             if(preview) {
+                 preview.style.backgroundImage = `url('${imageUrl}')`;
+                 preview.innerHTML = '';
+             }
+             // Hide the prompt container
+             const container = document.getElementById('ai-avatar-prompt-container');
+             if(container) container.style.display = 'none';
+        } else {
+            alert('Failed to generate image. Try again.');
+        }
+
+    } catch (error) {
+        console.error("Image gen error", error);
+        alert("Error generating image.");
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    }
+};
+
 let previousView = undefined;
 
 const renderApp = (state) => {
@@ -1393,10 +1815,18 @@ const renderApp = (state) => {
 
   document.body.style.paddingTop = '0px'; 
   headerTitle.textContent = t('headerTitle');
+  // Update footer text dynamically based on language
   footerText.textContent = t('footerText');
   
   renderLanguageSwitcher(state);
   renderHeaderActions(state);
+
+  // Manage Results Mode Body Class for CSS
+  if (state.currentView === 'results') {
+      document.body.classList.add('results-mode');
+  } else {
+      document.body.classList.remove('results-mode');
+  }
 
   switch (state.currentView) {
     case 'quizIntro':
@@ -1423,8 +1853,17 @@ const renderApp = (state) => {
     case 'praktikumSearch':
       renderPraktikumSearch(state);
       break;
+    case 'resumeCreator':
+      renderResumeCreator(state);
+      break;
+    case 'resumePreview':
+      renderResumePreview(state);
+      break;
     case 'adminLogin':
       renderAdminLogin(state);
+      break;
+    case 'registrationUnavailable':
+      renderRegistrationUnavailable(state);
       break;
     case 'savedResultsList':
       if (state.isAdminAuthenticated) {
@@ -1445,8 +1884,6 @@ const renderApp = (state) => {
   previousView = state.currentView;
 };
 
-// --- START: PERFORMANCE OPTIMIZATION - CENTRALIZED EVENT LISTENERS ---
-
 function initEventListeners() {
     // This function sets up delegated event listeners on the root element.
     // This is much more performant than re-attaching listeners on every render.
@@ -1456,6 +1893,12 @@ function initEventListeners() {
         const target = e.target as HTMLElement;
         const state = store.getState();
         
+        // Close Button for Immersive Results Overlay
+        if (target.closest('#close-results-overlay')) {
+            store.dispatch({ type: 'NAVIGATE_HOME' });
+            return;
+        }
+
         // Text-to-Speech Button Logic
         const readBtn = target.closest('.read-text-btn');
         if (readBtn) {
@@ -1513,6 +1956,7 @@ function initEventListeners() {
 
         // Welcome Page
         if (target.closest('#start-quiz-card')) { store.dispatch({ type: 'NAVIGATE_TO_QUIZ_INTRO' }); return; }
+        if (target.closest('#create-resume-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'resumeCreator' }); return; }
         if (target.closest('#browse-professions-card')) {
             if (state.isAdminAuthenticated) {
                 store.dispatch({ type: 'NAVIGATE_TO', payload: 'professionsList' });
@@ -1522,16 +1966,111 @@ function initEventListeners() {
         if (target.closest('#job-search-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'jobSearch' }); return; }
         if (target.closest('#praktikum-search-card')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'praktikumIntro' }); return; }
 
+        // Resume Creator Actions
+        if (target.closest('#add-experience-btn')) { store.dispatch({ type: 'ADD_RESUME_EXPERIENCE' }); return; }
+        if (target.closest('#add-education-btn')) { store.dispatch({ type: 'ADD_RESUME_EDUCATION' }); return; }
+        if (target.closest('.remove-exp-btn')) {
+             const id = parseInt((target.closest('.remove-exp-btn') as HTMLElement).dataset.id, 10);
+             store.dispatch({ type: 'REMOVE_RESUME_EXPERIENCE', payload: id });
+             return;
+        }
+        if (target.closest('.remove-edu-btn')) {
+             const id = parseInt((target.closest('.remove-edu-btn') as HTMLElement).dataset.id, 10);
+             store.dispatch({ type: 'REMOVE_RESUME_EDUCATION', payload: id });
+             return;
+        }
+        if (target.closest('#generate-resume-btn')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'resumePreview' }); return; }
+        if (target.closest('#edit-resume-btn')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'resumeCreator' }); return; }
+        if (target.closest('#download-pdf-btn')) { window.print(); return; }
+        if (target.closest('#create-cv-btn')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'resumeCreator' }); return; }
+        
+        if (target.closest('#generate-ai-avatar-btn')) {
+             const container = document.getElementById('ai-avatar-prompt-container');
+             if(container) container.style.display = container.style.display === 'none' ? 'block' : 'none';
+             return;
+        }
+        if (target.closest('#confirm-ai-avatar')) {
+             generateAiAvatar();
+             return;
+        }
+
+        if (target.closest('#download-word-btn')) {
+            const resumePaper = document.getElementById('resume-paper');
+            if (!resumePaper) return;
+
+            const content = resumePaper.innerHTML;
+            // CSS optimized for Word (using floats instead of flex, basic colors)
+            const wordCss = `
+                body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; }
+                .resume-paper { width: 100%; max-width: 800px; margin: 0 auto; }
+                /* Use a table for layout in Word to guarantee side-by-side */
+                .layout-table { width: 100%; border-collapse: collapse; }
+                .sidebar-cell { width: 30%; background-color: #2c3e50; color: #ffffff; vertical-align: top; padding: 20px; }
+                .main-cell { width: 70%; background-color: #ffffff; color: #000000; vertical-align: top; padding: 30px; }
+                
+                h1 { font-size: 28px; text-transform: uppercase; margin: 0 0 10px 0; color: #2c3e50; }
+                h2 { font-size: 16px; font-weight: normal; margin: 0 0 20px 0; color: #7f8c8d; }
+                h3 { font-size: 14px; text-transform: uppercase; border-bottom: 2px solid #3498db; padding-bottom: 5px; margin: 20px 0 10px 0; color: #2c3e50; }
+                
+                .sidebar-cell h3 { color: #3498db; border-color: rgba(255,255,255,0.2); }
+                .sidebar-cell p { color: #ecf0f1; font-size: 12px; }
+                
+                .resume-item { margin-bottom: 15px; }
+                h4 { margin: 0; font-size: 14px; font-weight: bold; }
+                .resume-meta { font-size: 12px; color: #666; margin-bottom: 5px; }
+                p { font-size: 12px; line-height: 1.5; margin: 0 0 10px 0; }
+                
+                .resume-avatar { text-align: center; margin-bottom: 20px; }
+                .resume-avatar img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #3498db; }
+            `;
+            
+            // We need to transform the DIV structure to a TABLE structure for Word to be happy with columns
+            // Simple regex replacement or string manipulation since the structure is known
+            // Current: <div class="resume-sidebar">...</div> <div class="resume-main">...</div>
+            // Target: <table class="layout-table"><tr><td class="sidebar-cell">...</td><td class="main-cell">...</td></tr></table>
+            
+            let adaptedContent = content;
+            const sidebarContent = document.querySelector('.resume-sidebar')?.innerHTML;
+            const mainContent = document.querySelector('.resume-main')?.innerHTML;
+
+            if (sidebarContent && mainContent) {
+                adaptedContent = `
+                    <table class="layout-table">
+                        <tr>
+                            <td class="sidebar-cell">
+                                ${sidebarContent}
+                            </td>
+                            <td class="main-cell">
+                                ${mainContent}
+                            </td>
+                        </tr>
+                    </table>
+                `;
+            }
+
+            const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><style>${wordCss}</style></head><body>`;
+            const footer = "</body></html>";
+            const sourceHTML = header + adaptedContent + footer;
+            
+            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            const fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'resume.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+            return;
+        }
+
+
         // Quiz Intro Page
         if (target.closest('#start-quiz-now-btn')) { store.dispatch({ type: 'START_QUIZ' }); return; }
 
         // Quiz Page
-        const optionBtn = target.closest('.option-btn');
+        const optionBtn = target.closest('.option-text-row');
         if (optionBtn) {
-            document.querySelectorAll('.option-btn.selected').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('.option-text-row.selected').forEach(b => b.classList.remove('selected'));
             optionBtn.classList.add('selected');
-            optionBtn.classList.add('clicked');
-            optionBtn.addEventListener('animationend', () => optionBtn.classList.remove('clicked'), { once: true });
             return;
         }
         
@@ -1550,7 +2089,7 @@ function initEventListeners() {
                 if(question.id === 'name') newUserName = value;
                 if(question.id === 'age') newUserAge = value;
             } else {
-                const selectedButton = document.querySelector('.option-btn.selected');
+                const selectedButton = document.querySelector('.option-text-row.selected');
                 if (!selectedButton) return;
                 newAnswers[currentQuestionIndex] = (selectedButton as HTMLElement).dataset.option;
             }
@@ -1731,6 +2270,17 @@ function initEventListeners() {
             });
             return;
         }
+        
+        // Registration Unavailable Link and Back Button
+        if (target.closest('#register-link')) {
+            e.preventDefault();
+            store.dispatch({ type: 'NAVIGATE_TO', payload: 'registrationUnavailable' });
+            return;
+        }
+        if (target.closest('#back-to-login-btn')) {
+            store.dispatch({ type: 'NAVIGATE_TO', payload: 'adminLogin' });
+            return;
+        }
     });
 
     // --- SUBMIT LISTENER ---
@@ -1810,6 +2360,50 @@ function initEventListeners() {
             store.dispatch({ type: 'SET_PROFESSIONS_STATE', payload: { searchTerm: (target as HTMLInputElement).value, page: 1 } });
             return;
         }
+        
+        // Resume Inputs - SILENT UPDATE to prevent re-rendering and focus loss
+        if (target.classList.contains('resume-input')) {
+            const input = target as HTMLInputElement | HTMLTextAreaElement;
+            const field = input.dataset.field;
+            const section = input.dataset.section;
+            const id = input.dataset.id;
+
+            if (section === 'experience') {
+                store.dispatch(
+                    { type: 'UPDATE_RESUME_EXPERIENCE', payload: { id: parseInt(id, 10), field, value: input.value } },
+                    { silent: true }
+                );
+            } else if (section === 'education') {
+                 store.dispatch(
+                     { type: 'UPDATE_RESUME_EDUCATION', payload: { id: parseInt(id, 10), field, value: input.value } },
+                     { silent: true }
+                 );
+            } else {
+                store.dispatch(
+                    { type: 'UPDATE_RESUME_FIELD', payload: { field, value: input.value } },
+                    { silent: true }
+                );
+            }
+            return;
+        }
+    });
+    
+    // File Upload Listener
+    root.addEventListener('change', (e) => {
+         const target = e.target as HTMLInputElement;
+         if (target.id === 'resume-photo-upload' && target.files && target.files[0]) {
+             const reader = new FileReader();
+             reader.onload = (ev) => {
+                 store.dispatch({ type: 'SET_RESUME_PHOTO', payload: ev.target.result });
+                 // Update preview immediately without full re-render of form if possible, or let state trigger re-render
+                 const preview = document.querySelector('.photo-preview') as HTMLElement;
+                 if(preview) {
+                     preview.style.backgroundImage = `url('${ev.target.result}')`;
+                     preview.innerHTML = ''; // Remove icon
+                 }
+             };
+             reader.readAsDataURL(target.files[0]);
+         }
     });
 }
 
