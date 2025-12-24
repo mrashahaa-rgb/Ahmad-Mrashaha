@@ -59,8 +59,11 @@ const initialState = {
     summary: '',
     skills: '',
     photo: null, // Data URL
+    selectedTemplate: 'modern', // 'modern', 'classic', 'creative'
     experience: [{ id: Date.now(), company: '', position: '', startDate: '', endDate: '', description: '' }],
     education: [{ id: Date.now(), school: '', degree: '', startDate: '', endDate: '' }],
+    isOptimizing: false,
+    isEnhancingPhoto: false,
   },
   isAdminAuthenticated: false,
   loginError: null,
@@ -264,6 +267,18 @@ const appReducer = (state, action) => {
         };
     case 'SET_RESUME_PHOTO':
         return { ...state, resumeState: { ...state.resumeState, photo: action.payload } };
+    case 'SET_RESUME_TEMPLATE':
+        return { ...state, resumeState: { ...state.resumeState, selectedTemplate: action.payload } };
+    case 'RESUME_OPTIMIZE_START':
+        return { ...state, resumeState: { ...state.resumeState, isOptimizing: true } };
+    case 'RESUME_OPTIMIZE_END':
+        return { ...state, resumeState: { ...state.resumeState, isOptimizing: false } };
+    case 'RESUME_PHOTO_ENHANCE_START':
+        return { ...state, resumeState: { ...state.resumeState, isEnhancingPhoto: true } };
+    case 'RESUME_PHOTO_ENHANCE_END':
+        return { ...state, resumeState: { ...state.resumeState, isEnhancingPhoto: false } };
+    case 'SET_RESUME_STATE':
+        return { ...state, resumeState: { ...state.resumeState, ...action.payload, isOptimizing: false } };
         
     case 'API_KEY_CHECK_START':
         return { ...state, apiKeyCheck: { isLoading: true, status: 'checking', message: '' } };
@@ -1057,6 +1072,7 @@ const renderJobSearch = (state) => {
 
 const renderResumeCreator = (state) => {
     const { resumeState } = state;
+    const { isOptimizing, isEnhancingPhoto } = resumeState;
     
     const experienceHtml = resumeState.experience.map((exp, index) => `
         <div class="resume-section-item" data-id="${exp.id}">
@@ -1150,6 +1166,25 @@ const renderResumeCreator = (state) => {
                 
                 <form id="resume-form" class="resume-form">
                     
+                    <!-- Template Selection -->
+                    <div class="resume-section">
+                        <h2>${t('resumeSelectTemplate')}</h2>
+                        <div class="template-selector">
+                            <button type="button" class="template-option ${resumeState.selectedTemplate === 'modern' ? 'selected' : ''}" data-template="modern">
+                                <div class="template-preview modern"></div>
+                                <span>${t('templateModern')}</span>
+                            </button>
+                            <button type="button" class="template-option ${resumeState.selectedTemplate === 'classic' ? 'selected' : ''}" data-template="classic">
+                                <div class="template-preview classic"></div>
+                                <span>${t('templateClassic')}</span>
+                            </button>
+                            <button type="button" class="template-option ${resumeState.selectedTemplate === 'creative' ? 'selected' : ''}" data-template="creative">
+                                <div class="template-preview creative"></div>
+                                <span>${t('templateCreative')}</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Personal Info -->
                     <div class="resume-section">
                         <h2>${t('resumePersonalInfo')}</h2>
@@ -1163,6 +1198,11 @@ const renderResumeCreator = (state) => {
                                 <div class="ai-avatar-control">
                                     <button type="button" id="generate-ai-avatar-btn" class="btn small-btn">${t('resumeGenerateAIPhoto')}</button>
                                 </div>
+                                ${resumeState.photo ? `
+                                    <button type="button" id="enhance-photo-btn" class="btn small-btn accent-btn" ${isEnhancingPhoto ? 'disabled' : ''}>
+                                        ${isEnhancingPhoto ? `<span class="loader-spinner-small"></span>` : '✨ ' + t('enhancePhoto')}
+                                    </button>
+                                ` : ''}
                              </div>
                         </div>
                         <div id="ai-avatar-prompt-container" style="display:none; margin-bottom: 1rem;">
@@ -1253,7 +1293,12 @@ const renderResumeCreator = (state) => {
                         </div>
                     </div>
 
-                    <div class="resume-actions">
+                    <div class="resume-actions" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                         <button type="button" id="optimize-resume-btn" class="btn secondary" ${isOptimizing ? 'disabled' : ''}>
+                             ${isOptimizing 
+                                ? `<span class="loader-spinner-small"></span> ${t('optimizing')}` 
+                                : `✨ ${t('optimizeResume')}`}
+                         </button>
                          <button type="button" id="generate-resume-btn" class="btn">${t('resumeGenerateBtn')}</button>
                     </div>
                 </form>
@@ -1264,6 +1309,7 @@ const renderResumeCreator = (state) => {
 
 const renderResumePreview = (state) => {
     const { resumeState } = state;
+    const templateClass = `template-${resumeState.selectedTemplate || 'modern'}`;
 
     root.innerHTML = `
         <div class="page-container">
@@ -1275,7 +1321,7 @@ const renderResumePreview = (state) => {
                     <button id="top-home-btn" class="btn secondary small-btn">${t('home')}</button>
                  </div>
 
-                 <div id="resume-paper" class="resume-paper">
+                 <div id="resume-paper" class="resume-paper ${templateClass}">
                     <div class="resume-sidebar">
                         ${resumeState.photo ? `<div class="resume-avatar"><img src="${resumeState.photo}" alt="Profile"></div>` : ''}
                         
@@ -1744,6 +1790,167 @@ const generateInquiryEmail = async (userName, companyName, field, internshipType
     }
 };
 
+const optimizeResumeWithAI = async () => {
+    const state = store.getState();
+    const { resumeState, currentLanguage } = state;
+    
+    if (!ai) { alert('API Key missing'); return; }
+    
+    store.dispatch({ type: 'RESUME_OPTIMIZE_START' });
+
+    // Construct the input data for the model
+    const inputData = {
+        fullName: resumeState.fullName,
+        jobTitle: resumeState.jobTitle,
+        summary: resumeState.summary,
+        experience: resumeState.experience.map(e => ({ company: e.company, position: e.position, description: e.description })),
+        skills: resumeState.skills
+    };
+
+    const prompt = `
+        You are an expert professional resume writer. 
+        Your task is to REWRITE and OPTIMIZE the following user's resume data to be more professional, impactful, and results-oriented.
+        
+        Input Data: ${JSON.stringify(inputData)}
+        
+        Requirements:
+        1. Language: ${currentLanguage} (Translate if necessary, but keep original language if it matches).
+        2. Summary: Rewrite to be compelling, concise (max 3-4 sentences), and professional.
+        3. Experience Descriptions: Rewrite to use action verbs, quantify achievements where possible, and improve clarity. 
+           **IMPORTANT: If the user's input for experience descriptions is very short or empty, INFER realistic, standard professional duties based on the Job Title and enhance them to sound professional but grounded.**
+        4. Skills: Format nicely, group related skills if it makes sense or just polish the list.
+        5. DO NOT change factual data like names, dates, or company names. Only improve the TEXT content (summary, descriptions, skills).
+        
+        Return the result as JSON matching the input structure exactly.
+    `;
+
+    const resumeSchema = {
+        type: Type.OBJECT,
+        properties: {
+            fullName: { type: Type.STRING },
+            jobTitle: { type: Type.STRING },
+            summary: { type: Type.STRING },
+            skills: { type: Type.STRING },
+            experience: {
+                type: Type.ARRAY,
+                items: {
+                    type: Type.OBJECT,
+                    properties: {
+                        company: { type: Type.STRING },
+                        position: { type: Type.STRING },
+                        description: { type: Type.STRING }
+                    }
+                }
+            }
+        },
+        required: ["summary", "skills", "experience"]
+    };
+
+    try {
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+                responseSchema: resumeSchema
+            }
+        });
+        
+        const optimizedData = JSON.parse(response.text);
+        
+        // Merge optimized data back into existing state (preserving IDs and dates which AI might not return correctly or we didn't send)
+        const newExperience = resumeState.experience.map((exp, index) => {
+            // Find corresponding optimized item (assuming order is preserved)
+            const optExp = optimizedData.experience[index];
+            return {
+                ...exp,
+                description: optExp ? optExp.description : exp.description,
+                // AI might slightly fix company/position names too
+                company: optExp && optExp.company ? optExp.company : exp.company,
+                position: optExp && optExp.position ? optExp.position : exp.position,
+            };
+        });
+
+        const newResumeState = {
+            ...resumeState,
+            summary: optimizedData.summary,
+            skills: optimizedData.skills,
+            experience: newExperience,
+            fullName: optimizedData.fullName || resumeState.fullName,
+            jobTitle: optimizedData.jobTitle || resumeState.jobTitle,
+        };
+
+        store.dispatch({ type: 'SET_RESUME_STATE', payload: newResumeState });
+        alert(t('resumeOptimizationSuccess') || "Resume optimized successfully!");
+
+    } catch (error) {
+        console.error("Resume optimization failed:", error);
+        alert(t('resumeOptimizationError') || "Failed to optimize resume.");
+        store.dispatch({ type: 'RESUME_OPTIMIZE_END' });
+    }
+};
+
+const enhancePhotoWithAI = async () => {
+    const state = store.getState();
+    const { resumeState } = state;
+    
+    if (!resumeState.photo) return;
+    if (!ai) { alert('API Key missing'); return; }
+    
+    store.dispatch({ type: 'RESUME_PHOTO_ENHANCE_START' });
+
+    try {
+        // Remove data:image/...;base64, prefix
+        const base64Image = resumeState.photo.split(',')[1];
+        const mimeType = resumeState.photo.split(';')[0].split(':')[1];
+
+        // Prompt to enhance the image quality for a resume
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash-image',
+            contents: {
+                parts: [
+                    {
+                        inlineData: {
+                            mimeType: mimeType,
+                            data: base64Image
+                        }
+                    },
+                    { text: 'Make this photo look like a high-quality, professional 4k studio headshot. Improve lighting, sharpness, and color balance. Keep the face recognizable but polished.' }
+                ]
+            }
+        });
+
+        let imageUrl = null;
+        if(response.candidates?.[0]?.content?.parts) {
+            for (const part of response.candidates[0].content.parts) {
+                if (part.inlineData) {
+                    imageUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+                    break;
+                }
+            }
+        }
+
+        if (imageUrl) {
+            store.dispatch({ type: 'SET_RESUME_PHOTO', payload: imageUrl });
+            // Update preview immediately
+            const preview = document.querySelector('.photo-preview') as HTMLElement;
+            if(preview) {
+                preview.style.backgroundImage = `url('${imageUrl}')`;
+                preview.innerHTML = '';
+            }
+        } else {
+            console.error("No image returned from enhancement");
+            alert("Could not enhance photo. Please try again.");
+        }
+
+    } catch (error) {
+        console.error("Photo enhancement failed:", error);
+        alert("Photo enhancement failed.");
+    } finally {
+        store.dispatch({ type: 'RESUME_PHOTO_ENHANCE_END' });
+    }
+};
+
 const generateAiAvatar = async () => {
     const description = (document.getElementById('avatar-desc') as HTMLInputElement).value;
     if (!description) { alert('Please enter a description'); return; }
@@ -1984,6 +2191,15 @@ function initEventListeners() {
         if (target.closest('#download-pdf-btn')) { window.print(); return; }
         if (target.closest('#create-cv-btn')) { store.dispatch({ type: 'NAVIGATE_TO', payload: 'resumeCreator' }); return; }
         
+        // Template Selection Logic
+        const templateOption = target.closest('.template-option');
+        if (templateOption) {
+            const template = (templateOption as HTMLElement).dataset.template;
+            store.dispatch({ type: 'SET_RESUME_TEMPLATE', payload: template });
+            // Visual update handled by state change and re-render
+            return;
+        }
+
         if (target.closest('#generate-ai-avatar-btn')) {
              const container = document.getElementById('ai-avatar-prompt-container');
              if(container) container.style.display = container.style.display === 'none' ? 'block' : 'none';
@@ -1991,6 +2207,14 @@ function initEventListeners() {
         }
         if (target.closest('#confirm-ai-avatar')) {
              generateAiAvatar();
+             return;
+        }
+        if (target.closest('#enhance-photo-btn')) {
+             enhancePhotoWithAI();
+             return;
+        }
+        if (target.closest('#optimize-resume-btn')) {
+             optimizeResumeWithAI();
              return;
         }
 
@@ -2401,6 +2625,8 @@ function initEventListeners() {
                      preview.style.backgroundImage = `url('${ev.target.result}')`;
                      preview.innerHTML = ''; // Remove icon
                  }
+                 // Reset enhancing state if new photo uploaded
+                 store.dispatch({ type: 'RESUME_PHOTO_ENHANCE_END' });
              };
              reader.readAsDataURL(target.files[0]);
          }

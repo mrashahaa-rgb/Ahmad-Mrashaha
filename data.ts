@@ -1,8 +1,6 @@
-
-
 // Define high-quality, consistent SVG flags for all languages.
 const syrianOppositionFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzAwN2EzZCIvPjxyZWN0IHk9IjIwMCIgd2lkdGg9IjkwMCIgaGVpZGhtPSIyMDAiIGZpbGw9IiNmZmYiLz48cmVjdCB5PSI0MDAiIHdpZHRoPSI5MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMDAwIi8+PGcgZmlsbD0iI2NlMTEyNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwIDMwMCkgc2NhbGUoMjIpIj48ZyBpZD0icyI+PHBhdGggZD0iTTAtMi4zNzc1bDEuNTQ1IDQuNzU1LTQuMDcyLTIuOTM5aDUuMDU0TC0xLjU0NSAyLjM4eiIvPjwvZz48dXNlIGhyZWY9IiNzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTIpIi8+PHVzZSBocmVmPSIjcyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCkiLz48dXNlIGhyZWY9IiNzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMikiLz48L2c+PC9zdmc+" alt="Syrian Flag" loading="lazy">`;
-const germanFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1IDMiPjxyZWN0IHdpZHRoPSI1IiBoZWlnaHQ9IjEiIHk9IjAiIGZpbGw9IiMwMDAiLz48cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSIxIiB5PSIxIiBmaWxsPSIjRDAwIi8+PHJlY3QgeT0iMiIgd2lkdGg9IjUiIGhlaWdodD0iMSIgZmlsbD0iI0ZGQ0UwMCIvPjwvc3ZnPg==" alt="German Flag" loading="lazy">`;
+const germanFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0ZGQ0UwMCIvPjxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRDAwIi8+PHJlY3Qgd2lkdGg9IjkwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwMDAiLz48L3N2Zz4=" alt="German Flag" loading="lazy">`;
 const britishFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzMCI+PGNsaXBQYXRoIGlkPSJhIj48cGF0aCBkPSJNMCAwdjMwaDYwVjB6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9ImIiPjxwYXRoIGQ9Ik0zMCAxNWgzMHYxNWgtMzB6TTAgMTVoMzB2MTVoLTMwek0wIDBoMzB2MTVoLTMwek0zMCAwaDMwdjE1aC0zMHoiLz48L2NsaXBQYXRoPjxnIGNsaXAtcGF0aD0idXJsKCNhKSI+PHBhdGggZD0iTTAgMHYzMGg2MFYweiIgZmlsbD0iIzAxMjE2OSIvPjxwYXRoIGQ9Ik0wIDBsNjAgMzBtMC0zMEwwIDMwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNiIvPjxwYXRoIGQ9Ik0wIDBsNjAgMzBtMC0zMEwwIDMwIiBjbGlwLXBhdGg9InVybCgjYikiIHN0cm9rZT0iI0M4MTAyRSIgc3Ryb2tlLXdpZHRoPSI0Ii8+PHBhdGggZD0iTTMwIDB2MzBNMCAxNWg2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTMwIDB2MzBNMCAxNWg2MCIgc3Ryb2tlPSIjQzgxMDJFIiBzdHJva2Utd2lkdGg9IjYiLz48L2c+PC9zdmc+" alt="British Flag" loading="lazy">`;
 const turkishFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2UzMGExNyIvPjxjaXJjbGUgY3g9IjI3NSIgY3k9IjMwMCIgcj0iMTUwIiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iMzEyLjUiIGN5PSIzMDAiIHI9IjEyMCIgZmlsbD0iI2UzMGExNyIvPjxwYXRoIGQ9Ik00MjUgMzAwbDExOS41LTM2LjctNzMuOSA5Ni4xVjI0MC42bC03My45IDk2LjF6IiBmaWxsPSIjZmZmIi8+PC9zdmc+" alt="Turkish Flag" loading="lazy">`;
 const ukrainianFlagImg = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzIDIiPjxyZWN0IHdpZHRoPSIzIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDU3QjciLz48cmVjdCB5PSIxIiB3aWR0aD0iMyIgaGVpZ2h0PSIxIiBmaWxsPSIjRkZENzAwIi8+PC9zdmc+" alt="Ukrainian Flag" loading="lazy">`;
@@ -191,6 +189,18 @@ export const translations = {
     resumePhoto: "صورة شخصية",
     resumePhotoUpload: "رفع صورة",
     remove: "إزالة",
+    optimizeResume: "تحسين باستخدام الذكاء الاصطناعي",
+    optimizing: "جاري التحسين...",
+    resumeOptimizationSuccess: "تم تحسين محتوى السيرة الذاتية بنجاح!",
+    resumeOptimizationError: "حدث خطأ أثناء تحسين السيرة الذاتية.",
+    resumeGenerateAIPhoto: "توليد صورة بالذكاء الاصطناعي",
+    resumeAIPhotoPrompt: "وصف الصورة الشخصية (مثال: محترف يرتدي بدلة)",
+    generate: "توليد",
+    resumeSelectTemplate: "اختر تصميم السيرة الذاتية",
+    templateModern: "عصري",
+    templateClassic: "كلاسيكي",
+    templateCreative: "إبداعي",
+    enhancePhoto: "تحسين الصورة بالذكاء الاصطناعي",
   },
   de: {
     langName: `${germanFlagImg} Deutsch`,
@@ -375,6 +385,18 @@ export const translations = {
     resumePhoto: "Profilbild",
     resumePhotoUpload: "Foto hochladen",
     remove: "Entfernen",
+    optimizeResume: "Mit KI optimieren",
+    optimizing: "Optimieren...",
+    resumeOptimizationSuccess: "Lebenslaufinhalt erfolgreich optimiert!",
+    resumeOptimizationError: "Optimierung fehlgeschlagen.",
+    resumeGenerateAIPhoto: "KI-Foto generieren",
+    resumeAIPhotoPrompt: "Bildbeschreibung (z.B. Profi im Anzug)",
+    generate: "Generieren",
+    resumeSelectTemplate: "Wählen Sie ein Design",
+    templateModern: "Modern",
+    templateClassic: "Klassisch",
+    templateCreative: "Kreativ",
+    enhancePhoto: "Foto mit KI verbessern",
   },
   en: {
     langName: `${britishFlagImg} English`,
@@ -559,6 +581,18 @@ export const translations = {
     resumePhoto: "Profile Photo",
     resumePhotoUpload: "Upload Photo",
     remove: "Remove",
+    optimizeResume: "Optimize with AI",
+    optimizing: "Optimizing...",
+    resumeOptimizationSuccess: "Resume content optimized successfully!",
+    resumeOptimizationError: "Failed to optimize resume.",
+    resumeGenerateAIPhoto: "Generate AI Photo",
+    resumeAIPhotoPrompt: "Image description (e.g. professional in a suit)",
+    generate: "Generate",
+    resumeSelectTemplate: "Select Resume Design",
+    templateModern: "Modern",
+    templateClassic: "Classic",
+    templateCreative: "Creative",
+    enhancePhoto: "Enhance Photo with AI",
   },
   tr: {
     langName: `${turkishFlagImg} Türkçe`,
@@ -743,845 +777,71 @@ export const translations = {
     resumePhoto: "Profil Fotoğrafı",
     resumePhotoUpload: "Fotoğraf Yükle",
     remove: "Kaldır",
-  },
-  uk: {
-    langName: `${ukrainianFlagImg} Українська`,
-    dir: "ltr",
-    headerTitle: "Кар'єрне консультування з Ahmad Mrashaha",
-    footerText: "© 2025 - Розроблено Ahmad Mrashaha, щоб допомогти вам знайти свій шлях.",
-    welcomeTitle: "Відкрийте свій ідеальний кар'єрний шлях у Німеччині",
-    welcomeDesc: "Дайте відповідь на 30 точних запитань про вашу особистість, навички та амбіції. Наш ШІ глибоко проаналізує ваші відповіді, щоб запропонувати найкращі кар'єрні шляхи, професійне навчання (Ausbildung) або університетські програми для вас.",
-    startQuiz: "Почати кар'єрний тест",
-    startQuizDesc: "Дайте відповідь на наші спеціально розроблені запитання та отримайте особистий аналіз вашого кар'єрного шляху.",
-    browseProfessions: "Переглянути професії",
-    browseProfessionsDesc: "Досліджуйте нашу базу даних професій, професійного навчання та освітніх програм.",
-    searchAvailableJobs: "Пошук доступних вакансій",
-    searchAvailableJobsDesc: "Знайдіть реальні, доступні вакансії по всій Німеччині прямо зараз.",
-    searchForPraktikum: "Пошук стажування (Praktikum)",
-    searchForPraktikumDesc: "Знайдіть можливості для стажування та створюйте професійні запити електронною поштою.",
-    createResume: "Створити резюме (CV)",
-    createResumeDesc: "Дайте відповідь на кілька запитань, і ми створимо для вас професійне резюме.",
-    professionsDesc: "Шукайте та переглядайте можливості працевлаштування, професійного навчання та навчання в університетах Німеччини.",
-    quizIntroTitle: "Перед початком",
-    quizIntroDesc: "Цей тест складається з 30 запитань про вашу особистість, навички та амбіції. Ваші чесні відповіді допоможуть нам створити детальний звіт з персоналізованими кар'єрними пропозиціями. Немає правильних чи неправильних відповідей, просто будьте собою!",
-    quizIntroStartBtn: "Почати тест",
-    back: "Назад",
-    next: "Далі",
-    getResults: "Отримати мої результати",
-    loadingTitle: "Аналізуємо вашу особистість...",
-    loadingDesc: "Наш ШІ готує ваш детальний кар'єрний звіт. Це може зайняти деякий час.",
-    resultsTitleFor: "Ваш кар'єрний звіт для {name}",
-    you: "Вас",
-    personalitySummary: "Аналіз вашої професійної особистості",
-    recommendedPaths: "Рекомендовані кар'єрні шляхи",
-    careerAdvice: "Персоналізовані кар'єрні поради",
-    restart: "На головну",
-    searchPlaceholder: "Пошук професії...",
-    all: "Усі",
-    ausbildung: "Професійне навчання",
-    study: "Навчання",
-    job: "Робота",
-    duration: "Тривалість",
-    salary: "Зарплата",
-    requirements: "Вимоги",
-    duties: "Обов'язки",
-    skillsRequired: "Необхідні навички",
-    home: "Головна",
-    errorText: "Вибачте, сталася помилка під час генерації ваших результатів. Будь ласка, спробуйте пізніше.",
-    answerHere: "Введіть вашу відповідь тут...",
-    page: "Сторінка",
-    printReport: "Роздрукувати звіт",
-    emailReport: "Надіслати на e-mail",
-    saveReport: "Зберегти результати",
-    reportSaved: "Збережено!",
-    emailSubject: "Мій кар'єрний звіт з сайту кар'єрного консультування",
-    jobSearchDesc: "Використовуйте ШІ для пошуку актуальних вакансій або можливостей професійного навчання в Німеччині. Введіть назву посади та місцезнаходження, щоб отримати результати в реальному часі.",
-    jobTitlePlaceholder: "напр. Розробник ПЗ, Медсестра...",
-    locationPlaceholder: "напр. Берлін, Гамбург...",
-    search: "Пошук",
-    jobSearchLoading: "Шукаємо доступні вакансії...",
-    jobSearchSources: "Доступні вакансії (Джерела)",
-    jobSearchPrompt: "За допомогою Пошуку Google знайдіть актуальні вакансії або можливості професійного навчання (Ausbildung) для '{jobTitle}' у місті '{location}' або поблизу, Німеччина. Не надавайте резюме. Надайте лише оригінальні посилання на джерела, які ви знайшли.",
-    noJobsFound: "Не знайдено відповідних вакансій.",
-    savedReportsTitle: "Збережені звіти",
-    anonymousReport: "Анонімний звіт",
-    viewDetails: "Переглянути деталі",
-    delete: "Видалити",
-    confirmDeleteReport: "Ви впевнені, що хочете видалити цей звіт?",
-    noSavedReports: "Збережених звітів ще немає.",
-    adminLogin: "Вхід для адміністратора",
-    responsibleLogin: "Вхід для відповідальних",
-    username: "Ім'я користувача",
-    password: "Пароль",
-    login: "Увійти",
-    invalidCredentials: "Неправильне ім'я користувача або пароль.",
-    logout: "Вийти",
-    praktikumDesc: "Шукаєте стажування (Praktikum)? Введіть сферу ваших інтересів та місто, і ШІ знайде для вас відповідні компанії. Оберіть одну, а потім створіть професійний чернетковий лист для запиту.",
-    fieldPlaceholder: "напр. ІТ, маркетинг, інженерія...",
-    yourNamePlaceholder: "Ваше повне ім'я",
-    praktikumSearchBtn: "Пошук компаній",
-    praktikumCompanyLoading: "Шукаємо можливості для стажування...",
-    praktikumCompanyResult: "Запропоновані компанії",
-    company: "Компанія",
-    location: "Місцезнаходження",
-    select: "Вибрати",
-    selected: "Вибрано",
-    praktikumGenerateEmailTitle: "Створити запит електронною поштою",
-    praktikumGenerateEmailBtn: "Створити лист",
-    praktikumEmailLoading: "Пишемо ваш лист...",
-    praktikumYourEmail: "Ваша чернетка листа",
-    copyEmail: "Скопіювати лист",
-    copied: "Скопійовано!",
-    praktikumSearchError: "На жаль, ми не змогли знайти відповідні компанії. Будь ласка, спробуйте інші пошукові терміни.",
-    praktikumNoCompaniesFound: "За вашим запитом не знайдено відповідних компаній. Спробуйте змінити умови пошуку.",
-    praktikumIntroTitle: "Ваш шлях до стажування (Praktikum)",
-    praktikumIntroDesc1: "Цей інструмент використовує ШІ для пошуку компаній, які можуть пропонувати стажування у вашій бажаній галузі та місці.",
-    praktikumIntroDesc2: "Після вибору компанії ми допоможемо вам створити професійну чернетку листа, яку ви зможете надіслати для запиту про можливість стажування. Ви самі надішлете остаточний лист.",
-    praktikumIntroDisclaimer: "<strong>Важлива примітка:</strong> Цей метод є 'незапрошеною заявкою' (Initiativbewerbung). Це означає, що знайдені нами компанії могли не оголошувати про відкриті вакансії для стажерів. Наша мета - надати вам можливість проявити ініціативу та встановити професійний контакт, що високо цінується на німецькому ринку праці. Можливість не гарантована на 100%, але це чудовий, проактивний крок.",
-    praktikumIntroStartBtn: "Зрозуміло, почати пошук",
-    praktikumSearchPrompt: "РОЛЬ: Високоточний дослідник компаній для німецького ринку.\n\nЗАВДАННЯ: За допомогою Пошуку Google знайдіть 5-7 релевантних компаній у місті '{location}' або поблизу, які потенційно пропонують '{internshipType}' у секторі '{field}'. Надавайте перевагу офіційним веб-сайтам компаній перед простими каталогами.\n\nКРИТИЧНІ ІНСТРУКЦІЇ:\n1.  **АБСОЛЮТНА ТОЧНІСТЬ ДАНИХ**: НІКОЛИ не вигадуйте інформацію. Якщо частина інформації (наприклад, контактна особа, електронна пошта) НЕ вказана ЯВНО в результатах пошуку, значення для цього поля ПОВИННО бути порожнім рядком `\"\"`.\n2.  **ЧИСТИЙ ФОРМАТ JSON**: Ваша відповідь ПОВИННА бути виключно валідним масивом JSON. Без вступного тексту, коментарів чи розмітки, як-от ```json.\n\nСТРУКТУРА ВИВОДУ JSON:\n`[{\"name\": \"Повна офіційна назва компанії\", \"address\": \"Вулиця, поштовий індекс, місто\", \"contactPerson\": \"\", \"applicationEmail\": \"\", \"description\": \"Одне коротке речення, що описує основну галузь або діяльність компанії.\", \"website\": \"URL офіційного веб-сайту\"}]`",
-    praktikumEmailPrompt: "Ви чудовий кар'єрний асистент. Напишіть професійну та ввічливу чернетку листа НІМЕЦЬКОЮ мовою. Лист від '{userName}' до '{companyName}' для запиту про стажування (Praktikum) у галузі '{field}'. Мета стажування - '{internshipType}'. Дуже точно адаптуйте зміст і тон відповідно до типу стажування:\n\n- Якщо тип 'для школи' (Schülerpraktikum): Пишіть як мотивований учень. Згадайте, що це обов'язкове шкільне стажування. Запитайте про можливі терміни та необхідні документи. Тон має бути ввічливим та молодіжним.\n- Якщо тип 'для професійної орієнтації' (Berufsorientierung): Виразіть сильну зацікавленість у галузі '{field}' та компанії. Поясніть, що мета - отримати первинне уявлення та полегшити вибір професії. Тон має бути допитливим та захопленим.\n- Якщо тип 'для професійного навчання' (Ausbildung): Пишіть більш формально та професійно. Вкажіть, що заявник шукає професійне навчання в цій галузі та хоче отримати практичний досвід. Підкресліть мотивацію застосовувати навички на практиці.\n\nЗавжди використовуйте належне привітання (Sehr geehrte Damen und Herren,) та завершення (Mit freundlichen Grüßen). Запитайте про відповідальну контактну особу для подання заяв.",
-    internshipTypeLabel: "Тип стажування",
-    internshipTypePlaceholder: "Виберіть тип стажування...",
-    internshipTypeSchool: "Для школи",
-    internshipTypeAusbildung: "Для професійного навчання",
-    internshipTypeOrientation: "Для професійної орієнтації",
-    loading: "Завантаження...",
-    underMaintenanceShort: "На обслуговуванні",
-    underMaintenanceTitle: "Цей розділ на технічному обслуговуванні",
-    underMaintenanceDesc: "Наразі ми працюємо над покращенням цього розділу, і він незабаром буде доступний. На даний момент доступ мають лише адміністратори.",
-    systemInstruction: "Ви - експертний кар'єрний консультант і психолог, що спеціалізується на німецькому ринку праці. Ваше завдання - проаналізувати відповіді {name}, віком {age} років, на 30 запитань, щоб створити дуже детальний та особистий кар'єрний звіт українською мовою. Ваш аналіз має бути глибоким, підбадьорливим і практичним. На основі відповідей створіть детальний JSON-звіт, що відповідає схемі. Звіт повинен містити точний аналіз особистості, 3-4 дуже підходящі та різноманітні пропозиції роботи (включаючи Ausbildung та навчання в університеті) та дієві кар'єрні поради. Звертайтеся до користувача на ім'я. Ваш тон має бути професійним і дуже підтримуючим.",
-    promptIntro: "Ось мої дані та відповіді на анкету з профорієнтації:",
-    promptInstruction: "Будь ласка, надайте мій детальний кар'єрний аналіз на основі цих відповідей.",
-    schemaPersonality: "Глибокий і детальний аналіз професійної особистості користувача, сильних сторін, областей для розвитку та ідеального стилю роботи, написаний професійним та підбадьорливим тоном українською мовою.",
-    schemaJobSuggestions: "Список з 3-4 дуже підходящих пропозицій щодо роботи, професійного навчання (Ausbildung) або навчання в університеті в Німеччині, українською мовою.",
-    schemaTitle: "Назва роботи, професійного навчання або навчальної програми, українською мовою.",
-    schemaDescription: "Детальне та переконливе пояснення, чому цей шлях відповідає особистості та відповідям користувача, українською мовою.",
-    schemaDetails: "Ключові практичні деталі, такі як тривалість навчання, очікувана зарплата, мовні вимоги або можливості зростання в Німеччині. Українською мовою.",
-    schemaCompanyName: "Назва компанії.",
-    schemaCompanyAddress: "Повна адреса компанії.",
-    schemaCompanyContact: "Телефонний номер або електронна адреса компанії.",
-    schemaCompanyWebsite: "Офіційний веб-сайт компанії.",
-    viewReports: "Переглянути звіти",
-    companyWebsite: "Веб-сайт",
-    futureProjectTitle: "Майбутній проект",
-    futureProjectDesc: "Це місце зарезервовано для нових та захоплюючих функцій.",
-    apiKeyNotConfiguredError: "Помилка конфігурації: ключ API не знайдено. Будь ласка, переконайтеся, що ви додали змінну середовища `API_KEY` у налаштуваннях розгортання.",
-    invalidApiKeyError: "Вибачте, сталася помилка. Схоже, налаштований ключ API недійсний або термін його дії минув. Будь ласка, перевірте змінні середовища в налаштуваннях розгортання.",
-    apiKeyStatus: "Статус ключа API",
-    apiKeyStatusDesc: "Якщо у вас виникають проблеми з функціями ШІ, використовуйте цю перевірку, щоб переконатися, що ваш ключ API налаштовано правильно і він підключений до служб Google.",
-    checkApiKey: "Перевірити ключ",
-    checkingApiKey: "Перевірка...",
-    apiKeyStatusOK: "Успіх: ключ API дійсний і підключений.",
-    apiKeyStatusInvalid: "Помилка: ключ API недійсний. Перевірте значення в змінних середовища.",
-    apiKeyStatusNotSet: "Помилка: ключ API не налаштовано.",
-    wasThisHelpful: "Чи було це корисно?",
-    yes: "Так",
-    no: "Ні",
-    feedbackThanks: "Дякуємо за відгук!",
-    contactPerson: "Контактна особа",
-    applicationEmail: "Email для заявок",
-    companyDescription: "Опис компанії",
-    notAvailable: "Недоступно",
-    reviews: "Відгуки",
-    leaveReview: "Залишити відгук",
-    rating: "Рейтинг",
-    reviewText: "Ваш відгук",
-    submitReview: "Надіслати відгук",
-    noReviewsYet: "Відгуків ще немає. Будьте першим!",
-    anonymous: "Анонім",
-    ratingAndReviewRequired: "Рейтинг і текст відгуку обов'язкові.",
-    emailSummaryIntro: "Ось короткий огляд рекомендованих кар'єрних шляхів. Для повного звіту відвідайте сайт або відкрийте збережений звіт.",
-    jobOutlookLabel: "Перспективи працевлаштування",
-    salaryRangeLabel: "Зарплата (після навчання)",
-    registrationUnavailableTitle: "Реєстрація недоступна",
-    registrationUnavailableDesc: "Наразі реєстрація закрита. Будь ласка, зверніться до адміністрації сайту.",
-    backToLogin: "Назад до входу",
-    resumeTitle: "Конструктор резюме",
-    resumeDesc: "Заповніть дані нижче, щоб створити професійне резюме.",
-    resumePersonalInfo: "Особиста інформація",
-    resumeExperience: "Досвід роботи",
-    resumeEducation: "Освіта",
-    resumeSkills: "Навички та мови",
-    resumeGenerateBtn: "Створити резюме",
-    resumeDownloadPDF: "Зберегти як PDF",
-    resumeDownloadWord: "Завантажити як Word",
-    resumeEdit: "Редагувати дані",
-    resumeFullName: "Повне ім'я",
-    resumeJobTitle: "Посада (напр. Веб-розробник)",
-    resumeEmail: "Email",
-    resumePhone: "Телефон",
-    resumeAddress: "Адреса",
-    resumeSummary: "Професійне резюме (Про мене)",
-    resumeAddExperience: "Додати досвід",
-    resumeAddEducation: "Додати освіту",
-    resumeCompany: "Назва компанії",
-    resumePosition: "Посада",
-    resumeDateStart: "Дата початку",
-    resumeDateEnd: "Дата закінчення",
-    resumeDescription: "Опис обов'язків",
-    resumeSchool: "Навчальний заклад",
-    resumeDegree: "Ступінь / Сертифікат",
-    resumeSkillsPlaceholder: "напр. Тайм-менеджмент, Програмування...",
-    resumePhoto: "Фото профілю",
-    resumePhotoUpload: "Завантажити фото",
-    remove: "Видалити",
-  },
+    optimizeResume: "Yapay Zeka ile Optimize Et",
+    optimizing: "Optimize ediliyor...",
+    resumeOptimizationSuccess: "Özgeçmiş içeriği başarıyla optimize edildi!",
+    resumeOptimizationError: "Özgeçmiş optimize edilemedi.",
+    resumeGenerateAIPhoto: "Yapay Zeka Fotoğrafı Oluştur",
+    resumeAIPhotoPrompt: "Görüntü açıklaması (örn. takım elbiseli profesyonel)",
+    generate: "Oluştur",
+    resumeSelectTemplate: "Özgeçmiş Tasarımı Seç",
+    templateModern: "Modern",
+    templateClassic: "Klasik",
+    templateCreative: "Yaratıcı",
+    enhancePhoto: "Fotoğrafı YZ ile Geliştir",
+  }
 };
 
-const commonQuestions = [
-    {
-      id: "name",
-      type: "text",
-      question: {
-        ar: "ما هو اسمك الكامل؟",
-        de: "Wie ist Ihr vollständiger Name?",
-        en: "What is your full name?",
-        tr: "Tam adınız nedir?",
-        uk: "Яке ваше повне ім'я?",
-      },
-    },
-    {
-      id: "age",
-      type: "number",
-      question: {
-        ar: "كم عمرك؟",
-        de: "Wie alt sind Sie?",
-        en: "How old are you?",
-        tr: "Kaç yaşındasınız?",
-        uk: "Скільки вам років?",
-      },
-    },
-    {
-      id: "interest",
-      type: "multiple_choice",
-      question: {
-        ar: "ما هو المجال الذي يثير اهتمامك أكثر؟",
-        de: "Welcher Bereich interessiert Sie am meisten?",
-        en: "Which field interests you the most?",
-        tr: "Hangi alan ilginizi daha çok çekiyor?",
-        uk: "Яка сфера вас найбільше цікавить?",
-      },
-      options: {
-        ar: ["التكنولوجيا والبرمجة", "الطب والرعاية الصحية", "الهندسة والبناء", "الفنون والتصميم", "التجارة والأعمال"],
-        de: ["Technologie & Programmierung", "Medizin & Gesundheit", "Ingenieurwesen & Bau", "Kunst & Design", "Wirtschaft & Handel"],
-        en: ["Technology & Programming", "Medicine & Healthcare", "Engineering & Construction", "Arts & Design", "Business & Trade"],
-        tr: ["Teknoloji ve Programlama", "Tıp ve Sağlık", "Mühendislik ve İnşaat", "Sanat ve Tasarım", "Ticaret ve İş"],
-        uk: ["Технології та програмування", "Медицина та охорона здоров'я", "Інженерія та будівництво", "Мистецтво та дизайн", "Торгівля та бізнес"],
-      },
-    },
-    {
-        id: "work_style",
-        type: "multiple_choice",
-        question: {
-          ar: "كيف تفضل أن تعمل؟",
-          de: "Wie arbeiten Sie am liebsten?",
-          en: "How do you prefer to work?",
-          tr: "Nasıl çalışmayı tercih edersiniz?",
-          uk: "Як ви віддаєте перевагу працювати?",
-        },
-        options: {
-          ar: ["بشكل مستقل", "مع شريك", "ضمن فريق", "قيادة الآخرين"],
-          de: ["Unabhängig", "Mit einem Partner", "Im Team", "Andere führen"],
-          en: ["Independently", "With a partner", "In a team", "Leading others"],
-          tr: ["Bağımsız", "Bir ortakla", "Takım halinde", "Başkalarına liderlik ederek"],
-          uk: ["Самостійно", "З партнером", "У команді", "Керуючи іншими"],
-        },
-      },
-      {
-        id: "environment",
-        type: "multiple_choice",
-        question: {
-            ar: "أي بيئة عمل تفضل؟",
-            de: "Welches Arbeitsumfeld bevorzugen Sie?",
-            en: "Which work environment do you prefer?",
-            tr: "Hangi çalışma ortamını tercih edersiniz?",
-            uk: "Яке робоче середовище ви віддаєте перевагу?",
-        },
-        options: {
-            ar: ["مكتب هادئ", "موقع عمل خارجي وحركي", "مختبر أو ورشة", "العمل من المنزل"],
-            de: ["Ruhiges Büro", "Außendienst & Bewegung", "Labor oder Werkstatt", "Home Office"],
-            en: ["Quiet office", "Outdoors & Active", "Lab or Workshop", "Work from home"],
-            tr: ["Sessiz ofis", "Dış mekan ve aktif", "Laboratuvar veya atölye", "Evden çalışma"],
-            uk: ["Тихий офіс", "На відкритому повітрі та активний", "Лабораторія або майстерня", "Робота з дому"],
-        }
-      },
-      // --- Extended 25 Questions ---
-      {
-        id: "stress",
-        type: "multiple_choice",
-        question: {
-            ar: "كيف تتعامل مع الضغط؟",
-            de: "Wie gehen Sie mit Stress um?",
-            en: "How do you handle stress?",
-            tr: "Stresle nasıl başa çıkarsınız?",
-            uk: "Як ви справляєтеся зі стресом?"
-        },
-        options: {
-            ar: ["أزدهر تحت الضغط", "أبقى هادئاً ومنظماً", "أطلب الدعم من الآخرين", "أفضل البيئات قليلة التوتر"],
-            de: ["Ich blühe unter Druck auf", "Ich bleibe ruhig und organisiert", "Ich suche Unterstützung bei anderen", "Ich bevorzuge stressarme Umgebungen"],
-            en: ["I thrive under pressure", "I stay calm and organized", "I seek support from others", "I prefer low-stress environments"],
-            tr: ["Baskı altında gelişirim", "Sakin ve düzenli kalırım", "Başkalarından destek isterim", "Düşük stresli ortamları tercih ederim"],
-            uk: ["Я процвітаю під тиском", "Я залишаюся спокійним і організованим", "Я шукаю підтримки в інших", "Я віддаю перевагу середовищу з низьким рівнем стресу"]
-        }
-      },
-      {
-        id: "detail_level",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تفضل التفاصيل أم الصورة الكبيرة؟",
-            de: "Bevorzugen Sie Details oder das große Ganze?",
-            en: "Do you prefer details or the big picture?",
-            tr: "Detayları mı yoksa büyük resmi mi tercih edersiniz?",
-            uk: "Ви віддаєте перевагу деталям чи загальній картині?"
-        },
-        options: {
-            ar: ["أحب التفاصيل الدقيقة", "أفضل الصورة الكبيرة", "أحب التوازن بين الاثنين", "أركز على التطبيق العملي"],
-            de: ["Ich liebe genaue Details", "Ich bevorzuge das große Ganze", "Ich mag eine Balance aus beidem", "Ich konzentriere mich auf die praktische Anwendung"],
-            en: ["I love precise details", "I prefer the big picture", "I like a balance of both", "I focus on practical application"],
-            tr: ["Hassas detayları severim", "Büyük resmi tercih ederim", "İkisinin dengesini severim", "Pratik uygulamaya odaklanırım"],
-            uk: ["Мені подобаються точні деталі", "Я віддаю перевагу загальній картині", "Мені подобається баланс обох", "Я зосереджуюсь на практичному застосуванні"]
-        }
-      },
-      {
-        id: "leadership",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تفضل القيادة أم اتباع التعليمات؟",
-            de: "Führen Sie lieber oder folgen Sie Anweisungen?",
-            en: "Do you prefer leading or following instructions?",
-            tr: "Liderlik etmeyi mi yoksa talimatları izlemeyi mi tercih edersiniz?",
-            uk: "Ви віддаєте перевагу керувати чи слідувати інструкціям?"
-        },
-        options: {
-            ar: ["أحب تولي المسؤولية", "أفضل دوراً داعماً", "أحب التنسيق والتسهيل", "أفضل العمل بمفردي"],
-            de: ["Ich übernehme gerne die Führung", "Ich bevorzuge eine unterstützende Rolle", "Ich koordiniere gerne", "Ich arbeite lieber allein"],
-            en: ["I like to take charge", "I prefer a supportive role", "I like to facilitate/coordinate", "I prefer to work alone"],
-            tr: ["Sorumluluk almayı severim", "Destekleyici bir rolü tercih ederim", "Kolaylaştırmayı/koordine etmeyi severim", "Yalnız çalışmayı tercih ederim"],
-            uk: ["Мені подобається брати на себе відповідальність", "Я віддаю перевагу допоміжній ролі", "Мені подобається координувати", "Я віддаю перевагу працювати наодинці"]
-        }
-      },
-      {
-        id: "learning_style",
-        type: "multiple_choice",
-        question: {
-            ar: "كيف تتعلم بشكل أفضل؟",
-            de: "Wie lernen Sie am besten?",
-            en: "How do you learn best?",
-            tr: "En iyi nasıl öğrenirsiniz?",
-            uk: "Як ви навчаєтесь найкраще?"
-        },
-        options: {
-            ar: ["الممارسة العملية", "القراءة والكتابة", "بصري (رسوم بيانية/مخططات)", "سمعي (الاستماع)"],
-            de: ["Tun (Praktisch)", "Lesen & Schreiben", "Visuell (Diagramme/Grafiken)", "Auditiv (Zuhören)"],
-            en: ["Doing (Hands-on)", "Reading & Writing", "Visual (Charts/Graphs)", "Auditory (Listening)"],
-            tr: ["Yaparak (Pratik)", "Okuma & Yazma", "Görsel (Grafikler)", "İşitsel (Dinleme)"],
-            uk: ["Практика (робити руками)", "Читання та письмо", "Візуально (діаграми/графіки)", "Аудіально (слухання)"]
-        }
-      },
-      {
-        id: "routine",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تفضل الروتين أم التنوع؟",
-            de: "Bevorzugen Sie Routine oder Abwechslung?",
-            en: "Do you prefer routine or variety?",
-            tr: "Rutin mi yoksa çeşitlilik mi tercih edersiniz?",
-            uk: "Ви віддаєте перевагу рутині чи різноманітності?"
-        },
-        options: {
-            ar: ["روتين صارم واستقرار", "روتين في الغالب مع بعض التغيير", "تنوع متكرر ومهام جديدة", "يجب أن يكون كل يوم مختلفاً"],
-            de: ["Strenge Routine und Stabilität", "Meistens Routine mit etwas Abwechslung", "Häufige Abwechslung und neue Aufgaben", "Jeder Tag sollte anders sein"],
-            en: ["Strict routine and stability", "Mostly routine with some change", "Frequent variety and new tasks", "Every day should be different"],
-            tr: ["Katı rutin ve istikrar", "Çoğunlukla rutin biraz değişiklikle", "Sık çeşitlilik ve yeni görevler", "Her gün farklı olmalı"],
-            uk: ["Сувора рутина та стабільність", "Переважно рутина з деякими змінами", "Часта різноманітність та нові завдання", "Кожен день має бути іншим"]
-        }
-      },
-      {
-        id: "risk",
-        type: "multiple_choice",
-        question: {
-            ar: "ما هو موقفك من المخاطرة؟",
-            de: "Wie stehen Sie zu Risiken?",
-            en: "What is your attitude towards risk?",
-            tr: "Riske karşı tutumunuz nedir?",
-            uk: "Яке ваше ставлення до ризику?"
-        },
-        options: {
-            ar: ["أتجنب المخاطر تماماً", "أقوم بمخاطرات محسوبة", "أستمتع بالغموض المعتدل", "أنا مغامر جداً"],
-            de: ["Ich vermeide Risiken komplett", "Ich gehe kalkulierte Risiken ein", "Ich mag moderate Unsicherheit", "Ich bin sehr risikofreudig"],
-            en: ["I avoid risk completely", "I take calculated risks", "I enjoy moderate uncertainty", "I am a high-risk taker"],
-            tr: ["Riskten tamamen kaçınırım", "Hesaplanmış riskler alırım", "Orta düzeyde belirsizlikten hoşlanırım", "Yüksek risk alırım"],
-            uk: ["Я повністю уникаю ризику", "Я йду на виважені ризики", "Мені подобається помірна невизначеність", "Я дуже ризикований"]
-        }
-      },
-      {
-        id: "social",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تستمتع بلقاء أشخاص جدد؟",
-            de: "Genießen Sie es, neue Leute kennenzulernen?",
-            en: "Do you enjoy meeting new people?",
-            tr: "Yeni insanlarla tanışmaktan hoşlanır mısınız?",
-            uk: "Вам подобається знайомитися з новими людьми?"
-        },
-        options: {
-            ar: ["تفاعل مستمر مع الناس", "تفاعل منتظم مع الفريق", "تفاعل عرضي", "تفاعل ضئيل أو معدوم"],
-            de: ["Ständige Interaktion mit Menschen", "Regelmäßige Teaminteraktion", "Gelegentliche Interaktion", "Minimale bis keine Interaktion"],
-            en: ["Constant interaction with people", "Regular team interaction", "Occasional interaction", "Minimal to no interaction"],
-            tr: ["İnsanlarla sürekli etkileşim", "Düzenli ekip etkileşimi", "Ara sıra etkileşim", "Minimum veya hiç etkileşim"],
-            uk: ["Постійна взаємодія з людьми", "Регулярна взаємодія в команді", "Епізодична взаємодія", "Мінімальна або відсутня взаємодія"]
-        }
-      },
-      {
-        id: "thinking",
-        type: "multiple_choice",
-        question: {
-            ar: "عند اتخاذ القرارات، هل تعتمد على؟",
-            de: "Worauf verlassen Sie sich bei Entscheidungen?",
-            en: "When making decisions, do you rely on?",
-            tr: "Karar verirken neye güvenirsiniz?",
-            uk: "Приймаючи рішення, на що ви покладаєтеся?"
-        },
-        options: {
-            ar: ["المنطق والبيانات البحتة", "التجارب السابقة", "الشعور الغريزي والحدس", "نصيحة الآخرين"],
-            de: ["Reine Logik und Daten", "Vergangene Erfahrungen", "Bauchgefühl und Intuition", "Rat von anderen"],
-            en: ["Pure logic and data", "Past experience", "Gut feeling and intuition", "Advice from others"],
-            tr: ["Saf mantık ve veri", "Geçmiş deneyim", "İçgüdü ve sezgi", "Başkalarından tavsiye"],
-            uk: ["Чиста логіка та дані", "Минулий досвід", "Внутрішнє відчуття та інтуїція", "Поради інших"]
-        }
-      },
-      {
-        id: "deadlines",
-        type: "multiple_choice",
-        question: {
-            ar: "كيف تتعامل مع المواعيد النهائية؟",
-            de: "Wie gehen Sie mit Deadlines um?",
-            en: "How do you handle deadlines?",
-            tr: "Son teslim tarihleriyle nasıl başa çıkarsınız?",
-            uk: "Як ви справляєтеся з дедлайнами?"
-        },
-        options: {
-            ar: ["الانتهاء قبل الموعد بكثير", "العمل بوتيرة ثابتة حتى النهاية", "العمل بشكل أفضل تحت ضغط اللحظة الأخيرة", "أفضل الجداول الزمنية المرنة بدون مواعيد نهائية صارمة"],
-            de: ["Weit vor der Zeit fertig werden", "Gleichmäßiges Tempo bis zum Ende", "Beste Arbeit unter Last-Minute-Druck", "Bevorzuge flexible Zeitpläne ohne strikte Fristen"],
-            en: ["Finish way ahead of time", "Pace steadily until the end", "Work best under last-minute pressure", "Prefer flexible timelines without strict deadlines"],
-            tr: ["Zamanından çok önce bitirmek", "Sona kadar istikrarlı tempo", "Son dakika baskısı altında en iyi çalışma", "Katı son tarihler olmadan esnek zaman çizelgeleri tercihi"],
-            uk: ["Закінчити задовго до терміну", "Рівномірний темп до кінця", "Найкраще працюю під тиском в останню хвилину", "Віддаю перевагу гнучким термінам без суворих дедлайнів"]
-        }
-      },
-      {
-        id: "creativity",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تفضل العمل الإبداعي أم الهيكلي؟",
-            de: "Bevorzugen Sie kreative oder strukturierte Arbeit?",
-            en: "Do you prefer creative or structured work?",
-            tr: "Yaratıcı mı yoksa yapılandırılmış işi mi tercih edersiniz?",
-            uk: "Ви віддаєте перевагу творчій чи структурованій роботі?"
-        },
-        options: {
-            ar: ["فني ومعبر للغاية", "حل المشكلات بشكل مبتكر", "اتباع المبادئ التوجيهية المعمول بها", "تحسين العمليات الحالية"],
-            de: ["Sehr künstlerisch und ausdrucksstark", "Innovative Problemlösung", "Befolgen etablierter Richtlinien", "Verbesserung bestehender Prozesse"],
-            en: ["Highly artistic and expressive", "Innovative problem solving", "Following established guidelines", "Improving existing processes"],
-            tr: ["Son derece sanatsal ve etkileyici", "Yenilikçi problem çözme", "Yerleşik kurallara uyma", "Mevcut süreçleri iyileştirme"],
-            uk: ["Високохудожній та експресивний", "Інноваційне вирішення проблем", "Дотримання встановлених інструкцій", "Удосконалення існуючих процесів"]
-        }
-      },
-      {
-        id: "patience",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تعتبر نفسك صبوراً؟",
-            de: "Halten Sie sich für geduldig?",
-            en: "Do you consider yourself patient?",
-            tr: "Kendinizi sabırlı buluyor musunuz?",
-            uk: "Чи вважаєте ви себе терплячим?"
-        },
-        options: {
-            ar: ["صبور جداً مع الأهداف طويلة المدى", "صبور مع الناس ولكن ليس مع العمليات", "غير صبور - أريد نتائج سريعة", "أفضل البيئات سريعة التغير"],
-            de: ["Extrem geduldig bei langfristigen Zielen", "Geduldig mit Menschen aber nicht Prozessen", "Ungeduldig - ich will schnelle Ergebnisse", "Ich bevorzuge schnelllebige, wechselnde Umgebungen"],
-            en: ["Extremely patient with long-term goals", "Patient with people but not processes", "Impatient - I want quick results", "I prefer fast-paced changing environments"],
-            tr: ["Uzun vadeli hedeflerde son derece sabırlı", "İnsanlara karşı sabırlı ama süreçlere değil", "Sabırsız - hızlı sonuçlar isterim", "Hızlı tempolu değişen ortamları tercih ederim"],
-            uk: ["Надзвичайно терплячий до довгострокових цілей", "Терплячий до людей, але не до процесів", "Нетерплячий - хочу швидких результатів", "Віддаю перевагу швидкому середовищу, що змінюється"]
-        }
-      },
-      {
-        id: "problem_solving",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تستمتع بحل المشاكل المعقدة؟",
-            de: "Lösen Sie gerne komplexe Probleme?",
-            en: "Do you enjoy solving complex problems?",
-            tr: "Karmaşık sorunları çözmekten hoşlanır mısınız?",
-            uk: "Вам подобається вирішувати складні проблеми?"
-        },
-        options: {
-            ar: ["تحليل البيانات والحقائق", "عصف ذهني لحلول إبداعية", "التجربة والخطأ العملي", "المناقشة مع مجموعة"],
-            de: ["Daten und Fakten analysieren", "Kreative Lösungen brainstormen", "Praktisches Ausprobieren (Trial & Error)", "Diskussion in der Gruppe"],
-            en: ["Analyze data and facts", "Brainstorm creative solutions", "Hands-on trial and error", "Discuss with a group"],
-            tr: ["Veri ve gerçekleri analiz etme", "Yaratıcı çözümler üzerine beyin fırtınası", "Pratik deneme yanılma", "Bir grupla tartışma"],
-            uk: ["Аналіз даних і фактів", "Мозковий штурм творчих рішень", "Практичні спроби та помилки", "Обговорення в групі"]
-        }
-      },
-      {
-        id: "money_motivation",
-        type: "multiple_choice",
-        question: {
-            ar: "هل المال هو حافزك الرئيسي؟",
-            de: "Ist Geld Ihre Hauptmotivation?",
-            en: "Is money your main motivation?",
-            tr: "Para ana motivasyon kaynağınız mı?",
-            uk: "Гроші - ваша головна мотивація?"
-        },
-        options: {
-            ar: ["المال هو المحفز الوحيد", "المال مهم جداً ولكنه ليس كل شيء", "الشغف أهم من المال", "المساهمة في المجتمع هي الهدف الرئيسي"],
-            de: ["Geld ist der einzige Motivator", "Geld ist sehr wichtig, aber nicht alles", "Leidenschaft ist wichtiger als Geld", "Beitrag zur Gesellschaft ist das Hauptziel"],
-            en: ["Money is the sole motivator", "Money is highly important but not everything", "Passion is more important than money", "Contributing to society is the main goal"],
-            tr: ["Para tek motivasyon kaynağıdır", "Para çok önemlidir ama her şey değildir", "Tutku paradan daha önemlidir", "Topluma katkıda bulunmak ana hedeftir"],
-            uk: ["Гроші є єдиним мотиватором", "Гроші дуже важливі, але не все", "Пристрасть важливіша за гроші", "Внесок у суспільство є головною метою"]
-        }
-      },
-      {
-        id: "work_life_balance",
-        type: "multiple_choice",
-        question: {
-            ar: "ما مدى أهمية التوازن بين العمل والحياة؟",
-            de: "Wie wichtig ist Work-Life-Balance?",
-            en: "How important is work-life balance?",
-            tr: "İş-yaşam dengesi ne kadar önemli?",
-            uk: "Наскільки важливий баланс між роботою та життям?"
-        },
-        options: {
-            ar: ["فصل صارم بين العمل والحياة (9-5)", "دمج مرن بين العمل والحياة", "مستعد للتضحية بالوقت الشخصي من أجل المهنة", "العمل هو حياتي"],
-            de: ["Strikte Trennung (9-bis-5)", "Flexible Integration von Arbeit und Leben", "Bereit, persönliche Zeit für die Karriere zu opfern", "Arbeit ist mein Leben"],
-            en: ["Strict 9-to-5 separation", "Flexible integration of work and life", "Willing to sacrifice personal time for career", "Work is my life"],
-            tr: ["Katı 9-5 ayrımı", "İş ve yaşamın esnek entegrasyonu", "Kariyer için kişisel zamandan fedakarlık etmeye istekli", "İş benim hayatımdır"],
-            uk: ["Суворий поділ 9-до-5", "Гнучка інтеграція роботи та життя", "Готовий жертвувати особистим часом заради кар'єри", "Робота - це моє життя"]
-        }
-      },
-      {
-        id: "public_speaking",
-        type: "multiple_choice",
-        question: {
-            ar: "كيف تشعر تجاه التحدث أمام الجمهور؟",
-            de: "Wie fühlen Sie sich beim öffentlichen Reden?",
-            en: "How do you feel about public speaking?",
-            tr: "Topluluk önünde konuşma hakkında ne hissediyorsunuz?",
-            uk: "Як ви ставитеся до публічних виступів?"
-        },
-        options: {
-            ar: ["أستمتع بالتحدث أمام حشود كبيرة", "أفضل المناقشات في مجموعات صغيرة", "يمكنني فعل ذلك إذا استعديت ولكني لا أحبه", "أتجنبه تماماً"],
-            de: ["Ich spreche gerne vor großem Publikum", "Ich bevorzuge Diskussionen in kleinen Gruppen", "Ich kann es mit Vorbereitung, liebe es aber nicht", "Ich vermeide es komplett"],
-            en: ["I enjoy speaking to large crowds", "I prefer small group discussions", "I can do it if prepared but don't love it", "I avoid it completely"],
-            tr: ["Büyük kalabalıklara konuşmaktan hoşlanırım", "Küçük grup tartışmalarını tercih ederim", "Hazırlıklıysam yapabilirim ama sevmem", "Tamamen kaçınırım"],
-            uk: ["Мені подобається виступати перед великою аудиторією", "Я віддаю перевагу обговоренням у малих групах", "Я можу це зробити, якщо підготуюсь, але не люблю", "Я цього повністю уникаю"]
-        }
-      },
-      {
-        id: "tech_savvy",
-        type: "multiple_choice",
-        question: {
-            ar: "ما مدى راحتك مع التكنولوجيا؟",
-            de: "Wie wohl fühlen Sie sich mit Technologie?",
-            en: "How comfortable are you with technology?",
-            tr: "Teknolojiyle aranız nasıl?",
-            uk: "Наскільки вам комфортно з технологіями?"
-        },
-        options: {
-            ar: ["يمكنني بناء وبرمجة التكنولوجيا", "أنا مستخدم متقدم", "أنا مرتاح مع الأساسيات", "أفضل الأدوات غير التقنية"],
-            de: ["Ich kann Technik bauen und programmieren", "Ich bin ein fortgeschrittener Nutzer", "Ich komme mit den Grundlagen zurecht", "Ich bevorzuge nicht-technische Werkzeuge"],
-            en: ["I can build and program tech", "I am an advanced user", "I am comfortable with basics", "I prefer non-technical tools"],
-            tr: ["Teknoloji inşa edip programlayabilirim", "İleri düzey bir kullanıcıyım", "Temel bilgilerle rahatım", "Teknik olmayan araçları tercih ederim"],
-            uk: ["Я можу створювати та програмувати техніку", "Я просунутий користувач", "Мені комфортно з основами", "Я віддаю перевагу нетехнічним інструментам"]
-        }
-      },
-      {
-        id: "travel",
-        type: "multiple_choice",
-        question: {
-            ar: "هل ترغب في السفر من أجل العمل؟",
-            de: "Möchten Sie beruflich reisen?",
-            en: "Would you like to travel for work?",
-            tr: "İş için seyahat etmek ister misiniz?",
-            uk: "Ви б хотіли подорожувати по роботі?"
-        },
-        options: {
-            ar: ["أريد السفر باستمرار (رحالة)", "أود القيام برحلات عمل متكررة", "السفر العرضي جيد", "أحتاج أن أكون في المنزل كل ليلة"],
-            de: ["Ich möchte ständig reisen (Nomade)", "Ich hätte gerne häufige Geschäftsreisen", "Gelegentliche Reisen sind in Ordnung", "Ich muss jeden Abend zu Hause sein"],
-            en: ["I want to travel constantly (Nomad)", "I'd like frequent business trips", "Occasional travel is fine", "I need to be home every night"],
-            tr: ["Sürekli seyahat etmek istiyorum (Göçebe)", "Sık iş seyahatleri isterim", "Ara sıra seyahat uygundur", "Her gece evde olmalıyım"],
-            uk: ["Я хочу постійно подорожувати (Кочівник)", "Я хотів би часті відрядження", "Епізодичні подорожі - це нормально", "Мені потрібно бути вдома щовечора"]
-        }
-      },
-      {
-        id: "physical_work",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تفضل العمل البدني أم المكتبي؟",
-            de: "Bevorzugen Sie körperliche Arbeit oder Büroarbeit?",
-            en: "Do you prefer physical work or desk work?",
-            tr: "Fiziksel işi mi yoksa masa başı işi mi tercih edersiniz?",
-            uk: "Ви віддаєте перевагу фізичній роботі чи роботі за столом?"
-        },
-        options: {
-            ar: ["عمل بدني شاق / بناء", "حركة نشطة / وقوف", "مزيج من المكتب والنشاط", "عمل مكتبي مستقر"],
-            de: ["Schwere körperliche Arbeit / Bau", "Aktive Bewegung / Stehen", "Mischung aus Schreibtisch und Aktivität", "Sitzende Schreibtischarbeit"],
-            en: ["Heavy physical labor / Construction", "Active movement / Standing", "Mix of desk and activity", "Sedentary desk work"],
-            tr: ["Ağır fiziksel iş / İnşaat", "Aktif hareket / Ayakta durma", "Masa başı ve aktivite karışımı", "Oturarak masa başı işi"],
-            uk: ["Важка фізична праця / Будівництво", "Активний рух / Стояння", "Суміш столу та активності", "Сидяча робота за столом"]
-        }
-      },
-      {
-        id: "math_skills",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تجيد التعامل مع الأرقام؟",
-            de: "Sind Sie gut im Umgang mit Zahlen?",
-            en: "Are you good with numbers?",
-            tr: "Sayılarla aranız iyi mi?",
-            uk: "Ви добре ладнаєте з цифрами?"
-        },
-        options: {
-            ar: ["أحب الرياضيات المعقدة والإحصاء", "أنا مرتاح مع الرياضيات التجارية", "يمكنني القيام بالأساسيات بشكل جيد", "أتجنب الرياضيات / أفضل الكلمات"],
-            de: ["Ich liebe komplexe Mathematik und Statistik", "Ich fühle mich wohl mit Wirtschaftsmathematik", "Ich beherrsche die Grundlagen gut", "Ich vermeide Mathe/bevorzuge Worte"],
-            en: ["I love complex math and statistics", "I am comfortable with business math", "I can do basics well", "I avoid math/prefer words"],
-            tr: ["Karmaşık matematik ve istatistiği severim", "İş matematiği ile rahatım", "Temel bilgileri iyi yapabilirim", "Matematikten kaçınırım/kelimeleri tercih ederim"],
-            uk: ["Я люблю складну математику та статистику", "Мені комфортно з бізнес-математикою", "Я добре знаю основи", "Я уникаю математики/віддаю перевагу словам"]
-        }
-      },
-      {
-        id: "conflict",
-        type: "multiple_choice",
-        question: {
-            ar: "كيف تتعامل مع النزاعات؟",
-            de: "Wie gehen Sie mit Konflikten um?",
-            en: "How do you handle conflict?",
-            tr: "Çatışmalarla nasıl başa çıkarsınız?",
-            uk: "Як ви справляєтеся з конфліктами?"
-        },
-        options: {
-            ar: ["أتولى زمام الأمور وأحلها مباشرة", "أتفاوض للوصول إلى حل وسط", "أحاول تلطيف الأجواء", "أنسحب لتجنب التوتر"],
-            de: ["Ich übernehme die Führung und löse es direkt", "Ich verhandle einen Kompromiss", "Ich versuche, die Wogen zu glätten", "Ich ziehe mich zurück, um Stress zu vermeiden"],
-            en: ["I take charge and resolve it directly", "I negotiate a compromise", "I try to smooth things over", "I withdraw to avoid stress"],
-            tr: ["Kontrolü ele alır ve doğrudan çözerim", "Bir uzlaşma pazarlığı yaparım", "İşleri yoluna koymaya çalışırım", "Stresten kaçınmak için geri çekilirim"],
-            uk: ["Я беру на себе відповідальність і вирішую це безпосередньо", "Я домовляюся про компроміс", "Я намагаюся згладити ситуацію", "Я відсторонююся, щоб уникнути стресу"]
-        }
-      },
-      {
-        id: "helping_others",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تحب مساعدة الآخرين بشكل مباشر؟",
-            de: "Helfen Sie anderen gerne direkt?",
-            en: "Do you like helping others directly?",
-            tr: "Başkalarına doğrudan yardım etmeyi sever misiniz?",
-            uk: "Вам подобається допомагати іншим безпосередньо?"
-        },
-        options: {
-            ar: ["رعاية مباشرة (تمريض/علاج)", "تدريس/توجيه", "دعم إداري/خدمة", "أفضل التركيز على المهام وليس الناس"],
-            de: ["Direkte Pflege (Krankenpflege/Therapie)", "Lehren/Mentoring", "Administrative Unterstützung/Service", "Ich konzentriere mich lieber auf Aufgaben, nicht Menschen"],
-            en: ["Direct care (Nursing/Therapy)", "Teaching/Mentoring", "Administrative support/Service", "I prefer focusing on tasks, not people"],
-            tr: ["Doğrudan bakım (Hemşirelik/Terapi)", "Öğretmenlik/Mentorluk", "İdari destek/Hizmet", "İnsanlara değil görevlere odaklanmayı tercih ederim"],
-            uk: ["Безпосередній догляд (Медсестринство/Терапія)", "Викладання/Наставництво", "Адміністративна підтримка/Обслуговування", "Я віддаю перевагу зосередженню на завданнях, а не на людях"]
-        }
-      },
-      {
-        id: "stability",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تفضل الاستقرار الوظيفي أم الإثارة؟",
-            de: "Bevorzugen Sie Arbeitsplatzsicherheit oder Aufregung?",
-            en: "Do you prefer job stability or excitement?",
-            tr: "İş güvenliğini mi yoksa heyecanı mı tercih edersiniz?",
-            uk: "Ви віддаєте перевагу стабільності роботи чи хвилюванню?"
-        },
-        options: {
-            ar: ["أقصى درجات الأمان (وظيفة حكومية)", "مهنة مؤسسية مستقرة", "بيئة شركات ناشئة عالية النمو", "مخاطر العمل الحر/ريادة الأعمال"],
-            de: ["Maximale Sicherheit (Beamtentum)", "Stabile Karriere im Unternehmen", "Wachstumsstarkes Startup-Umfeld", "Freiberufliches/Unternehmerisches Risiko"],
-            en: ["Maximum security (Government job)", "Stable corporate career", "High-growth startup environment", "Freelance/Entrepreneurial risk"],
-            tr: ["Maksimum güvenlik (Devlet işi)", "İstikrarlı kurumsal kariyer", "Yüksek büyüme oranlı girişim ortamı", "Serbest meslek/Girişimcilik riski"],
-            uk: ["Максимальна безпека (Державна служба)", "Стабільна корпоративна кар'єра", "Середовище стартапу зі швидким зростанням", "Ризик фрілансу/підприємництва"]
-        }
-      },
-      {
-        id: "organization",
-        type: "multiple_choice",
-        question: {
-            ar: "ما مدى تنظيمك؟",
-            de: "Wie organisiert sind Sie?",
-            en: "How organized are you?",
-            tr: "Ne kadar düzenlisiniz?",
-            uk: "Наскільки ви організовані?"
-        },
-        options: {
-            ar: ["مخطط منظم ومفصل للغاية", "منظم ولكن مرن", "منظم في الصورة الكبيرة (تفاصيل فوضوية)", "عفوي وارتجالي"],
-            de: ["Hochstrukturiert und detaillierter Planer", "Organisiert aber flexibel", "Im Großen und Ganzen organisiert (Details chaotisch)", "Spontan und improvisierend"],
-            en: ["Highly structured and detailed planner", "Organized but flexible", "Big-picture organized (messy details)", "Spontaneous and improvisational"],
-            tr: ["Son derece yapılandırılmış ve detaylı planlayıcı", "Düzenli ama esnek", "Büyük resimde düzenli (detaylar dağınık)", "Spontane ve doğaçlama"],
-            uk: ["Високоструктурований і детальний планувальник", "Організований, але гнучкий", "Організований загалом (безлад у деталях)", "Спонтанний та імпровізаційний"]
-        }
-      },
-      {
-        id: "planning",
-        type: "multiple_choice",
-        question: {
-            ar: "هل تحب التخطيط للمستقبل؟",
-            de: "Planen Sie gerne für die Zukunft?",
-            en: "Do you like planning for the future?",
-            tr: "Gelecek için plan yapmayı sever misiniz?",
-            uk: "Вам подобається планувати майбутнє?"
-        },
-        options: {
-            ar: ["خطة مفصلة لمدة 5-10 سنوات", "أهداف لمدة 1-2 سنة", "أهداف قصيرة المدى (شهرية)", "يوماً بيوم (بدون خطة محددة)"],
-            de: ["Detaillierter 5-10 Jahresplan", "1-2 Jahresziele", "Kurzfristige (monatliche) Ziele", "Tag für Tag (Kein konkreter Plan)"],
-            en: ["5-10 year detailed plan", "1-2 year goals", "Short-term (monthly) goals", "Day-by-day (No specific plan)"],
-            tr: ["5-10 yıllık detaylı plan", "1-2 yıllık hedefler", "Kısa vadeli (aylık) hedefler", "Günden güne (Belirli bir plan yok)"],
-            uk: ["Детальний план на 5-10 років", "Цілі на 1-2 роки", "Короткострокові (щомісячні) цілі", "День за днем (Без конкретного плану)"]
-        }
-      },
-      {
-        id: "schedule",
-        type: "multiple_choice",
-        question: {
-            ar: "ما هو جدول العمل المفضل لديك؟",
-            de: "Was ist Ihr bevorzugter Arbeitsplan?",
-            en: "What is your preferred work schedule?",
-            tr: "Tercih ettiğiniz çalışma programı nedir?",
-            uk: "Який ваш бажаний графік роботи?"
-        },
-        options: {
-            ar: ["ساعات العمل القياسية (9-5)", "ساعات مرنة (في أي وقت)", "العمل بنظام الورديات (ليلاً/عطلات نهاية الأسبوع)", "سباقات قائمة على المشاريع"],
-            de: ["Standard-Geschäftszeiten (9-5)", "Flexible Arbeitszeiten (Jederzeit)", "Schichtarbeit (Nachts/Wochenende)", "Projektbasierte Sprints"],
-            en: ["Standard business hours (9-5)", "Flexible hours (Anytime)", "Shift work (Nights/Weekends)", "Project-based sprints"],
-            tr: ["Standart iş saatleri (9-5)", "Esnek saatler (Herhangi bir zaman)", "Vardiyalı çalışma (Geceler/Hafta sonları)", "Proje bazlı sprintler"],
-            uk: ["Стандартний робочий час (9-5)", "Гнучкий графік (У будь-який час)", "Позмінна робота (Ночі/Вихідні)", "Проектні спринти"]
-        }
-      }
-  ];
-  
-  export const quizQuestions = {
-    ar: commonQuestions.map(q => ({ ...q, question: q.question.ar, options: q.options ? q.options.ar : undefined })),
-    de: commonQuestions.map(q => ({ ...q, question: q.question.de, options: q.options ? q.options.de : undefined })),
-    en: commonQuestions.map(q => ({ ...q, question: q.question.en, options: q.options ? q.options.en : undefined })),
-    tr: commonQuestions.map(q => ({ ...q, question: q.question.tr, options: q.options ? q.options.tr : undefined })),
-    uk: commonQuestions.map(q => ({ ...q, question: q.question.uk, options: q.options ? q.options.uk : undefined })),
-  };
+export const quizQuestions = {
+  ar: [
+    { id: 'name', type: 'text', question: 'ما هو اسمك الكامل؟' },
+    { id: 'age', type: 'number', question: 'كم عمرك؟' },
+    { id: 'work_style', type: 'choice', question: 'كيف تفضل العمل؟', options: ['في فريق', 'بشكل مستقل', 'مختلط'] },
+    { id: 'environment', type: 'choice', question: 'ما هي بيئة العمل المفضلة لديك؟', options: ['مكتب', 'خارج المكتب', 'عن بعد', 'ورشة عمل'] },
+    { id: 'problem_solving', type: 'choice', question: 'كيف تتعامل مع المشكلات؟', options: ['بشكل تحليلي', 'بشكل إبداعي', 'بشكل عملي'] }
+  ],
+  de: [
+    { id: 'name', type: 'text', question: 'Wie ist Ihr vollständiger Name?' },
+    { id: 'age', type: 'number', question: 'Wie alt sind Sie?' },
+    { id: 'work_style', type: 'choice', question: 'Wie arbeiten Sie am liebsten?', options: ['Im Team', 'Unabhängig', 'Gemischt'] },
+    { id: 'environment', type: 'choice', question: 'Welche Arbeitsumgebung bevorzugen Sie?', options: ['Büro', 'Draußen', 'Remote', 'Werkstatt'] },
+    { id: 'problem_solving', type: 'choice', question: 'Wie gehen Sie Probleme an?', options: ['Analytisch', 'Kreativ', 'Praktisch'] }
+  ],
+  en: [
+    { id: 'name', type: 'text', question: 'What is your full name?' },
+    { id: 'age', type: 'number', question: 'How old are you?' },
+    { id: 'work_style', type: 'choice', question: 'How do you prefer to work?', options: ['In a team', 'Independently', 'Mixed'] },
+    { id: 'environment', type: 'choice', question: 'What is your preferred work environment?', options: ['Office', 'Outdoors', 'Remote', 'Workshop'] },
+    { id: 'problem_solving', type: 'choice', question: 'How do you approach problems?', options: ['Analytically', 'Creatively', 'Practically'] }
+  ],
+  tr: [
+    { id: 'name', type: 'text', question: 'Tam adınız nedir?' },
+    { id: 'age', type: 'number', question: 'Kaç yaşındasınız?' },
+    { id: 'work_style', type: 'choice', question: 'Nasıl çalışmayı tercih edersiniz?', options: ['Takım halinde', 'Bağımsız', 'Karışık'] },
+    { id: 'environment', type: 'choice', question: 'Tercih ettiğiniz çalışma ortamı nedir?', options: ['Ofis', 'Dışarıda', 'Uzaktan', 'Atölye'] },
+    { id: 'problem_solving', type: 'choice', question: 'Sorunlara nasıl yaklaşırsınız?', options: ['Analitik', 'Yaratıcı', 'Pratik'] }
+  ]
+};
 
-  export const professions = [
-    {
-        title: {
-            ar: "مطور برمجيات",
-            de: "Softwareentwickler",
-            en: "Software Developer",
-            tr: "Yazılım Geliştirici",
-            uk: "Розробник програмного забезпечення"
-        },
-        duration: {
-            ar: "3 سنوات (تدريب) أو 3-4 سنوات (جامعة)",
-            de: "3 Jahre (Ausbildung) oder 3-4 Jahre (Studium)",
-            en: "3 years (Apprenticeship) or 3-4 years (University)",
-            tr: "3 yıl (Mesleki Eğitim) veya 3-4 yıl (Üniversite)",
-            uk: "3 роки (професійне навчання) або 3-4 роки (університет)"
-        },
-        salary: {
-            ar: "1000-1200 يورو (أثناء التدريب)",
-            de: "1000-1200 € (während Ausbildung)",
-            en: "1000-1200 € (during training)",
-            tr: "1000-1200 € (eğitim sırasında)",
-            uk: "1000-1200 € (під час навчання)"
-        },
-        salaryRange: {
-             ar: "45,000 - 70,000 يورو سنوياً",
-             de: "45.000 - 70.000 € jährlich",
-             en: "45,000 - 70,000 € annually",
-             tr: "Yıllık 45.000 - 70.000 €",
-             uk: "45,000 - 70,000 € на рік"
-        },
-        jobOutlook: {
-             ar: "مطلوب جداً",
-             de: "Sehr gefragt",
-             en: "High demand",
-             tr: "Yüksek talep",
-             uk: "Високий попит"
-        },
-        requirements: {
-            ar: "شهادة ثانوية (Abitur) أو متوسطة (Realschule) جيدة، منطق قوي",
-            de: "Abitur oder guter Realschulabschluss, logisches Denken",
-            en: "A-Levels or good secondary school certificate, logical thinking",
-            tr: "Lise diploması veya iyi ortaokul diploması, mantıksal düşünme",
-            uk: "Атестат про середню освіту або хороший атестат реальної школи, логічне мислення"
-        },
-        duties: {
-            ar: "كتابة الأكواد، تطوير التطبيقات، حل المشاكل التقنية",
-            de: "Code schreiben, Apps entwickeln, technische Probleme lösen",
-            en: "Writing code, developing apps, solving technical problems",
-            tr: "Kod yazma, uygulama geliştirme, teknik sorunları çözme",
-            uk: "Написання коду, розробка додатків, вирішення технічних проблем"
-        },
-        skillsRequired: {
-            ar: "Java, Python, C++, حل المشكلات، العمل الجماعي",
-            de: "Java, Python, C++, Problemlösung, Teamarbeit",
-            en: "Java, Python, C++, Problem Solving, Teamwork",
-            tr: "Java, Python, C++, Problem Çözme, Takım Çalışması",
-            uk: "Java, Python, C++, вирішення проблем, командна робота"
-        }
-    },
-    {
-        title: {
-            ar: "ممرض / ممرضة",
-            de: "Pflegefachmann / Pflegefachfrau",
-            en: "Nurse",
-            tr: "Hemşire",
-            uk: "Медсестра / Медбрат"
-        },
-        duration: {
-            ar: "3 سنوات (تدريب مهني)",
-            de: "3 Jahre (Ausbildung)",
-            en: "3 years (Vocational Training)",
-            tr: "3 yıl (Mesleki Eğitim)",
-            uk: "3 роки (професійне навчання)"
-        },
-        salary: {
-            ar: "1100-1300 يورو (أثناء التدريب)",
-            de: "1100-1300 € (während Ausbildung)",
-            en: "1100-1300 € (during training)",
-            tr: "1100-1300 € (eğitim sırasında)",
-            uk: "1100-1300 € (під час навчання)"
-        },
-        salaryRange: {
-             ar: "35,000 - 45,000 يورو سنوياً",
-             de: "35.000 - 45.000 € jährlich",
-             en: "35,000 - 45,000 € annually",
-             tr: "Yıllık 35.000 - 45.000 €",
-             uk: "35,000 - 45.000 € на рік"
-        },
-        jobOutlook: {
-             ar: "نقص حاد في الموظفين، فرص ممتازة",
-             de: "Starker Mangel, exzellente Chancen",
-             en: "Severe shortage, excellent opportunities",
-             tr: "Ciddi personel açığı, mükemmel fırsatlar",
-             uk: "Гостра нестача персоналу, відмінні можливості"
-        },
-        requirements: {
-            ar: "شهادة متوسطة (Realschule)، تعاطف، قدرة على التحمل",
-            de: "Realschulabschluss, Empathie, Belastbarkeit",
-            en: "Secondary school certificate, empathy, resilience",
-            tr: "Ortaokul diploması, empati, dayanıklılık",
-            uk: "Атестат реальної школи, емпатія, стійкість"
-        },
-        duties: {
-            ar: "رعاية المرضى، تقديم الأدوية، توثيق الحالات",
-            de: "Patienten betreuen, Medikamente vergeben, Dokumentation",
-            en: "Caring for patients, administering medication, documentation",
-            tr: "Hastalara bakmak, ilaç vermek, dokümantasyon",
-            uk: "Догляд за пацієнтами, введення ліків, документація"
-        },
-        skillsRequired: {
-            ar: "التواصل، الصبر، العمل تحت الضغط",
-            de: "Kommunikation, Geduld, Stressresistenz",
-            en: "Communication, Patience, Working under pressure",
-            tr: "İletişim, Sabır, Baskı altında çalışma",
-            uk: "Комунікація, терпіння, робота під тиском"
-        }
-    }
-  ];
+export const professions = [
+  {
+    title: { ar: 'مطور برمجيات', de: 'Softwareentwickler', en: 'Software Developer', tr: 'Yazılım Geliştirici' },
+    duration: { ar: '3 سنوات (Ausbildung) أو درجة جامعية', de: '3 Jahre (Ausbildung) oder Studium', en: '3 years (Ausbildung) or University Degree', tr: '3 Yıl (Ausbildung) veya Üniversite Derecesi' },
+    salary: { ar: '45,000 يورو - 70,000 يورو سنوياً', de: '45.000 € - 70.000 € pro Jahr', en: '€45,000 - €70,000 per year', tr: 'Yılda 45.000 € - 70.000 €' },
+    salaryRange: { ar: 'متوسط إلى مرتفع', de: 'Mittel bis Hoch', en: 'Medium to High', tr: 'Orta - Yüksek' },
+    jobOutlook: { ar: 'طلب مرتفع جداً', de: 'Sehr hohe Nachfrage', en: 'Very High Demand', tr: 'Çok Yüksek Talep' },
+    requirements: { ar: 'مهارات منطقية، معرفة بالبرمجة، لغة إنجليزية جيدة', de: 'Logisches Denken, Programmierkenntnisse, gutes Englisch', en: 'Logical thinking, programming skills, good English', tr: 'Mantıksal düşünme, programlama becerileri, iyi İngilizce' },
+    duties: { ar: 'تطوير التطبيقات، صيانة الأنظمة، حل المشكلات التقنية', de: 'Apps entwickeln, Systeme warten, technische Probleme lösen', en: 'Developing apps, maintaining systems, solving technical problems', tr: 'Uygulama geliştirme, sistem bakımı, teknik sorunları çözme' },
+    skillsRequired: { ar: 'Java, Python, JavaScript, SQL', de: 'Java, Python, JavaScript, SQL', en: 'Java, Python, JavaScript, SQL', tr: 'Java, Python, JavaScript, SQL' }
+  },
+  {
+    title: { ar: 'ممرض / ممرضة', de: 'Pflegefachkraft', en: 'Nurse', tr: 'Hemşire' },
+    duration: { ar: '3 سنوات (Ausbildung)', de: '3 Jahre (Ausbildung)', en: '3 years (Ausbildung)', tr: '3 Yıl (Ausbildung)' },
+    salary: { ar: '35,000 يورو - 45,000 يورو سنوياً', de: '35.000 € - 45.000 € pro Jahr', en: '€35,000 - €45,000 per year', tr: 'Yılda 35.000 € - 45.000 €' },
+    salaryRange: { ar: 'متوسط', de: 'Mittel', en: 'Medium', tr: 'Orta' },
+    jobOutlook: { ar: 'طلب مرتفع للغاية', de: 'Extrem hohe Nachfrage', en: 'Extremely High Demand', tr: 'Son Derece Yüksek Talep' },
+    requirements: { ar: 'تعاطف، قدرة على تحمل الضغط، لغة ألمانية جيدة (B2)', de: 'Empathie, Belastbarkeit, gutes Deutsch (B2)', en: 'Empathy, resilience, good German (B2)', tr: 'Empati, dayanıklılık, iyi Almanca (B2)' },
+    duties: { ar: 'رعاية المرضى، توثيق العلاج، مساعدة الأطباء', de: 'Patienten betreuen, Behandlung dokumentieren, Ärzten assistieren', en: 'Caring for patients, documenting treatment, assisting doctors', tr: 'Hasta bakımı, tedavi dokümantasyonu, doktorlara asistanlık' },
+    skillsRequired: { ar: 'رعاية طبية، تواصل، تنظيم', de: 'Medizinische Pflege, Kommunikation, Organisation', en: 'Medical care, communication, organization', tr: 'Tıbbi bakım, iletişim, organizasyon' }
+  }
+];
