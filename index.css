@@ -1,3 +1,4 @@
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -18,6 +19,7 @@ html {
 :root {
   --primary-color: #c0392b; /* A strong red */
   --primary-hover-color: #e74c3c; /* A brighter red for hover */
+  --primary-glow: #ff6b6b; /* Lighter red for glow effects */
   --primary-gradient: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
   --secondary-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   --accent-color: #f39c12;
@@ -63,33 +65,6 @@ body::before {
     background-color: rgba(253, 237, 236, 0.9); /* Light red overlay */
     z-index: -1;
 }
-
-/* RESULTS MODE OVERRIDES - Makes the results view a full page */
-body.results-mode {
-    background-image: none !important;
-    background-color: #2c0505 !important; /* Match result gradient start (Dark Red) */
-}
-
-body.results-mode::before {
-    display: none !important;
-}
-
-body.results-mode header,
-body.results-mode footer {
-    display: none !important;
-}
-
-body.results-mode main {
-    padding: 0 !important;
-    display: block !important;
-    width: 100%;
-}
-
-body.results-mode #root {
-    width: 100%;
-    max-width: none !important;
-}
-
 
 html[dir="ltr"] .results-container {
   text-align: left;
@@ -871,7 +846,9 @@ html[dir="rtl"] .option-text-row {
   margin-top: 2rem;
 }
 
-/* Loader */
+/* ========================================= */
+/*  HOURGLASS LOADER (Realism Fix)           */
+/* ========================================= */
 .loader-container {
   display: flex;
   flex-direction: column;
@@ -881,148 +858,182 @@ html[dir="rtl"] .option-text-row {
   text-align: center;
 }
 
-.loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid var(--primary-color);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1.5rem;
+.hourglass-animation {
+    width: 70px;
+    height: 130px;
+    position: relative;
+    animation: hourglass-flip 4s infinite ease-in-out;
+    margin-bottom: 2rem;
+    transform-style: preserve-3d;
 }
 
-.inline-loader-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
+/* The Glass Structure */
+.top-half, .bottom-half {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 5px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+    border: 3px solid rgba(255,255,255,0.5);
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.3), 0 0 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    z-index: 2;
+}
+
+.top-half {
+    top: 5px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 20% 20%;
+    border-bottom: none;
+}
+
+.bottom-half {
+    bottom: 5px;
+    border-radius: 50% 50% 50% 50% / 20% 20% 60% 60%;
+    border-top: none;
+}
+
+/* Wooden/Metal Caps */
+.cap-top, .cap-bottom {
+    position: absolute;
+    left: 0;
+    width: 70px;
+    height: 8px;
+    background: #5d4037; /* Wood color */
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 3;
+}
+.cap-top { top: 0; }
+.cap-bottom { bottom: 0; }
+
+/* The Sand */
+.sand-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 50% 50% 50% 50% / 60% 60% 20% 20%;
+    animation: sand-drain 4s infinite linear;
+    transform-origin: bottom;
+}
+
+.sand-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 50% 50% 50% 50% / 20% 20% 60% 60%;
+    animation: sand-fill 4s infinite linear;
+    transform-origin: bottom;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); /* Start masked */
+}
+
+/* The Stream - Fixed "Red Line" */
+.stream-line {
+    position: absolute;
+    left: 50%;
+    top: 60px; /* Center of hourglass */
+    width: 3px;
+    height: 0;
+    background: var(--primary-color);
+    transform: translateX(-50%);
+    z-index: 1; /* Behind glass shine, inside */
+    border-radius: 2px;
+    opacity: 0;
+    animation: stream-flow 4s infinite;
+}
+
+/* Keyframes */
+@keyframes hourglass-flip {
+    0%, 10% { transform: rotate(0deg); }
+    90%, 100% { transform: rotate(180deg); }
+}
+
+@keyframes sand-drain {
+    0% { height: 100%; border-radius: 50% 50% 50% 50% / 60% 60% 20% 20%; }
+    10% { height: 100%; } /* Wait for flip */
+    85% { height: 0%; border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%; }
+    100% { height: 0%; }
+}
+
+@keyframes sand-fill {
+    0%, 15% { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); }
+    85% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+@keyframes stream-flow {
+    0%, 10% { height: 0; top: 62px; opacity: 0; }
+    15% { height: 60px; top: 62px; opacity: 1; } /* Drop down */
+    80% { height: 60px; top: 62px; opacity: 1; } /* Stay */
+    85% { height: 0; top: 122px; opacity: 0; } /* Drop out bottom */
+    100% { height: 0; opacity: 0; }
+}
+
+/* Context sizes */
+.job-search-container .hourglass-animation, 
+.praktikum-search-container .hourglass-animation {
+    transform: scale(0.5);
+    margin: 0 auto;
+}
+
+
+.loading-title {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    color: var(--text-color);
+}
+
+.loading-desc {
+    font-size: 0.95rem;
     color: #7f8c8d;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 /* ==========================================================================
-   IMMERSIVE CREATIVE RESULTS STYLE (Page Mode)
+   RESULTS PAGE STYLE (Integrated, no overlay)
    ========================================================================== */
 
-/* Wrapper now acts as the page content, not a fixed overlay */
-.creative-results-wrapper {
-    /* Elegant Smooth Red Gradient - Coordinated */
-    background: linear-gradient(135deg, #2c0505 0%, #7f1d1d 50%, #b91c1c 100%);
-    background-attachment: fixed;
-    min-height: 100vh;
-    width: 100%;
-    /* Position relative to allow normal flow */
-    position: relative;
-    padding: 2rem 1rem;
-    color: white;
-    font-family: 'Tajawal', sans-serif;
-    z-index: 1;
-}
-
-/* Add a subtle mesh overlay for texture */
-.creative-results-wrapper::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.creative-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    position: relative;
-    padding-bottom: 250px; /* Increased to allow space for the fixed footer on mobile */
-}
-
-/* Close Button -> Home Button */
-.close-results-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    backdrop-filter: blur(8px);
-    z-index: 10;
-}
-html[dir="rtl"] .close-results-btn {
-    right: auto;
-    left: 0;
-}
-.close-results-btn:hover {
-    background: white;
-    color: var(--primary-color);
-    transform: scale(1.1); /* Removed rotation for home semantics, kept scale */
-}
-
-/* Header */
-.creative-header {
+.results-header-section {
     text-align: center;
-    margin-bottom: 3.5rem;
-    margin-top: 2rem;
-    animation: fadeInDown 0.8s ease;
-}
-.creative-header h1 {
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    margin-bottom: 0.8rem;
-    color: #fff;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    font-weight: 800;
-    letter-spacing: -0.5px;
-}
-.creative-header p {
-    color: rgba(255,255,255,0.85);
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto;
-    font-weight: 400;
+    margin-bottom: 2.5rem;
 }
 
-/* Sections - Card Style: White Glass / Paper for maximum contrast */
+.results-header-section h1 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.results-subtitle {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+}
+
+/* Cards within Results */
 .creative-card {
-    background: rgba(255, 255, 255, 0.95); /* High opacity white for clarity */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 28px;
-    padding: 3rem;
-    margin-bottom: 3rem;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    color: #333; /* Dark text on white card */
-    transition: transform 0.3s ease;
-    animation: fadeInUp 0.6s ease;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     position: relative;
     overflow: hidden;
 }
 
-.creative-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-}
-
-/* Decorative accent for cards - width adjusted for mobile below */
+/* Accent Bar */
 .creative-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 6px;
+    width: 5px;
     height: 100%;
     background: var(--primary-gradient);
 }
@@ -1033,203 +1044,146 @@ html[dir="rtl"] .creative-card::before {
 
 .creative-card h2 {
     color: var(--primary-color);
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
-    gap: 15px;
-    font-weight: 700;
+    gap: 12px;
 }
 
 .creative-card-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #444; /* Dark grey for readability */
+    font-size: 1.05rem;
+    color: #444;
+    line-height: 1.7;
 }
 
-/* TTS Buttons inside white cards need to be colored */
-.creative-card .read-text-btn, 
-.job-card-header .read-text-btn {
-    color: var(--primary-color);
-    background: rgba(192, 57, 43, 0.1);
-}
-.job-card-header .read-text-btn {
-    color: white;
-    background: rgba(255,255,255,0.2);
-}
-
-/* Feedback in creative mode */
-.creative-card .feedback-controls {
-    border-top: 1px dashed rgba(0,0,0,0.1);
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-}
-.creative-card .feedback-question {
-    color: #666;
-}
-.creative-card .feedback-btn {
-    background: #f8f9fa;
-    color: #555;
-    border-color: #ddd;
-}
-.creative-card .feedback-btn:hover:not(:disabled) {
-    background: #e9ecef;
-    color: #333;
-}
-.creative-card .feedback-btn.selected {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* Jobs Grid */
+/* Jobs Section */
 .creative-jobs-section h2 {
     text-align: center;
-    color: white;
-    margin-bottom: 2.5rem;
-    font-size: 2.2rem;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
 }
 
 .creative-jobs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .creative-job-card {
     background: white;
-    border-radius: 24px;
-    padding: 0;
+    border-radius: 12px;
     overflow: hidden;
-    color: #333;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    animation: fadeInUp 0.7s ease;
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #eee;
 }
 
 .creative-job-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-    z-index: 2;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
 
 .job-card-header {
     background: var(--primary-gradient);
-    padding: 2rem;
+    padding: 1.5rem;
     color: white;
     position: relative;
-    /* decorative shine */
-    overflow: hidden;
-}
-.job-card-header::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(to bottom right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
-    transform: rotate(30deg);
-    pointer-events: none;
 }
 
 .job-card-header h3 {
     margin: 0;
-    font-size: 1.5rem;
-    font-weight: 800;
-    line-height: 1.2;
-    padding-right: 20px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-size: 1.3rem;
+    color: white;
+    padding-right: 30px;
 }
 html[dir="rtl"] .job-card-header h3 {
     padding-right: 0;
-    padding-left: 20px;
+    padding-left: 30px;
+}
+
+/* TTS Button inside header should be visible on dark background */
+.job-card-header .read-text-btn {
+    color: rgba(255,255,255,0.9);
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+html[dir="rtl"] .job-card-header .read-text-btn {
+    right: auto;
+    left: 1.5rem;
+}
+.job-card-header .read-text-btn:hover {
+    color: white;
+    background: rgba(255,255,255,0.2);
 }
 
 .job-card-body {
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .job-card-body p {
     color: #555;
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 0;
+    font-size: 0.95rem;
+    margin: 0;
 }
 
 .job-card-footer {
-    padding: 1.2rem 2rem;
-    background: #f8f9fa;
+    padding: 1rem 1.5rem;
+    background: #f9f9f9;
     border-top: 1px solid #eee;
-    font-size: 0.95rem;
-    color: #666;
-    font-weight: 600;
+    color: #777;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 8px;
 }
 
-/* Advice Section - Specific Styling */
+/* Advice Section specific */
 .creative-advice-card {
-    border-left: none; /* remove generic override */
-    margin-top: 4rem;
+    margin-top: 3rem;
 }
 .creative-advice-card::before {
-    background: var(--accent-color); /* Gold accent for advice */
-}
-.creative-advice-card h2 {
-    color: #2c3e50;
+    background: var(--accent-color);
 }
 
-
-/* Floating Action Bar - Updated to be Fixed Bottom Sheet on Mobile */
-.creative-actions {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    transform: none;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 1.5rem;
-    border-radius: 24px 24px 0 0; /* Rounded top corners only */
-    box-shadow: 0 -10px 40px rgba(0,0,0,0.3);
+/* Action Bar */
+.results-actions-bar {
     display: flex;
-    flex-direction: column; /* Stacked vertically on mobile */
-    gap: 1rem;
-    z-index: 2000;
-    backdrop-filter: blur(12px);
-    border: none;
-    border-top: 1px solid rgba(255,255,255,0.6);
-    max-width: 100%;
-}
-
-.creative-actions .btn {
-    width: 100%; /* Full width buttons on mobile */
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin: 0;
-    font-weight: 700;
     justify-content: center;
-}
-
-.creative-actions .btn.secondary {
-    background: #f0f0f0;
-    color: #333;
-}
-.creative-actions .btn.secondary:hover {
-    background: #e0e0e0;
-    color: #000;
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
 }
 
 /* Animations */
-.animate-delay-1 { animation-delay: 0.1s; }
-.animate-delay-2 { animation-delay: 0.3s; }
-.animate-delay-3 { animation-delay: 0.5s; }
+.animate-delay-1 { animation: fadeInUp 0.5s ease 0.1s backwards; }
+.animate-delay-2 { animation: fadeInUp 0.5s ease 0.3s backwards; }
+.animate-delay-3 { animation: fadeInUp 0.5s ease 0.5s backwards; }
+
+
+/* Feedback Controls */
+.feedback-controls {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #eee;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.feedback-question {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.feedback-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: 20px;
+}
 
 /* ------------------------------------------------------------------
    MOBILE RESPONSIVENESS
@@ -1360,45 +1314,15 @@ html[dir="rtl"] .job-card-header h3 {
       width: 100%;
   }
 
-  /* Creative Results Mobile Tweaks */
-  .creative-card::before {
-      width: 3px !important; /* THIN LINE FIX FOR MOBILE */
-  }
-  
+  /* Results Mobile Tweaks */
   .creative-card {
-      padding: 1.5rem !important; /* Reduce padding to save space */
-  }
-
-  /* Extra padding for content so it's not hidden behind the fixed footer */
-  .creative-container {
-      padding-bottom: 300px !important;
+      padding: 1.2rem !important;
   }
   
   /* Adjusted main padding for fixed header on mobile */
   main {
       padding-top: 8.5rem; /* ~136px */
   }
-}
-
-/* Desktop override for the floating bar to look nicer on large screens */
-@media (min-width: 769px) {
-    .creative-actions {
-        flex-direction: row;
-        width: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 2rem;
-        border-radius: 50px;
-        padding: 1rem 2rem;
-        width: max-content;
-        max-width: 90%;
-    }
-    .creative-actions .btn {
-        width: auto;
-        border-radius: 30px;
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
 }
 
 /* API Checker Styles - Collapsible */
